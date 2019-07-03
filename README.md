@@ -6,7 +6,7 @@ package main
 
 import (
   "context"
-  api "traq/openapi"
+  api "go-traq"
   "fmt"
 )
 
