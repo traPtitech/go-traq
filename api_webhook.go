@@ -118,7 +118,7 @@ WebhookApiService
 webhookを作成します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *WebhooksPostOpts - Optional Parameters:
- * @param "InlineObject27" (optional.Interface of InlineObject27) - 
+ * @param "InlineObject27" (optional.Interface of InlineObject27) -
 @return Webhook
 */
 
@@ -376,11 +376,11 @@ Github-Compatibleなwebhookを送信します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookID 操作の対象となるWebhookのID
  * @param optional nil or *WebhooksWebhookIDGithubPostOpts - Optional Parameters:
- * @param "Body" (optional.Map[string]interface{}) - 
+ * @param "Body" (map[string]interface{}) -
 */
 
 type WebhooksWebhookIDGithubPostOpts struct {
-	Body optional.Map[string]interface{}
+	Body map[string]interface{}
 }
 
 func (a *WebhookApiService) WebhooksWebhookIDGithubPost(ctx context.Context, webhookID string, localVarOptionals *WebhooksWebhookIDGithubPostOpts) (*http.Response, error) {
@@ -418,8 +418,8 @@ func (a *WebhookApiService) WebhooksWebhookIDGithubPost(ctx context.Context, web
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-		localVarPostBody = localVarOptionals.Body.Value()
+	if localVarOptionals != nil {
+		localVarPostBody = localVarOptionals
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -632,7 +632,7 @@ webhookを修正します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookID 操作の対象となるWebhookのID
  * @param optional nil or *WebhooksWebhookIDPatchOpts - Optional Parameters:
- * @param "InlineObject28" (optional.Interface of InlineObject28) - 
+ * @param "InlineObject28" (optional.Interface of InlineObject28) -
 */
 
 type WebhooksWebhookIDPatchOpts struct {
@@ -717,7 +717,7 @@ webhookを送信します。
  * @param optional nil or *WebhooksWebhookIDPostOpts - Optional Parameters:
  * @param "XTRAQChannelId" (optional.Interface of string) -  投稿先のチャンネルID(変更する場合)
  * @param "XTRAQSignature" (optional.String) -  リクエストボディシグネチャ。Secretが設定されている場合は必須
- * @param "Body" (optional.String) - 
+ * @param "Body" (optional.String) -
 */
 
 type WebhooksWebhookIDPostOpts struct {
