@@ -10,6 +10,8 @@
 package openapi
 
 type InlineObject21 struct {
-	// ボットコード
-	Code string `json:"code"`
+	// 通知をつける人のユーザーIDの配列
+	On []string `json:"on,omitempty"`
+	// 通知をつけない人のユーザーIDの配列
+	Off []string `json:"off,omitempty"`
 }

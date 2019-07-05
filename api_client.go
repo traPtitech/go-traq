@@ -97,9 +97,10 @@ func (a *ClientApiService) ClientsClientIDDelete(ctx context.Context, clientID s
 ClientApiService
 クライアントの詳細を取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param clientID 操作の対象となるclientのID
 @return OwnedClientInfo
 */
-func (a *ClientApiService) ClientsClientIDDetailGet(ctx context.Context) (OwnedClientInfo, *http.Response, error) {
+func (a *ClientApiService) ClientsClientIDDetailGet(ctx context.Context, clientID string) (OwnedClientInfo, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -111,6 +112,7 @@ func (a *ClientApiService) ClientsClientIDDetailGet(ctx context.Context) (OwnedC
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/clients/{clientID}/detail"
+	localVarPath = strings.Replace(localVarPath, "{"+"clientID"+"}", fmt.Sprintf("%v", clientID), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -273,11 +275,11 @@ ClientApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param clientID 操作の対象となるclientのID
  * @param optional nil or *ClientsClientIDPatchOpts - Optional Parameters:
- * @param "InlineObject32" (optional.Interface of InlineObject32) - 
+ * @param "InlineObject33" (optional.Interface of InlineObject33) - 
 */
 
 type ClientsClientIDPatchOpts struct {
-	InlineObject32 optional.Interface
+	InlineObject33 optional.Interface
 }
 
 func (a *ClientApiService) ClientsClientIDPatch(ctx context.Context, clientID string, localVarOptionals *ClientsClientIDPatchOpts) (*http.Response, error) {
@@ -315,12 +317,12 @@ func (a *ClientApiService) ClientsClientIDPatch(ctx context.Context, clientID st
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject32.IsSet() {
-		localVarOptionalInlineObject32, localVarOptionalInlineObject32ok := localVarOptionals.InlineObject32.Value().(InlineObject32)
-		if !localVarOptionalInlineObject32ok {
-			return nil, reportError("inlineObject32 should be InlineObject32")
+	if localVarOptionals != nil && localVarOptionals.InlineObject33.IsSet() {
+		localVarOptionalInlineObject33, localVarOptionalInlineObject33ok := localVarOptionals.InlineObject33.Value().(InlineObject33)
+		if !localVarOptionalInlineObject33ok {
+			return nil, reportError("inlineObject33 should be InlineObject33")
 		}
-		localVarPostBody = &localVarOptionalInlineObject32
+		localVarPostBody = &localVarOptionalInlineObject33
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -441,12 +443,12 @@ ClientApiService
 クライアントを登録します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ClientsPostOpts - Optional Parameters:
- * @param "InlineObject31" (optional.Interface of InlineObject31) - 
+ * @param "InlineObject32" (optional.Interface of InlineObject32) - 
 @return OwnedClientInfo
 */
 
 type ClientsPostOpts struct {
-	InlineObject31 optional.Interface
+	InlineObject32 optional.Interface
 }
 
 func (a *ClientApiService) ClientsPost(ctx context.Context, localVarOptionals *ClientsPostOpts) (OwnedClientInfo, *http.Response, error) {
@@ -484,12 +486,12 @@ func (a *ClientApiService) ClientsPost(ctx context.Context, localVarOptionals *C
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject31.IsSet() {
-		localVarOptionalInlineObject31, localVarOptionalInlineObject31ok := localVarOptionals.InlineObject31.Value().(InlineObject31)
-		if !localVarOptionalInlineObject31ok {
-			return localVarReturnValue, nil, reportError("inlineObject31 should be InlineObject31")
+	if localVarOptionals != nil && localVarOptionals.InlineObject32.IsSet() {
+		localVarOptionalInlineObject32, localVarOptionalInlineObject32ok := localVarOptionals.InlineObject32.Value().(InlineObject32)
+		if !localVarOptionalInlineObject32ok {
+			return localVarReturnValue, nil, reportError("inlineObject32 should be InlineObject32")
 		}
-		localVarPostBody = &localVarOptionalInlineObject31
+		localVarPostBody = &localVarOptionalInlineObject32
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

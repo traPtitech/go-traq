@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject19 struct {
-	// Markdown形式のメッセージ本文
+	// チャンネルの説明
 	Text string `json:"text"`
 }

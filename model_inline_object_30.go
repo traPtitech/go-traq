@@ -10,6 +10,10 @@
 package openapi
 
 type InlineObject30 struct {
-	// 追加するユーザーのID
-	UserId string `json:"userId"`
+	// グループ名(30文字以内)
+	Name string `json:"name,omitempty"`
+	// 説明
+	Description string `json:"description,omitempty"`
+	// 管理ユーザー
+	AdminUserId string `json:"adminUserId,omitempty"`
 }

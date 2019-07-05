@@ -9,7 +9,7 @@
 
 package openapi
 
-type InlineObject26 struct {
-	// ピン留めするメッセージID
-	MessageId string `json:"messageId"`
+type InlineObject37 struct {
+	// activeまたはinactive
+	State string `json:"state"`
 }

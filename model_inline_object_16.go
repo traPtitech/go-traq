@@ -10,6 +10,10 @@
 package openapi
 
 type InlineObject16 struct {
-	// 変更後の親チャンネルID
-	Parent string `json:"parent"`
+	// チャンネル名
+	Name string `json:"name,omitempty"`
+	// 変更後のvisibility
+	Visibility bool `json:"visibility,omitempty"`
+	// 強制通知かどうか
+	Force bool `json:"force,omitempty"`
 }

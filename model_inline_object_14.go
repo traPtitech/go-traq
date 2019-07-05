@@ -10,11 +10,8 @@
 package openapi
 
 type InlineObject14 struct {
-	// プライベートチャンネルかどうか
-	Private bool `json:"private,omitempty"`
-	Member []string `json:"member,omitempty"`
-	// チャンネル名
-	Name string `json:"name,omitempty"`
-	// 親のチャンネルID
-	Parent string `json:"parent,omitempty"`
+	// editing,monitoring,noneでユーザーの状態を指定する
+	Status string `json:"status"`
+	// 現在いるチャンネルId
+	ChannelId string `json:"channelId"`
 }

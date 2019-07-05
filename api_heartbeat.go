@@ -14,6 +14,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -115,10 +116,15 @@ func (a *HeartbeatApiService) HeartbeatGet(ctx context.Context, channelId string
 HeartbeatApiService
 どのチャンネルを見ているか・編集しているかを送信します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param status editing,monitoring,noneでユーザーの状態を指定する
- * @param channelId 現在いるチャンネルId
+ * @param optional nil or *HeartbeatPostOpts - Optional Parameters:
+ * @param "InlineObject14" (optional.Interface of InlineObject14) - 
 */
-func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, status string, channelId string) (*http.Response, error) {
+
+type HeartbeatPostOpts struct {
+	InlineObject14 optional.Interface
+}
+
+func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, localVarOptionals *HeartbeatPostOpts) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -134,10 +140,8 @@ func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, status string, 
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("status", parameterToString(status, ""))
-	localVarQueryParams.Add("channelId", parameterToString(channelId, ""))
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHttpContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
@@ -153,6 +157,15 @@ func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, status string, 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
+	// body params
+	if localVarOptionals != nil && localVarOptionals.InlineObject14.IsSet() {
+		localVarOptionalInlineObject14, localVarOptionalInlineObject14ok := localVarOptionals.InlineObject14.Value().(InlineObject14)
+		if !localVarOptionalInlineObject14ok {
+			return nil, reportError("inlineObject14 should be InlineObject14")
+		}
+		localVarPostBody = &localVarOptionalInlineObject14
+	}
+
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err

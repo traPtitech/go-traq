@@ -10,10 +10,11 @@
 package openapi
 
 type InlineObject15 struct {
+	// プライベートチャンネルかどうか
+	Private bool `json:"private,omitempty"`
+	Member []string `json:"member,omitempty"`
 	// チャンネル名
 	Name string `json:"name,omitempty"`
-	// 変更後のvisibility
-	Visibility bool `json:"visibility,omitempty"`
-	// 強制通知かどうか
-	Force bool `json:"force,omitempty"`
+	// 親のチャンネルID
+	Parent string `json:"parent,omitempty"`
 }

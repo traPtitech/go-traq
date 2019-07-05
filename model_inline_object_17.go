@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject17 struct {
-	// チャンネル名
-	Name string `json:"name"`
+	// 変更後の親チャンネルID
+	Parent string `json:"parent"`
 }

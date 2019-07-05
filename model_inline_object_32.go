@@ -11,9 +11,11 @@ package openapi
 
 type InlineObject32 struct {
 	// クライアント名(1-32文字)
-	Name string `json:"name,omitempty"`
-	// 説明
-	Description string `json:"description,omitempty"`
+	Name string `json:"name"`
+	// クライアントの説明
+	Description string `json:"description"`
 	// リダイレクト先のURI
-	RedirectUri string `json:"redirectUri,omitempty"`
+	RedirectUri string `json:"redirectUri"`
+	// 要求するスコープ(必ず１つ以上)
+	Scopes []string `json:"scopes"`
 }

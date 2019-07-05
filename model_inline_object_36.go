@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject36 struct {
-	// activeまたはinactive
-	State string `json:"state"`
+	// 購読するイベントの配列
+	Events []string `json:"events"`
 }

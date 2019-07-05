@@ -10,12 +10,12 @@
 package openapi
 
 type InlineObject34 struct {
-	// Bot表示名
-	DisplayName string `json:"displayName,omitempty"`
-	// Bot説明
-	Description string `json:"description,omitempty"`
-	// privileged属性
-	Privileged bool `json:"privileged,omitempty"`
-	// BotのPOSTエンドポイント
-	WebhookUrl string `json:"webhookUrl,omitempty"`
+	// botユーザーID(16文字まで)。自動的に先頭に\"BOT_\"が付与されます
+	Name string `json:"name"`
+	// botユーザーの表示名(32文字まで)
+	DisplayName string `json:"displayName"`
+	// botの説明
+	Description string `json:"description"`
+	// botのPOSTエンドポイント
+	PostUrl string `json:"postUrl"`
 }

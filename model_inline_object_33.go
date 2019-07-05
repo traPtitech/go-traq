@@ -10,12 +10,10 @@
 package openapi
 
 type InlineObject33 struct {
-	// botユーザーID(16文字まで)。自動的に先頭に\"BOT_\"が付与されます
-	Name string `json:"name"`
-	// botユーザーの表示名(32文字まで)
-	DisplayName string `json:"displayName"`
-	// botの説明
-	Description string `json:"description"`
-	// botのPOSTエンドポイント
-	PostUrl string `json:"postUrl"`
+	// クライアント名(1-32文字)
+	Name string `json:"name,omitempty"`
+	// 説明
+	Description string `json:"description,omitempty"`
+	// リダイレクト先のURI
+	RedirectUri string `json:"redirectUri,omitempty"`
 }

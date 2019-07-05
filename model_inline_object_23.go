@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject23 struct {
-	// Markdown形式のメッセージ本文
-	Text string `json:"text"`
+	// FCMのデバイストークン
+	Token string `json:"token"`
 }

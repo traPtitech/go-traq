@@ -11,9 +11,7 @@ package openapi
 
 type InlineObject29 struct {
 	// グループ名(30文字以内)
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// 説明
 	Description string `json:"description,omitempty"`
-	// 管理ユーザー
-	AdminUserId string `json:"adminUserId,omitempty"`
 }

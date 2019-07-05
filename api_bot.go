@@ -276,11 +276,11 @@ Botの購読イベントを変更します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param botID 操作の対象となるBotのID
  * @param optional nil or *BotsBotIDEventsPutOpts - Optional Parameters:
- * @param "InlineObject35" (optional.Interface of InlineObject35) - 
+ * @param "InlineObject36" (optional.Interface of InlineObject36) - 
 */
 
 type BotsBotIDEventsPutOpts struct {
-	InlineObject35 optional.Interface
+	InlineObject36 optional.Interface
 }
 
 func (a *BotApiService) BotsBotIDEventsPut(ctx context.Context, botID string, localVarOptionals *BotsBotIDEventsPutOpts) (*http.Response, error) {
@@ -318,12 +318,12 @@ func (a *BotApiService) BotsBotIDEventsPut(ctx context.Context, botID string, lo
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject35.IsSet() {
-		localVarOptionalInlineObject35, localVarOptionalInlineObject35ok := localVarOptionals.InlineObject35.Value().(InlineObject35)
-		if !localVarOptionalInlineObject35ok {
-			return nil, reportError("inlineObject35 should be InlineObject35")
+	if localVarOptionals != nil && localVarOptionals.InlineObject36.IsSet() {
+		localVarOptionalInlineObject36, localVarOptionalInlineObject36ok := localVarOptionals.InlineObject36.Value().(InlineObject36)
+		if !localVarOptionalInlineObject36ok {
+			return nil, reportError("inlineObject36 should be InlineObject36")
 		}
-		localVarPostBody = &localVarOptionalInlineObject35
+		localVarPostBody = &localVarOptionalInlineObject36
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -624,11 +624,11 @@ Bot情報を変更します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param botID 操作の対象となるBotのID
  * @param optional nil or *BotsBotIDPatchOpts - Optional Parameters:
- * @param "InlineObject34" (optional.Interface of InlineObject34) - 
+ * @param "InlineObject35" (optional.Interface of InlineObject35) - 
 */
 
 type BotsBotIDPatchOpts struct {
-	InlineObject34 optional.Interface
+	InlineObject35 optional.Interface
 }
 
 func (a *BotApiService) BotsBotIDPatch(ctx context.Context, botID string, localVarOptionals *BotsBotIDPatchOpts) (*http.Response, error) {
@@ -666,12 +666,12 @@ func (a *BotApiService) BotsBotIDPatch(ctx context.Context, botID string, localV
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject34.IsSet() {
-		localVarOptionalInlineObject34, localVarOptionalInlineObject34ok := localVarOptionals.InlineObject34.Value().(InlineObject34)
-		if !localVarOptionalInlineObject34ok {
-			return nil, reportError("inlineObject34 should be InlineObject34")
+	if localVarOptionals != nil && localVarOptionals.InlineObject35.IsSet() {
+		localVarOptionalInlineObject35, localVarOptionalInlineObject35ok := localVarOptionals.InlineObject35.Value().(InlineObject35)
+		if !localVarOptionalInlineObject35ok {
+			return nil, reportError("inlineObject35 should be InlineObject35")
 		}
-		localVarPostBody = &localVarOptionalInlineObject34
+		localVarPostBody = &localVarOptionalInlineObject35
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -795,11 +795,11 @@ Botの状態を変更します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param botID 操作の対象となるBotのID
  * @param optional nil or *BotsBotIDStatePutOpts - Optional Parameters:
- * @param "InlineObject36" (optional.Interface of InlineObject36) - 
+ * @param "InlineObject37" (optional.Interface of InlineObject37) - 
 */
 
 type BotsBotIDStatePutOpts struct {
-	InlineObject36 optional.Interface
+	InlineObject37 optional.Interface
 }
 
 func (a *BotApiService) BotsBotIDStatePut(ctx context.Context, botID string, localVarOptionals *BotsBotIDStatePutOpts) (*http.Response, error) {
@@ -837,12 +837,12 @@ func (a *BotApiService) BotsBotIDStatePut(ctx context.Context, botID string, loc
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject36.IsSet() {
-		localVarOptionalInlineObject36, localVarOptionalInlineObject36ok := localVarOptionals.InlineObject36.Value().(InlineObject36)
-		if !localVarOptionalInlineObject36ok {
-			return nil, reportError("inlineObject36 should be InlineObject36")
+	if localVarOptionals != nil && localVarOptionals.InlineObject37.IsSet() {
+		localVarOptionalInlineObject37, localVarOptionalInlineObject37ok := localVarOptionals.InlineObject37.Value().(InlineObject37)
+		if !localVarOptionalInlineObject37ok {
+			return nil, reportError("inlineObject37 should be InlineObject37")
 		}
-		localVarPostBody = &localVarOptionalInlineObject36
+		localVarPostBody = &localVarOptionalInlineObject37
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -963,12 +963,12 @@ BotApiService
 Botを作成します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *BotsPostOpts - Optional Parameters:
- * @param "InlineObject33" (optional.Interface of InlineObject33) - 
+ * @param "InlineObject34" (optional.Interface of InlineObject34) - 
 @return BotDetail
 */
 
 type BotsPostOpts struct {
-	InlineObject33 optional.Interface
+	InlineObject34 optional.Interface
 }
 
 func (a *BotApiService) BotsPost(ctx context.Context, localVarOptionals *BotsPostOpts) (BotDetail, *http.Response, error) {
@@ -1006,12 +1006,12 @@ func (a *BotApiService) BotsPost(ctx context.Context, localVarOptionals *BotsPos
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject33.IsSet() {
-		localVarOptionalInlineObject33, localVarOptionalInlineObject33ok := localVarOptionals.InlineObject33.Value().(InlineObject33)
-		if !localVarOptionalInlineObject33ok {
-			return localVarReturnValue, nil, reportError("inlineObject33 should be InlineObject33")
+	if localVarOptionals != nil && localVarOptionals.InlineObject34.IsSet() {
+		localVarOptionalInlineObject34, localVarOptionalInlineObject34ok := localVarOptionals.InlineObject34.Value().(InlineObject34)
+		if !localVarOptionalInlineObject34ok {
+			return localVarReturnValue, nil, reportError("inlineObject34 should be InlineObject34")
 		}
-		localVarPostBody = &localVarOptionalInlineObject33
+		localVarPostBody = &localVarOptionalInlineObject34
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -1223,12 +1223,12 @@ BotApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDBotsPostOpts - Optional Parameters:
- * @param "InlineObject21" (optional.Interface of InlineObject21) - 
+ * @param "InlineObject22" (optional.Interface of InlineObject22) - 
 @return InlineResponse2008
 */
 
 type ChannelsChannelIDBotsPostOpts struct {
-	InlineObject21 optional.Interface
+	InlineObject22 optional.Interface
 }
 
 func (a *BotApiService) ChannelsChannelIDBotsPost(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDBotsPostOpts) (InlineResponse2008, *http.Response, error) {
@@ -1267,12 +1267,12 @@ func (a *BotApiService) ChannelsChannelIDBotsPost(ctx context.Context, channelID
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject21.IsSet() {
-		localVarOptionalInlineObject21, localVarOptionalInlineObject21ok := localVarOptionals.InlineObject21.Value().(InlineObject21)
-		if !localVarOptionalInlineObject21ok {
-			return localVarReturnValue, nil, reportError("inlineObject21 should be InlineObject21")
+	if localVarOptionals != nil && localVarOptionals.InlineObject22.IsSet() {
+		localVarOptionalInlineObject22, localVarOptionalInlineObject22ok := localVarOptionals.InlineObject22.Value().(InlineObject22)
+		if !localVarOptionalInlineObject22ok {
+			return localVarReturnValue, nil, reportError("inlineObject22 should be InlineObject22")
 		}
-		localVarPostBody = &localVarOptionalInlineObject21
+		localVarPostBody = &localVarOptionalInlineObject22
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

@@ -10,6 +10,12 @@
 package openapi
 
 type InlineObject35 struct {
-	// 購読するイベントの配列
-	Events []string `json:"events"`
+	// Bot表示名
+	DisplayName string `json:"displayName,omitempty"`
+	// Bot説明
+	Description string `json:"description,omitempty"`
+	// privileged属性
+	Privileged bool `json:"privileged,omitempty"`
+	// BotのPOSTエンドポイント
+	WebhookUrl string `json:"webhookUrl,omitempty"`
 }

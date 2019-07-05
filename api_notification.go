@@ -120,11 +120,11 @@ NotificationApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDNotificationPutOpts - Optional Parameters:
- * @param "InlineObject20" (optional.Interface of InlineObject20) - 
+ * @param "InlineObject21" (optional.Interface of InlineObject21) - 
 */
 
 type ChannelsChannelIDNotificationPutOpts struct {
-	InlineObject20 optional.Interface
+	InlineObject21 optional.Interface
 }
 
 func (a *NotificationApiService) ChannelsChannelIDNotificationPut(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDNotificationPutOpts) (*http.Response, error) {
@@ -162,12 +162,12 @@ func (a *NotificationApiService) ChannelsChannelIDNotificationPut(ctx context.Co
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject20.IsSet() {
-		localVarOptionalInlineObject20, localVarOptionalInlineObject20ok := localVarOptionals.InlineObject20.Value().(InlineObject20)
-		if !localVarOptionalInlineObject20ok {
-			return nil, reportError("inlineObject20 should be InlineObject20")
+	if localVarOptionals != nil && localVarOptionals.InlineObject21.IsSet() {
+		localVarOptionalInlineObject21, localVarOptionalInlineObject21ok := localVarOptionals.InlineObject21.Value().(InlineObject21)
+		if !localVarOptionalInlineObject21ok {
+			return nil, reportError("inlineObject21 should be InlineObject21")
 		}
-		localVarPostBody = &localVarOptionalInlineObject20
+		localVarPostBody = &localVarOptionalInlineObject21
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -202,11 +202,11 @@ NotificationApiService
 FCMデバイスを登録します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *NotificationDevicePostOpts - Optional Parameters:
- * @param "InlineObject22" (optional.Interface of InlineObject22) - 
+ * @param "InlineObject23" (optional.Interface of InlineObject23) - 
 */
 
 type NotificationDevicePostOpts struct {
-	InlineObject22 optional.Interface
+	InlineObject23 optional.Interface
 }
 
 func (a *NotificationApiService) NotificationDevicePost(ctx context.Context, localVarOptionals *NotificationDevicePostOpts) (*http.Response, error) {
@@ -243,12 +243,12 @@ func (a *NotificationApiService) NotificationDevicePost(ctx context.Context, loc
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject22.IsSet() {
-		localVarOptionalInlineObject22, localVarOptionalInlineObject22ok := localVarOptionals.InlineObject22.Value().(InlineObject22)
-		if !localVarOptionalInlineObject22ok {
-			return nil, reportError("inlineObject22 should be InlineObject22")
+	if localVarOptionals != nil && localVarOptionals.InlineObject23.IsSet() {
+		localVarOptionalInlineObject23, localVarOptionalInlineObject23ok := localVarOptionals.InlineObject23.Value().(InlineObject23)
+		if !localVarOptionalInlineObject23ok {
+			return nil, reportError("inlineObject23 should be InlineObject23")
 		}
-		localVarPostBody = &localVarOptionalInlineObject22
+		localVarPostBody = &localVarOptionalInlineObject23
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

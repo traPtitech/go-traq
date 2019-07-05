@@ -274,12 +274,12 @@ PinApiService
 チャンネルにメッセージをピン留めします。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *PinsPostOpts - Optional Parameters:
- * @param "InlineObject25" (optional.Interface of InlineObject25) - 
+ * @param "InlineObject26" (optional.Interface of InlineObject26) - 
 @return InlineResponse2011
 */
 
 type PinsPostOpts struct {
-	InlineObject25 optional.Interface
+	InlineObject26 optional.Interface
 }
 
 func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPostOpts) (InlineResponse2011, *http.Response, error) {
@@ -317,12 +317,12 @@ func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPos
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject25.IsSet() {
-		localVarOptionalInlineObject25, localVarOptionalInlineObject25ok := localVarOptionals.InlineObject25.Value().(InlineObject25)
-		if !localVarOptionalInlineObject25ok {
-			return localVarReturnValue, nil, reportError("inlineObject25 should be InlineObject25")
+	if localVarOptionals != nil && localVarOptionals.InlineObject26.IsSet() {
+		localVarOptionalInlineObject26, localVarOptionalInlineObject26ok := localVarOptionals.InlineObject26.Value().(InlineObject26)
+		if !localVarOptionalInlineObject26ok {
+			return localVarReturnValue, nil, reportError("inlineObject26 should be InlineObject26")
 		}
-		localVarPostBody = &localVarOptionalInlineObject25
+		localVarPostBody = &localVarOptionalInlineObject26
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

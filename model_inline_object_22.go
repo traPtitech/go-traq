@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject22 struct {
-	// FCMのデバイストークン
-	Token string `json:"token"`
+	// ボットコード
+	Code string `json:"code"`
 }

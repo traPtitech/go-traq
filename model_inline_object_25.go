@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject25 struct {
-	// ピン留めするメッセージID
-	MessageId string `json:"messageId"`
+	// 通報理由(100文字以内)
+	Reason string `json:"reason"`
 }

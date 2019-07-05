@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject24 struct {
-	// 通報理由(100文字以内)
-	Reason string `json:"reason"`
+	// Markdown形式のメッセージ本文
+	Text string `json:"text"`
 }

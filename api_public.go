@@ -14,7 +14,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
+	"fmt"
+	"strings"
 )
 
 // Linger please
@@ -28,9 +29,10 @@ type PublicApiService service
 PublicApiService
 指定したユーザーのアイコン画像を取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param username 画像を取得するユーザーのユーザー名
 @return *os.File
 */
-func (a *PublicApiService) PublicIconUsernameGet(ctx context.Context) (*os.File, *http.Response, error) {
+func (a *PublicApiService) PublicIconUsernameGet(ctx context.Context, username string) (*os.File, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -42,6 +44,7 @@ func (a *PublicApiService) PublicIconUsernameGet(ctx context.Context) (*os.File,
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/public/icon/{username}"
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", fmt.Sprintf("%v", username), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -10,6 +10,6 @@
 package openapi
 
 type InlineObject18 struct {
-	// チャンネルの説明
-	Text string `json:"text"`
+	// チャンネル名
+	Name string `json:"name"`
 }

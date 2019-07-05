@@ -10,8 +10,6 @@
 package openapi
 
 type InlineObject20 struct {
-	// 通知をつける人のユーザーIDの配列
-	On []string `json:"on,omitempty"`
-	// 通知をつけない人のユーザーIDの配列
-	Off []string `json:"off,omitempty"`
+	// Markdown形式のメッセージ本文
+	Text string `json:"text"`
 }

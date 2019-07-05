@@ -10,8 +10,12 @@
 package openapi
 
 type InlineObject28 struct {
-	// グループ名(30文字以内)
-	Name string `json:"name"`
-	// 説明
+	// webhookユーザーの表示名(32文字まで)
+	Name string `json:"name,omitempty"`
+	// webhookの説明
 	Description string `json:"description,omitempty"`
+	// デフォルトの投稿先チャンネル(パブリックチャンネルのみ)
+	ChannelId string `json:"channelId,omitempty"`
+	// webhookシークレット
+	Secret string `json:"secret,omitempty"`
 }
