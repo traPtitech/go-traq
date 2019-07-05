@@ -22,3 +22,10 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+/.vscode
+/.openapi-generator
+/api/
+/.openapi-generator-ignore
+/.travis.yml
+/git_push.sh
