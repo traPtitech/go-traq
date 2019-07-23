@@ -11,13 +11,13 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
-	"strings"
-	"github.com/antihax/optional"
 	"os"
+	"strings"
 )
 
 // Linger please
@@ -118,7 +118,7 @@ WebhookApiService
 webhookを作成します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *WebhooksPostOpts - Optional Parameters:
- * @param "PostWebhook" (optional.Interface of PostWebhook) - 
+ * @param "PostWebhook" (optional.Interface of PostWebhook) -
 @return Webhook
 */
 
@@ -376,11 +376,11 @@ Github-Compatibleなwebhookを送信します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookID 操作の対象となるWebhookのID
  * @param optional nil or *WebhooksWebhookIDGithubPostOpts - Optional Parameters:
- * @param "Body" (optional.Map[string]interface{}) - 
+ * @param "Body" (optional.Map[string]interface{}) -
 */
 
 type WebhooksWebhookIDGithubPostOpts struct {
-	Body optional.Map[string]interface{}
+	Body map[string]interface{}
 }
 
 func (a *WebhookApiService) WebhooksWebhookIDGithubPost(ctx context.Context, webhookID string, localVarOptionals *WebhooksWebhookIDGithubPostOpts) (*http.Response, error) {
@@ -418,8 +418,8 @@ func (a *WebhookApiService) WebhooksWebhookIDGithubPost(ctx context.Context, web
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-		localVarPostBody = localVarOptionals.Body.Value()
+	if localVarOptionals != nil {
+		localVarPostBody = localVarOptionals.Body
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -590,7 +590,7 @@ func (a *WebhookApiService) WebhooksWebhookIDIconPut(ctx context.Context, webhoo
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.File.Value().(*os.File)
 		if !localVarFileOk {
-				return nil, reportError("file should be *os.File")
+			return nil, reportError("file should be *os.File")
 		}
 	}
 	if localVarFile != nil {
@@ -632,7 +632,7 @@ webhookを修正します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookID 操作の対象となるWebhookのID
  * @param optional nil or *WebhooksWebhookIDPatchOpts - Optional Parameters:
- * @param "PatchWebhook" (optional.Interface of PatchWebhook) - 
+ * @param "PatchWebhook" (optional.Interface of PatchWebhook) -
 */
 
 type WebhooksWebhookIDPatchOpts struct {
@@ -717,13 +717,13 @@ webhookを送信します。
  * @param optional nil or *WebhooksWebhookIDPostOpts - Optional Parameters:
  * @param "XTRAQChannelId" (optional.Interface of string) -  投稿先のチャンネルID(変更する場合)
  * @param "XTRAQSignature" (optional.String) -  リクエストボディシグネチャ。Secretが設定されている場合は必須
- * @param "Body" (optional.String) - 
+ * @param "Body" (optional.String) -
 */
 
 type WebhooksWebhookIDPostOpts struct {
 	XTRAQChannelId optional.Interface
 	XTRAQSignature optional.String
-	Body optional.String
+	Body           optional.String
 }
 
 func (a *WebhookApiService) WebhooksWebhookIDPost(ctx context.Context, webhookID string, localVarOptionals *WebhooksWebhookIDPostOpts) (*http.Response, error) {

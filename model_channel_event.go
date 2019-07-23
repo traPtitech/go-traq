@@ -17,7 +17,7 @@ type ChannelEvent struct {
 	// イベントタイプ
 	Type string `json:"type,omitempty"`
 	// イベント詳細
-	Detail OneOfTopicChangedEventSubscribersChangedEventPinAddedEventPinRemovedEventNameChangedEventParentChangedEventVisibilityChangedEventForcedNotificationChangedEventChildCreatedEvent `json:"detail,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
 	// イベント発生日
 	DateTime time.Time `json:"date_time,omitempty"`
 }

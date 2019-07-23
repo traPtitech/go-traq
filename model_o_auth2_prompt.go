@@ -13,5 +13,5 @@ type OAuth2Prompt string
 
 // List of OAuth2Prompt
 const (
-	NONE OAuth2Prompt = "none"
+	PROMPT_NONE OAuth2Prompt = "none"
 )

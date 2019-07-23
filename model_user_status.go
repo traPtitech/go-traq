@@ -14,7 +14,7 @@ type UserStatus int32
 
 // List of UserStatus
 const (
-	_0 UserStatus = "0"
-	_1 UserStatus = "1"
-	_2 UserStatus = "2"
+	_0 UserStatus = 0
+	_1 UserStatus = 1
+	_2 UserStatus = 2
 )
