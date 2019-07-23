@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -361,11 +361,11 @@ UserGroupApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param groupID 操作の対象となるユーザーグループID
  * @param optional nil or *GroupsGroupIDMembersPostOpts - Optional Parameters:
- * @param "InlineObject31" (optional.Interface of InlineObject31) - 
+ * @param "AddUserGroup" (optional.Interface of AddUserGroup) -
 */
 
 type GroupsGroupIDMembersPostOpts struct {
-	InlineObject31 optional.Interface
+	AddUserGroup optional.Interface
 }
 
 func (a *UserGroupApiService) GroupsGroupIDMembersPost(ctx context.Context, groupID string, localVarOptionals *GroupsGroupIDMembersPostOpts) (*http.Response, error) {
@@ -403,12 +403,12 @@ func (a *UserGroupApiService) GroupsGroupIDMembersPost(ctx context.Context, grou
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject31.IsSet() {
-		localVarOptionalInlineObject31, localVarOptionalInlineObject31ok := localVarOptionals.InlineObject31.Value().(InlineObject31)
-		if !localVarOptionalInlineObject31ok {
-			return nil, reportError("inlineObject31 should be InlineObject31")
+	if localVarOptionals != nil && localVarOptionals.AddUserGroup.IsSet() {
+		localVarOptionalAddUserGroup, localVarOptionalAddUserGroupok := localVarOptionals.AddUserGroup.Value().(AddUserGroup)
+		if !localVarOptionalAddUserGroupok {
+			return nil, reportError("addUserGroup should be AddUserGroup")
 		}
-		localVarPostBody = &localVarOptionalInlineObject31
+		localVarPostBody = &localVarOptionalAddUserGroup
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -513,11 +513,11 @@ UserGroupApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param groupID 操作の対象となるユーザーグループID
  * @param optional nil or *GroupsGroupIDPatchOpts - Optional Parameters:
- * @param "InlineObject30" (optional.Interface of InlineObject30) - 
+ * @param "PatchUserGroup" (optional.Interface of PatchUserGroup) -
 */
 
 type GroupsGroupIDPatchOpts struct {
-	InlineObject30 optional.Interface
+	PatchUserGroup optional.Interface
 }
 
 func (a *UserGroupApiService) GroupsGroupIDPatch(ctx context.Context, groupID string, localVarOptionals *GroupsGroupIDPatchOpts) (*http.Response, error) {
@@ -555,12 +555,12 @@ func (a *UserGroupApiService) GroupsGroupIDPatch(ctx context.Context, groupID st
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject30.IsSet() {
-		localVarOptionalInlineObject30, localVarOptionalInlineObject30ok := localVarOptionals.InlineObject30.Value().(InlineObject30)
-		if !localVarOptionalInlineObject30ok {
-			return nil, reportError("inlineObject30 should be InlineObject30")
+	if localVarOptionals != nil && localVarOptionals.PatchUserGroup.IsSet() {
+		localVarOptionalPatchUserGroup, localVarOptionalPatchUserGroupok := localVarOptionals.PatchUserGroup.Value().(PatchUserGroup)
+		if !localVarOptionalPatchUserGroupok {
+			return nil, reportError("patchUserGroup should be PatchUserGroup")
 		}
-		localVarPostBody = &localVarOptionalInlineObject30
+		localVarPostBody = &localVarOptionalPatchUserGroup
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -595,12 +595,12 @@ UserGroupApiService
 ユーザーグループを作成します
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GroupsPostOpts - Optional Parameters:
- * @param "InlineObject29" (optional.Interface of InlineObject29) - 
+ * @param "PostUserGroup" (optional.Interface of PostUserGroup) -
 @return UserGroup
 */
 
 type GroupsPostOpts struct {
-	InlineObject29 optional.Interface
+	PostUserGroup optional.Interface
 }
 
 func (a *UserGroupApiService) GroupsPost(ctx context.Context, localVarOptionals *GroupsPostOpts) (UserGroup, *http.Response, error) {
@@ -638,12 +638,12 @@ func (a *UserGroupApiService) GroupsPost(ctx context.Context, localVarOptionals 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject29.IsSet() {
-		localVarOptionalInlineObject29, localVarOptionalInlineObject29ok := localVarOptionals.InlineObject29.Value().(InlineObject29)
-		if !localVarOptionalInlineObject29ok {
-			return localVarReturnValue, nil, reportError("inlineObject29 should be InlineObject29")
+	if localVarOptionals != nil && localVarOptionals.PostUserGroup.IsSet() {
+		localVarOptionalPostUserGroup, localVarOptionalPostUserGroupok := localVarOptionals.PostUserGroup.Value().(PostUserGroup)
+		if !localVarOptionalPostUserGroupok {
+			return localVarReturnValue, nil, reportError("postUserGroup should be PostUserGroup")
 		}
-		localVarPostBody = &localVarOptionalInlineObject29
+		localVarPostBody = &localVarOptionalPostUserGroup
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

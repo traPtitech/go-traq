@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -32,12 +32,12 @@ ChannelApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDChildrenPostOpts - Optional Parameters:
- * @param "InlineObject18" (optional.Interface of InlineObject18) - 
+ * @param "CreateChannelChild" (optional.Interface of CreateChannelChild) -
 @return Channel
 */
 
 type ChannelsChannelIDChildrenPostOpts struct {
-	InlineObject18 optional.Interface
+	CreateChannelChild optional.Interface
 }
 
 func (a *ChannelApiService) ChannelsChannelIDChildrenPost(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDChildrenPostOpts) (Channel, *http.Response, error) {
@@ -76,12 +76,12 @@ func (a *ChannelApiService) ChannelsChannelIDChildrenPost(ctx context.Context, c
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject18.IsSet() {
-		localVarOptionalInlineObject18, localVarOptionalInlineObject18ok := localVarOptionals.InlineObject18.Value().(InlineObject18)
-		if !localVarOptionalInlineObject18ok {
-			return localVarReturnValue, nil, reportError("inlineObject18 should be InlineObject18")
+	if localVarOptionals != nil && localVarOptionals.CreateChannelChild.IsSet() {
+		localVarOptionalCreateChannelChild, localVarOptionalCreateChannelChildok := localVarOptionals.CreateChannelChild.Value().(CreateChannelChild)
+		if !localVarOptionalCreateChannelChildok {
+			return localVarReturnValue, nil, reportError("createChannelChild should be CreateChannelChild")
 		}
-		localVarPostBody = &localVarOptionalInlineObject18
+		localVarPostBody = &localVarOptionalCreateChannelChild
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -199,6 +199,129 @@ func (a *ChannelApiService) ChannelsChannelIDDelete(ctx context.Context, channel
 
 /*
 ChannelApiService
+チャンネルイベントのリストを取得します。
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param channelID 操作の対象となるチャンネルのID
+ * @param optional nil or *ChannelsChannelIDEventsGetOpts - Optional Parameters:
+ * @param "Limit" (optional.Int32) -  取得する件数 1-200
+ * @param "Offset" (optional.Int32) -  取得するオフセット
+ * @param "Since" (optional.Time) -  取得する時間範囲の開始日時
+ * @param "Until" (optional.Time) -  取得する時間範囲の終了日時
+ * @param "Inclusive" (optional.Bool) -  範囲の端を含めるかどうか
+ * @param "Order" (optional.String) -  昇順か降順か
+@return []ChannelEvent
+*/
+
+type ChannelsChannelIDEventsGetOpts struct {
+	Limit     optional.Int32
+	Offset    optional.Int32
+	Since     optional.Time
+	Until     optional.Time
+	Inclusive optional.Bool
+	Order     optional.String
+}
+
+func (a *ChannelApiService) ChannelsChannelIDEventsGet(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDEventsGetOpts) ([]ChannelEvent, *http.Response, error) {
+	var (
+		localVarHttpMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []ChannelEvent
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/channels/{channelID}/events"
+	localVarPath = strings.Replace(localVarPath, "{"+"channelID"+"}", fmt.Sprintf("%v", channelID), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
+		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Since.IsSet() {
+		localVarQueryParams.Add("since", parameterToString(localVarOptionals.Since.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Until.IsSet() {
+		localVarQueryParams.Add("until", parameterToString(localVarOptionals.Until.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Inclusive.IsSet() {
+		localVarQueryParams.Add("inclusive", parameterToString(localVarOptionals.Inclusive.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Order.IsSet() {
+		localVarQueryParams.Add("order", parameterToString(localVarOptionals.Order.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		if localVarHttpResponse.StatusCode == 200 {
+			var v []ChannelEvent
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+/*
+ChannelApiService
 チャンネルの情報を返します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
@@ -291,11 +414,11 @@ ChannelApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDParentPutOpts - Optional Parameters:
- * @param "InlineObject17" (optional.Interface of InlineObject17) - 
+ * @param "PutParentChannel" (optional.Interface of PutParentChannel) -
 */
 
 type ChannelsChannelIDParentPutOpts struct {
-	InlineObject17 optional.Interface
+	PutParentChannel optional.Interface
 }
 
 func (a *ChannelApiService) ChannelsChannelIDParentPut(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDParentPutOpts) (*http.Response, error) {
@@ -333,12 +456,12 @@ func (a *ChannelApiService) ChannelsChannelIDParentPut(ctx context.Context, chan
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject17.IsSet() {
-		localVarOptionalInlineObject17, localVarOptionalInlineObject17ok := localVarOptionals.InlineObject17.Value().(InlineObject17)
-		if !localVarOptionalInlineObject17ok {
-			return nil, reportError("inlineObject17 should be InlineObject17")
+	if localVarOptionals != nil && localVarOptionals.PutParentChannel.IsSet() {
+		localVarOptionalPutParentChannel, localVarOptionalPutParentChannelok := localVarOptionals.PutParentChannel.Value().(PutParentChannel)
+		if !localVarOptionalPutParentChannelok {
+			return nil, reportError("putParentChannel should be PutParentChannel")
 		}
-		localVarPostBody = &localVarOptionalInlineObject17
+		localVarPostBody = &localVarOptionalPutParentChannel
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -374,11 +497,11 @@ ChannelApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDPatchOpts - Optional Parameters:
- * @param "InlineObject16" (optional.Interface of InlineObject16) - 
+ * @param "PatchChannel" (optional.Interface of PatchChannel) -
 */
 
 type ChannelsChannelIDPatchOpts struct {
-	InlineObject16 optional.Interface
+	PatchChannel optional.Interface
 }
 
 func (a *ChannelApiService) ChannelsChannelIDPatch(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDPatchOpts) (*http.Response, error) {
@@ -416,12 +539,12 @@ func (a *ChannelApiService) ChannelsChannelIDPatch(ctx context.Context, channelI
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject16.IsSet() {
-		localVarOptionalInlineObject16, localVarOptionalInlineObject16ok := localVarOptionals.InlineObject16.Value().(InlineObject16)
-		if !localVarOptionalInlineObject16ok {
-			return nil, reportError("inlineObject16 should be InlineObject16")
+	if localVarOptionals != nil && localVarOptionals.PatchChannel.IsSet() {
+		localVarOptionalPatchChannel, localVarOptionalPatchChannelok := localVarOptionals.PatchChannel.Value().(PatchChannel)
+		if !localVarOptionalPatchChannelok {
+			return nil, reportError("patchChannel should be PatchChannel")
 		}
-		localVarPostBody = &localVarOptionalInlineObject16
+		localVarPostBody = &localVarOptionalPatchChannel
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -456,16 +579,16 @@ ChannelApiService
 チャンネルの説明を取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
-@return InlineResponse2006
+@return ChannelTopic
 */
-func (a *ChannelApiService) ChannelsChannelIDTopicGet(ctx context.Context, channelID string) (InlineResponse2006, *http.Response, error) {
+func (a *ChannelApiService) ChannelsChannelIDTopicGet(ctx context.Context, channelID string) (ChannelTopic, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2006
+		localVarReturnValue  ChannelTopic
 	)
 
 	// create path and map variables
@@ -515,7 +638,7 @@ func (a *ChannelApiService) ChannelsChannelIDTopicGet(ctx context.Context, chann
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v InlineResponse2006
+			var v ChannelTopic
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -545,11 +668,11 @@ ChannelApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDTopicPutOpts - Optional Parameters:
- * @param "InlineObject19" (optional.Interface of InlineObject19) - 
+ * @param "SetChannelTopic" (optional.Interface of SetChannelTopic) -
 */
 
 type ChannelsChannelIDTopicPutOpts struct {
-	InlineObject19 optional.Interface
+	SetChannelTopic optional.Interface
 }
 
 func (a *ChannelApiService) ChannelsChannelIDTopicPut(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDTopicPutOpts) (*http.Response, error) {
@@ -587,12 +710,12 @@ func (a *ChannelApiService) ChannelsChannelIDTopicPut(ctx context.Context, chann
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject19.IsSet() {
-		localVarOptionalInlineObject19, localVarOptionalInlineObject19ok := localVarOptionals.InlineObject19.Value().(InlineObject19)
-		if !localVarOptionalInlineObject19ok {
-			return nil, reportError("inlineObject19 should be InlineObject19")
+	if localVarOptionals != nil && localVarOptionals.SetChannelTopic.IsSet() {
+		localVarOptionalSetChannelTopic, localVarOptionalSetChannelTopicok := localVarOptionals.SetChannelTopic.Value().(SetChannelTopic)
+		if !localVarOptionalSetChannelTopicok {
+			return nil, reportError("setChannelTopic should be SetChannelTopic")
 		}
-		localVarPostBody = &localVarOptionalInlineObject19
+		localVarPostBody = &localVarOptionalSetChannelTopic
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -624,7 +747,7 @@ func (a *ChannelApiService) ChannelsChannelIDTopicPut(ctx context.Context, chann
 
 /*
 ChannelApiService
-(すべての)チャンネルのリストを取得します。 
+(すべての)チャンネルのリストを取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return []Channel
 */
@@ -713,12 +836,12 @@ ChannelApiService
 チャンネルを作成します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ChannelsPostOpts - Optional Parameters:
- * @param "InlineObject15" (optional.Interface of InlineObject15) - 
+ * @param "CreateChannel" (optional.Interface of CreateChannel) -
 @return Channel
 */
 
 type ChannelsPostOpts struct {
-	InlineObject15 optional.Interface
+	CreateChannel optional.Interface
 }
 
 func (a *ChannelApiService) ChannelsPost(ctx context.Context, localVarOptionals *ChannelsPostOpts) (Channel, *http.Response, error) {
@@ -756,12 +879,12 @@ func (a *ChannelApiService) ChannelsPost(ctx context.Context, localVarOptionals 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject15.IsSet() {
-		localVarOptionalInlineObject15, localVarOptionalInlineObject15ok := localVarOptionals.InlineObject15.Value().(InlineObject15)
-		if !localVarOptionalInlineObject15ok {
-			return localVarReturnValue, nil, reportError("inlineObject15 should be InlineObject15")
+	if localVarOptionals != nil && localVarOptionals.CreateChannel.IsSet() {
+		localVarOptionalCreateChannel, localVarOptionalCreateChannelok := localVarOptionals.CreateChannel.Value().(CreateChannel)
+		if !localVarOptionalCreateChannelok {
+			return localVarReturnValue, nil, reportError("createChannel should be CreateChannel")
 		}
-		localVarPostBody = &localVarOptionalInlineObject15
+		localVarPostBody = &localVarOptionalCreateChannel
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

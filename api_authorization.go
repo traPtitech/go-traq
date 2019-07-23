@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -96,27 +96,27 @@ AuthorizationApiService
 OAuth2 認可エンドポイント
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *Oauth2AuthorizeGetOpts - Optional Parameters:
- * @param "ResponseType" (optional.String) - 
- * @param "ClientId" (optional.String) - 
- * @param "RedirectUri" (optional.String) - 
- * @param "Scope" (optional.String) - 
- * @param "State" (optional.String) - 
- * @param "CodeChallenge" (optional.String) - 
- * @param "CodeChallengeMethod" (optional.String) - 
- * @param "Nonce" (optional.String) - 
- * @param "Prompt" (optional.String) - 
+ * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
+ * @param "ClientId" (optional.String) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "State" (optional.String) -
+ * @param "CodeChallenge" (optional.String) -
+ * @param "CodeChallengeMethod" (optional.String) -
+ * @param "Nonce" (optional.String) -
+ * @param "Prompt" (optional.Interface of OAuth2Prompt) -
 */
 
 type Oauth2AuthorizeGetOpts struct {
-	ResponseType optional.String
-	ClientId optional.String
-	RedirectUri optional.String
-	Scope optional.String
-	State optional.String
-	CodeChallenge optional.String
+	ResponseType        optional.Interface
+	ClientId            optional.String
+	RedirectUri         optional.String
+	Scope               optional.String
+	State               optional.String
+	CodeChallenge       optional.String
 	CodeChallengeMethod optional.String
-	Nonce optional.String
-	Prompt optional.String
+	Nonce               optional.String
+	Prompt              optional.Interface
 }
 
 func (a *AuthorizationApiService) Oauth2AuthorizeGet(ctx context.Context, localVarOptionals *Oauth2AuthorizeGetOpts) (*http.Response, error) {
@@ -211,27 +211,27 @@ AuthorizationApiService
 OAuth2 認可エンドポイント
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *Oauth2AuthorizePostOpts - Optional Parameters:
- * @param "ResponseType" (optional.String) - 
- * @param "ClientId" (optional.String) - 
- * @param "RedirectUri" (optional.String) - 
- * @param "Scope" (optional.String) - 
- * @param "State" (optional.String) - 
- * @param "CodeChallenge" (optional.String) - 
- * @param "CodeChallengeMethod" (optional.String) - 
- * @param "Nonce" (optional.String) - 
- * @param "Prompt" (optional.String) - 
+ * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
+ * @param "ClientId" (optional.String) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "State" (optional.String) -
+ * @param "CodeChallenge" (optional.String) -
+ * @param "CodeChallengeMethod" (optional.String) -
+ * @param "Nonce" (optional.String) -
+ * @param "Prompt" (optional.Interface of OAuth2Prompt) -
 */
 
 type Oauth2AuthorizePostOpts struct {
-	ResponseType optional.String
-	ClientId optional.String
-	RedirectUri optional.String
-	Scope optional.String
-	State optional.String
-	CodeChallenge optional.String
+	ResponseType        optional.Interface
+	ClientId            optional.String
+	RedirectUri         optional.String
+	Scope               optional.String
+	State               optional.String
+	CodeChallenge       optional.String
 	CodeChallengeMethod optional.String
-	Nonce optional.String
-	Prompt optional.String
+	Nonce               optional.String
+	Prompt              optional.Interface
 }
 
 func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, localVarOptionals *Oauth2AuthorizePostOpts) (*http.Response, error) {
@@ -268,7 +268,11 @@ func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, local
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	if localVarOptionals != nil && localVarOptionals.ResponseType.IsSet() {
-		localVarFormParams.Add("response_type", parameterToString(localVarOptionals.ResponseType.Value(), ""))
+		paramJson, err := parameterToJson(localVarOptionals.ResponseType.Value())
+		if err != nil {
+			return nil, err
+		}
+		localVarFormParams.Add("response_type", paramJson)
 	}
 	if localVarOptionals != nil && localVarOptionals.ClientId.IsSet() {
 		localVarFormParams.Add("client_id", parameterToString(localVarOptionals.ClientId.Value(), ""))
@@ -292,7 +296,11 @@ func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, local
 		localVarFormParams.Add("nonce", parameterToString(localVarOptionals.Nonce.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Prompt.IsSet() {
-		localVarFormParams.Add("prompt", parameterToString(localVarOptionals.Prompt.Value(), ""))
+		paramJson, err := parameterToJson(localVarOptionals.Prompt.Value())
+		if err != nil {
+			return nil, err
+		}
+		localVarFormParams.Add("prompt", paramJson)
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -327,38 +335,38 @@ OAuth2 トークンエンドポイント
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param grantType
  * @param optional nil or *Oauth2TokenPostOpts - Optional Parameters:
- * @param "Code" (optional.String) - 
- * @param "RedirectUri" (optional.String) - 
- * @param "ClientId" (optional.String) - 
- * @param "CodeVerifier" (optional.String) - 
- * @param "Username" (optional.String) - 
- * @param "Password" (optional.String) - 
- * @param "Scope" (optional.String) - 
- * @param "RefreshToken" (optional.String) - 
- * @param "ClientSecret" (optional.String) - 
-@return InlineResponse200
+ * @param "Code" (optional.String) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "ClientId" (optional.String) -
+ * @param "CodeVerifier" (optional.String) -
+ * @param "Username" (optional.String) -
+ * @param "Password" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "RefreshToken" (optional.String) -
+ * @param "ClientSecret" (optional.String) -
+@return OAuth2Token
 */
 
 type Oauth2TokenPostOpts struct {
-	Code optional.String
-	RedirectUri optional.String
-	ClientId optional.String
+	Code         optional.String
+	RedirectUri  optional.String
+	ClientId     optional.String
 	CodeVerifier optional.String
-	Username optional.String
-	Password optional.String
-	Scope optional.String
+	Username     optional.String
+	Password     optional.String
+	Scope        optional.String
 	RefreshToken optional.String
 	ClientSecret optional.String
 }
 
-func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType string, localVarOptionals *Oauth2TokenPostOpts) (InlineResponse200, *http.Response, error) {
+func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType string, localVarOptionals *Oauth2TokenPostOpts) (OAuth2Token, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse200
+		localVarReturnValue  OAuth2Token
 	)
 
 	// create path and map variables
@@ -435,7 +443,7 @@ func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v InlineResponse200
+			var v OAuth2Token
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

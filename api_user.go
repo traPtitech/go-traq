@@ -11,13 +11,13 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
-	"strings"
 	"os"
-	"github.com/antihax/optional"
+	"strings"
 )
 
 // Linger please
@@ -336,7 +336,7 @@ func (a *UserApiService) UsersMeIconPut(ctx context.Context, localVarOptionals *
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.File.Value().(*os.File)
 		if !localVarFileOk {
-				return nil, reportError("file should be *os.File")
+			return nil, reportError("file should be *os.File")
 		}
 	}
 	if localVarFile != nil {
@@ -377,11 +377,11 @@ UserApiService
 自分のパスワードを変更します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UsersMePasswordPutOpts - Optional Parameters:
- * @param "InlineObject6" (optional.Interface of InlineObject6) - 
+ * @param "ChangePassword" (optional.Interface of ChangePassword) -
 */
 
 type UsersMePasswordPutOpts struct {
-	InlineObject6 optional.Interface
+	ChangePassword optional.Interface
 }
 
 func (a *UserApiService) UsersMePasswordPut(ctx context.Context, localVarOptionals *UsersMePasswordPutOpts) (*http.Response, error) {
@@ -418,12 +418,12 @@ func (a *UserApiService) UsersMePasswordPut(ctx context.Context, localVarOptiona
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject6.IsSet() {
-		localVarOptionalInlineObject6, localVarOptionalInlineObject6ok := localVarOptionals.InlineObject6.Value().(InlineObject6)
-		if !localVarOptionalInlineObject6ok {
-			return nil, reportError("inlineObject6 should be InlineObject6")
+	if localVarOptionals != nil && localVarOptionals.ChangePassword.IsSet() {
+		localVarOptionalChangePassword, localVarOptionalChangePasswordok := localVarOptionals.ChangePassword.Value().(ChangePassword)
+		if !localVarOptionalChangePasswordok {
+			return nil, reportError("changePassword should be ChangePassword")
 		}
-		localVarPostBody = &localVarOptionalInlineObject6
+		localVarPostBody = &localVarOptionalChangePassword
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -458,11 +458,11 @@ UserApiService
 自分のユーザー情報を変更します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UsersMePatchOpts - Optional Parameters:
- * @param "InlineObject5" (optional.Interface of InlineObject5) - 
+ * @param "UserData" (optional.Interface of UserData) -
 */
 
 type UsersMePatchOpts struct {
-	InlineObject5 optional.Interface
+	UserData optional.Interface
 }
 
 func (a *UserApiService) UsersMePatch(ctx context.Context, localVarOptionals *UsersMePatchOpts) (*http.Response, error) {
@@ -499,12 +499,12 @@ func (a *UserApiService) UsersMePatch(ctx context.Context, localVarOptionals *Us
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject5.IsSet() {
-		localVarOptionalInlineObject5, localVarOptionalInlineObject5ok := localVarOptionals.InlineObject5.Value().(InlineObject5)
-		if !localVarOptionalInlineObject5ok {
-			return nil, reportError("inlineObject5 should be InlineObject5")
+	if localVarOptionals != nil && localVarOptionals.UserData.IsSet() {
+		localVarOptionalUserData, localVarOptionalUserDataok := localVarOptionals.UserData.Value().(UserData)
+		if !localVarOptionalUserDataok {
+			return nil, reportError("userData should be UserData")
 		}
-		localVarPostBody = &localVarOptionalInlineObject5
+		localVarPostBody = &localVarOptionalUserData
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -625,11 +625,11 @@ UserApiService
 ユーザー登録します
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UsersPostOpts - Optional Parameters:
- * @param "InlineObject4" (optional.Interface of InlineObject4) - 
+ * @param "UserRegister" (optional.Interface of UserRegister) -
 */
 
 type UsersPostOpts struct {
-	InlineObject4 optional.Interface
+	UserRegister optional.Interface
 }
 
 func (a *UserApiService) UsersPost(ctx context.Context, localVarOptionals *UsersPostOpts) (*http.Response, error) {
@@ -666,12 +666,12 @@ func (a *UserApiService) UsersPost(ctx context.Context, localVarOptionals *Users
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject4.IsSet() {
-		localVarOptionalInlineObject4, localVarOptionalInlineObject4ok := localVarOptionals.InlineObject4.Value().(InlineObject4)
-		if !localVarOptionalInlineObject4ok {
-			return nil, reportError("inlineObject4 should be InlineObject4")
+	if localVarOptionals != nil && localVarOptionals.UserRegister.IsSet() {
+		localVarOptionalUserRegister, localVarOptionalUserRegisterok := localVarOptionals.UserRegister.Value().(UserRegister)
+		if !localVarOptionalUserRegisterok {
+			return nil, reportError("userRegister should be UserRegister")
 		}
-		localVarPostBody = &localVarOptionalInlineObject4
+		localVarPostBody = &localVarOptionalUserRegister
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

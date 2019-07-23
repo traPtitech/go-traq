@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -30,12 +30,12 @@ AuthenticationApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *LoginPostOpts - Optional Parameters:
  * @param "Redirect" (optional.String) -  リダイレクト先
- * @param "InlineObject" (optional.Interface of InlineObject) - 
+ * @param "UserLogin" (optional.Interface of UserLogin) -
 */
 
 type LoginPostOpts struct {
-	Redirect optional.String
-	InlineObject optional.Interface
+	Redirect  optional.String
+	UserLogin optional.Interface
 }
 
 func (a *AuthenticationApiService) LoginPost(ctx context.Context, localVarOptionals *LoginPostOpts) (*http.Response, error) {
@@ -75,12 +75,12 @@ func (a *AuthenticationApiService) LoginPost(ctx context.Context, localVarOption
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject.IsSet() {
-		localVarOptionalInlineObject, localVarOptionalInlineObjectok := localVarOptionals.InlineObject.Value().(InlineObject)
-		if !localVarOptionalInlineObjectok {
-			return nil, reportError("inlineObject should be InlineObject")
+	if localVarOptionals != nil && localVarOptionals.UserLogin.IsSet() {
+		localVarOptionalUserLogin, localVarOptionalUserLoginok := localVarOptionals.UserLogin.Value().(UserLogin)
+		if !localVarOptionalUserLoginok {
+			return nil, reportError("userLogin should be UserLogin")
 		}
-		localVarPostBody = &localVarOptionalInlineObject
+		localVarPostBody = &localVarOptionalUserLogin
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

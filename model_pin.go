@@ -8,6 +8,7 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
@@ -21,5 +22,5 @@ type Pin struct {
 	UserId string `json:"userId,omitempty"`
 	// ピン留めした日時
 	DateTime time.Time `json:"dateTime,omitempty"`
-	Message Message `json:"message,omitempty"`
+	Message  Message   `json:"message,omitempty"`
 }

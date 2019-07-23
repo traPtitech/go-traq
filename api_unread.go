@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
 )
 
@@ -96,16 +96,16 @@ func (a *UnreadApiService) UsersMeUnreadChannelsChannelIDDelete(ctx context.Cont
 UnreadApiService
 未読チャンネル情報のリストを取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []InlineResponse2005
+@return []UnreadChannel
 */
-func (a *UnreadApiService) UsersMeUnreadChannelsGet(ctx context.Context) ([]InlineResponse2005, *http.Response, error) {
+func (a *UnreadApiService) UsersMeUnreadChannelsGet(ctx context.Context) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2005
+		localVarReturnValue  []UnreadChannel
 	)
 
 	// create path and map variables
@@ -154,7 +154,7 @@ func (a *UnreadApiService) UsersMeUnreadChannelsGet(ctx context.Context) ([]Inli
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2005
+			var v []UnreadChannel
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

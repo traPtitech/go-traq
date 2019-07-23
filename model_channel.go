@@ -14,13 +14,13 @@ type Channel struct {
 	ChannelId string `json:"channelId,omitempty"`
 	// チャンネル名
 	Name string `json:"name,omitempty"`
-	// privateチャンネルの場合は参加しているメンバー、公開チャンネルの場合は空
+	// UUIDの配列
 	Member []string `json:"member,omitempty"`
 	// 親の階層のチャンネルUUID
 	Parent string `json:"parent,omitempty"`
 	// チャンネルトピック
 	Topic string `json:"topic,omitempty"`
-	// 子のチャンネルUUIDの配列
+	// UUIDの配列
 	Children []string `json:"children,omitempty"`
 	// チャンネルの可視状態
 	Visibility bool `json:"visibility,omitempty"`

@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -187,11 +187,11 @@ ClipApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param clipID 捜査の対象となるクリップのID
  * @param optional nil or *UsersMeClipsClipIDFolderPutOpts - Optional Parameters:
- * @param "InlineObject8" (optional.Interface of InlineObject8) - 
+ * @param "ClipsFolderIdObject" (optional.Interface of ClipsFolderIdObject) -
 */
 
 type UsersMeClipsClipIDFolderPutOpts struct {
-	InlineObject8 optional.Interface
+	ClipsFolderIdObject optional.Interface
 }
 
 func (a *ClipApiService) UsersMeClipsClipIDFolderPut(ctx context.Context, clipID string, localVarOptionals *UsersMeClipsClipIDFolderPutOpts) (*http.Response, error) {
@@ -229,12 +229,12 @@ func (a *ClipApiService) UsersMeClipsClipIDFolderPut(ctx context.Context, clipID
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject8.IsSet() {
-		localVarOptionalInlineObject8, localVarOptionalInlineObject8ok := localVarOptionals.InlineObject8.Value().(InlineObject8)
-		if !localVarOptionalInlineObject8ok {
-			return nil, reportError("inlineObject8 should be InlineObject8")
+	if localVarOptionals != nil && localVarOptionals.ClipsFolderIdObject.IsSet() {
+		localVarOptionalClipsFolderIdObject, localVarOptionalClipsFolderIdObjectok := localVarOptionals.ClipsFolderIdObject.Value().(ClipsFolderIdObject)
+		if !localVarOptionalClipsFolderIdObjectok {
+			return nil, reportError("clipsFolderIdObject should be ClipsFolderIdObject")
 		}
-		localVarPostBody = &localVarOptionalInlineObject8
+		localVarPostBody = &localVarOptionalClipsFolderIdObject
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -424,16 +424,16 @@ ClipApiService
 フォルダ内のクリップ一覧を取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param folderID 操作の対象となるクリップフォルダのID
-@return []InlineResponse2004
+@return []ClipOfFolder
 */
-func (a *ClipApiService) UsersMeClipsFoldersFolderIDGet(ctx context.Context, folderID string) ([]InlineResponse2004, *http.Response, error) {
+func (a *ClipApiService) UsersMeClipsFoldersFolderIDGet(ctx context.Context, folderID string) ([]ClipOfFolder, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2004
+		localVarReturnValue  []ClipOfFolder
 	)
 
 	// create path and map variables
@@ -483,7 +483,7 @@ func (a *ClipApiService) UsersMeClipsFoldersFolderIDGet(ctx context.Context, fol
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2004
+			var v []ClipOfFolder
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -513,11 +513,11 @@ ClipApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param folderID 操作の対象となるクリップフォルダのID
  * @param optional nil or *UsersMeClipsFoldersFolderIDPatchOpts - Optional Parameters:
- * @param "InlineObject10" (optional.Interface of InlineObject10) - 
+ * @param "ClipsFolderNameObject" (optional.Interface of ClipsFolderNameObject) -
 */
 
 type UsersMeClipsFoldersFolderIDPatchOpts struct {
-	InlineObject10 optional.Interface
+	ClipsFolderNameObject optional.Interface
 }
 
 func (a *ClipApiService) UsersMeClipsFoldersFolderIDPatch(ctx context.Context, folderID string, localVarOptionals *UsersMeClipsFoldersFolderIDPatchOpts) (*http.Response, error) {
@@ -555,12 +555,12 @@ func (a *ClipApiService) UsersMeClipsFoldersFolderIDPatch(ctx context.Context, f
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject10.IsSet() {
-		localVarOptionalInlineObject10, localVarOptionalInlineObject10ok := localVarOptionals.InlineObject10.Value().(InlineObject10)
-		if !localVarOptionalInlineObject10ok {
-			return nil, reportError("inlineObject10 should be InlineObject10")
+	if localVarOptionals != nil && localVarOptionals.ClipsFolderNameObject.IsSet() {
+		localVarOptionalClipsFolderNameObject, localVarOptionalClipsFolderNameObjectok := localVarOptionals.ClipsFolderNameObject.Value().(ClipsFolderNameObject)
+		if !localVarOptionalClipsFolderNameObjectok {
+			return nil, reportError("clipsFolderNameObject should be ClipsFolderNameObject")
 		}
-		localVarPostBody = &localVarOptionalInlineObject10
+		localVarPostBody = &localVarOptionalClipsFolderNameObject
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -681,12 +681,12 @@ ClipApiService
 クリップフォルダを作成します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UsersMeClipsFoldersPostOpts - Optional Parameters:
- * @param "InlineObject9" (optional.Interface of InlineObject9) - 
+ * @param "ClipsFolderNameObject" (optional.Interface of ClipsFolderNameObject) -
 @return ClipsFolder
 */
 
 type UsersMeClipsFoldersPostOpts struct {
-	InlineObject9 optional.Interface
+	ClipsFolderNameObject optional.Interface
 }
 
 func (a *ClipApiService) UsersMeClipsFoldersPost(ctx context.Context, localVarOptionals *UsersMeClipsFoldersPostOpts) (ClipsFolder, *http.Response, error) {
@@ -724,12 +724,12 @@ func (a *ClipApiService) UsersMeClipsFoldersPost(ctx context.Context, localVarOp
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject9.IsSet() {
-		localVarOptionalInlineObject9, localVarOptionalInlineObject9ok := localVarOptionals.InlineObject9.Value().(InlineObject9)
-		if !localVarOptionalInlineObject9ok {
-			return localVarReturnValue, nil, reportError("inlineObject9 should be InlineObject9")
+	if localVarOptionals != nil && localVarOptionals.ClipsFolderNameObject.IsSet() {
+		localVarOptionalClipsFolderNameObject, localVarOptionalClipsFolderNameObjectok := localVarOptionals.ClipsFolderNameObject.Value().(ClipsFolderNameObject)
+		if !localVarOptionalClipsFolderNameObjectok {
+			return localVarReturnValue, nil, reportError("clipsFolderNameObject should be ClipsFolderNameObject")
 		}
-		localVarPostBody = &localVarOptionalInlineObject9
+		localVarPostBody = &localVarOptionalClipsFolderNameObject
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -782,16 +782,16 @@ func (a *ClipApiService) UsersMeClipsFoldersPost(ctx context.Context, localVarOp
 ClipApiService
 全てのクリップを取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []InlineResponse2003
+@return []Clip
 */
-func (a *ClipApiService) UsersMeClipsGet(ctx context.Context) ([]InlineResponse2003, *http.Response, error) {
+func (a *ClipApiService) UsersMeClipsGet(ctx context.Context) ([]Clip, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2003
+		localVarReturnValue  []Clip
 	)
 
 	// create path and map variables
@@ -840,7 +840,7 @@ func (a *ClipApiService) UsersMeClipsGet(ctx context.Context) ([]InlineResponse2
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2003
+			var v []Clip
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -869,22 +869,22 @@ ClipApiService
 新しくメッセージをクリップします。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UsersMeClipsPostOpts - Optional Parameters:
- * @param "InlineObject7" (optional.Interface of InlineObject7) - 
-@return InlineResponse201
+ * @param "SetClip" (optional.Interface of SetClip) -
+@return ClipIdObject
 */
 
 type UsersMeClipsPostOpts struct {
-	InlineObject7 optional.Interface
+	SetClip optional.Interface
 }
 
-func (a *ClipApiService) UsersMeClipsPost(ctx context.Context, localVarOptionals *UsersMeClipsPostOpts) (InlineResponse201, *http.Response, error) {
+func (a *ClipApiService) UsersMeClipsPost(ctx context.Context, localVarOptionals *UsersMeClipsPostOpts) (ClipIdObject, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse201
+		localVarReturnValue  ClipIdObject
 	)
 
 	// create path and map variables
@@ -912,12 +912,12 @@ func (a *ClipApiService) UsersMeClipsPost(ctx context.Context, localVarOptionals
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject7.IsSet() {
-		localVarOptionalInlineObject7, localVarOptionalInlineObject7ok := localVarOptionals.InlineObject7.Value().(InlineObject7)
-		if !localVarOptionalInlineObject7ok {
-			return localVarReturnValue, nil, reportError("inlineObject7 should be InlineObject7")
+	if localVarOptionals != nil && localVarOptionals.SetClip.IsSet() {
+		localVarOptionalSetClip, localVarOptionalSetClipok := localVarOptionals.SetClip.Value().(SetClip)
+		if !localVarOptionalSetClipok {
+			return localVarReturnValue, nil, reportError("setClip should be SetClip")
 		}
-		localVarPostBody = &localVarOptionalInlineObject7
+		localVarPostBody = &localVarOptionalSetClip
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -942,7 +942,7 @@ func (a *ClipApiService) UsersMeClipsPost(ctx context.Context, localVarOptionals
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 201 {
-			var v InlineResponse201
+			var v ClipIdObject
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

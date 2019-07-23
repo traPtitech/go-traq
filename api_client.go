@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -28,7 +28,7 @@ type ClientApiService service
 
 /*
 ClientApiService
-指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。 
+指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param clientID 操作の対象となるclientのID
 */
@@ -275,11 +275,11 @@ ClientApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param clientID 操作の対象となるclientのID
  * @param optional nil or *ClientsClientIDPatchOpts - Optional Parameters:
- * @param "InlineObject33" (optional.Interface of InlineObject33) - 
+ * @param "PatchClient" (optional.Interface of PatchClient) -
 */
 
 type ClientsClientIDPatchOpts struct {
-	InlineObject33 optional.Interface
+	PatchClient optional.Interface
 }
 
 func (a *ClientApiService) ClientsClientIDPatch(ctx context.Context, clientID string, localVarOptionals *ClientsClientIDPatchOpts) (*http.Response, error) {
@@ -317,12 +317,12 @@ func (a *ClientApiService) ClientsClientIDPatch(ctx context.Context, clientID st
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject33.IsSet() {
-		localVarOptionalInlineObject33, localVarOptionalInlineObject33ok := localVarOptionals.InlineObject33.Value().(InlineObject33)
-		if !localVarOptionalInlineObject33ok {
-			return nil, reportError("inlineObject33 should be InlineObject33")
+	if localVarOptionals != nil && localVarOptionals.PatchClient.IsSet() {
+		localVarOptionalPatchClient, localVarOptionalPatchClientok := localVarOptionals.PatchClient.Value().(PatchClient)
+		if !localVarOptionalPatchClientok {
+			return nil, reportError("patchClient should be PatchClient")
 		}
-		localVarPostBody = &localVarOptionalInlineObject33
+		localVarPostBody = &localVarOptionalPatchClient
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -443,12 +443,12 @@ ClientApiService
 クライアントを登録します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ClientsPostOpts - Optional Parameters:
- * @param "InlineObject32" (optional.Interface of InlineObject32) - 
+ * @param "PostClient" (optional.Interface of PostClient) -
 @return OwnedClientInfo
 */
 
 type ClientsPostOpts struct {
-	InlineObject32 optional.Interface
+	PostClient optional.Interface
 }
 
 func (a *ClientApiService) ClientsPost(ctx context.Context, localVarOptionals *ClientsPostOpts) (OwnedClientInfo, *http.Response, error) {
@@ -486,12 +486,12 @@ func (a *ClientApiService) ClientsPost(ctx context.Context, localVarOptionals *C
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject32.IsSet() {
-		localVarOptionalInlineObject32, localVarOptionalInlineObject32ok := localVarOptionals.InlineObject32.Value().(InlineObject32)
-		if !localVarOptionalInlineObject32ok {
-			return localVarReturnValue, nil, reportError("inlineObject32 should be InlineObject32")
+	if localVarOptionals != nil && localVarOptionals.PostClient.IsSet() {
+		localVarOptionalPostClient, localVarOptionalPostClientok := localVarOptionals.PostClient.Value().(PostClient)
+		if !localVarOptionalPostClientok {
+			return localVarReturnValue, nil, reportError("postClient should be PostClient")
 		}
-		localVarPostBody = &localVarOptionalInlineObject32
+		localVarPostBody = &localVarOptionalPostClient
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

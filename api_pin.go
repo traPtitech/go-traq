@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -274,22 +274,22 @@ PinApiService
 チャンネルにメッセージをピン留めします。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *PinsPostOpts - Optional Parameters:
- * @param "InlineObject26" (optional.Interface of InlineObject26) - 
-@return InlineResponse2011
+ * @param "MessageIdObject" (optional.Interface of MessageIdObject) -
+@return PinIdObject
 */
 
 type PinsPostOpts struct {
-	InlineObject26 optional.Interface
+	MessageIdObject optional.Interface
 }
 
-func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPostOpts) (InlineResponse2011, *http.Response, error) {
+func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPostOpts) (PinIdObject, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2011
+		localVarReturnValue  PinIdObject
 	)
 
 	// create path and map variables
@@ -317,12 +317,12 @@ func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPos
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject26.IsSet() {
-		localVarOptionalInlineObject26, localVarOptionalInlineObject26ok := localVarOptionals.InlineObject26.Value().(InlineObject26)
-		if !localVarOptionalInlineObject26ok {
-			return localVarReturnValue, nil, reportError("inlineObject26 should be InlineObject26")
+	if localVarOptionals != nil && localVarOptionals.MessageIdObject.IsSet() {
+		localVarOptionalMessageIdObject, localVarOptionalMessageIdObjectok := localVarOptionals.MessageIdObject.Value().(MessageIdObject)
+		if !localVarOptionalMessageIdObjectok {
+			return localVarReturnValue, nil, reportError("messageIdObject should be MessageIdObject")
 		}
-		localVarPostBody = &localVarOptionalInlineObject26
+		localVarPostBody = &localVarOptionalMessageIdObject
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -347,7 +347,7 @@ func (a *PinApiService) PinsPost(ctx context.Context, localVarOptionals *PinsPos
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 201 {
-			var v InlineResponse2011
+			var v PinIdObject
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

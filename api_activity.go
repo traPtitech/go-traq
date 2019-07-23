@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -35,7 +35,7 @@ ActivityApiService
 */
 
 type ActivityLatestMessagesGetOpts struct {
-	Limit optional.Int32
+	Limit     optional.Int32
 	Subscribe optional.Bool
 }
 

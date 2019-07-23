@@ -19,7 +19,7 @@ type OwnedClientInfo struct {
 	// クライアント作成者UUID
 	CreatorId string `json:"creatorId,omitempty"`
 	// 要求スコープの配列
-	Scopes []string `json:"scopes,omitempty"`
+	Scopes []ClientScope `json:"scopes,omitempty"`
 	// OAuth2リダイレクトURL
 	RedirectUri string `json:"redirectUri,omitempty"`
 	// クライアントSecret

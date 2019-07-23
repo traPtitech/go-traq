@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -31,16 +31,16 @@ UserTagApiService
 指定されたタグの情報を取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param tagID 操作の対象となるタグID
-@return InlineResponse20010
+@return TagUsers
 */
-func (a *UserTagApiService) TagsTagIDGet(ctx context.Context, tagID string) (InlineResponse20010, *http.Response, error) {
+func (a *UserTagApiService) TagsTagIDGet(ctx context.Context, tagID string) (TagUsers, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse20010
+		localVarReturnValue  TagUsers
 	)
 
 	// create path and map variables
@@ -90,7 +90,7 @@ func (a *UserTagApiService) TagsTagIDGet(ctx context.Context, tagID string) (Inl
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v InlineResponse20010
+			var v TagUsers
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -208,11 +208,11 @@ UserTagApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param userID 操作の対象となるユーザーID
  * @param optional nil or *UsersUserIDTagsPostOpts - Optional Parameters:
- * @param "InlineObject12" (optional.Interface of InlineObject12) - 
+ * @param "SetTag" (optional.Interface of SetTag) -
 */
 
 type UsersUserIDTagsPostOpts struct {
-	InlineObject12 optional.Interface
+	SetTag optional.Interface
 }
 
 func (a *UserTagApiService) UsersUserIDTagsPost(ctx context.Context, userID string, localVarOptionals *UsersUserIDTagsPostOpts) (*http.Response, error) {
@@ -250,12 +250,12 @@ func (a *UserTagApiService) UsersUserIDTagsPost(ctx context.Context, userID stri
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject12.IsSet() {
-		localVarOptionalInlineObject12, localVarOptionalInlineObject12ok := localVarOptionals.InlineObject12.Value().(InlineObject12)
-		if !localVarOptionalInlineObject12ok {
-			return nil, reportError("inlineObject12 should be InlineObject12")
+	if localVarOptionals != nil && localVarOptionals.SetTag.IsSet() {
+		localVarOptionalSetTag, localVarOptionalSetTagok := localVarOptionals.SetTag.Value().(SetTag)
+		if !localVarOptionalSetTagok {
+			return nil, reportError("setTag should be SetTag")
 		}
-		localVarPostBody = &localVarOptionalInlineObject12
+		localVarPostBody = &localVarOptionalSetTag
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -361,11 +361,11 @@ UserTagApiService
  * @param userID 操作の対象となるユーザーID
  * @param tagID 操作の対象となるタグID
  * @param optional nil or *UsersUserIDTagsTagIDPatchOpts - Optional Parameters:
- * @param "InlineObject13" (optional.Interface of InlineObject13) - 
+ * @param "SetTagLock" (optional.Interface of SetTagLock) -
 */
 
 type UsersUserIDTagsTagIDPatchOpts struct {
-	InlineObject13 optional.Interface
+	SetTagLock optional.Interface
 }
 
 func (a *UserTagApiService) UsersUserIDTagsTagIDPatch(ctx context.Context, userID string, tagID string, localVarOptionals *UsersUserIDTagsTagIDPatchOpts) (*http.Response, error) {
@@ -404,12 +404,12 @@ func (a *UserTagApiService) UsersUserIDTagsTagIDPatch(ctx context.Context, userI
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject13.IsSet() {
-		localVarOptionalInlineObject13, localVarOptionalInlineObject13ok := localVarOptionals.InlineObject13.Value().(InlineObject13)
-		if !localVarOptionalInlineObject13ok {
-			return nil, reportError("inlineObject13 should be InlineObject13")
+	if localVarOptionals != nil && localVarOptionals.SetTagLock.IsSet() {
+		localVarOptionalSetTagLock, localVarOptionalSetTagLockok := localVarOptionals.SetTagLock.Value().(SetTagLock)
+		if !localVarOptionalSetTagLockok {
+			return nil, reportError("setTagLock should be SetTagLock")
 		}
-		localVarPostBody = &localVarOptionalInlineObject13
+		localVarPostBody = &localVarOptionalSetTagLock
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

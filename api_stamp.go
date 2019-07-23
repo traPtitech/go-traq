@@ -11,13 +11,13 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
-	"strings"
 	"os"
-	"github.com/antihax/optional"
+	"strings"
 )
 
 // Linger please
@@ -649,7 +649,7 @@ func (a *StampApiService) StampsStampIDPatch(ctx context.Context, stampID string
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.File.Value().(*os.File)
 		if !localVarFileOk {
-				return nil, reportError("file should be *os.File")
+			return nil, reportError("file should be *os.File")
 		}
 	}
 	if localVarFile != nil {
@@ -689,16 +689,16 @@ func (a *StampApiService) StampsStampIDPatch(ctx context.Context, stampID string
 StampApiService
 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []InlineResponse2001
+@return []StampHistory
 */
-func (a *StampApiService) UsersMeStampHistoryGet(ctx context.Context) ([]InlineResponse2001, *http.Response, error) {
+func (a *StampApiService) UsersMeStampHistoryGet(ctx context.Context) ([]StampHistory, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2001
+		localVarReturnValue  []StampHistory
 	)
 
 	// create path and map variables
@@ -747,7 +747,7 @@ func (a *StampApiService) UsersMeStampHistoryGet(ctx context.Context) ([]InlineR
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2001
+			var v []StampHistory
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

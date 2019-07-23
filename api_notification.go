@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -116,15 +116,15 @@ func (a *NotificationApiService) ChannelsChannelIDNotificationGet(ctx context.Co
 
 /*
 NotificationApiService
-チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。 
+チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDNotificationPutOpts - Optional Parameters:
- * @param "InlineObject21" (optional.Interface of InlineObject21) - 
+ * @param "NotificationUsers" (optional.Interface of NotificationUsers) -
 */
 
 type ChannelsChannelIDNotificationPutOpts struct {
-	InlineObject21 optional.Interface
+	NotificationUsers optional.Interface
 }
 
 func (a *NotificationApiService) ChannelsChannelIDNotificationPut(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDNotificationPutOpts) (*http.Response, error) {
@@ -162,12 +162,12 @@ func (a *NotificationApiService) ChannelsChannelIDNotificationPut(ctx context.Co
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject21.IsSet() {
-		localVarOptionalInlineObject21, localVarOptionalInlineObject21ok := localVarOptionals.InlineObject21.Value().(InlineObject21)
-		if !localVarOptionalInlineObject21ok {
-			return nil, reportError("inlineObject21 should be InlineObject21")
+	if localVarOptionals != nil && localVarOptionals.NotificationUsers.IsSet() {
+		localVarOptionalNotificationUsers, localVarOptionalNotificationUsersok := localVarOptionals.NotificationUsers.Value().(NotificationUsers)
+		if !localVarOptionalNotificationUsersok {
+			return nil, reportError("notificationUsers should be NotificationUsers")
 		}
-		localVarPostBody = &localVarOptionalInlineObject21
+		localVarPostBody = &localVarOptionalNotificationUsers
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -202,11 +202,11 @@ NotificationApiService
 FCMデバイスを登録します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *NotificationDevicePostOpts - Optional Parameters:
- * @param "InlineObject23" (optional.Interface of InlineObject23) - 
+ * @param "FcmToken" (optional.Interface of FcmToken) -
 */
 
 type NotificationDevicePostOpts struct {
-	InlineObject23 optional.Interface
+	FcmToken optional.Interface
 }
 
 func (a *NotificationApiService) NotificationDevicePost(ctx context.Context, localVarOptionals *NotificationDevicePostOpts) (*http.Response, error) {
@@ -243,12 +243,12 @@ func (a *NotificationApiService) NotificationDevicePost(ctx context.Context, loc
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject23.IsSet() {
-		localVarOptionalInlineObject23, localVarOptionalInlineObject23ok := localVarOptionals.InlineObject23.Value().(InlineObject23)
-		if !localVarOptionalInlineObject23ok {
-			return nil, reportError("inlineObject23 should be InlineObject23")
+	if localVarOptionals != nil && localVarOptionals.FcmToken.IsSet() {
+		localVarOptionalFcmToken, localVarOptionalFcmTokenok := localVarOptionals.FcmToken.Value().(FcmToken)
+		if !localVarOptionalFcmTokenok {
+			return nil, reportError("fcmToken should be FcmToken")
 		}
-		localVarPostBody = &localVarOptionalInlineObject23
+		localVarPostBody = &localVarOptionalFcmToken
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

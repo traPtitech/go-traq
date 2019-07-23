@@ -8,6 +8,7 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
@@ -30,7 +31,6 @@ type User struct {
 	// 現在オンラインかどうか
 	IsOnline bool `json:"isOnline,omitempty"`
 	// アカウントが停止中かどうか
-	Suspended bool `json:"suspended,omitempty"`
-	// アカウントの状態 (0:停止,1:有効,2:一時停止)
-	AccountStatus int32 `json:"accountStatus,omitempty"`
+	Suspended     bool       `json:"suspended,omitempty"`
+	AccountStatus UserStatus `json:"accountStatus,omitempty"`
 }

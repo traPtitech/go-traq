@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -42,12 +42,12 @@ MessageApiService
 */
 
 type ChannelsChannelIDMessagesGetOpts struct {
-	Limit optional.Int32
-	Offset optional.Int32
-	Since optional.Time
-	Until optional.Time
+	Limit     optional.Int32
+	Offset    optional.Int32
+	Since     optional.Time
+	Until     optional.Time
 	Inclusive optional.Bool
-	Order optional.String
+	Order     optional.String
 }
 
 func (a *MessageApiService) ChannelsChannelIDMessagesGet(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDMessagesGetOpts) ([]Message, *http.Response, error) {
@@ -155,12 +155,12 @@ MessageApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param channelID 操作の対象となるチャンネルのID
  * @param optional nil or *ChannelsChannelIDMessagesPostOpts - Optional Parameters:
- * @param "InlineObject20" (optional.Interface of InlineObject20) - 
+ * @param "SendMessage" (optional.Interface of SendMessage) -
 @return Message
 */
 
 type ChannelsChannelIDMessagesPostOpts struct {
-	InlineObject20 optional.Interface
+	SendMessage optional.Interface
 }
 
 func (a *MessageApiService) ChannelsChannelIDMessagesPost(ctx context.Context, channelID string, localVarOptionals *ChannelsChannelIDMessagesPostOpts) (Message, *http.Response, error) {
@@ -199,12 +199,12 @@ func (a *MessageApiService) ChannelsChannelIDMessagesPost(ctx context.Context, c
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject20.IsSet() {
-		localVarOptionalInlineObject20, localVarOptionalInlineObject20ok := localVarOptionals.InlineObject20.Value().(InlineObject20)
-		if !localVarOptionalInlineObject20ok {
-			return localVarReturnValue, nil, reportError("inlineObject20 should be InlineObject20")
+	if localVarOptionals != nil && localVarOptionals.SendMessage.IsSet() {
+		localVarOptionalSendMessage, localVarOptionalSendMessageok := localVarOptionals.SendMessage.Value().(SendMessage)
+		if !localVarOptionalSendMessageok {
+			return localVarReturnValue, nil, reportError("sendMessage should be SendMessage")
 		}
-		localVarPostBody = &localVarOptionalInlineObject20
+		localVarPostBody = &localVarOptionalSendMessage
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -414,11 +414,11 @@ MessageApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param messageID 操作の対象となるメッセージID
  * @param optional nil or *MessagesMessageIDPutOpts - Optional Parameters:
- * @param "InlineObject24" (optional.Interface of InlineObject24) - 
+ * @param "SendMessage" (optional.Interface of SendMessage) -
 */
 
 type MessagesMessageIDPutOpts struct {
-	InlineObject24 optional.Interface
+	SendMessage optional.Interface
 }
 
 func (a *MessageApiService) MessagesMessageIDPut(ctx context.Context, messageID string, localVarOptionals *MessagesMessageIDPutOpts) (*http.Response, error) {
@@ -456,12 +456,12 @@ func (a *MessageApiService) MessagesMessageIDPut(ctx context.Context, messageID 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject24.IsSet() {
-		localVarOptionalInlineObject24, localVarOptionalInlineObject24ok := localVarOptionals.InlineObject24.Value().(InlineObject24)
-		if !localVarOptionalInlineObject24ok {
-			return nil, reportError("inlineObject24 should be InlineObject24")
+	if localVarOptionals != nil && localVarOptionals.SendMessage.IsSet() {
+		localVarOptionalSendMessage, localVarOptionalSendMessageok := localVarOptionals.SendMessage.Value().(SendMessage)
+		if !localVarOptionalSendMessageok {
+			return nil, reportError("sendMessage should be SendMessage")
 		}
-		localVarPostBody = &localVarOptionalInlineObject24
+		localVarPostBody = &localVarOptionalSendMessage
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -497,11 +497,11 @@ MessageApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param messageID 操作の対象となるメッセージID
  * @param optional nil or *MessagesMessageIDReportPostOpts - Optional Parameters:
- * @param "InlineObject25" (optional.Interface of InlineObject25) - 
+ * @param "ReportMessage" (optional.Interface of ReportMessage) -
 */
 
 type MessagesMessageIDReportPostOpts struct {
-	InlineObject25 optional.Interface
+	ReportMessage optional.Interface
 }
 
 func (a *MessageApiService) MessagesMessageIDReportPost(ctx context.Context, messageID string, localVarOptionals *MessagesMessageIDReportPostOpts) (*http.Response, error) {
@@ -539,12 +539,12 @@ func (a *MessageApiService) MessagesMessageIDReportPost(ctx context.Context, mes
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject25.IsSet() {
-		localVarOptionalInlineObject25, localVarOptionalInlineObject25ok := localVarOptionals.InlineObject25.Value().(InlineObject25)
-		if !localVarOptionalInlineObject25ok {
-			return nil, reportError("inlineObject25 should be InlineObject25")
+	if localVarOptionals != nil && localVarOptionals.ReportMessage.IsSet() {
+		localVarOptionalReportMessage, localVarOptionalReportMessageok := localVarOptionals.ReportMessage.Value().(ReportMessage)
+		if !localVarOptionalReportMessageok {
+			return nil, reportError("reportMessage should be ReportMessage")
 		}
-		localVarPostBody = &localVarOptionalInlineObject25
+		localVarPostBody = &localVarOptionalReportMessage
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -580,21 +580,21 @@ MessageApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *MessagesReportsGetOpts - Optional Parameters:
  * @param "P" (optional.Int32) -  ページ番号(ゼロオリジン)
-@return []InlineResponse2009
+@return []Report
 */
 
 type MessagesReportsGetOpts struct {
 	P optional.Int32
 }
 
-func (a *MessageApiService) MessagesReportsGet(ctx context.Context, localVarOptionals *MessagesReportsGetOpts) ([]InlineResponse2009, *http.Response, error) {
+func (a *MessageApiService) MessagesReportsGet(ctx context.Context, localVarOptionals *MessagesReportsGetOpts) ([]Report, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2009
+		localVarReturnValue  []Report
 	)
 
 	// create path and map variables
@@ -646,7 +646,7 @@ func (a *MessageApiService) MessagesReportsGet(ctx context.Context, localVarOpti
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2009
+			var v []Report
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -686,12 +686,12 @@ DMチャンネルに存在するメッセージを取得します。
 */
 
 type UsersUserIDMessagesGetOpts struct {
-	Limit optional.Int32
-	Offset optional.Int32
-	Since optional.Time
-	Until optional.Time
+	Limit     optional.Int32
+	Offset    optional.Int32
+	Since     optional.Time
+	Until     optional.Time
 	Inclusive optional.Bool
-	Order optional.String
+	Order     optional.String
 }
 
 func (a *MessageApiService) UsersUserIDMessagesGet(ctx context.Context, userID string, localVarOptionals *UsersUserIDMessagesGetOpts) ([]Message, *http.Response, error) {
@@ -799,12 +799,12 @@ DMチャンネルにメッセージを投稿します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param userID 操作の対象となるユーザーID
  * @param optional nil or *UsersUserIDMessagesPostOpts - Optional Parameters:
- * @param "InlineObject11" (optional.Interface of InlineObject11) - 
+ * @param "SendMessage" (optional.Interface of SendMessage) -
 @return Message
 */
 
 type UsersUserIDMessagesPostOpts struct {
-	InlineObject11 optional.Interface
+	SendMessage optional.Interface
 }
 
 func (a *MessageApiService) UsersUserIDMessagesPost(ctx context.Context, userID string, localVarOptionals *UsersUserIDMessagesPostOpts) (Message, *http.Response, error) {
@@ -843,12 +843,12 @@ func (a *MessageApiService) UsersUserIDMessagesPost(ctx context.Context, userID 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject11.IsSet() {
-		localVarOptionalInlineObject11, localVarOptionalInlineObject11ok := localVarOptionals.InlineObject11.Value().(InlineObject11)
-		if !localVarOptionalInlineObject11ok {
-			return localVarReturnValue, nil, reportError("inlineObject11 should be InlineObject11")
+	if localVarOptionals != nil && localVarOptionals.SendMessage.IsSet() {
+		localVarOptionalSendMessage, localVarOptionalSendMessageok := localVarOptionals.SendMessage.Value().(SendMessage)
+		if !localVarOptionalSendMessageok {
+			return localVarReturnValue, nil, reportError("sendMessage should be SendMessage")
 		}
-		localVarPostBody = &localVarOptionalInlineObject11
+		localVarPostBody = &localVarOptionalSendMessage
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

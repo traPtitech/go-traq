@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -117,11 +117,11 @@ HeartbeatApiService
 どのチャンネルを見ているか・編集しているかを送信します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *HeartbeatPostOpts - Optional Parameters:
- * @param "InlineObject14" (optional.Interface of InlineObject14) - 
+ * @param "Heartbeat" (optional.Interface of Heartbeat) -
 */
 
 type HeartbeatPostOpts struct {
-	InlineObject14 optional.Interface
+	Heartbeat optional.Interface
 }
 
 func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, localVarOptionals *HeartbeatPostOpts) (*http.Response, error) {
@@ -158,12 +158,12 @@ func (a *HeartbeatApiService) HeartbeatPost(ctx context.Context, localVarOptiona
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.InlineObject14.IsSet() {
-		localVarOptionalInlineObject14, localVarOptionalInlineObject14ok := localVarOptionals.InlineObject14.Value().(InlineObject14)
-		if !localVarOptionalInlineObject14ok {
-			return nil, reportError("inlineObject14 should be InlineObject14")
+	if localVarOptionals != nil && localVarOptionals.Heartbeat.IsSet() {
+		localVarOptionalHeartbeat, localVarOptionalHeartbeatok := localVarOptionals.Heartbeat.Value().(Heartbeat)
+		if !localVarOptionalHeartbeatok {
+			return nil, reportError("heartbeat should be Heartbeat")
 		}
-		localVarPostBody = &localVarOptionalInlineObject14
+		localVarPostBody = &localVarOptionalHeartbeat
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)

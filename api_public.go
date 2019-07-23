@@ -11,12 +11,11 @@ package openapi
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
-	"os"
 )
 
 // Linger please

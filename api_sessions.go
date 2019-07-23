@@ -11,10 +11,10 @@ package openapi
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"fmt"
 	"strings"
 )
 
@@ -94,16 +94,16 @@ func (a *SessionsApiService) UsersMeSessionsDelete(ctx context.Context) (*http.R
 SessionsApiService
 自分のログインセッションリストを取得します。
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []InlineResponse2002
+@return []Session
 */
-func (a *SessionsApiService) UsersMeSessionsGet(ctx context.Context) ([]InlineResponse2002, *http.Response, error) {
+func (a *SessionsApiService) UsersMeSessionsGet(ctx context.Context) ([]Session, *http.Response, error) {
 	var (
 		localVarHttpMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InlineResponse2002
+		localVarReturnValue  []Session
 	)
 
 	// create path and map variables
@@ -152,7 +152,7 @@ func (a *SessionsApiService) UsersMeSessionsGet(ctx context.Context) ([]InlineRe
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []InlineResponse2002
+			var v []Session
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

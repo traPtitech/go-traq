@@ -8,6 +8,7 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
@@ -24,7 +25,7 @@ type AllowedClientInfo struct {
 	// クライアント作成者UUID
 	CreatorId string `json:"creatorId,omitempty"`
 	// 要求スコープの配列
-	Scopes []string `json:"scopes,omitempty"`
+	Scopes []ClientScope `json:"scopes,omitempty"`
 	// 承認日時
 	ApprovedAt time.Time `json:"approvedAt,omitempty"`
 }

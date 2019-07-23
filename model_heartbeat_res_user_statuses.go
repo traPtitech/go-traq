@@ -11,7 +11,6 @@ package openapi
 
 type HeartbeatResUserStatuses struct {
 	// ユーザーUUID
-	UserId string `json:"userId,omitempty"`
-	// ユーザー状態
-	Status string `json:"status,omitempty"`
+	UserId string          `json:"userId,omitempty"`
+	Status HeartbeatStatus `json:"status,omitempty"`
 }
