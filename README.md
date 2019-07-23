@@ -20,3 +20,9 @@ func main() {
   fmt.Printf("%#v", v)
 }
 ```
+
+### build
+```sh
+sh generate.sh
+```
+その後手動で修正
