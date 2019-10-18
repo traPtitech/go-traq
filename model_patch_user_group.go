@@ -9,6 +9,7 @@
 
 package openapi
 
+// PatchUserGroup struct for PatchUserGroup
 type PatchUserGroup struct {
 	// グループ名
 	Name string `json:"name,omitempty"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// OAuth2Token struct for OAuth2Token
 type OAuth2Token struct {
 	AccessToken  string `json:"access_token"`
 	TokenType    string `json:"token_type"`

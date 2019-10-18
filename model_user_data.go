@@ -9,6 +9,7 @@
 
 package openapi
 
+// UserData struct for UserData
 type UserData struct {
 	// 新しい表示名(0-32文字)。変更しない場合は\"\"
 	DisplayName string `json:"displayName,omitempty"`

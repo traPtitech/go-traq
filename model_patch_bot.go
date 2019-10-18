@@ -9,6 +9,7 @@
 
 package openapi
 
+// PatchBot struct for PatchBot
 type PatchBot struct {
 	// Bot表示名
 	DisplayName string `json:"displayName,omitempty"`
@@ -18,4 +19,6 @@ type PatchBot struct {
 	Privileged bool `json:"privileged,omitempty"`
 	// BotのPOSTエンドポイント
 	WebhookUrl string `json:"webhookUrl,omitempty"`
+	// 移譲先のユーザーUUID
+	CreatorId string `json:"creatorId,omitempty"`
 }

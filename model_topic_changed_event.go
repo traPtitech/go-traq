@@ -9,7 +9,7 @@
 
 package openapi
 
-// TopicChanged
+// TopicChangedEvent TopicChanged
 type TopicChangedEvent struct {
 	// 変更者UUID
 	UserId string `json:"userId,omitempty"`

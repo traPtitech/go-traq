@@ -9,6 +9,7 @@
 
 package openapi
 
+// SetTag struct for SetTag
 type SetTag struct {
 	// 追加するタグ
 	Tag string `json:"tag"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostUserGroup struct for PostUserGroup
 type PostUserGroup struct {
 	// グループ名
 	Name string `json:"name"`

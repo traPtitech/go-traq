@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostWebhook struct for PostWebhook
 type PostWebhook struct {
 	// webhookユーザーの表示名
 	Name string `json:"name"`

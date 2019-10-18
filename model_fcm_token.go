@@ -9,6 +9,7 @@
 
 package openapi
 
+// FcmToken struct for FcmToken
 type FcmToken struct {
 	// FCMのデバイストークン
 	Token string `json:"token"`

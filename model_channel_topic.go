@@ -9,6 +9,7 @@
 
 package openapi
 
+// ChannelTopic struct for ChannelTopic
 type ChannelTopic struct {
 	// チャンネルトピック
 	Text string `json:"text,omitempty"`

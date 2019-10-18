@@ -13,10 +13,10 @@ import (
 	"time"
 )
 
-// StampHistory struct for StampHistory
-type StampHistory struct {
-	// スタンプID
-	StampId string `json:"stampId,omitempty"`
-	// そのスタンプが最後に押された日時
+// ChannelStats struct for ChannelStats
+type ChannelStats struct {
+	// チャンネルの総投稿メッセージ数(削除されたものも含む)
+	TotalMessageCount float32 `json:"totalMessageCount,omitempty"`
+	// 統計情報日時
 	Datetime time.Time `json:"datetime,omitempty"`
 }

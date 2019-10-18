@@ -9,7 +9,7 @@
 
 package openapi
 
-// NameChanged
+// NameChangedEvent NameChanged
 type NameChangedEvent struct {
 	// 変更者UUID
 	UserId string `json:"userId,omitempty"`

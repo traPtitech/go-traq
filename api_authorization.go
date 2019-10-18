@@ -10,106 +10,24 @@
 package openapi
 
 import (
-	"context"
+	_context "context"
 	"github.com/antihax/optional"
-	"io/ioutil"
-	"net/http"
-	"net/url"
+	_ioutil "io/ioutil"
+	_nethttp "net/http"
+	_neturl "net/url"
 )
 
 // Linger please
 var (
-	_ context.Context
+	_ _context.Context
 )
 
+// AuthorizationApiService AuthorizationApi service
 type AuthorizationApiService service
 
-/*
-AuthorizationApiService
-OAuth2 認可承諾
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param submit 承諾する場合は\\\"approve\\\"
-*/
-func (a *AuthorizationApiService) Oauth2AuthorizeDecidePost(ctx context.Context, submit string) (*http.Response, error) {
-	var (
-		localVarHttpMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/oauth2/authorize/decide"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/x-www-form-urlencoded"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	localVarFormParams.Add("submit", parameterToString(submit, ""))
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		return localVarHttpResponse, newErr
-	}
-
-	return localVarHttpResponse, nil
-}
-
-/*
-AuthorizationApiService
-OAuth2 認可エンドポイント
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *Oauth2AuthorizeGetOpts - Optional Parameters:
- * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
- * @param "ClientId" (optional.String) -
- * @param "RedirectUri" (optional.String) -
- * @param "Scope" (optional.String) -
- * @param "State" (optional.String) -
- * @param "CodeChallenge" (optional.String) -
- * @param "CodeChallengeMethod" (optional.String) -
- * @param "Nonce" (optional.String) -
- * @param "Prompt" (optional.Interface of OAuth2Prompt) -
-*/
-
-type Oauth2AuthorizeGetOpts struct {
+// GetOauth2AuthorizeOpts Optional parameters for the method 'GetOauth2Authorize'
+type GetOauth2AuthorizeOpts struct {
 	ResponseType        optional.Interface
-	ClientId            optional.String
 	RedirectUri         optional.String
 	Scope               optional.String
 	State               optional.String
@@ -119,9 +37,24 @@ type Oauth2AuthorizeGetOpts struct {
 	Prompt              optional.Interface
 }
 
-func (a *AuthorizationApiService) Oauth2AuthorizeGet(ctx context.Context, localVarOptionals *Oauth2AuthorizeGetOpts) (*http.Response, error) {
+/*
+GetOauth2Authorize Method for GetOauth2Authorize
+OAuth2 認可エンドポイント
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param clientId
+ * @param optional nil or *GetOauth2AuthorizeOpts - Optional Parameters:
+ * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "State" (optional.String) -
+ * @param "CodeChallenge" (optional.String) -
+ * @param "CodeChallengeMethod" (optional.String) -
+ * @param "Nonce" (optional.String) -
+ * @param "Prompt" (optional.Interface of OAuth2Prompt) -
+*/
+func (a *AuthorizationApiService) GetOauth2Authorize(ctx _context.Context, clientId string, localVarOptionals *GetOauth2AuthorizeOpts) (*_nethttp.Response, error) {
 	var (
-		localVarHttpMethod   = http.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -132,15 +65,13 @@ func (a *AuthorizationApiService) Oauth2AuthorizeGet(ctx context.Context, localV
 	localVarPath := a.client.cfg.BasePath + "/oauth2/authorize"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.ResponseType.IsSet() {
 		localVarQueryParams.Add("response_type", parameterToString(localVarOptionals.ResponseType.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ClientId.IsSet() {
-		localVarQueryParams.Add("client_id", parameterToString(localVarOptionals.ClientId.Value(), ""))
-	}
+	localVarQueryParams.Add("client_id", parameterToString(clientId, ""))
 	if localVarOptionals != nil && localVarOptionals.RedirectUri.IsSet() {
 		localVarQueryParams.Add("redirect_uri", parameterToString(localVarOptionals.RedirectUri.Value(), ""))
 	}
@@ -163,68 +94,52 @@ func (a *AuthorizationApiService) Oauth2AuthorizeGet(ctx context.Context, localV
 		localVarQueryParams.Add("prompt", parameterToString(localVarOptionals.Prompt.Value(), ""))
 	}
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			error: localVarHTTPResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
-/*
-AuthorizationApiService
-OAuth2 認可エンドポイント
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *Oauth2AuthorizePostOpts - Optional Parameters:
- * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
- * @param "ClientId" (optional.String) -
- * @param "RedirectUri" (optional.String) -
- * @param "Scope" (optional.String) -
- * @param "State" (optional.String) -
- * @param "CodeChallenge" (optional.String) -
- * @param "CodeChallengeMethod" (optional.String) -
- * @param "Nonce" (optional.String) -
- * @param "Prompt" (optional.Interface of OAuth2Prompt) -
-*/
-
-type Oauth2AuthorizePostOpts struct {
+// PostOauth2AuthorizeOpts Optional parameters for the method 'PostOauth2Authorize'
+type PostOauth2AuthorizeOpts struct {
 	ResponseType        optional.Interface
-	ClientId            optional.String
 	RedirectUri         optional.String
 	Scope               optional.String
 	State               optional.String
@@ -234,9 +149,24 @@ type Oauth2AuthorizePostOpts struct {
 	Prompt              optional.Interface
 }
 
-func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, localVarOptionals *Oauth2AuthorizePostOpts) (*http.Response, error) {
+/*
+PostOauth2Authorize Method for PostOauth2Authorize
+OAuth2 認可エンドポイント
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param clientId
+ * @param optional nil or *PostOauth2AuthorizeOpts - Optional Parameters:
+ * @param "ResponseType" (optional.Interface of OAuth2ResponseType) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "State" (optional.String) -
+ * @param "CodeChallenge" (optional.String) -
+ * @param "CodeChallengeMethod" (optional.String) -
+ * @param "Nonce" (optional.String) -
+ * @param "Prompt" (optional.Interface of OAuth2Prompt) -
+*/
+func (a *AuthorizationApiService) PostOauth2Authorize(ctx _context.Context, clientId string, localVarOptionals *PostOauth2AuthorizeOpts) (*_nethttp.Response, error) {
 	var (
-		localVarHttpMethod   = http.MethodPost
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -247,36 +177,30 @@ func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, local
 	localVarPath := a.client.cfg.BasePath + "/oauth2/authorize"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if localVarOptionals != nil && localVarOptionals.ResponseType.IsSet() {
-		paramJson, err := parameterToJson(localVarOptionals.ResponseType.Value())
-		if err != nil {
-			return nil, err
-		}
-		localVarFormParams.Add("response_type", paramJson)
+		localVarFormParams.Add("response_type", parameterToString(localVarOptionals.ResponseType.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ClientId.IsSet() {
-		localVarFormParams.Add("client_id", parameterToString(localVarOptionals.ClientId.Value(), ""))
-	}
+	localVarFormParams.Add("client_id", parameterToString(clientId, ""))
 	if localVarOptionals != nil && localVarOptionals.RedirectUri.IsSet() {
 		localVarFormParams.Add("redirect_uri", parameterToString(localVarOptionals.RedirectUri.Value(), ""))
 	}
@@ -296,58 +220,104 @@ func (a *AuthorizationApiService) Oauth2AuthorizePost(ctx context.Context, local
 		localVarFormParams.Add("nonce", parameterToString(localVarOptionals.Nonce.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Prompt.IsSet() {
-		paramJson, err := parameterToJson(localVarOptionals.Prompt.Value())
-		if err != nil {
-			return nil, err
-		}
-		localVarFormParams.Add("prompt", paramJson)
+		localVarFormParams.Add("prompt", parameterToString(localVarOptionals.Prompt.Value(), ""))
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			error: localVarHTTPResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*
-AuthorizationApiService
-OAuth2 トークンエンドポイント
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param grantType
- * @param optional nil or *Oauth2TokenPostOpts - Optional Parameters:
- * @param "Code" (optional.String) -
- * @param "RedirectUri" (optional.String) -
- * @param "ClientId" (optional.String) -
- * @param "CodeVerifier" (optional.String) -
- * @param "Username" (optional.String) -
- * @param "Password" (optional.String) -
- * @param "Scope" (optional.String) -
- * @param "RefreshToken" (optional.String) -
- * @param "ClientSecret" (optional.String) -
-@return OAuth2Token
+PostOauth2AuthorizeDecide Method for PostOauth2AuthorizeDecide
+OAuth2 認可承諾
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param submit 承諾する場合は\\\"approve\\\"
 */
+func (a *AuthorizationApiService) PostOauth2AuthorizeDecide(ctx _context.Context, submit string) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
 
-type Oauth2TokenPostOpts struct {
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/oauth2/authorize/decide"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarFormParams.Add("submit", parameterToString(submit, ""))
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+// PostOauth2TokenOpts Optional parameters for the method 'PostOauth2Token'
+type PostOauth2TokenOpts struct {
 	Code         optional.String
 	RedirectUri  optional.String
 	ClientId     optional.String
@@ -359,9 +329,26 @@ type Oauth2TokenPostOpts struct {
 	ClientSecret optional.String
 }
 
-func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType string, localVarOptionals *Oauth2TokenPostOpts) (OAuth2Token, *http.Response, error) {
+/*
+PostOauth2Token Method for PostOauth2Token
+OAuth2 トークンエンドポイント
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param grantType
+ * @param optional nil or *PostOauth2TokenOpts - Optional Parameters:
+ * @param "Code" (optional.String) -
+ * @param "RedirectUri" (optional.String) -
+ * @param "ClientId" (optional.String) -
+ * @param "CodeVerifier" (optional.String) -
+ * @param "Username" (optional.String) -
+ * @param "Password" (optional.String) -
+ * @param "Scope" (optional.String) -
+ * @param "RefreshToken" (optional.String) -
+ * @param "ClientSecret" (optional.String) -
+@return OAuth2Token
+*/
+func (a *AuthorizationApiService) PostOauth2Token(ctx _context.Context, grantType string, localVarOptionals *PostOauth2TokenOpts) (OAuth2Token, *_nethttp.Response, error) {
 	var (
-		localVarHttpMethod   = http.MethodPost
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -373,25 +360,25 @@ func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType
 	localVarPath := a.client.cfg.BasePath + "/oauth2/token"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	localVarFormParams.Add("grant_type", parameterToString(grantType, ""))
 	if localVarOptionals != nil && localVarOptionals.Code.IsSet() {
@@ -421,48 +408,48 @@ func (a *AuthorizationApiService) Oauth2TokenPost(ctx context.Context, grantType
 	if localVarOptionals != nil && localVarOptionals.ClientSecret.IsSet() {
 		localVarFormParams.Add("client_secret", parameterToString(localVarOptionals.ClientSecret.Value(), ""))
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			error: localVarHTTPResponse.Status,
 		}
-		if localVarHttpResponse.StatusCode == 200 {
+		if localVarHTTPResponse.StatusCode == 200 {
 			var v OAuth2Token
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

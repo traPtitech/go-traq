@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// BotDetail struct for BotDetail
 type BotDetail struct {
 	// BOT UUID
 	BotId string `json:"botId,omitempty"`

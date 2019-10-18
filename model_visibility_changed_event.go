@@ -9,7 +9,7 @@
 
 package openapi
 
-// VisibilityChanged
+// VisibilityChangedEvent VisibilityChanged
 type VisibilityChangedEvent struct {
 	// 作成者UUID
 	UserId string `json:"userId,omitempty"`

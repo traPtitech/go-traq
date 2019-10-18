@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// ClipsFolder struct for ClipsFolder
 type ClipsFolder struct {
 	// フォルダUUID
 	Id string `json:"id,omitempty"`

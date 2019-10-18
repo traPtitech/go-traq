@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// UserGroup struct for UserGroup
 type UserGroup struct {
 	// グループUUID
 	GroupId string `json:"groupId,omitempty"`

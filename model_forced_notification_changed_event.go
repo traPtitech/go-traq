@@ -9,7 +9,7 @@
 
 package openapi
 
-// ForcedNotificationChanged
+// ForcedNotificationChangedEvent ForcedNotificationChanged
 type ForcedNotificationChangedEvent struct {
 	// 作成者UUID
 	UserId string `json:"userId,omitempty"`

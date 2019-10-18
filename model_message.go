@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Message struct for Message
 type Message struct {
 	// メッセージUUID
 	MessageId string `json:"messageId,omitempty"`

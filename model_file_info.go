@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// FileInfo struct for FileInfo
 type FileInfo struct {
 	// ファイルUUID
 	FileId string `json:"fileId,omitempty"`

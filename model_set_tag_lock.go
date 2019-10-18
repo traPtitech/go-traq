@@ -9,6 +9,7 @@
 
 package openapi
 
+// SetTagLock struct for SetTagLock
 type SetTagLock struct {
 	// lockするときはtrue,解除するときはfalse
 	IsLocked bool `json:"isLocked"`

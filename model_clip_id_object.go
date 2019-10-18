@@ -9,6 +9,7 @@
 
 package openapi
 
+// ClipIdObject struct for ClipIdObject
 type ClipIdObject struct {
 	// クリップID
 	Id string `json:"id,omitempty"`

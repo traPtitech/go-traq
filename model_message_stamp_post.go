@@ -9,12 +9,8 @@
 
 package openapi
 
-// UserStatus アカウントの状態 (0:停止,1:有効,2:一時停止)
-type UserStatus int32
-
-// List of UserStatus
-const (
-	_0 UserStatus = 0
-	_1 UserStatus = 1
-	_2 UserStatus = 2
-)
+// MessageStampPost struct for MessageStampPost
+type MessageStampPost struct {
+	// 押す個数(1-100)、100より大きい場合は100として受け取ります
+	Count int32 `json:"count"`
+}

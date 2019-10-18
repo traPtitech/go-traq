@@ -9,6 +9,7 @@
 
 package openapi
 
+// HeartbeatResUserStatuses struct for HeartbeatResUserStatuses
 type HeartbeatResUserStatuses struct {
 	// ユーザーUUID
 	UserId string          `json:"userId,omitempty"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// BotIdObject struct for BotIdObject
 type BotIdObject struct {
 	// 参加したBotのID
 	BotId string `json:"botId,omitempty"`

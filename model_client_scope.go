@@ -9,6 +9,7 @@
 
 package openapi
 
+// ClientScope the model 'ClientScope'
 type ClientScope string
 
 // List of ClientScope

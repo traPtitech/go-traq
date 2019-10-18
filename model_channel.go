@@ -9,6 +9,7 @@
 
 package openapi
 
+// Channel struct for Channel
 type Channel struct {
 	// チャンネルUUID
 	ChannelId string `json:"channelId,omitempty"`

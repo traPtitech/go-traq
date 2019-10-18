@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Session struct for Session
 type Session struct {
 	Id            string    `json:"id,omitempty"`
 	LastIP        string    `json:"lastIP,omitempty"`

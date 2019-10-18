@@ -9,12 +9,8 @@
 
 package openapi
 
-// UserStatus アカウントの状態 (0:停止,1:有効,2:一時停止)
-type UserStatus int32
-
-// List of UserStatus
-const (
-	_0 UserStatus = 0
-	_1 UserStatus = 1
-	_2 UserStatus = 2
-)
+// WebRtcChannelState struct for WebRtcChannelState
+type WebRtcChannelState struct {
+	// 接続ユーザーの状態の配列
+	Users []WebRtcUserState `json:"users,omitempty"`
+}

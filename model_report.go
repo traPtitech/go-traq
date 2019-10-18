@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Report struct for Report
 type Report struct {
 	// 通報ID
 	Id string `json:"id,omitempty"`

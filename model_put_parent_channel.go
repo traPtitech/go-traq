@@ -9,6 +9,7 @@
 
 package openapi
 
+// PutParentChannel struct for PutParentChannel
 type PutParentChannel struct {
 	// 変更後の親チャンネルID
 	Parent string `json:"parent"`

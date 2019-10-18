@@ -9,7 +9,8 @@
 
 package openapi
 
+// ReportMessage struct for ReportMessage
 type ReportMessage struct {
-	// 通報理由(100文字以内)
+	// 通報理由
 	Reason string `json:"reason"`
 }

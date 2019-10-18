@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Tag struct for Tag
 type Tag struct {
 	// タグUUID
 	TagId string `json:"tagId,omitempty"`

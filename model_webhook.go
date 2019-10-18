@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Webhook struct for Webhook
 type Webhook struct {
 	// Webhook UUID
 	WebhookId string `json:"webhookId,omitempty"`

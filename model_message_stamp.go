@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// MessageStamp struct for MessageStamp
 type MessageStamp struct {
 	// ユーザーUUID
 	UserId string `json:"userId,omitempty"`

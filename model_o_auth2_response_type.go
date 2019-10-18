@@ -9,6 +9,7 @@
 
 package openapi
 
+// OAuth2ResponseType the model 'OAuth2ResponseType'
 type OAuth2ResponseType string
 
 // List of OAuth2ResponseType

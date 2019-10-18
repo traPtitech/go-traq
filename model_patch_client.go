@@ -9,6 +9,7 @@
 
 package openapi
 
+// PatchClient struct for PatchClient
 type PatchClient struct {
 	// クライアント名
 	Name string `json:"name,omitempty"`

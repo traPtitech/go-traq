@@ -9,6 +9,7 @@
 
 package openapi
 
+// Heartbeat struct for Heartbeat
 type Heartbeat struct {
 	Status HeartbeatStatus `json:"status"`
 	// 現在いるチャンネルId

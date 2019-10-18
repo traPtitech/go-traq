@@ -9,6 +9,7 @@
 
 package openapi
 
+// HeartbeatRes struct for HeartbeatRes
 type HeartbeatRes struct {
 	UserStatuses []HeartbeatResUserStatuses `json:"userStatuses,omitempty"`
 	// チャンネルUUID

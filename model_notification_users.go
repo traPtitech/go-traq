@@ -9,6 +9,7 @@
 
 package openapi
 
+// NotificationUsers struct for NotificationUsers
 type NotificationUsers struct {
 	// UUIDの配列
 	On []string `json:"on,omitempty"`

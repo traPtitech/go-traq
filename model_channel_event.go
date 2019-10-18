@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// ChannelEvent struct for ChannelEvent
 type ChannelEvent struct {
 	// イベントタイプ
 	Type string `json:"type,omitempty"`

@@ -9,9 +9,10 @@
 
 package openapi
 
+// OAuth2Authorization struct for OAuth2Authorization
 type OAuth2Authorization struct {
 	ResponseType        OAuth2ResponseType `json:"response_type,omitempty"`
-	ClientId            string             `json:"client_id,omitempty"`
+	ClientId            string             `json:"client_id"`
 	RedirectUri         string             `json:"redirect_uri,omitempty"`
 	Scope               string             `json:"scope,omitempty"`
 	State               string             `json:"state,omitempty"`

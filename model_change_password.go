@@ -9,6 +9,7 @@
 
 package openapi
 
+// ChangePassword struct for ChangePassword
 type ChangePassword struct {
 	// 現在のパスワード
 	Password string `json:"password"`

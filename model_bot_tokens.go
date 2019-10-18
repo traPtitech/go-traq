@@ -9,6 +9,7 @@
 
 package openapi
 
+// BotTokens struct for BotTokens
 type BotTokens struct {
 	// Verification Token
 	VerificationToken string `json:"verificationToken,omitempty"`
