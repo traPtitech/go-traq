@@ -9,7 +9,7 @@
 
 package openapi
 
-// PinRemoved
+// PinRemovedEvent PinRemoved
 type PinRemovedEvent struct {
 	// 変更者UUID
 	UserId string `json:"userId,omitempty"`

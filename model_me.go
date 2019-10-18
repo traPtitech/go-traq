@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Me struct for Me
 type Me struct {
 	// ユーザーUUID
 	UserId string `json:"userId,omitempty"`

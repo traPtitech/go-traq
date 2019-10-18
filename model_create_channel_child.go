@@ -9,6 +9,7 @@
 
 package openapi
 
+// CreateChannelChild struct for CreateChannelChild
 type CreateChannelChild struct {
 	// チャンネル名
 	Name string `json:"name"`

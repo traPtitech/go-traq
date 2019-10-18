@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostOAuth2Token struct for PostOAuth2Token
 type PostOAuth2Token struct {
 	GrantType    string `json:"grant_type"`
 	Code         string `json:"code,omitempty"`

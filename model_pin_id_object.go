@@ -9,6 +9,7 @@
 
 package openapi
 
+// PinIdObject struct for PinIdObject
 type PinIdObject struct {
 	// ピンID
 	Id string `json:"id,omitempty"`

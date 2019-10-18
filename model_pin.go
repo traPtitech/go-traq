@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Pin struct for Pin
 type Pin struct {
 	// ピンUUID
 	PinId string `json:"pinId,omitempty"`

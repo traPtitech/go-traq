@@ -9,6 +9,7 @@
 
 package openapi
 
+// PatchChannel struct for PatchChannel
 type PatchChannel struct {
 	// チャンネル名
 	Name string `json:"name,omitempty"`

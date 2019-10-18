@@ -9,6 +9,7 @@
 
 package openapi
 
+// SetClip struct for SetClip
 type SetClip struct {
 	// クリップするメッセージID
 	MessageId string `json:"messageId"`

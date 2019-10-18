@@ -9,6 +9,7 @@
 
 package openapi
 
+// PutBotState struct for PutBotState
 type PutBotState struct {
 	// activeまたはinactive
 	State string `json:"state"`

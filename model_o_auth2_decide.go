@@ -9,6 +9,7 @@
 
 package openapi
 
+// OAuth2Decide struct for OAuth2Decide
 type OAuth2Decide struct {
 	// 承諾する場合は\"approve\"
 	Submit string `json:"submit"`

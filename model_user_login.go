@@ -9,6 +9,7 @@
 
 package openapi
 
+// UserLogin struct for UserLogin
 type UserLogin struct {
 	Name string `json:"name"`
 	Pass string `json:"pass"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostBot struct for PostBot
 type PostBot struct {
 	// botユーザーID。自動的に先頭に\"BOT_\"が付与されます
 	Name string `json:"name"`

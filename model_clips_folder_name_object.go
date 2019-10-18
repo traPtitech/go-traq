@@ -9,6 +9,7 @@
 
 package openapi
 
+// ClipsFolderNameObject struct for ClipsFolderNameObject
 type ClipsFolderNameObject struct {
 	// フォルダ名(30文字以内)
 	Name string `json:"name"`

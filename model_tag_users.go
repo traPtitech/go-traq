@@ -9,6 +9,7 @@
 
 package openapi
 
+// TagUsers struct for TagUsers
 type TagUsers struct {
 	TagId string `json:"tagId,omitempty"`
 	Tag   string `json:"tag,omitempty"`

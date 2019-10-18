@@ -9,6 +9,7 @@
 
 package openapi
 
+// PatchWebhook struct for PatchWebhook
 type PatchWebhook struct {
 	// webhookユーザーの表示名
 	Name string `json:"name,omitempty"`
@@ -18,4 +19,6 @@ type PatchWebhook struct {
 	ChannelId string `json:"channelId,omitempty"`
 	// webhookシークレット
 	Secret string `json:"secret,omitempty"`
+	// 移譲先のユーザーUUID
+	CreatorId string `json:"creatorId,omitempty"`
 }

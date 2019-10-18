@@ -9,6 +9,7 @@
 
 package openapi
 
+// SendMessage struct for SendMessage
 type SendMessage struct {
 	// Markdown形式のメッセージ本文
 	Text string `json:"text"`

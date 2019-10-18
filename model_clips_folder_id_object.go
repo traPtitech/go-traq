@@ -9,6 +9,7 @@
 
 package openapi
 
+// ClipsFolderIdObject struct for ClipsFolderIdObject
 type ClipsFolderIdObject struct {
 	// フォルダID
 	FolderId string `json:"folderId"`

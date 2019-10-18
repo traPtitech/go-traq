@@ -9,6 +9,7 @@
 
 package openapi
 
+// SetChannelTopic struct for SetChannelTopic
 type SetChannelTopic struct {
 	// チャンネルの説明
 	Text string `json:"text"`

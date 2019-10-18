@@ -9,6 +9,7 @@
 
 package openapi
 
+// ClientInfo struct for ClientInfo
 type ClientInfo struct {
 	// クライアントID
 	ClientId string `json:"clientId,omitempty"`

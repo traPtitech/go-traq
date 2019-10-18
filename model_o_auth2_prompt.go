@@ -9,6 +9,7 @@
 
 package openapi
 
+// OAuth2Prompt the model 'OAuth2Prompt'
 type OAuth2Prompt string
 
 // List of OAuth2Prompt

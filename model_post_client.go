@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostClient struct for PostClient
 type PostClient struct {
 	// クライアント名
 	Name string `json:"name"`
@@ -16,6 +17,6 @@ type PostClient struct {
 	Description string `json:"description"`
 	// リダイレクト先のURI
 	RedirectUri string `json:"redirectUri"`
-	// 要求するスコープ(必ず１つ以上)
+	// 要求するスコープ
 	Scopes []ClientScope `json:"scopes"`
 }

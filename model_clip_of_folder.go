@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// ClipOfFolder struct for ClipOfFolder
 type ClipOfFolder struct {
 	// クリップID
 	ClipId string `json:"clipId,omitempty"`

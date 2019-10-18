@@ -10,37 +10,37 @@
 package openapi
 
 import (
-	"context"
+	_context "context"
 	"github.com/antihax/optional"
-	"io/ioutil"
-	"net/http"
-	"net/url"
+	_ioutil "io/ioutil"
+	_nethttp "net/http"
+	_neturl "net/url"
 )
 
 // Linger please
 var (
-	_ context.Context
+	_ _context.Context
 )
 
+// AuthenticationApiService AuthenticationApi service
 type AuthenticationApiService service
 
-/*
-AuthenticationApiService
-ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LoginPostOpts - Optional Parameters:
- * @param "Redirect" (optional.String) -  リダイレクト先
- * @param "UserLogin" (optional.Interface of UserLogin) -
-*/
-
-type LoginPostOpts struct {
-	Redirect  optional.String
-	UserLogin optional.Interface
+// LoginOpts Optional parameters for the method 'Login'
+type LoginOpts struct {
+	Redirect optional.String
 }
 
-func (a *AuthenticationApiService) LoginPost(ctx context.Context, localVarOptionals *LoginPostOpts) (*http.Response, error) {
+/*
+Login Method for Login
+ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param userLogin
+ * @param optional nil or *LoginOpts - Optional Parameters:
+ * @param "Redirect" (optional.String) -  リダイレクト先
+*/
+func (a *AuthenticationApiService) Login(ctx _context.Context, userLogin UserLogin, localVarOptionals *LoginOpts) (*_nethttp.Response, error) {
 	var (
-		localVarHttpMethod   = http.MethodPost
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -51,80 +51,73 @@ func (a *AuthenticationApiService) LoginPost(ctx context.Context, localVarOption
 	localVarPath := a.client.cfg.BasePath + "/login"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.Redirect.IsSet() {
 		localVarQueryParams.Add("redirect", parameterToString(localVarOptionals.Redirect.Value(), ""))
 	}
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.UserLogin.IsSet() {
-		localVarOptionalUserLogin, localVarOptionalUserLoginok := localVarOptionals.UserLogin.Value().(UserLogin)
-		if !localVarOptionalUserLoginok {
-			return nil, reportError("userLogin should be UserLogin")
-		}
-		localVarPostBody = &localVarOptionalUserLogin
-	}
-
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	localVarPostBody = &userLogin
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			error: localVarHTTPResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }
 
-/*
-AuthenticationApiService
-ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *LogoutPostOpts - Optional Parameters:
- * @param "Redirect" (optional.String) -  リダイレクト先
-*/
-
-type LogoutPostOpts struct {
+// LogoutOpts Optional parameters for the method 'Logout'
+type LogoutOpts struct {
 	Redirect optional.String
 }
 
-func (a *AuthenticationApiService) LogoutPost(ctx context.Context, localVarOptionals *LogoutPostOpts) (*http.Response, error) {
+/*
+Logout Method for Logout
+ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param optional nil or *LogoutOpts - Optional Parameters:
+ * @param "Redirect" (optional.String) -  リダイレクト先
+*/
+func (a *AuthenticationApiService) Logout(ctx _context.Context, localVarOptionals *LogoutOpts) (*_nethttp.Response, error) {
 	var (
-		localVarHttpMethod   = http.MethodPost
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -135,52 +128,52 @@ func (a *AuthenticationApiService) LogoutPost(ctx context.Context, localVarOptio
 	localVarPath := a.client.cfg.BasePath + "/logout"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.Redirect.IsSet() {
 		localVarQueryParams.Add("redirect", parameterToString(localVarOptionals.Redirect.Value(), ""))
 	}
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return localVarHTTPResponse, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			error: localVarHTTPResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	return localVarHttpResponse, nil
+	return localVarHTTPResponse, nil
 }

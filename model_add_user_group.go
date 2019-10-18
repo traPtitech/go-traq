@@ -9,6 +9,7 @@
 
 package openapi
 
+// AddUserGroup struct for AddUserGroup
 type AddUserGroup struct {
 	// 追加するユーザーのID
 	UserId string `json:"userId"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// UserRegister struct for UserRegister
 type UserRegister struct {
 	// ユーザー名(半角英数字とアンダーバー(_)の1文字以上32文字以下)
 	Name string `json:"name"`

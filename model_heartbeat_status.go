@@ -9,7 +9,7 @@
 
 package openapi
 
-// HeartbeatStatus : editing,monitoring,noneのユーザーの状態
+// HeartbeatStatus editing,monitoring,noneのユーザーの状態
 type HeartbeatStatus string
 
 // List of HeartbeatStatus

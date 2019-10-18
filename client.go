@@ -88,6 +88,8 @@ type APIClient struct {
 	UserTagApi *UserTagApiService
 
 	WebhookApi *WebhookApiService
+
+	WebrtcApi *WebrtcApiService
 }
 
 type service struct {
@@ -128,6 +130,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.UserGroupApi = (*UserGroupApiService)(&c.common)
 	c.UserTagApi = (*UserTagApiService)(&c.common)
 	c.WebhookApi = (*WebhookApiService)(&c.common)
+	c.WebrtcApi = (*WebrtcApiService)(&c.common)
 
 	return c
 }
@@ -222,7 +225,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	return c.cfg.HTTPClient.Do(request)
 }
 
-// Change base path to allow switching to mocks
+// ChangeBasePath changes base path to allow switching to mocks
 func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.BasePath = path
 }

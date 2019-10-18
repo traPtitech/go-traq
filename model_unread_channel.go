@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// UnreadChannel struct for UnreadChannel
 type UnreadChannel struct {
 	// チャンネルID
 	ChannelId string `json:"channelId,omitempty"`

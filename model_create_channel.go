@@ -9,6 +9,7 @@
 
 package openapi
 
+// CreateChannel struct for CreateChannel
 type CreateChannel struct {
 	// プライベートチャンネルかどうか
 	Private bool `json:"private,omitempty"`

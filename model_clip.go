@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Clip struct for Clip
 type Clip struct {
 	// フォルダID
 	FolderId string `json:"folderId,omitempty"`

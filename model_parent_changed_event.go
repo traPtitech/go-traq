@@ -9,7 +9,7 @@
 
 package openapi
 
-// ParentChanged
+// ParentChangedEvent ParentChanged
 type ParentChangedEvent struct {
 	// 変更者UUID
 	UserId string `json:"userId,omitempty"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// MessageIdObject struct for MessageIdObject
 type MessageIdObject struct {
 	// ピン留めするメッセージID
 	MessageId string `json:"messageId"`

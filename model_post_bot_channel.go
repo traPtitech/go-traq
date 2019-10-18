@@ -9,6 +9,7 @@
 
 package openapi
 
+// PostBotChannel struct for PostBotChannel
 type PostBotChannel struct {
 	// ボットコード
 	Code string `json:"code"`

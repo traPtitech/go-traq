@@ -9,10 +9,12 @@
 
 package openapi
 
-// ChildCreatedEvent ChildCreated
-type ChildCreatedEvent struct {
-	// 作成者UUID
+// WebRtcUserState struct for WebRtcUserState
+type WebRtcUserState struct {
+	// ユーザーUUID
 	UserId string `json:"userId,omitempty"`
-	// チャンネルUUID
+	// ユーザーの接続先チャンネルUUID(未接続の場合は00000000-0000-0000-0000-000000000000)
 	ChannelId string `json:"channelId,omitempty"`
+	// ユーザーの状態の配列(未接続の場合は空配列)
+	State []string `json:"state,omitempty"`
 }

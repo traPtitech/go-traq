@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// Stamp struct for Stamp
 type Stamp struct {
 	// スタンプUUID
 	Id string `json:"id,omitempty"`

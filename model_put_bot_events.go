@@ -9,6 +9,7 @@
 
 package openapi
 
+// PutBotEvents struct for PutBotEvents
 type PutBotEvents struct {
 	// 購読するイベントの配列
 	Events []string `json:"events"`

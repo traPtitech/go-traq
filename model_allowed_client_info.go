@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// AllowedClientInfo struct for AllowedClientInfo
 type AllowedClientInfo struct {
 	// OAuth2アクセストークンUUID
 	TokenId string `json:"tokenId,omitempty"`

@@ -9,6 +9,7 @@
 
 package openapi
 
+// ChannelBot struct for ChannelBot
 type ChannelBot struct {
 	// BotのID
 	BotId string `json:"botId,omitempty"`
