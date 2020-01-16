@@ -14,7 +14,7 @@ type OAuth2ResponseType string
 
 // List of OAuth2ResponseType
 const (
-	CODE  OAuth2ResponseType = "code"
-	TOKEN OAuth2ResponseType = "token"
-	NONE  OAuth2ResponseType = "none"
+	CODE                OAuth2ResponseType = "code"
+	TOKEN               OAuth2ResponseType = "token"
+	RESPONSE_TYPE_NONE  OAuth2ResponseType = "none"
 )

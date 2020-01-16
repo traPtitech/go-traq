@@ -14,7 +14,7 @@ type HeartbeatStatus string
 
 // List of HeartbeatStatus
 const (
-	NONE       HeartbeatStatus = "none"
-	MONITORING HeartbeatStatus = "monitoring"
-	EDITING    HeartbeatStatus = "editing"
+	STATUS_NONE HeartbeatStatus = "none"
+	MONITORING  HeartbeatStatus = "monitoring"
+	EDITING     HeartbeatStatus = "editing"
 )
