@@ -9,10 +9,10 @@
 
 package openapi
 
-// PinRemovedEvent PinRemoved
-type PinRemovedEvent struct {
-	// 変更者UUID
+// ChannelViewer struct for ChannelViewer
+type ChannelViewer struct {
+	// ユーザーのUUID
 	UserId string `json:"userId,omitempty"`
-	// メッセージUUID
-	MessageId string `json:"messageId,omitempty"`
+	// 閲覧状態
+	State string `json:"state,omitempty"`
 }
