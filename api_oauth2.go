@@ -289,16 +289,16 @@ GetClient OAuth2クライアント情報を取得
  * @param clientId OAuth2クライアントUUID
  * @param optional nil or *Oauth2ApiGetClientOpts - Optional Parameters:
  * @param "Detail" (optional.Bool) -  詳細情報を含めるかどうか
-@return OneOfOAuth2ClientOAuth2ClientDetail
+@return OneOf: OAuth2Client, OAuth2ClientDetail
 */
-func (a *Oauth2ApiService) GetClient(ctx _context.Context, clientId string, localVarOptionals *Oauth2ApiGetClientOpts) (OneOfOAuth2ClientOAuth2ClientDetail, *_nethttp.Response, error) {
+func (a *Oauth2ApiService) GetClient(ctx _context.Context, clientId string, localVarOptionals *Oauth2ApiGetClientOpts) (interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  OneOfOAuth2ClientOAuth2ClientDetail
+		localVarReturnValue  interface{}
 	)
 
 	// create path and map variables
@@ -351,7 +351,7 @@ func (a *Oauth2ApiService) GetClient(ctx _context.Context, clientId string, loca
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v OneOfOAuth2ClientOAuth2ClientDetail
+			var v interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
