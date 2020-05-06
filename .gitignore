@@ -24,6 +24,7 @@ _testmain.go
 *.prof
 
 /.vscode
+/.idea
 /.openapi-generator
 /api/
 /.travis.yml
