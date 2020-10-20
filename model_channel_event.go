@@ -20,5 +20,5 @@ type ChannelEvent struct {
 	// イベント日時
 	Datetime time.Time `json:"datetime"`
 	// イベント内容
-	Detail OneOfTopicChangedEventSubscribersChangedEventPinAddedEventPinRemovedEventNameChangedEventParentChangedEventVisibilityChangedEventForcedNotificationChangedEventChildCreatedEvent `json:"detail"`
+	Detail interface{} `json:"detail"`
 }

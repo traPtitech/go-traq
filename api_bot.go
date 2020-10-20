@@ -423,16 +423,16 @@ GetBot BOT情報を取得
  * @param botId BOTUUID
  * @param optional nil or *BotApiGetBotOpts - Optional Parameters:
  * @param "Detail" (optional.Bool) -  詳細情報を含めるかどうか
-@return OneOfBotBotDetail
+@return OneOf: Bot, BotDetail
 */
-func (a *BotApiService) GetBot(ctx _context.Context, botId string, localVarOptionals *BotApiGetBotOpts) (OneOfBotBotDetail, *_nethttp.Response, error) {
+func (a *BotApiService) GetBot(ctx _context.Context, botId string, localVarOptionals *BotApiGetBotOpts) (interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  OneOfBotBotDetail
+		localVarReturnValue  interface{}
 	)
 
 	// create path and map variables
