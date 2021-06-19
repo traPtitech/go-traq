@@ -58,8 +58,6 @@ type APIClient struct {
 
 	ClipApi *ClipApiService
 
-	DefaultApi *DefaultApiService
-
 	FileApi *FileApiService
 
 	GroupApi *GroupApiService
@@ -71,6 +69,8 @@ type APIClient struct {
 	NotificationApi *NotificationApiService
 
 	Oauth2Api *Oauth2ApiService
+
+	OgpApi *OgpApiService
 
 	PinApi *PinApiService
 
@@ -110,13 +110,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BotApi = (*BotApiService)(&c.common)
 	c.ChannelApi = (*ChannelApiService)(&c.common)
 	c.ClipApi = (*ClipApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.FileApi = (*FileApiService)(&c.common)
 	c.GroupApi = (*GroupApiService)(&c.common)
 	c.MeApi = (*MeApiService)(&c.common)
 	c.MessageApi = (*MessageApiService)(&c.common)
 	c.NotificationApi = (*NotificationApiService)(&c.common)
 	c.Oauth2Api = (*Oauth2ApiService)(&c.common)
+	c.OgpApi = (*OgpApiService)(&c.common)
 	c.PinApi = (*PinApiService)(&c.common)
 	c.PublicApi = (*PublicApiService)(&c.common)
 	c.StampApi = (*StampApiService)(&c.common)

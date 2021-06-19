@@ -11,9 +11,9 @@ package traq
 
 // OgpMedia OGPに含まれる画像の情報
 type OgpMedia struct {
-	Url       string  `json:"url,omitempty"`
-	SecureUrl *string `json:"secureUrl,omitempty"`
-	Type      *string `json:"type,omitempty"`
-	Width     *int32  `json:"width,omitempty"`
-	Height    *int32  `json:"height,omitempty"`
+	Url       string  `json:"url"`
+	SecureUrl *string `json:"secureUrl"`
+	Type      *string `json:"type"`
+	Width     *int32  `json:"width"`
+	Height    *int32  `json:"height"`
 }

@@ -11,10 +11,10 @@ package traq
 
 // Ogp OGPの情報
 type Ogp struct {
-	Type        string     `json:"type,omitempty"`
-	Title       string     `json:"title,omitempty"`
-	Url         string     `json:"url,omitempty"`
-	Images      []OgpMedia `json:"images,omitempty"`
-	Description string     `json:"description,omitempty"`
-	Videos      []OgpMedia `json:"videos,omitempty"`
+	Type        string     `json:"type"`
+	Title       string     `json:"title"`
+	Url         string     `json:"url"`
+	Images      []OgpMedia `json:"images"`
+	Description string     `json:"description"`
+	Videos      []OgpMedia `json:"videos"`
 }

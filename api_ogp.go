@@ -11,7 +11,6 @@ package traq
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -22,23 +21,17 @@ var (
 	_ _context.Context
 )
 
-// DefaultApiService DefaultApi service
-type DefaultApiService service
-
-// DefaultApiGetOgpOpts Optional parameters for the method 'GetOgp'
-type DefaultApiGetOgpOpts struct {
-	Url optional.String
-}
+// OgpApiService OgpApi service
+type OgpApiService service
 
 /*
 GetOgp OGP情報を取得
 OGP情報を取得します。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DefaultApiGetOgpOpts - Optional Parameters:
- * @param "Url" (optional.String) -  OGPを取得したいURL
+ * @param url OGPを取得したいURL
 @return Ogp
 */
-func (a *DefaultApiService) GetOgp(ctx _context.Context, localVarOptionals *DefaultApiGetOgpOpts) (Ogp, *_nethttp.Response, error) {
+func (a *OgpApiService) GetOgp(ctx _context.Context, url string) (Ogp, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -54,9 +47,7 @@ func (a *DefaultApiService) GetOgp(ctx _context.Context, localVarOptionals *Defa
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Url.IsSet() {
-		localVarQueryParams.Add("url", parameterToString(localVarOptionals.Url.Value(), ""))
-	}
+	localVarQueryParams.Add("url", parameterToString(url, ""))
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -888,6 +888,84 @@ func (a *UserApiService) GetUserIcon(ctx _context.Context, userId string) (*os.F
 }
 
 /*
+GetUserStats ユーザー統計情報を取得
+指定したユーザーの統計情報を取得します。
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param userId ユーザーUUID
+@return UserStats
+*/
+func (a *UserApiService) GetUserStats(ctx _context.Context, userId string) (UserStats, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  UserStats
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/users/{userId}/stats"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", _neturl.QueryEscape(parameterToString(userId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+/*
 GetUserTags ユーザーのタグリストを取得
 指定したユーザーのタグリストを取得します。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -968,14 +1046,16 @@ func (a *UserApiService) GetUserTags(ctx _context.Context, userId string) ([]Use
 // UserApiGetUsersOpts Optional parameters for the method 'GetUsers'
 type UserApiGetUsersOpts struct {
 	IncludeSuspended optional.Bool
+	Name             optional.String
 }
 
 /*
 GetUsers ユーザーのリストを取得
-ユーザーのリストを取得します。 &#x60;include-suspended&#x60;を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
+ユーザーのリストを取得します。 &#x60;include-suspended&#x60;を指定しない場合、レスポンスにはユーザーアカウント状態が\&quot;1: 有効\&quot;であるユーザーのみが含まれます。 &#x60;include-suspended&#x60;と&#x60;name&#x60;を同時に指定することはできません。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *UserApiGetUsersOpts - Optional Parameters:
- * @param "IncludeSuspended" (optional.Bool) -  アカウントがアクティブでないユーザーを含めるかどうか
+ * @param "IncludeSuspended" (optional.Bool) -  アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか
+ * @param "Name" (optional.String) -  名前が一致するアカウントのみを取得する
 @return []User
 */
 func (a *UserApiService) GetUsers(ctx _context.Context, localVarOptionals *UserApiGetUsersOpts) ([]User, *_nethttp.Response, error) {
@@ -996,6 +1076,9 @@ func (a *UserApiService) GetUsers(ctx _context.Context, localVarOptionals *UserA
 
 	if localVarOptionals != nil && localVarOptionals.IncludeSuspended.IsSet() {
 		localVarQueryParams.Add("include-suspended", parameterToString(localVarOptionals.IncludeSuspended.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Name.IsSet() {
+		localVarQueryParams.Add("name", parameterToString(localVarOptionals.Name.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

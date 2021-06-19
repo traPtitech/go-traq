@@ -9,8 +9,9 @@
 
 package traq
 
-// FileInfoThumbnail サムネイル情報 サムネイルが存在しない場合はnullになります Deprecated: thumbnailsを参照してください
-type FileInfoThumbnail struct {
+// ThumbnailInfo struct for ThumbnailInfo
+type ThumbnailInfo struct {
+	Type ThumbnailType `json:"type"`
 	// MIMEタイプ
 	Mime string `json:"mime"`
 	// サムネイル幅

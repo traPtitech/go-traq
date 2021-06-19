@@ -83,6 +83,7 @@ const (
 	USERPERMISSION_CreateSpecialUserGroup    UserPermission = "create_special_user_group"
 	USERPERMISSION_EditUserGroup             UserPermission = "edit_user_group"
 	USERPERMISSION_DeleteUserGroup           UserPermission = "delete_user_group"
+	USERPERMISSION_AllUserGroupsAdmin        UserPermission = "edit_others_user_group"
 	USERPERMISSION_WebRTC                    UserPermission = "web_rtc"
 	USERPERMISSION_GetMySessions             UserPermission = "get_my_sessions"
 	USERPERMISSION_DeleteMySessions          UserPermission = "delete_my_sessions"

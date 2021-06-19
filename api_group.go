@@ -15,6 +15,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"os"
 	"strings"
 )
 
@@ -165,6 +166,82 @@ func (a *GroupApiService) AddUserGroupMember(ctx _context.Context, groupId strin
 		localVarPostBody = &localVarOptionalUserGroupMember
 	}
 
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+/*
+ChangeUserGroupIcon ユーザーグループのアイコンを変更
+ユーザーグループのアイコンを変更します。 対象のユーザーグループの管理者権限が必要です。
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param groupId ユーザーグループUUID
+ * @param file アイコン画像(1MBまでのpng, jpeg, gif)
+*/
+func (a *GroupApiService) ChangeUserGroupIcon(ctx _context.Context, groupId string, file *os.File) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/groups/{groupId}/icon"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", _neturl.QueryEscape(parameterToString(groupId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarFormFileName = "file"
+	localVarFile := file
+	if localVarFile != nil {
+		fbs, _ := _ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
@@ -439,7 +516,7 @@ type GroupApiEditUserGroupMemberOpts struct {
 }
 
 /*
-EditUserGroupMember ユーザーグループメンバーを編集
+EditUserGroupMember グループメンバーを編集
 指定したユーザーグループ内の指定したユーザーの属性を編集します。 対象のユーザーグループの管理者権限が必要です。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param groupId ユーザーグループUUID
@@ -899,8 +976,8 @@ func (a *GroupApiService) RemoveUserGroupAdmin(ctx _context.Context, groupId str
 }
 
 /*
-RemoveUserGroupMember ユーザーグループから削除
-指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
+RemoveUserGroupMember グループメンバーを削除
+指定したユーザーグループから指定したユーザーを削除します。 既にグループから削除されているメンバーを指定した場合は204を返します。 対象のユーザーグループの管理者権限が必要です。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param groupId ユーザーグループUUID
  * @param userId ユーザーUUID
