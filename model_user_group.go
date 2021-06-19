@@ -23,6 +23,8 @@ type UserGroup struct {
 	Description string `json:"description"`
 	// グループタイプ
 	Type string `json:"type"`
+	// グループアイコンUUID
+	Icon string `json:"icon"`
 	// グループメンバーの配列
 	Members []UserGroupMember `json:"members"`
 	// 作成日時

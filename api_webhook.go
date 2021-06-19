@@ -273,16 +273,14 @@ EditWebhook Webhook情報を変更
  * @param webhookId WebhookUUID
  * @param optional nil or *WebhookApiEditWebhookOpts - Optional Parameters:
  * @param "PatchWebhookRequest" (optional.Interface of PatchWebhookRequest) -
-@return Webhook
 */
-func (a *WebhookApiService) EditWebhook(ctx _context.Context, webhookId string, localVarOptionals *WebhookApiEditWebhookOpts) (Webhook, *_nethttp.Response, error) {
+func (a *WebhookApiService) EditWebhook(ctx _context.Context, webhookId string, localVarOptionals *WebhookApiEditWebhookOpts) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Webhook
 	)
 
 	// create path and map variables
@@ -303,7 +301,7 @@ func (a *WebhookApiService) EditWebhook(ctx _context.Context, webhookId string, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -314,25 +312,25 @@ func (a *WebhookApiService) EditWebhook(ctx _context.Context, webhookId string, 
 	if localVarOptionals != nil && localVarOptionals.PatchWebhookRequest.IsSet() {
 		localVarOptionalPatchWebhookRequest, localVarOptionalPatchWebhookRequestok := localVarOptionals.PatchWebhookRequest.Value().(PatchWebhookRequest)
 		if !localVarOptionalPatchWebhookRequestok {
-			return localVarReturnValue, nil, reportError("patchWebhookRequest should be PatchWebhookRequest")
+			return nil, reportError("patchWebhookRequest should be PatchWebhookRequest")
 		}
 		localVarPostBody = &localVarOptionalPatchWebhookRequest
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -340,19 +338,10 @@ func (a *WebhookApiService) EditWebhook(ctx _context.Context, webhookId string, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*

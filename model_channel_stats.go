@@ -16,7 +16,11 @@ import (
 // ChannelStats チャンネル統計情報
 type ChannelStats struct {
 	// チャンネルの総投稿メッセージ数(削除されたものも含む)
-	TotalMessageCount int32 `json:"totalMessageCount"`
+	TotalMessageCount int64 `json:"totalMessageCount"`
+	// チャンネル上のスタンプ統計情報
+	Stamps []ChannelStatsStamp `json:"stamps"`
+	// チャンネル上のユーザー統計情報
+	Users []ChannelStatsUser `json:"users"`
 	// 統計情報日時
 	Datetime time.Time `json:"datetime"`
 }

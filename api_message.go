@@ -264,21 +264,19 @@ type MessageApiEditMessageOpts struct {
 
 /*
 EditMessage メッセージを編集
-指定したメッセージを編集します。 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ編集することができます。 アーカイブされているチャンネルのメッセージを編集することは出来ません。
+指定したメッセージを編集します。 自身が投稿したメッセージのみ編集することができます。 アーカイブされているチャンネルのメッセージを編集することは出来ません。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param messageId メッセージUUID
  * @param optional nil or *MessageApiEditMessageOpts - Optional Parameters:
  * @param "PostMessageRequest" (optional.Interface of PostMessageRequest) -
-@return Message
 */
-func (a *MessageApiService) EditMessage(ctx _context.Context, messageId string, localVarOptionals *MessageApiEditMessageOpts) (Message, *_nethttp.Response, error) {
+func (a *MessageApiService) EditMessage(ctx _context.Context, messageId string, localVarOptionals *MessageApiEditMessageOpts) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Message
 	)
 
 	// create path and map variables
@@ -299,7 +297,7 @@ func (a *MessageApiService) EditMessage(ctx _context.Context, messageId string, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -310,25 +308,25 @@ func (a *MessageApiService) EditMessage(ctx _context.Context, messageId string, 
 	if localVarOptionals != nil && localVarOptionals.PostMessageRequest.IsSet() {
 		localVarOptionalPostMessageRequest, localVarOptionalPostMessageRequestok := localVarOptionals.PostMessageRequest.Value().(PostMessageRequest)
 		if !localVarOptionalPostMessageRequestok {
-			return localVarReturnValue, nil, reportError("postMessageRequest should be PostMessageRequest")
+			return nil, reportError("postMessageRequest should be PostMessageRequest")
 		}
 		localVarPostBody = &localVarOptionalPostMessageRequest
 	}
 
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -336,19 +334,10 @@ func (a *MessageApiService) EditMessage(ctx _context.Context, messageId string, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 // MessageApiGetDirectMessagesOpts Optional parameters for the method 'GetDirectMessages'
@@ -1212,4 +1201,164 @@ func (a *MessageApiService) RemovePin(ctx _context.Context, messageId string) (*
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+// MessageApiSearchMessagesOpts Optional parameters for the method 'SearchMessages'
+type MessageApiSearchMessagesOpts struct {
+	Word           optional.String
+	After          optional.Time
+	Before         optional.Time
+	In             optional.Interface
+	To             optional.Interface
+	From           optional.Interface
+	Citation       optional.Interface
+	Bot            optional.Bool
+	HasURL         optional.Bool
+	HasAttachments optional.Bool
+	HasImage       optional.Bool
+	HasVideo       optional.Bool
+	HasAudio       optional.Bool
+	Limit          optional.Int32
+	Offset         optional.Int32
+	Sort           optional.String
+}
+
+/*
+SearchMessages メッセージを検索
+メッセージを検索します。
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param optional nil or *MessageApiSearchMessagesOpts - Optional Parameters:
+ * @param "Word" (optional.String) -  検索ワード Simple-Query-String-Syntaxをパースして検索します
+ * @param "After" (optional.Time) -  投稿日時が指定日時より後
+ * @param "Before" (optional.Time) -  投稿日時が指定日時より前
+ * @param "In" (optional.Interface of string) -  メッセージが投稿されたチャンネル
+ * @param "To" (optional.Interface of string) -  メンションされたユーザー
+ * @param "From" (optional.Interface of string) -  メッセージを投稿したユーザー
+ * @param "Citation" (optional.Interface of string) -  引用しているメッセージ
+ * @param "Bot" (optional.Bool) -  メッセージを投稿したユーザーがBotかどうか
+ * @param "HasURL" (optional.Bool) -  メッセージがURLを含むか
+ * @param "HasAttachments" (optional.Bool) -  メッセージが添付ファイルを含むか
+ * @param "HasImage" (optional.Bool) -  メッセージが画像を含むか
+ * @param "HasVideo" (optional.Bool) -  メッセージが動画を含むか
+ * @param "HasAudio" (optional.Bool) -  メッセージが音声ファイルを含むか
+ * @param "Limit" (optional.Int32) -  検索結果から取得するメッセージの最大件数
+ * @param "Offset" (optional.Int32) -  検索結果から取得するメッセージのオフセット
+ * @param "Sort" (optional.String) -  ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`, 更新日時が新しい `updatedAt`, 更新日時が古い `-updatedAt`)
+@return MessageSearchResult
+*/
+func (a *MessageApiService) SearchMessages(ctx _context.Context, localVarOptionals *MessageApiSearchMessagesOpts) (MessageSearchResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  MessageSearchResult
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/messages"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.Word.IsSet() {
+		localVarQueryParams.Add("word", parameterToString(localVarOptionals.Word.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.After.IsSet() {
+		localVarQueryParams.Add("after", parameterToString(localVarOptionals.After.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Before.IsSet() {
+		localVarQueryParams.Add("before", parameterToString(localVarOptionals.Before.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.In.IsSet() {
+		localVarQueryParams.Add("in", parameterToString(localVarOptionals.In.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.To.IsSet() {
+		localVarQueryParams.Add("to", parameterToString(localVarOptionals.To.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.From.IsSet() {
+		localVarQueryParams.Add("from", parameterToString(localVarOptionals.From.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Citation.IsSet() {
+		localVarQueryParams.Add("citation", parameterToString(localVarOptionals.Citation.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Bot.IsSet() {
+		localVarQueryParams.Add("bot", parameterToString(localVarOptionals.Bot.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.HasURL.IsSet() {
+		localVarQueryParams.Add("hasURL", parameterToString(localVarOptionals.HasURL.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.HasAttachments.IsSet() {
+		localVarQueryParams.Add("hasAttachments", parameterToString(localVarOptionals.HasAttachments.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.HasImage.IsSet() {
+		localVarQueryParams.Add("hasImage", parameterToString(localVarOptionals.HasImage.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.HasVideo.IsSet() {
+		localVarQueryParams.Add("hasVideo", parameterToString(localVarOptionals.HasVideo.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.HasAudio.IsSet() {
+		localVarQueryParams.Add("hasAudio", parameterToString(localVarOptionals.HasAudio.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
+		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
+		localVarQueryParams.Add("sort", parameterToString(localVarOptionals.Sort.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

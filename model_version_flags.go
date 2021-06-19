@@ -13,4 +13,6 @@ package traq
 type VersionFlags struct {
 	// 有効な外部ログインプロバイダ
 	ExternalLogin []string `json:"externalLogin"`
+	// ユーザーが自身で新規登録(POST /api/v3/users)可能か
+	SignUpAllowed bool `json:"signUpAllowed"`
 }

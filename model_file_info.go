@@ -25,9 +25,12 @@ type FileInfo struct {
 	Size int64 `json:"size"`
 	// MD5ハッシュ
 	Md5 string `json:"md5"`
+	// アニメーション画像かどうか
+	IsAnimatedImage bool `json:"isAnimatedImage"`
 	// アップロード日時
-	CreatedAt time.Time          `json:"createdAt"`
-	Thumbnail *FileInfoThumbnail `json:"thumbnail"`
+	CreatedAt  time.Time          `json:"createdAt"`
+	Thumbnails []ThumbnailInfo    `json:"thumbnails"`
+	Thumbnail  *FileInfoThumbnail `json:"thumbnail"`
 	// 属しているチャンネルUUID
 	ChannelId *string `json:"channelId"`
 	// アップロード者UUID

@@ -380,14 +380,21 @@ func (a *FileApiService) GetFiles(ctx _context.Context, localVarOptionals *FileA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// FileApiGetThumbnailImageOpts Optional parameters for the method 'GetThumbnailImage'
+type FileApiGetThumbnailImageOpts struct {
+	Type_ optional.Interface
+}
+
 /*
 GetThumbnailImage サムネイル画像を取得
 指定したファイルのサムネイル画像を取得します。 指定したファイルへのアクセス権限が必要です。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param fileId ファイルUUID
+ * @param optional nil or *FileApiGetThumbnailImageOpts - Optional Parameters:
+ * @param "Type_" (optional.Interface of ThumbnailType) -  取得するサムネイルのタイプ
 @return *os.File
 */
-func (a *FileApiService) GetThumbnailImage(ctx _context.Context, fileId string) (*os.File, *_nethttp.Response, error) {
+func (a *FileApiService) GetThumbnailImage(ctx _context.Context, fileId string, localVarOptionals *FileApiGetThumbnailImageOpts) (*os.File, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -405,6 +412,9 @@ func (a *FileApiService) GetThumbnailImage(ctx _context.Context, fileId string) 
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
+		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
