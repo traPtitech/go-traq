@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-gomod-${{ hashFiles('**/go.sum') }}
       - run: go mod download
       - name: build
-        run: ./generate.sh
+        run: sh ./generate.sh
       - name: Check diff
         run: |
           git add .
