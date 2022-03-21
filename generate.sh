@@ -5,7 +5,7 @@ set -eux
 OPENAPI_GENERATOR_VERSION='5.4.0'
 
 # clean
-FILES=$(find . -maxdepth 1 -type f ! -name "*.md" ! -name ".*" ! -name "*.sh" ! -name "config.yaml" ! -name "go.mod" ! -name "go.sum" ! -name "*.jar")
+FILES=$(find . -maxdepth 1 -type f ! -name "*.md" ! -name ".*" ! -name "*.sh" ! -name "config.yaml" ! -name "go.mod" ! -name "go.sum" ! -name "*.jar" ! -name "LICENSE")
 echo $FILES | xargs --no-run-if-empty rm
 
 # fetch openapi-generator
