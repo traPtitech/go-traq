@@ -8,7 +8,7 @@ import (
 	"context"
 	"fmt"
 
-	traq "github.com/sapphi-red/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 const TOKEN = "/* your token */"

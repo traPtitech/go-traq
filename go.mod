@@ -1,4 +1,4 @@
-module github.com/sapphi-red/go-traq
+module github.com/traPtitech/go-traq
 
 go 1.12
 
