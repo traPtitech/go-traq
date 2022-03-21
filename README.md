@@ -1,6 +1,16 @@
 # go-traq
+[![Go Reference](https://pkg.go.dev/badge/github.com/traPtitech/go-traq.svg)](https://pkg.go.dev/github.com/traPtitech/go-traq)
+[![CI](https://github.com/traPtitech/go-traq/actions/workflows/main.yaml/badge.svg)](https://github.com/traPtitech/go-traq/actions/workflows/main.yaml)
 
-## example
+A client library for the traQ API.
+
+This package is updated automatically.
+
+## How to use
+```shell
+$ go get github.com/traPtitech/go-traq
+```
+
 ```go
 package main
 
@@ -23,9 +33,4 @@ func main() {
 		Execute()
 	fmt.Printf("%#v", v)
 }
-```
-
-### build
-```sh
-sh generate.sh
 ```
