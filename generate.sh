@@ -29,3 +29,5 @@ go run internal/main.go
 go fmt ./...
 
 rm -rf ./docs
+
+go mod tidy
