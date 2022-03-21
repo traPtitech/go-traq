@@ -23,6 +23,9 @@ java -jar openapi-generator-cli.jar generate \
   -i https://raw.githubusercontent.com/traPtitech/traQ/master/docs/v3-api.yaml \
   -g go \
   -c config.yaml
+
+go run internal/main.go
+
 go fmt ./...
 
 rm -rf ./docs
