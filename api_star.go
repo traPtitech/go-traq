@@ -46,6 +46,7 @@ func (r StarApiApiAddMyStarRequest) Execute() (*http.Response, error) {
 AddMyStar チャンネルをスターに追加
 
 指定したチャンネルをスターチャンネルに追加します。
+スター済みのチャンネルIDを指定した場合、204を返します。
 不正なチャンネルIDを指定した場合、400を返します。
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

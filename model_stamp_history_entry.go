@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// StampHistoryEntry スタンプ履歴の１項目
+// StampHistoryEntry スタンプ履歴の1項目
 type StampHistoryEntry struct {
 	// スタンプUUID
 	StampId *os.File `json:"stampId"`
