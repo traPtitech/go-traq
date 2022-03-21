@@ -22,14 +22,16 @@ type ChannelEvent struct {
 	// イベント日時
 	Datetime time.Time `json:"datetime"`
 	// イベント内容
-	Detail interface{} `json:"detail"`
+	Detail interface {
+	} `json:"detail"`
 }
 
 // NewChannelEvent instantiates a new ChannelEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChannelEvent(type_ string, datetime time.Time, detail interface{}) *ChannelEvent {
+func NewChannelEvent(type_ string, datetime time.Time, detail interface {
+}) *ChannelEvent {
 	this := ChannelEvent{}
 	this.Type = type_
 	this.Datetime = datetime
@@ -94,10 +96,12 @@ func (o *ChannelEvent) SetDatetime(v time.Time) {
 }
 
 // GetDetail returns the Detail field value
-// If the value is explicit nil, the zero value for OneOf: TopicChangedEventSubscribersChangedEventPinAddedEventPinRemovedEventNameChangedEventParentChangedEventVisibilityChangedEventForcedNotificationChangedEventChildCreatedEvent will be returned
-func (o *ChannelEvent) GetDetail() interface{} {
+// If the value is explicit nil, the zero value for OneOfTopicChangedEventSubscribersChangedEventPinAddedEventPinRemovedEventNameChangedEventParentChangedEventVisibilityChangedEventForcedNotificationChangedEventChildCreatedEvent will be returned
+func (o *ChannelEvent) GetDetail() interface {
+} {
 	if o == nil {
-		var ret interface{}
+		var ret interface {
+		}
 		return ret
 	}
 
@@ -107,7 +111,8 @@ func (o *ChannelEvent) GetDetail() interface{} {
 // GetDetailOk returns a tuple with the Detail field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ChannelEvent) GetDetailOk() (*interface{}, bool) {
+func (o *ChannelEvent) GetDetailOk() (interface {
+}, bool) {
 	if o == nil || o.Detail == nil {
 		return nil, false
 	}
@@ -115,7 +120,8 @@ func (o *ChannelEvent) GetDetailOk() (*interface{}, bool) {
 }
 
 // SetDetail sets field value
-func (o *ChannelEvent) SetDetail(v interface{}) {
+func (o *ChannelEvent) SetDetail(v interface {
+}) {
 	o.Detail = v
 }
 

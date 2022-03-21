@@ -676,7 +676,8 @@ func (r BotApiApiGetBotRequest) Detail(detail bool) BotApiApiGetBotRequest {
 	return r
 }
 
-func (r BotApiApiGetBotRequest) Execute() (interface{}, *http.Response, error) {
+func (r BotApiApiGetBotRequest) Execute() (interface {
+}, *http.Response, error) {
 	return r.ApiService.GetBotExecute(r)
 }
 
@@ -699,13 +700,15 @@ func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiApiGetBo
 }
 
 // Execute executes the request
-//  @return OneOf: Bot, BotDetail
-func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface{}, *http.Response, error) {
+//  @return OneOfBotBotDetail
+func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface {
+}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue interface {
+		}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.GetBot")

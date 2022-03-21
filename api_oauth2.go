@@ -342,7 +342,8 @@ func (r Oauth2ApiApiGetClientRequest) Detail(detail bool) Oauth2ApiApiGetClientR
 	return r
 }
 
-func (r Oauth2ApiApiGetClientRequest) Execute() (interface{}, *http.Response, error) {
+func (r Oauth2ApiApiGetClientRequest) Execute() (interface {
+}, *http.Response, error) {
 	return r.ApiService.GetClientExecute(r)
 }
 
@@ -365,13 +366,15 @@ func (a *Oauth2ApiService) GetClient(ctx context.Context, clientId string) Oauth
 }
 
 // Execute executes the request
-//  @return OneOf: OAuth2Client, OAuth2ClientDetail
-func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiApiGetClientRequest) (interface{}, *http.Response, error) {
+//  @return OneOfOAuth2ClientOAuth2ClientDetail
+func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiApiGetClientRequest) (interface {
+}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue interface {
+		}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.GetClient")
