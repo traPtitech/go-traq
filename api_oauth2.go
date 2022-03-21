@@ -997,19 +997,13 @@ func (a *Oauth2ApiService) RevokeMyToken(ctx _context.Context, tokenId string) (
 	return localVarHTTPResponse, nil
 }
 
-// Oauth2ApiRevokeOAuth2TokenOpts Optional parameters for the method 'RevokeOAuth2Token'
-type Oauth2ApiRevokeOAuth2TokenOpts struct {
-	PostOAuth2Revoke optional.Interface
-}
-
 /*
 RevokeOAuth2Token OAuth2 トークン無効化エンドポイント
 OAuth2 トークン無効化エンドポイント
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *Oauth2ApiRevokeOAuth2TokenOpts - Optional Parameters:
- * @param "PostOAuth2Revoke" (optional.Interface of PostOAuth2Revoke) -
+ * @param token 無効化するOAuth2トークンまたはOAuth2リフレッシュトークン
 */
-func (a *Oauth2ApiService) RevokeOAuth2Token(ctx _context.Context, localVarOptionals *Oauth2ApiRevokeOAuth2TokenOpts) (*_nethttp.Response, error) {
+func (a *Oauth2ApiService) RevokeOAuth2Token(ctx _context.Context, token string) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1025,7 +1019,7 @@ func (a *Oauth2ApiService) RevokeOAuth2Token(ctx _context.Context, localVarOptio
 	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1041,15 +1035,7 @@ func (a *Oauth2ApiService) RevokeOAuth2Token(ctx _context.Context, localVarOptio
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	if localVarOptionals != nil && localVarOptionals.PostOAuth2Revoke.IsSet() {
-		localVarOptionalPostOAuth2Revoke, localVarOptionalPostOAuth2Revokeok := localVarOptionals.PostOAuth2Revoke.Value().(PostOAuth2Revoke)
-		if !localVarOptionalPostOAuth2Revokeok {
-			return nil, reportError("postOAuth2Revoke should be PostOAuth2Revoke")
-		}
-		localVarPostBody = &localVarOptionalPostOAuth2Revoke
-	}
-
+	localVarFormParams.Add("token", parameterToString(token, ""))
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err

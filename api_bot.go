@@ -170,6 +170,70 @@ func (a *BotApiService) ChangeBotIcon(ctx _context.Context, botId string, file *
 	return localVarHTTPResponse, nil
 }
 
+/*
+ConnectBotWS WebSocket Mode BOT用通知ストリームに接続します
+# BOT WebSocketプロトコル  ## 送信  &#x60;コマンド:引数1:引数2:...&#x60; のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できます。  ### &#x60;rtcstate&#x60;コマンド 自分のWebRTC状態を変更します。 他のコネクションが既に状態を保持している場合、変更することができません。  &#x60;rtcstate:{チャンネルID}:({状態}:{セッションID})*&#x60;  チャンネルIDにnullもしくは空文字を指定するか、状態にnullもしくは空文字を指定した場合、WebRTC状態はリセットされます。  &#x60;rtcstate:null&#x60;, &#x60;rtcstate:&#x60;, &#x60;rtcstate:channelId:null&#x60;, &#x60;rtcstate:channelId:&#x60;  コネクションが切断された場合、自分のWebRTC状態はリセットされます。  ## 受信  TextMessageとして各種イベントが&#x60;type&#x60;、&#x60;reqId&#x60;、&#x60;body&#x60;を持つJSONとして非同期に送られます。 &#x60;body&#x60;の内容はHTTP Modeの場合のRequest Bodyと同様です。 例外として&#x60;ERROR&#x60;イベントは&#x60;reqId&#x60;を持ちません。  例: PINGイベント &#x60;{\&quot;type\&quot;:\&quot;PING\&quot;,\&quot;reqId\&quot;:\&quot;requestId\&quot;,\&quot;body\&quot;:{\&quot;eventTime\&quot;:\&quot;2019-05-07T04:50:48.582586882Z\&quot;}}&#x60;  ### &#x60;ERROR&#x60;  コマンドの引数が不正などの理由でコマンドが受理されなかった場合に送られます。 非同期に送られるため、必ずしもコマンドとの対応関係を確定できないことに注意してください。 本番環境ではERRORが送られないようにすることが望ましいです。  &#x60;{\&quot;type\&quot;:\&quot;ERROR\&quot;,\&quot;body\&quot;:\&quot;message\&quot;}&#x60;
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+*/
+func (a *BotApiService) ConnectBotWS(ctx _context.Context) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/bots/ws"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 // BotApiCreateBotOpts Optional parameters for the method 'CreateBot'
 type BotApiCreateBotOpts struct {
 	PostBotRequest optional.Interface
@@ -177,7 +241,7 @@ type BotApiCreateBotOpts struct {
 
 /*
 CreateBot BOTを作成
-BOTを作成します。 作成後にアクティベーション・購読イベントの設定を行う必要があります。
+BOTを作成します。 作成後に購読イベントの設定を行う必要があります。 さらにHTTP Modeの場合はアクティベーションを行う必要があります。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *BotApiCreateBotOpts - Optional Parameters:
  * @param "PostBotRequest" (optional.Interface of PostBotRequest) -

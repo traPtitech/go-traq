@@ -16,7 +16,8 @@ type PatchBotRequest struct {
 	// BOTの説明
 	Description string `json:"description,omitempty"`
 	// 特権
-	Privileged bool `json:"privileged,omitempty"`
+	Privileged bool    `json:"privileged,omitempty"`
+	Mode       BotMode `json:"mode,omitempty"`
 	// BOTサーバーエンドポイント
 	Endpoint string `json:"endpoint,omitempty"`
 	// 移譲先の開発者UUID

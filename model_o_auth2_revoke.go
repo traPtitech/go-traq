@@ -9,8 +9,8 @@
 
 package traq
 
-// PostOAuth2Revoke POST /oauth2/revoke 用リクエストボディ
-type PostOAuth2Revoke struct {
+// OAuth2Revoke POST /oauth2/revoke 用リクエストボディ
+type OAuth2Revoke struct {
 	// 無効化するOAuth2トークンまたはOAuth2リフレッシュトークン
 	Token string `json:"token"`
 }

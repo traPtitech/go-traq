@@ -20,7 +20,8 @@ type BotEventLog struct {
 	// リクエストUUID
 	RequestId string `json:"requestId"`
 	// イベントタイプ
-	Event string `json:"event"`
+	Event  string         `json:"event"`
+	Result BotEventResult `json:"result,omitempty"`
 	// ステータスコード
 	Code int32 `json:"code"`
 	// イベント日時

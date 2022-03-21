@@ -21,6 +21,7 @@ type BotDetail struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 	// 作成日時
 	CreatedAt time.Time `json:"createdAt"`
+	Mode      BotMode   `json:"mode"`
 	State     BotState  `json:"state"`
 	// BOTが購読しているイベントの配列
 	SubscribeEvents []string `json:"subscribeEvents"`

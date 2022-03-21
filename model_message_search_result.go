@@ -12,7 +12,7 @@ package traq
 // MessageSearchResult メッセージ検索結果
 type MessageSearchResult struct {
 	// 検索にヒットしたメッセージ件数
-	TotalHits int64 `json:"totalHits,omitempty"`
+	TotalHits int64 `json:"totalHits"`
 	// 検索にヒットしたメッセージの配列
-	Hits []Message `json:"hits,omitempty"`
+	Hits []Message `json:"hits"`
 }

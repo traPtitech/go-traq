@@ -16,7 +16,8 @@ type PostBotRequest struct {
 	// BOTユーザー表示名
 	DisplayName string `json:"displayName"`
 	// BOTの説明
-	Description string `json:"description"`
-	// BOTサーバーエンドポイント
-	Endpoint string `json:"endpoint"`
+	Description string  `json:"description"`
+	Mode        BotMode `json:"mode"`
+	// BOTサーバーエンドポイント BOT動作モードがHTTPの場合必須です
+	Endpoint string `json:"endpoint,omitempty"`
 }

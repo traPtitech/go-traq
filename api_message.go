@@ -114,7 +114,7 @@ func (a *MessageApiService) AddMessageStamp(ctx _context.Context, messageId stri
 
 /*
 CreatePin ピン留めする
-指定したメッセージをピン留めします。
+指定したメッセージをピン留めします。 アーカイブされているチャンネルのメッセージ・存在しないメッセージ・チャンネル当たりの上限数を超えたメッセージのピン留めはできません。
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param messageId メッセージUUID
 @return MessagePin
