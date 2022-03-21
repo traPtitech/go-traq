@@ -2,7 +2,7 @@
 
 set -eux
 
-OPENAPI_GENERATOR_VERSION='4.3.1'
+OPENAPI_GENERATOR_VERSION='5.4.0'
 
 # clean
 FILES=$(find . -maxdepth 1 -type f ! -name "*.md" ! -name ".*" ! -name "*.sh" ! -name "config.yaml" ! -name "go.mod" ! -name "go.sum" ! -name "*.jar")
