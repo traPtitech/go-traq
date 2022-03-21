@@ -1,0 +1,61 @@
+name: automatic update
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  skip:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "[Skip CI] ${{ contains(github.event.head_commit.message, '[skip ci]') }}"
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - name: setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17
+      - uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-gomod-${{ hashFiles('**/go.sum') }}
+      - run: go mod download
+      - name: build
+        run: ./generate.sh
+      - name: Check diff
+        run: |
+          git add .
+          DIFFS=`git diff --name-only HEAD`
+          echo $DIFFS
+
+          if [ "$DIFFS" = '' ]; then
+            echo "HAS_DIFF=false" >> $GITHUB_ENV
+          else
+            echo "HAS_DIFF=true" >> $GITHUB_ENV
+          fi
+
+          git reset HEAD
+      - name: git commit
+        if: env.HAS_DIFF == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add .
+          git commit -m "CI: regenerate [ci skip]" --author="sapphi-red <49056869+sapphi-red@users.noreply.github.com>"
+      - name: git push
+        if: env.HAS_DIFF == 'true'
+        uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
