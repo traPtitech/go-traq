@@ -1607,11 +1607,19 @@ type StampApiApiGetStampsRequest struct {
 	ctx            context.Context
 	ApiService     *StampApiService
 	includeUnicode *bool
+	type_          *string
 }
 
-// Unicode絵文字を含ませるかどうか
+// Unicode絵文字を含ませるかどうか Deprecated: typeクエリを指定しなければ全てのスタンプを取得できるため、そちらを利用してください
+// Deprecated
 func (r StampApiApiGetStampsRequest) IncludeUnicode(includeUnicode bool) StampApiApiGetStampsRequest {
 	r.includeUnicode = &includeUnicode
+	return r
+}
+
+// 取得するスタンプの種類
+func (r StampApiApiGetStampsRequest) Type_(type_ string) StampApiApiGetStampsRequest {
+	r.type_ = &type_
 	return r
 }
 
@@ -1657,6 +1665,9 @@ func (a *StampApiService) GetStampsExecute(r StampApiApiGetStampsRequest) ([]Sta
 
 	if r.includeUnicode != nil {
 		localVarQueryParams.Add("include-unicode", parameterToString(*r.includeUnicode, ""))
+	}
+	if r.type_ != nil {
+		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
