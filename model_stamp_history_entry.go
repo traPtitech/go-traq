@@ -12,14 +12,13 @@ package traq
 
 import (
 	"encoding/json"
-	"os"
 	"time"
 )
 
 // StampHistoryEntry スタンプ履歴の1項目
 type StampHistoryEntry struct {
 	// スタンプUUID
-	StampId *os.File `json:"stampId"`
+	StampId string `json:"stampId"`
 	// 使用日時
 	Datetime time.Time `json:"datetime"`
 }
@@ -28,7 +27,7 @@ type StampHistoryEntry struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStampHistoryEntry(stampId *os.File, datetime time.Time) *StampHistoryEntry {
+func NewStampHistoryEntry(stampId string, datetime time.Time) *StampHistoryEntry {
 	this := StampHistoryEntry{}
 	this.StampId = stampId
 	this.Datetime = datetime
@@ -44,9 +43,9 @@ func NewStampHistoryEntryWithDefaults() *StampHistoryEntry {
 }
 
 // GetStampId returns the StampId field value
-func (o *StampHistoryEntry) GetStampId() *os.File {
+func (o *StampHistoryEntry) GetStampId() string {
 	if o == nil {
-		var ret *os.File
+		var ret string
 		return ret
 	}
 
@@ -55,7 +54,7 @@ func (o *StampHistoryEntry) GetStampId() *os.File {
 
 // GetStampIdOk returns a tuple with the StampId field value
 // and a boolean to check if the value has been set.
-func (o *StampHistoryEntry) GetStampIdOk() (**os.File, bool) {
+func (o *StampHistoryEntry) GetStampIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -63,7 +62,7 @@ func (o *StampHistoryEntry) GetStampIdOk() (**os.File, bool) {
 }
 
 // SetStampId sets field value
-func (o *StampHistoryEntry) SetStampId(v *os.File) {
+func (o *StampHistoryEntry) SetStampId(v string) {
 	o.StampId = v
 }
 
