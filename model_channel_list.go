@@ -19,17 +19,16 @@ type ChannelList struct {
 	// パブリックチャンネルの配列
 	Public []Channel `json:"public"`
 	// ダイレクトメッセージチャンネルの配列
-	Dm []DMChannel `json:"dm"`
+	Dm []DMChannel `json:"dm,omitempty"`
 }
 
 // NewChannelList instantiates a new ChannelList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChannelList(public []Channel, dm []DMChannel) *ChannelList {
+func NewChannelList(public []Channel) *ChannelList {
 	this := ChannelList{}
 	this.Public = public
-	this.Dm = dm
 	return &this
 }
 
@@ -65,26 +64,34 @@ func (o *ChannelList) SetPublic(v []Channel) {
 	o.Public = v
 }
 
-// GetDm returns the Dm field value
+// GetDm returns the Dm field value if set, zero value otherwise.
 func (o *ChannelList) GetDm() []DMChannel {
-	if o == nil {
+	if o == nil || o.Dm == nil {
 		var ret []DMChannel
 		return ret
 	}
-
 	return o.Dm
 }
 
-// GetDmOk returns a tuple with the Dm field value
+// GetDmOk returns a tuple with the Dm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChannelList) GetDmOk() ([]DMChannel, bool) {
-	if o == nil {
+	if o == nil || o.Dm == nil {
 		return nil, false
 	}
 	return o.Dm, true
 }
 
-// SetDm sets field value
+// HasDm returns a boolean if a field has been set.
+func (o *ChannelList) HasDm() bool {
+	if o != nil && o.Dm != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDm gets a reference to the given []DMChannel and assigns it to the Dm field.
 func (o *ChannelList) SetDm(v []DMChannel) {
 	o.Dm = v
 }
@@ -94,7 +101,7 @@ func (o ChannelList) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["public"] = o.Public
 	}
-	if true {
+	if o.Dm != nil {
 		toSerialize["dm"] = o.Dm
 	}
 	return json.Marshal(toSerialize)
