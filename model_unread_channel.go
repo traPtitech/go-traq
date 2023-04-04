@@ -27,19 +27,22 @@ type UnreadChannel struct {
 	Since time.Time `json:"since"`
 	// チャンネルの最新の未読メッセージの日時
 	UpdatedAt time.Time `json:"updatedAt"`
+	// そのチャンネルの未読の中で最も古いメッセージのid
+	OldestMessageId string `json:"oldestMessageId"`
 }
 
 // NewUnreadChannel instantiates a new UnreadChannel object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnreadChannel(channelId string, count int32, noticeable bool, since time.Time, updatedAt time.Time) *UnreadChannel {
+func NewUnreadChannel(channelId string, count int32, noticeable bool, since time.Time, updatedAt time.Time, oldestMessageId string) *UnreadChannel {
 	this := UnreadChannel{}
 	this.ChannelId = channelId
 	this.Count = count
 	this.Noticeable = noticeable
 	this.Since = since
 	this.UpdatedAt = updatedAt
+	this.OldestMessageId = oldestMessageId
 	return &this
 }
 
@@ -171,6 +174,30 @@ func (o *UnreadChannel) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
 }
 
+// GetOldestMessageId returns the OldestMessageId field value
+func (o *UnreadChannel) GetOldestMessageId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OldestMessageId
+}
+
+// GetOldestMessageIdOk returns a tuple with the OldestMessageId field value
+// and a boolean to check if the value has been set.
+func (o *UnreadChannel) GetOldestMessageIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OldestMessageId, true
+}
+
+// SetOldestMessageId sets field value
+func (o *UnreadChannel) SetOldestMessageId(v string) {
+	o.OldestMessageId = v
+}
+
 func (o UnreadChannel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -187,6 +214,9 @@ func (o UnreadChannel) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	if true {
+		toSerialize["oldestMessageId"] = o.OldestMessageId
 	}
 	return json.Marshal(toSerialize)
 }
