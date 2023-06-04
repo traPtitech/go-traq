@@ -26,6 +26,105 @@ var (
 // OgpApiService OgpApi service
 type OgpApiService service
 
+type OgpApiApiDeleteOgpCacheRequest struct {
+	ctx        context.Context
+	ApiService *OgpApiService
+	url        *string
+}
+
+// OGPのキャッシュを削除したいURL
+func (r OgpApiApiDeleteOgpCacheRequest) Url(url string) OgpApiApiDeleteOgpCacheRequest {
+	r.url = &url
+	return r
+}
+
+func (r OgpApiApiDeleteOgpCacheRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteOgpCacheExecute(r)
+}
+
+/*
+DeleteOgpCache OGP情報のキャッシュを削除
+
+指定されたURLのOGP情報のキャッシュを削除します。
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return OgpApiApiDeleteOgpCacheRequest
+*/
+func (a *OgpApiService) DeleteOgpCache(ctx context.Context) OgpApiApiDeleteOgpCacheRequest {
+	return OgpApiApiDeleteOgpCacheRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiApiDeleteOgpCacheRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OgpApiService.DeleteOgpCache")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/ogp/cache"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.url == nil {
+		return nil, reportError("url is required and must be specified")
+	}
+
+	localVarQueryParams.Add("url", parameterToString(*r.url, ""))
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type OgpApiApiGetOgpRequest struct {
 	ctx        context.Context
 	ApiService *OgpApiService
