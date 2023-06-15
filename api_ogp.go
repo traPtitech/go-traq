@@ -144,7 +144,9 @@ func (r OgpApiApiGetOgpRequest) Execute() (*Ogp, *http.Response, error) {
 /*
 GetOgp OGP情報を取得
 
-OGP情報を取得します。
+指定されたURLのOGP情報を取得します。
+指定されたURLに対するOGP情報が見つからなかった場合、typeがemptyに設定された空のOGP情報を返します。
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return OgpApiApiGetOgpRequest
