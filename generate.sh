@@ -28,6 +28,6 @@ go run internal/main.go
 
 go fmt ./...
 
-rm -rf ./docs ./test
+rm -rf ./test
 
 go mod tidy

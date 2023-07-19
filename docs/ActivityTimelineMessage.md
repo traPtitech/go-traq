@@ -1,0 +1,156 @@
+# ActivityTimelineMessage
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Id** | **string** | メッセージUUID | 
+**UserId** | **string** | 投稿者UUID | 
+**ChannelId** | **string** | チャンネルUUID | 
+**Content** | **string** | メッセージ本文 | 
+**CreatedAt** | **time.Time** | 投稿日時 | 
+**UpdatedAt** | **time.Time** | 編集日時 | 
+
+## Methods
+
+### NewActivityTimelineMessage
+
+`func NewActivityTimelineMessage(id string, userId string, channelId string, content string, createdAt time.Time, updatedAt time.Time, ) *ActivityTimelineMessage`
+
+NewActivityTimelineMessage instantiates a new ActivityTimelineMessage object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewActivityTimelineMessageWithDefaults
+
+`func NewActivityTimelineMessageWithDefaults() *ActivityTimelineMessage`
+
+NewActivityTimelineMessageWithDefaults instantiates a new ActivityTimelineMessage object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ActivityTimelineMessage) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ActivityTimelineMessage) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ActivityTimelineMessage) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetUserId
+
+`func (o *ActivityTimelineMessage) GetUserId() string`
+
+GetUserId returns the UserId field if non-nil, zero value otherwise.
+
+### GetUserIdOk
+
+`func (o *ActivityTimelineMessage) GetUserIdOk() (*string, bool)`
+
+GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserId
+
+`func (o *ActivityTimelineMessage) SetUserId(v string)`
+
+SetUserId sets UserId field to given value.
+
+
+### GetChannelId
+
+`func (o *ActivityTimelineMessage) GetChannelId() string`
+
+GetChannelId returns the ChannelId field if non-nil, zero value otherwise.
+
+### GetChannelIdOk
+
+`func (o *ActivityTimelineMessage) GetChannelIdOk() (*string, bool)`
+
+GetChannelIdOk returns a tuple with the ChannelId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannelId
+
+`func (o *ActivityTimelineMessage) SetChannelId(v string)`
+
+SetChannelId sets ChannelId field to given value.
+
+
+### GetContent
+
+`func (o *ActivityTimelineMessage) GetContent() string`
+
+GetContent returns the Content field if non-nil, zero value otherwise.
+
+### GetContentOk
+
+`func (o *ActivityTimelineMessage) GetContentOk() (*string, bool)`
+
+GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContent
+
+`func (o *ActivityTimelineMessage) SetContent(v string)`
+
+SetContent sets Content field to given value.
+
+
+### GetCreatedAt
+
+`func (o *ActivityTimelineMessage) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *ActivityTimelineMessage) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *ActivityTimelineMessage) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetUpdatedAt
+
+`func (o *ActivityTimelineMessage) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *ActivityTimelineMessage) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *ActivityTimelineMessage) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
