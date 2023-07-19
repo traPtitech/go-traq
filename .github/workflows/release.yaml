@@ -39,7 +39,7 @@ jobs:
           fi
 
           git reset HEAD
-      - name: git commit
+      - name: git commit and push
         if: env.HAS_DIFF == 'true'
         run: |
           git config user.name "GitHub Actions"
@@ -47,8 +47,4 @@ jobs:
 
           git add .
           git commit -m "CI: regenerate [ci skip]" --author="ras0q <ras0q@users.noreply.github.com>"
-      - name: git push
-        if: env.HAS_DIFF == 'true'
-        uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push origin master
