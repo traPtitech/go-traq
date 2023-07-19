@@ -26,7 +26,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -34,8 +34,8 @@ func main() {
     all := true // bool | 全てのチャンネルのタイムラインを取得する (optional) (default to false)
     perChannel := true // bool | 同じチャンネルのメッセージは最新のもののみ取得するか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ActivityApi.GetActivityTimeline(context.Background()).Limit(limit).All(all).PerChannel(perChannel).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ActivityApi.GetActivityTimeline``: %v\n", err)
@@ -96,13 +96,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ActivityApi.GetOnlineUsers(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ActivityApi.GetOnlineUsers``: %v\n", err)

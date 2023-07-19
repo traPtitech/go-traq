@@ -26,14 +26,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     url := "url_example" // string | OGPのキャッシュを削除したいURL
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.OgpApi.DeleteOgpCache(context.Background()).Url(url).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `OgpApi.DeleteOgpCache``: %v\n", err)
@@ -90,14 +90,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     url := "url_example" // string | OGPを取得したいURL
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.OgpApi.GetOgp(context.Background()).Url(url).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `OgpApi.GetOgp``: %v\n", err)

@@ -39,15 +39,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postUserTagRequest := *openapiclient.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
+    postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.AddUserTag(context.Background(), userId).PostUserTagRequest(postUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.AddUserTag``: %v\n", err)
@@ -111,15 +111,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
     file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserApi.ChangeUserIcon(context.Background(), userId).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ChangeUserIcon``: %v\n", err)
@@ -181,15 +181,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    putUserPasswordRequest := *openapiclient.NewPutUserPasswordRequest("NewPassword_example") // PutUserPasswordRequest |  (optional)
+    putUserPasswordRequest := *traq.NewPutUserPasswordRequest("NewPassword_example") // PutUserPasswordRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserApi.ChangeUserPassword(context.Background(), userId).PutUserPasswordRequest(putUserPasswordRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ChangeUserPassword``: %v\n", err)
@@ -251,14 +251,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUserRequest := *openapiclient.NewPostUserRequest("Name_example") // PostUserRequest |  (optional)
+    postUserRequest := *traq.NewPostUserRequest("Name_example") // PostUserRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.CreateUser(context.Background()).PostUserRequest(postUserRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.CreateUser``: %v\n", err)
@@ -317,15 +317,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    patchUserRequest := *openapiclient.NewPatchUserRequest() // PatchUserRequest |  (optional)
+    patchUserRequest := *traq.NewPatchUserRequest() // PatchUserRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserApi.EditUser(context.Background(), userId).PatchUserRequest(patchUserRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.EditUser``: %v\n", err)
@@ -387,16 +387,16 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
-    patchUserTagRequest := *openapiclient.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
+    patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserApi.EditUserTag(context.Background(), userId, tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.EditUserTag``: %v\n", err)
@@ -461,7 +461,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -473,8 +473,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetDirectMessages``: %v\n", err)
@@ -543,14 +543,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUser(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUser``: %v\n", err)
@@ -613,14 +613,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "userId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUserDMChannel(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserDMChannel``: %v\n", err)
@@ -683,14 +683,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUserIcon(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserIcon``: %v\n", err)
@@ -753,14 +753,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUserStats(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserStats``: %v\n", err)
@@ -823,14 +823,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUserTags(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserTags``: %v\n", err)
@@ -893,15 +893,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     includeSuspended := true // bool | アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか (optional) (default to false)
     name := "name_example" // string | 名前が一致するアカウントのみを取得する (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.GetUsers(context.Background()).IncludeSuspended(includeSuspended).Name(name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUsers``: %v\n", err)
@@ -961,15 +961,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postMessageRequest := *openapiclient.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserApi.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.PostDirectMessage``: %v\n", err)
@@ -1033,15 +1033,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserApi.RemoveUserTag(context.Background(), userId, tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.RemoveUserTag``: %v\n", err)

@@ -36,14 +36,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postClientRequest := *openapiclient.NewPostClientRequest("Name_example", "CallbackUrl_example", []openapiclient.OAuth2Scope{openapiclient.OAuth2Scope("read")}, "Description_example") // PostClientRequest |  (optional)
+    postClientRequest := *traq.NewPostClientRequest("Name_example", "CallbackUrl_example", []traq.OAuth2Scope{traq.OAuth2Scope("read")}, "Description_example") // PostClientRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.Oauth2Api.CreateClient(context.Background()).PostClientRequest(postClientRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.CreateClient``: %v\n", err)
@@ -102,14 +102,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     clientId := "clientId_example" // string | OAuth2クライアントUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.DeleteClient(context.Background(), clientId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.DeleteClient``: %v\n", err)
@@ -170,15 +170,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     clientId := "clientId_example" // string | OAuth2クライアントUUID
-    patchClientRequest := *openapiclient.NewPatchClientRequest() // PatchClientRequest |  (optional)
+    patchClientRequest := *traq.NewPatchClientRequest() // PatchClientRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.EditClient(context.Background(), clientId).PatchClientRequest(patchClientRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.EditClient``: %v\n", err)
@@ -240,15 +240,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     clientId := "clientId_example" // string | OAuth2クライアントUUID
     detail := true // bool | 詳細情報を含めるかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.Oauth2Api.GetClient(context.Background(), clientId).Detail(detail).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.GetClient``: %v\n", err)
@@ -312,14 +312,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     all := true // bool | 全てのクライアントを取得するかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.Oauth2Api.GetClients(context.Background()).All(all).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.GetClients``: %v\n", err)
@@ -378,13 +378,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.Oauth2Api.GetMyTokens(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.GetMyTokens``: %v\n", err)
@@ -439,22 +439,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     clientId := "clientId_example" // string | 
-    responseType := openapiclient.OAuth2ResponseType("code") // OAuth2ResponseType |  (optional)
+    responseType := traq.OAuth2ResponseType("code") // OAuth2ResponseType |  (optional)
     redirectUri := "redirectUri_example" // string |  (optional)
     scope := "scope_example" // string |  (optional)
     state := "state_example" // string |  (optional)
     codeChallenge := "codeChallenge_example" // string |  (optional)
     codeChallengeMethod := "codeChallengeMethod_example" // string |  (optional)
     nonce := "nonce_example" // string |  (optional)
-    prompt := openapiclient.OAuth2Prompt("none") // OAuth2Prompt |  (optional)
+    prompt := traq.OAuth2Prompt("none") // OAuth2Prompt |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.GetOAuth2Authorize(context.Background()).ClientId(clientId).ResponseType(responseType).RedirectUri(redirectUri).Scope(scope).State(state).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).Nonce(nonce).Prompt(prompt).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.GetOAuth2Authorize``: %v\n", err)
@@ -519,22 +519,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     clientId := "clientId_example" // string | 
-    responseType := openapiclient.OAuth2ResponseType("code") // OAuth2ResponseType |  (optional)
+    responseType := traq.OAuth2ResponseType("code") // OAuth2ResponseType |  (optional)
     redirectUri := "redirectUri_example" // string |  (optional)
     scope := "scope_example" // string |  (optional)
     state := "state_example" // string |  (optional)
     codeChallenge := "codeChallenge_example" // string |  (optional)
     codeChallengeMethod := "codeChallengeMethod_example" // string |  (optional)
     nonce := "nonce_example" // string |  (optional)
-    prompt := openapiclient.OAuth2Prompt("none") // OAuth2Prompt |  (optional)
+    prompt := traq.OAuth2Prompt("none") // OAuth2Prompt |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.PostOAuth2Authorize(context.Background()).ClientId(clientId).ResponseType(responseType).RedirectUri(redirectUri).Scope(scope).State(state).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).Nonce(nonce).Prompt(prompt).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.PostOAuth2Authorize``: %v\n", err)
@@ -599,14 +599,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     submit := "submit_example" // string | 承諾する場合は\\\"approve\\\"
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.PostOAuth2AuthorizeDecide(context.Background()).Submit(submit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.PostOAuth2AuthorizeDecide``: %v\n", err)
@@ -663,7 +663,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -678,8 +678,8 @@ func main() {
     refreshToken := "refreshToken_example" // string |  (optional)
     clientSecret := "clientSecret_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.Oauth2Api.PostOAuth2Token(context.Background()).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).CodeVerifier(codeVerifier).Username(username).Password(password).Scope(scope).RefreshToken(refreshToken).ClientSecret(clientSecret).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.PostOAuth2Token``: %v\n", err)
@@ -747,14 +747,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tokenId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | OAuth2トークンUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.RevokeMyToken(context.Background(), tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.RevokeMyToken``: %v\n", err)
@@ -815,14 +815,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     token := "token_example" // string | 無効化するOAuth2トークンまたはOAuth2リフレッシュトークン
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.Oauth2Api.RevokeOAuth2Token(context.Background()).Token(token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.RevokeOAuth2Token``: %v\n", err)

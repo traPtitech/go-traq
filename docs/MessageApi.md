@@ -39,16 +39,16 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    postMessageStampRequest := *openapiclient.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
+    postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MessageApi.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.AddMessageStamp``: %v\n", err)
@@ -112,14 +112,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.CreatePin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.CreatePin``: %v\n", err)
@@ -182,14 +182,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MessageApi.DeleteMessage(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.DeleteMessage``: %v\n", err)
@@ -250,15 +250,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    postMessageRequest := *openapiclient.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MessageApi.EditMessage(context.Background(), messageId).PostMessageRequest(postMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.EditMessage``: %v\n", err)
@@ -321,7 +321,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -333,8 +333,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetDirectMessages``: %v\n", err)
@@ -403,14 +403,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetMessage(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessage``: %v\n", err)
@@ -473,14 +473,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetMessageClips(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessageClips``: %v\n", err)
@@ -543,14 +543,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetMessageStamps(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessageStamps``: %v\n", err)
@@ -614,7 +614,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -626,8 +626,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessages``: %v\n", err)
@@ -696,14 +696,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.GetPin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetPin``: %v\n", err)
@@ -766,15 +766,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postMessageRequest := *openapiclient.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.PostDirectMessage``: %v\n", err)
@@ -838,15 +838,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    postMessageRequest := *openapiclient.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.PostMessage``: %v\n", err)
@@ -910,15 +910,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MessageApi.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.RemoveMessageStamp``: %v\n", err)
@@ -981,14 +981,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MessageApi.RemovePin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.RemovePin``: %v\n", err)
@@ -1050,7 +1050,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -1071,8 +1071,8 @@ func main() {
     offset := int32(56) // int32 | 検索結果から取得するメッセージのオフセット (optional)
     sort := "sort_example" // string | ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`, 更新日時が新しい `updatedAt`, 更新日時が古い `-updatedAt`) (optional) (default to "-createdAt")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MessageApi.SearchMessages(context.Background()).Word(word).After(after).Before(before).In(in).To(to).From(from).Citation(citation).Bot(bot).HasURL(hasURL).HasAttachments(hasAttachments).HasImage(hasImage).HasVideo(hasVideo).HasAudio(hasAudio).Limit(limit).Offset(offset).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.SearchMessages``: %v\n", err)

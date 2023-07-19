@@ -54,14 +54,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postStarRequest := *openapiclient.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
+    postStarRequest := *traq.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.AddMyStar(context.Background()).PostStarRequest(postStarRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.AddMyStar``: %v\n", err)
@@ -118,14 +118,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUserTagRequest := *openapiclient.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
+    postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.AddMyUserTag(context.Background()).PostUserTagRequest(postUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.AddMyUserTag``: %v\n", err)
@@ -184,14 +184,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.ChangeMyIcon(context.Background()).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.ChangeMyIcon``: %v\n", err)
@@ -248,14 +248,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    putNotifyCitationRequest := *openapiclient.NewPutNotifyCitationRequest(false) // PutNotifyCitationRequest |  (optional)
+    putNotifyCitationRequest := *traq.NewPutNotifyCitationRequest(false) // PutNotifyCitationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.ChangeMyNotifyCitation(context.Background()).PutNotifyCitationRequest(putNotifyCitationRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.ChangeMyNotifyCitation``: %v\n", err)
@@ -312,14 +312,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    putMyPasswordRequest := *openapiclient.NewPutMyPasswordRequest("Password_example", "NewPassword_example") // PutMyPasswordRequest |  (optional)
+    putMyPasswordRequest := *traq.NewPutMyPasswordRequest("Password_example", "NewPassword_example") // PutMyPasswordRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.ChangeMyPassword(context.Background()).PutMyPasswordRequest(putMyPasswordRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.ChangeMyPassword``: %v\n", err)
@@ -376,14 +376,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    patchMeRequest := *openapiclient.NewPatchMeRequest() // PatchMeRequest |  (optional)
+    patchMeRequest := *traq.NewPatchMeRequest() // PatchMeRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.EditMe(context.Background()).PatchMeRequest(patchMeRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.EditMe``: %v\n", err)
@@ -440,15 +440,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
-    patchUserTagRequest := *openapiclient.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
+    patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.EditMyUserTag(context.Background(), tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.EditMyUserTag``: %v\n", err)
@@ -510,13 +510,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMe(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMe``: %v\n", err)
@@ -571,13 +571,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyChannelSubscriptions(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyChannelSubscriptions``: %v\n", err)
@@ -632,13 +632,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyExternalAccounts(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyExternalAccounts``: %v\n", err)
@@ -693,13 +693,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyIcon(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyIcon``: %v\n", err)
@@ -754,13 +754,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyNotifyCitation(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyNotifyCitation``: %v\n", err)
@@ -815,14 +815,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     token := true // bool | 画像でなくトークン文字列で返すかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyQRCode(context.Background()).Token(token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyQRCode``: %v\n", err)
@@ -881,13 +881,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMySessions(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMySessions``: %v\n", err)
@@ -942,14 +942,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     limit := int32(56) // int32 | 件数 (optional) (default to 100)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyStampHistory(context.Background()).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyStampHistory``: %v\n", err)
@@ -1008,13 +1008,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyStars(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyStars``: %v\n", err)
@@ -1069,13 +1069,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyTokens(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyTokens``: %v\n", err)
@@ -1130,13 +1130,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyUnreadChannels(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyUnreadChannels``: %v\n", err)
@@ -1191,13 +1191,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyUserTags(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyUserTags``: %v\n", err)
@@ -1252,13 +1252,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetMyViewStates(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetMyViewStates``: %v\n", err)
@@ -1313,13 +1313,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.MeApi.GetUserSettings(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetUserSettings``: %v\n", err)
@@ -1374,14 +1374,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postLinkExternalAccount := *openapiclient.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
+    postLinkExternalAccount := *traq.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.LinkExternalAccount(context.Background()).PostLinkExternalAccount(postLinkExternalAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.LinkExternalAccount``: %v\n", err)
@@ -1438,14 +1438,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.ReadChannel(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.ReadChannel``: %v\n", err)
@@ -1506,14 +1506,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postMyFCMDeviceRequest := *openapiclient.NewPostMyFCMDeviceRequest("bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1") // PostMyFCMDeviceRequest |  (optional)
+    postMyFCMDeviceRequest := *traq.NewPostMyFCMDeviceRequest("bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1") // PostMyFCMDeviceRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.RegisterFCMDevice(context.Background()).PostMyFCMDeviceRequest(postMyFCMDeviceRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.RegisterFCMDevice``: %v\n", err)
@@ -1570,14 +1570,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.RemoveMyStar(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.RemoveMyStar``: %v\n", err)
@@ -1638,14 +1638,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.RemoveMyUserTag(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.RemoveMyUserTag``: %v\n", err)
@@ -1706,14 +1706,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     sessionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | セッションUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.RevokeMySession(context.Background(), sessionId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.RevokeMySession``: %v\n", err)
@@ -1774,14 +1774,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tokenId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | OAuth2トークンUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.RevokeMyToken(context.Background(), tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.RevokeMyToken``: %v\n", err)
@@ -1842,15 +1842,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelSubscribeLevelRequest := *openapiclient.NewPutChannelSubscribeLevelRequest(openapiclient.ChannelSubscribeLevel(0)) // PutChannelSubscribeLevelRequest |  (optional)
+    putChannelSubscribeLevelRequest := *traq.NewPutChannelSubscribeLevelRequest(traq.ChannelSubscribeLevel(0)) // PutChannelSubscribeLevelRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.SetChannelSubscribeLevel(context.Background(), channelId).PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.SetChannelSubscribeLevel``: %v\n", err)
@@ -1912,14 +1912,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUnlinkExternalAccount := *openapiclient.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
+    postUnlinkExternalAccount := *traq.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.MeApi.UnlinkExternalAccount(context.Background()).PostUnlinkExternalAccount(postUnlinkExternalAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MeApi.UnlinkExternalAccount``: %v\n", err)

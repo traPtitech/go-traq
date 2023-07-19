@@ -31,13 +31,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.AuthenticationApi.GetMyExternalAccounts(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.GetMyExternalAccounts``: %v\n", err)
@@ -92,13 +92,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.AuthenticationApi.GetMySessions(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.GetMySessions``: %v\n", err)
@@ -153,14 +153,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postLinkExternalAccount := *openapiclient.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
+    postLinkExternalAccount := *traq.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.AuthenticationApi.LinkExternalAccount(context.Background()).PostLinkExternalAccount(postLinkExternalAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.LinkExternalAccount``: %v\n", err)
@@ -217,15 +217,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     redirect := "redirect_example" // string | リダイレクト先 (optional)
-    postLoginRequest := *openapiclient.NewPostLoginRequest("Name_example", "Password_example") // PostLoginRequest |  (optional)
+    postLoginRequest := *traq.NewPostLoginRequest("Name_example", "Password_example") // PostLoginRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.AuthenticationApi.Login(context.Background()).Redirect(redirect).PostLoginRequest(postLoginRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.Login``: %v\n", err)
@@ -283,15 +283,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     redirect := "redirect_example" // string | リダイレクト先 (optional)
     all := true // bool | 全てのセッションでログアウトするかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.AuthenticationApi.Logout(context.Background()).Redirect(redirect).All(all).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.Logout``: %v\n", err)
@@ -349,14 +349,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     sessionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | セッションUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.AuthenticationApi.RevokeMySession(context.Background(), sessionId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.RevokeMySession``: %v\n", err)
@@ -417,14 +417,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUnlinkExternalAccount := *openapiclient.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
+    postUnlinkExternalAccount := *traq.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.AuthenticationApi.UnlinkExternalAccount(context.Background()).PostUnlinkExternalAccount(postUnlinkExternalAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.UnlinkExternalAccount``: %v\n", err)

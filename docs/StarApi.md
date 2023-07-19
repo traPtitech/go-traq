@@ -27,14 +27,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postStarRequest := *openapiclient.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
+    postStarRequest := *traq.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StarApi.AddMyStar(context.Background()).PostStarRequest(postStarRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StarApi.AddMyStar``: %v\n", err)
@@ -91,13 +91,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StarApi.GetMyStars(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StarApi.GetMyStars``: %v\n", err)
@@ -152,14 +152,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StarApi.RemoveMyStar(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StarApi.RemoveMyStar``: %v\n", err)

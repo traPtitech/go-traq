@@ -33,15 +33,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     folderId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | クリップフォルダUUID
-    postClipFolderMessageRequest := *openapiclient.NewPostClipFolderMessageRequest("MessageId_example") // PostClipFolderMessageRequest |  (optional)
+    postClipFolderMessageRequest := *traq.NewPostClipFolderMessageRequest("MessageId_example") // PostClipFolderMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.ClipMessage(context.Background(), folderId).PostClipFolderMessageRequest(postClipFolderMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.ClipMessage``: %v\n", err)
@@ -105,14 +105,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postClipFolderRequest := *openapiclient.NewPostClipFolderRequest("Name_example", "Description_example") // PostClipFolderRequest |  (optional)
+    postClipFolderRequest := *traq.NewPostClipFolderRequest("Name_example", "Description_example") // PostClipFolderRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.CreateClipFolder(context.Background()).PostClipFolderRequest(postClipFolderRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.CreateClipFolder``: %v\n", err)
@@ -171,14 +171,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     folderId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | クリップフォルダUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ClipApi.DeleteClipFolder(context.Background(), folderId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.DeleteClipFolder``: %v\n", err)
@@ -239,15 +239,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     folderId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | クリップフォルダUUID
-    patchClipFolderRequest := *openapiclient.NewPatchClipFolderRequest() // PatchClipFolderRequest |  (optional)
+    patchClipFolderRequest := *traq.NewPatchClipFolderRequest() // PatchClipFolderRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ClipApi.EditClipFolder(context.Background(), folderId).PatchClipFolderRequest(patchClipFolderRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.EditClipFolder``: %v\n", err)
@@ -309,14 +309,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     folderId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | クリップフォルダUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.GetClipFolder(context.Background(), folderId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.GetClipFolder``: %v\n", err)
@@ -379,13 +379,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.GetClipFolders(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.GetClipFolders``: %v\n", err)
@@ -440,7 +440,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -449,8 +449,8 @@ func main() {
     offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.GetClips(context.Background(), folderId).Limit(limit).Offset(offset).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.GetClips``: %v\n", err)
@@ -516,14 +516,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ClipApi.GetMessageClips(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.GetMessageClips``: %v\n", err)
@@ -586,15 +586,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     folderId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | クリップフォルダUUID
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ClipApi.UnclipMessage(context.Background(), folderId, messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClipApi.UnclipMessage``: %v\n", err)

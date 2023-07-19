@@ -41,14 +41,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postChannelRequest := *openapiclient.NewPostChannelRequest("Name_example", "Parent_example") // PostChannelRequest |  (optional)
+    postChannelRequest := *traq.NewPostChannelRequest("Name_example", "Parent_example") // PostChannelRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.CreateChannel(context.Background()).PostChannelRequest(postChannelRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.CreateChannel``: %v\n", err)
@@ -107,15 +107,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    patchChannelRequest := *openapiclient.NewPatchChannelRequest() // PatchChannelRequest |  (optional)
+    patchChannelRequest := *traq.NewPatchChannelRequest() // PatchChannelRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ChannelApi.EditChannel(context.Background(), channelId).PatchChannelRequest(patchChannelRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannel``: %v\n", err)
@@ -177,15 +177,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    patchChannelSubscribersRequest := *openapiclient.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
+    patchChannelSubscribersRequest := *traq.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ChannelApi.EditChannelSubscribers(context.Background(), channelId).PatchChannelSubscribersRequest(patchChannelSubscribersRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannelSubscribers``: %v\n", err)
@@ -247,15 +247,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelTopicRequest := *openapiclient.NewPutChannelTopicRequest("Topic_example") // PutChannelTopicRequest |  (optional)
+    putChannelTopicRequest := *traq.NewPutChannelTopicRequest("Topic_example") // PutChannelTopicRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ChannelApi.EditChannelTopic(context.Background(), channelId).PutChannelTopicRequest(putChannelTopicRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannelTopic``: %v\n", err)
@@ -317,14 +317,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannel(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannel``: %v\n", err)
@@ -387,14 +387,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelBots(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelBots``: %v\n", err)
@@ -458,7 +458,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -470,8 +470,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelEvents(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelEvents``: %v\n", err)
@@ -540,14 +540,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelPins(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelPins``: %v\n", err)
@@ -610,14 +610,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelStats(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelStats``: %v\n", err)
@@ -680,14 +680,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelSubscribers(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelSubscribers``: %v\n", err)
@@ -750,14 +750,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelTopic(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelTopic``: %v\n", err)
@@ -820,14 +820,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannelViewers(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelViewers``: %v\n", err)
@@ -890,14 +890,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     includeDm := true // bool | ダイレクトメッセージチャンネルをレスポンスに含めるかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetChannels(context.Background()).IncludeDm(includeDm).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannels``: %v\n", err)
@@ -957,7 +957,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -969,8 +969,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetMessages``: %v\n", err)
@@ -1039,14 +1039,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "userId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.GetUserDMChannel(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetUserDMChannel``: %v\n", err)
@@ -1109,15 +1109,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    postMessageRequest := *openapiclient.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.ChannelApi.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.PostMessage``: %v\n", err)
@@ -1181,15 +1181,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelSubscribersRequest := *openapiclient.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
+    putChannelSubscribersRequest := *traq.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.ChannelApi.SetChannelSubscribers(context.Background(), channelId).PutChannelSubscribersRequest(putChannelSubscribersRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.SetChannelSubscribers``: %v\n", err)

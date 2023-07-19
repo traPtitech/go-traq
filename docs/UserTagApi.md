@@ -33,14 +33,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUserTagRequest := *openapiclient.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
+    postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserTagApi.AddMyUserTag(context.Background()).PostUserTagRequest(postUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.AddMyUserTag``: %v\n", err)
@@ -99,15 +99,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postUserTagRequest := *openapiclient.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
+    postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserTagApi.AddUserTag(context.Background(), userId).PostUserTagRequest(postUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.AddUserTag``: %v\n", err)
@@ -171,15 +171,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
-    patchUserTagRequest := *openapiclient.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
+    patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserTagApi.EditMyUserTag(context.Background(), tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.EditMyUserTag``: %v\n", err)
@@ -241,16 +241,16 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
-    patchUserTagRequest := *openapiclient.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
+    patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserTagApi.EditUserTag(context.Background(), userId, tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.EditUserTag``: %v\n", err)
@@ -314,13 +314,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserTagApi.GetMyUserTags(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.GetMyUserTags``: %v\n", err)
@@ -375,14 +375,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserTagApi.GetTag(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.GetTag``: %v\n", err)
@@ -445,14 +445,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.UserTagApi.GetUserTags(context.Background(), userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.GetUserTags``: %v\n", err)
@@ -515,14 +515,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserTagApi.RemoveMyUserTag(context.Background(), tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.RemoveMyUserTag``: %v\n", err)
@@ -583,15 +583,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
     tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.UserTagApi.RemoveUserTag(context.Background(), userId, tagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserTagApi.RemoveUserTag``: %v\n", err)

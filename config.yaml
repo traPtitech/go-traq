@@ -1,3 +1,9 @@
 enumClassPrefix: true
 structPrefix: true
 packageName: traq
+
+# for docs
+goImportAlias: traq
+gitHost: github.com
+gitUserId: traPtitech
+gitRepoId: go-traq

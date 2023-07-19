@@ -39,14 +39,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.ActivateBot(context.Background(), botId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ActivateBot``: %v\n", err)
@@ -107,15 +107,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
     file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.ChangeBotIcon(context.Background(), botId).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ChangeBotIcon``: %v\n", err)
@@ -177,13 +177,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.ConnectBotWS(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ConnectBotWS``: %v\n", err)
@@ -236,14 +236,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postBotRequest := *openapiclient.NewPostBotRequest("Name_example", "DisplayName_example", "Description_example", openapiclient.BotMode("HTTP")) // PostBotRequest |  (optional)
+    postBotRequest := *traq.NewPostBotRequest("Name_example", "DisplayName_example", "Description_example", traq.BotMode("HTTP")) // PostBotRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.CreateBot(context.Background()).PostBotRequest(postBotRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.CreateBot``: %v\n", err)
@@ -302,14 +302,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.DeleteBot(context.Background(), botId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.DeleteBot``: %v\n", err)
@@ -370,15 +370,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    patchBotRequest := *openapiclient.NewPatchBotRequest() // PatchBotRequest |  (optional)
+    patchBotRequest := *traq.NewPatchBotRequest() // PatchBotRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.EditBot(context.Background(), botId).PatchBotRequest(patchBotRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.EditBot``: %v\n", err)
@@ -440,15 +440,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
     detail := true // bool | 詳細情報を含めるかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.GetBot(context.Background(), botId).Detail(detail).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBot``: %v\n", err)
@@ -512,14 +512,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.GetBotIcon(context.Background(), botId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBotIcon``: %v\n", err)
@@ -582,7 +582,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -590,8 +590,8 @@ func main() {
     limit := int32(50) // int32 | 取得する件数 (optional)
     offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.GetBotLogs(context.Background(), botId).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBotLogs``: %v\n", err)
@@ -656,14 +656,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     all := true // bool | 全てのBOTを取得するかどうか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.GetBots(context.Background()).All(all).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBots``: %v\n", err)
@@ -722,14 +722,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.GetChannelBots(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetChannelBots``: %v\n", err)
@@ -792,14 +792,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.InactivateBot(context.Background(), botId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.InactivateBot``: %v\n", err)
@@ -860,15 +860,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    postBotActionJoinRequest := *openapiclient.NewPostBotActionJoinRequest("ChannelId_example") // PostBotActionJoinRequest |  (optional)
+    postBotActionJoinRequest := *traq.NewPostBotActionJoinRequest("ChannelId_example") // PostBotActionJoinRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.LetBotJoinChannel(context.Background(), botId).PostBotActionJoinRequest(postBotActionJoinRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.LetBotJoinChannel``: %v\n", err)
@@ -930,15 +930,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    postBotActionLeaveRequest := *openapiclient.NewPostBotActionLeaveRequest("ChannelId_example") // PostBotActionLeaveRequest |  (optional)
+    postBotActionLeaveRequest := *traq.NewPostBotActionLeaveRequest("ChannelId_example") // PostBotActionLeaveRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.BotApi.LetBotLeaveChannel(context.Background(), botId).PostBotActionLeaveRequest(postBotActionLeaveRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.LetBotLeaveChannel``: %v\n", err)
@@ -1000,14 +1000,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.BotApi.ReissueBot(context.Background(), botId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ReissueBot``: %v\n", err)

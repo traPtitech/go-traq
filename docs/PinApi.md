@@ -28,14 +28,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.PinApi.CreatePin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PinApi.CreatePin``: %v\n", err)
@@ -98,14 +98,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.PinApi.GetChannelPins(context.Background(), channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PinApi.GetChannelPins``: %v\n", err)
@@ -168,14 +168,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.PinApi.GetPin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PinApi.GetPin``: %v\n", err)
@@ -238,14 +238,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.PinApi.RemovePin(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PinApi.RemovePin``: %v\n", err)

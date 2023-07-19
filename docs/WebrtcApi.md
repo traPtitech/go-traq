@@ -26,13 +26,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebrtcApi.GetWebRTCState(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebrtcApi.GetWebRTCState``: %v\n", err)
@@ -87,14 +87,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postWebRTCAuthenticateRequest := *openapiclient.NewPostWebRTCAuthenticateRequest("PeerId_example") // PostWebRTCAuthenticateRequest |  (optional)
+    postWebRTCAuthenticateRequest := *traq.NewPostWebRTCAuthenticateRequest("PeerId_example") // PostWebRTCAuthenticateRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebrtcApi.PostWebRTCAuthenticate(context.Background()).PostWebRTCAuthenticateRequest(postWebRTCAuthenticateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebrtcApi.PostWebRTCAuthenticate``: %v\n", err)

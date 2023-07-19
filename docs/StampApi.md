@@ -41,16 +41,16 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    postMessageStampRequest := *openapiclient.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
+    postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.AddMessageStamp``: %v\n", err)
@@ -114,15 +114,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
     file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.ChangeStampImage(context.Background(), stampId).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.ChangeStampImage``: %v\n", err)
@@ -184,15 +184,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     name := "name_example" // string | スタンプ名
     file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.CreateStamp(context.Background()).Name(name).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.CreateStamp``: %v\n", err)
@@ -252,14 +252,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postStampPaletteRequest := *openapiclient.NewPostStampPaletteRequest([]string{"Stamps_example"}, "Name_example", "Description_example") // PostStampPaletteRequest |  (optional)
+    postStampPaletteRequest := *traq.NewPostStampPaletteRequest([]string{"Stamps_example"}, "Name_example", "Description_example") // PostStampPaletteRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.CreateStampPalette(context.Background()).PostStampPaletteRequest(postStampPaletteRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.CreateStampPalette``: %v\n", err)
@@ -318,14 +318,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.DeleteStamp(context.Background(), stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.DeleteStamp``: %v\n", err)
@@ -386,14 +386,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.DeleteStampPalette(context.Background(), paletteId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.DeleteStampPalette``: %v\n", err)
@@ -454,15 +454,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    patchStampRequest := *openapiclient.NewPatchStampRequest() // PatchStampRequest |  (optional)
+    patchStampRequest := *traq.NewPatchStampRequest() // PatchStampRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.EditStamp(context.Background(), stampId).PatchStampRequest(patchStampRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.EditStamp``: %v\n", err)
@@ -524,15 +524,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
-    patchStampPaletteRequest := *openapiclient.NewPatchStampPaletteRequest() // PatchStampPaletteRequest |  (optional)
+    patchStampPaletteRequest := *traq.NewPatchStampPaletteRequest() // PatchStampPaletteRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.EditStampPalette(context.Background(), paletteId).PatchStampPaletteRequest(patchStampPaletteRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.EditStampPalette``: %v\n", err)
@@ -594,14 +594,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetMessageStamps(context.Background(), messageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetMessageStamps``: %v\n", err)
@@ -664,14 +664,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     limit := int32(56) // int32 | 件数 (optional) (default to 100)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetMyStampHistory(context.Background()).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetMyStampHistory``: %v\n", err)
@@ -730,14 +730,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStamp(context.Background(), stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStamp``: %v\n", err)
@@ -800,14 +800,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStampImage(context.Background(), stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampImage``: %v\n", err)
@@ -870,14 +870,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStampPalette(context.Background(), paletteId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampPalette``: %v\n", err)
@@ -940,13 +940,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStampPalettes(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampPalettes``: %v\n", err)
@@ -1001,14 +1001,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStampStats(context.Background(), stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampStats``: %v\n", err)
@@ -1071,15 +1071,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     includeUnicode := true // bool | Unicode絵文字を含ませるかどうか Deprecated: typeクエリを指定しなければ全てのスタンプを取得できるため、そちらを利用してください  (optional) (default to true)
     type_ := "type__example" // string | 取得するスタンプの種類 (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.StampApi.GetStamps(context.Background()).IncludeUnicode(includeUnicode).Type_(type_).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStamps``: %v\n", err)
@@ -1139,15 +1139,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
     stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.StampApi.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.RemoveMessageStamp``: %v\n", err)

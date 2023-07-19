@@ -37,15 +37,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
-    postUserGroupAdminRequest := *openapiclient.NewPostUserGroupAdminRequest("Id_example") // PostUserGroupAdminRequest |  (optional)
+    postUserGroupAdminRequest := *traq.NewPostUserGroupAdminRequest("Id_example") // PostUserGroupAdminRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.AddUserGroupAdmin(context.Background(), groupId).PostUserGroupAdminRequest(postUserGroupAdminRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.AddUserGroupAdmin``: %v\n", err)
@@ -107,15 +107,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
-    userGroupMember := *openapiclient.NewUserGroupMember("Id_example", "Role_example") // UserGroupMember |  (optional)
+    userGroupMember := *traq.NewUserGroupMember("Id_example", "Role_example") // UserGroupMember |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.AddUserGroupMember(context.Background(), groupId).UserGroupMember(userGroupMember).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.AddUserGroupMember``: %v\n", err)
@@ -177,15 +177,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
     file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.ChangeUserGroupIcon(context.Background(), groupId).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.ChangeUserGroupIcon``: %v\n", err)
@@ -247,14 +247,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUserGroupRequest := *openapiclient.NewPostUserGroupRequest("Name_example", "Description_example", "Type_example") // PostUserGroupRequest |  (optional)
+    postUserGroupRequest := *traq.NewPostUserGroupRequest("Name_example", "Description_example", "Type_example") // PostUserGroupRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.GroupApi.CreateUserGroup(context.Background()).PostUserGroupRequest(postUserGroupRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.CreateUserGroup``: %v\n", err)
@@ -313,14 +313,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.DeleteUserGroup(context.Background(), groupId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.DeleteUserGroup``: %v\n", err)
@@ -381,15 +381,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
-    patchUserGroupRequest := *openapiclient.NewPatchUserGroupRequest() // PatchUserGroupRequest |  (optional)
+    patchUserGroupRequest := *traq.NewPatchUserGroupRequest() // PatchUserGroupRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.EditUserGroup(context.Background(), groupId).PatchUserGroupRequest(patchUserGroupRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.EditUserGroup``: %v\n", err)
@@ -451,16 +451,16 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    patchGroupMemberRequest := *openapiclient.NewPatchGroupMemberRequest("Role_example") // PatchGroupMemberRequest |  (optional)
+    patchGroupMemberRequest := *traq.NewPatchGroupMemberRequest("Role_example") // PatchGroupMemberRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.EditUserGroupMember(context.Background(), groupId, userId).PatchGroupMemberRequest(patchGroupMemberRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.EditUserGroupMember``: %v\n", err)
@@ -524,14 +524,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.GroupApi.GetUserGroup(context.Background(), groupId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.GetUserGroup``: %v\n", err)
@@ -594,14 +594,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.GroupApi.GetUserGroupAdmins(context.Background(), groupId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.GetUserGroupAdmins``: %v\n", err)
@@ -664,14 +664,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.GroupApi.GetUserGroupMembers(context.Background(), groupId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.GetUserGroupMembers``: %v\n", err)
@@ -734,13 +734,13 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.GroupApi.GetUserGroups(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.GetUserGroups``: %v\n", err)
@@ -795,15 +795,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.RemoveUserGroupAdmin(context.Background(), groupId, userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.RemoveUserGroupAdmin``: %v\n", err)
@@ -866,15 +866,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.GroupApi.RemoveUserGroupMember(context.Background(), groupId, userId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.RemoveUserGroupMember``: %v\n", err)

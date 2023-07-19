@@ -33,15 +33,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
     file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.WebhookApi.ChangeWebhookIcon(context.Background(), webhookId).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.ChangeWebhookIcon``: %v\n", err)
@@ -103,14 +103,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postWebhookRequest := *openapiclient.NewPostWebhookRequest("Name_example", "Description_example", "ChannelId_example", "Secret_example") // PostWebhookRequest |  (optional)
+    postWebhookRequest := *traq.NewPostWebhookRequest("Name_example", "Description_example", "ChannelId_example", "Secret_example") // PostWebhookRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebhookApi.CreateWebhook(context.Background()).PostWebhookRequest(postWebhookRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.CreateWebhook``: %v\n", err)
@@ -169,14 +169,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.WebhookApi.DeleteWebhook(context.Background(), webhookId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.DeleteWebhook``: %v\n", err)
@@ -237,15 +237,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
-    patchWebhookRequest := *openapiclient.NewPatchWebhookRequest() // PatchWebhookRequest |  (optional)
+    patchWebhookRequest := *traq.NewPatchWebhookRequest() // PatchWebhookRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.WebhookApi.EditWebhook(context.Background(), webhookId).PatchWebhookRequest(patchWebhookRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.EditWebhook``: %v\n", err)
@@ -307,14 +307,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebhookApi.GetWebhook(context.Background(), webhookId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.GetWebhook``: %v\n", err)
@@ -377,14 +377,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebhookApi.GetWebhookIcon(context.Background(), webhookId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.GetWebhookIcon``: %v\n", err)
@@ -448,7 +448,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -460,8 +460,8 @@ func main() {
     inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebhookApi.GetWebhookMessages(context.Background(), webhookId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.GetWebhookMessages``: %v\n", err)
@@ -530,14 +530,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     all := true // bool | 全てのWebhookを取得します。権限が必要です。 (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.WebhookApi.GetWebhooks(context.Background()).All(all).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.GetWebhooks``: %v\n", err)
@@ -596,7 +596,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -606,8 +606,8 @@ func main() {
     embed := int32(56) // int32 | メンション・チャンネルリンクを自動埋め込みする場合に1を指定する (optional) (default to 0)
     body := "body_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.WebhookApi.PostWebhook(context.Background(), webhookId).XTRAQSignature(xTRAQSignature).XTRAQChannelId(xTRAQChannelId).Embed(embed).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhookApi.PostWebhook``: %v\n", err)

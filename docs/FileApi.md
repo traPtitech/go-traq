@@ -30,14 +30,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     r, err := apiClient.FileApi.DeleteFile(context.Background(), fileId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.DeleteFile``: %v\n", err)
@@ -98,15 +98,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
     dl := int32(56) // int32 | 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.FileApi.GetFile(context.Background(), fileId).Dl(dl).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFile``: %v\n", err)
@@ -170,14 +170,14 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.FileApi.GetFileMeta(context.Background(), fileId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFileMeta``: %v\n", err)
@@ -241,7 +241,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
@@ -254,8 +254,8 @@ func main() {
     order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
     mine := true // bool | アップロード者が自分のファイルのみを取得するか (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.FileApi.GetFiles(context.Background()).ChannelId(channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Mine(mine).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFiles``: %v\n", err)
@@ -321,15 +321,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
-    type_ := openapiclient.ThumbnailType("image") // ThumbnailType | 取得するサムネイルのタイプ (optional) (default to "image")
+    type_ := traq.ThumbnailType("image") // ThumbnailType | 取得するサムネイルのタイプ (optional) (default to "image")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.FileApi.GetThumbnailImage(context.Background(), fileId).Type_(type_).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetThumbnailImage``: %v\n", err)
@@ -393,15 +393,15 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+    traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
     file := os.NewFile(1234, "some_file") // *os.File | ファイル本体
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | アップロード先チャンネルUUID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
     resp, r, err := apiClient.FileApi.PostFile(context.Background()).File(file).ChannelId(channelId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FileApi.PostFile``: %v\n", err)
