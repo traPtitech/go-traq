@@ -24,8 +24,6 @@ java -jar openapi-generator-cli.jar generate \
   -g go \
   -c config.yaml
 
-go run internal/main.go
-
 go fmt ./...
 
 rm -rf ./test
