@@ -26,9 +26,7 @@ java -jar openapi-generator-cli.jar generate \
   -c config.yaml
 mv README.md client.md
 mv README.md.bak README.md
-
-go fmt ./...
-
 rm -rf ./test
 
+go fmt ./...
 go mod tidy
