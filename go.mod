@@ -1,9 +1,12 @@
 module github.com/traPtitech/go-traq
 
-go 1.12
+go 1.18
+
+require golang.org/x/oauth2 v0.0.0-20210323180902-22b0adad7558
 
 require (
-	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
-	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	github.com/golang/protobuf v1.4.2 // indirect
+	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	google.golang.org/appengine v1.6.6 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
 )
