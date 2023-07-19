@@ -31,6 +31,7 @@ type UserApiAddUserTagRequest struct {
 	postUserTagRequest *PostUserTagRequest
 }
 
+//
 func (r UserApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserApiAddUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
@@ -46,9 +47,9 @@ AddUserTag ユーザーにタグを追加
 指定したユーザーに指定したタグを追加します。
 Webhookユーザーにタグを追加することは出来ません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiAddUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiAddUserTagRequest
 */
 func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiAddUserTagRequest {
 	return UserApiAddUserTagRequest{
@@ -59,8 +60,7 @@ func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiA
 }
 
 // Execute executes the request
-//
-//	@return UserTag
+//  @return UserTag
 func (a *UserApiService) AddUserTagExecute(r UserApiAddUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -160,9 +160,9 @@ ChangeUserIcon ユーザーのアイコン画像を変更します
 指定したユーザーのアイコン画像を変更します。
 管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiChangeUserIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiChangeUserIconRequest
 */
 func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) UserApiChangeUserIconRequest {
 	return UserApiChangeUserIconRequest{
@@ -263,6 +263,7 @@ type UserApiChangeUserPasswordRequest struct {
 	putUserPasswordRequest *PutUserPasswordRequest
 }
 
+//
 func (r UserApiChangeUserPasswordRequest) PutUserPasswordRequest(putUserPasswordRequest PutUserPasswordRequest) UserApiChangeUserPasswordRequest {
 	r.putUserPasswordRequest = &putUserPasswordRequest
 	return r
@@ -278,9 +279,9 @@ ChangeUserPassword ユーザーのパスワードを変更
 指定したユーザーのパスワードを変更します。
 管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiChangeUserPasswordRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiChangeUserPasswordRequest
 */
 func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) UserApiChangeUserPasswordRequest {
 	return UserApiChangeUserPasswordRequest{
@@ -363,6 +364,7 @@ type UserApiCreateUserRequest struct {
 	postUserRequest *PostUserRequest
 }
 
+//
 func (r UserApiCreateUserRequest) PostUserRequest(postUserRequest PostUserRequest) UserApiCreateUserRequest {
 	r.postUserRequest = &postUserRequest
 	return r
@@ -378,8 +380,8 @@ CreateUser ユーザーを登録
 ユーザーを登録します。
 管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return UserApiCreateUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return UserApiCreateUserRequest
 */
 func (a *UserApiService) CreateUser(ctx context.Context) UserApiCreateUserRequest {
 	return UserApiCreateUserRequest{
@@ -389,8 +391,7 @@ func (a *UserApiService) CreateUser(ctx context.Context) UserApiCreateUserReques
 }
 
 // Execute executes the request
-//
-//	@return UserDetail
+//  @return UserDetail
 func (a *UserApiService) CreateUserExecute(r UserApiCreateUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -488,9 +489,9 @@ EditUser ユーザー情報を変更
 指定したユーザーの情報を変更します。
 管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiEditUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiEditUserRequest
 */
 func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiEditUserRequest {
 	return UserApiEditUserRequest{
@@ -575,6 +576,7 @@ type UserApiEditUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
+//
 func (r UserApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserApiEditUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
@@ -590,10 +592,10 @@ EditUserTag ユーザーのタグを編集
 指定したユーザーの指定したタグの状態を変更します。
 他人の状態は変更できません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@param tagId タグUUID
-	@return UserApiEditUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @param tagId タグUUID
+ @return UserApiEditUserTagRequest
 */
 func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserApiEditUserTagRequest {
 	return UserApiEditUserTagRequest{
@@ -729,9 +731,9 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 指定したユーザーとのダイレクトメッセージのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiGetDirectMessagesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiGetDirectMessagesRequest
 */
 func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) UserApiGetDirectMessagesRequest {
 	return UserApiGetDirectMessagesRequest{
@@ -742,8 +744,7 @@ func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) U
 }
 
 // Execute executes the request
-//
-//	@return []Message
+//  @return []Message
 func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -851,9 +852,9 @@ GetUser ユーザー詳細情報を取得
 
 指定したユーザーの詳細情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiGetUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiGetUserRequest
 */
 func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiGetUserRequest {
 	return UserApiGetUserRequest{
@@ -864,8 +865,7 @@ func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiGetU
 }
 
 // Execute executes the request
-//
-//	@return UserDetail
+//  @return UserDetail
 func (a *UserApiService) GetUserExecute(r UserApiGetUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -956,9 +956,9 @@ GetUserDMChannel DMチャンネル情報を取得
 指定したユーザーとのダイレクトメッセージチャンネルの情報を返します。
 ダイレクトメッセージチャンネルが存在しなかった場合、自動的に作成されます。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId
-	@return UserApiGetUserDMChannelRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId
+ @return UserApiGetUserDMChannelRequest
 */
 func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) UserApiGetUserDMChannelRequest {
 	return UserApiGetUserDMChannelRequest{
@@ -969,8 +969,7 @@ func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) Us
 }
 
 // Execute executes the request
-//
-//	@return DMChannel
+//  @return DMChannel
 func (a *UserApiService) GetUserDMChannelExecute(r UserApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1060,9 +1059,9 @@ GetUserIcon ユーザーのアイコン画像を取得
 
 指定したユーザーのアイコン画像を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiGetUserIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiGetUserIconRequest
 */
 func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApiGetUserIconRequest {
 	return UserApiGetUserIconRequest{
@@ -1073,8 +1072,7 @@ func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApi
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *UserApiService) GetUserIconExecute(r UserApiGetUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1164,9 +1162,9 @@ GetUserStats ユーザー統計情報を取得
 
 指定したユーザーの統計情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiGetUserStatsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiGetUserStatsRequest
 */
 func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserApiGetUserStatsRequest {
 	return UserApiGetUserStatsRequest{
@@ -1177,8 +1175,7 @@ func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserAp
 }
 
 // Execute executes the request
-//
-//	@return UserStats
+//  @return UserStats
 func (a *UserApiService) GetUserStatsExecute(r UserApiGetUserStatsRequest) (*UserStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1268,9 +1265,9 @@ GetUserTags ユーザーのタグリストを取得
 
 指定したユーザーのタグリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiGetUserTagsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiGetUserTagsRequest
 */
 func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApiGetUserTagsRequest {
 	return UserApiGetUserTagsRequest{
@@ -1281,8 +1278,7 @@ func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApi
 }
 
 // Execute executes the request
-//
-//	@return []UserTag
+//  @return []UserTag
 func (a *UserApiService) GetUserTagsExecute(r UserApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1387,8 +1383,8 @@ GetUsers ユーザーのリストを取得
 `include-suspended`を指定しない場合、レスポンスにはユーザーアカウント状態が"1: 有効"であるユーザーのみが含まれます。
 `include-suspended`と`name`を同時に指定することはできません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return UserApiGetUsersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return UserApiGetUsersRequest
 */
 func (a *UserApiService) GetUsers(ctx context.Context) UserApiGetUsersRequest {
 	return UserApiGetUsersRequest{
@@ -1398,8 +1394,7 @@ func (a *UserApiService) GetUsers(ctx context.Context) UserApiGetUsersRequest {
 }
 
 // Execute executes the request
-//
-//	@return []User
+//  @return []User
 func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1500,9 +1495,9 @@ PostDirectMessage ダイレクトメッセージを送信
 
 指定したユーザーにダイレクトメッセージを送信します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return UserApiPostDirectMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return UserApiPostDirectMessageRequest
 */
 func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) UserApiPostDirectMessageRequest {
 	return UserApiPostDirectMessageRequest{
@@ -1513,8 +1508,7 @@ func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) U
 }
 
 // Execute executes the request
-//
-//	@return Message
+//  @return Message
 func (a *UserApiService) PostDirectMessageExecute(r UserApiPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1607,10 +1601,10 @@ RemoveUserTag ユーザーからタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@param tagId タグUUID
-	@return UserApiRemoveUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @param tagId タグUUID
+ @return UserApiRemoveUserTagRequest
 */
 func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserApiRemoveUserTagRequest {
 	return UserApiRemoveUserTagRequest{

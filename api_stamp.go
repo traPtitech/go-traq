@@ -31,6 +31,7 @@ type StampApiAddMessageStampRequest struct {
 	postMessageStampRequest *PostMessageStampRequest
 }
 
+//
 func (r StampApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) StampApiAddMessageStampRequest {
 	r.postMessageStampRequest = &postMessageStampRequest
 	return r
@@ -45,10 +46,10 @@ AddMessageStamp スタンプを押す
 
 指定したメッセージに指定したスタンプを押します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@param stampId スタンプUUID
-	@return StampApiAddMessageStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @param stampId スタンプUUID
+ @return StampApiAddMessageStampRequest
 */
 func (a *StampApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) StampApiAddMessageStampRequest {
 	return StampApiAddMessageStampRequest{
@@ -149,9 +150,9 @@ ChangeStampImage スタンプ画像を変更
 
 指定したスタンプの画像を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiChangeStampImageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiChangeStampImageRequest
 */
 func (a *StampApiService) ChangeStampImage(ctx context.Context, stampId string) StampApiChangeStampImageRequest {
 	return StampApiChangeStampImageRequest{
@@ -273,8 +274,8 @@ CreateStamp スタンプを作成
 
 スタンプを新規作成します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StampApiCreateStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return StampApiCreateStampRequest
 */
 func (a *StampApiService) CreateStamp(ctx context.Context) StampApiCreateStampRequest {
 	return StampApiCreateStampRequest{
@@ -284,8 +285,7 @@ func (a *StampApiService) CreateStamp(ctx context.Context) StampApiCreateStampRe
 }
 
 // Execute executes the request
-//
-//	@return Stamp
+//  @return Stamp
 func (a *StampApiService) CreateStampExecute(r StampApiCreateStampRequest) (*Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -402,8 +402,8 @@ CreateStampPalette スタンプパレットを作成
 
 スタンプパレットを作成します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StampApiCreateStampPaletteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return StampApiCreateStampPaletteRequest
 */
 func (a *StampApiService) CreateStampPalette(ctx context.Context) StampApiCreateStampPaletteRequest {
 	return StampApiCreateStampPaletteRequest{
@@ -413,8 +413,7 @@ func (a *StampApiService) CreateStampPalette(ctx context.Context) StampApiCreate
 }
 
 // Execute executes the request
-//
-//	@return StampPalette
+//  @return StampPalette
 func (a *StampApiService) CreateStampPaletteExecute(r StampApiCreateStampPaletteRequest) (*StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -506,9 +505,9 @@ DeleteStamp スタンプを削除
 指定したスタンプを削除します。
 対象のスタンプの削除権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiDeleteStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiDeleteStampRequest
 */
 func (a *StampApiService) DeleteStamp(ctx context.Context, stampId string) StampApiDeleteStampRequest {
 	return StampApiDeleteStampRequest{
@@ -599,9 +598,9 @@ DeleteStampPalette スタンプパレットを削除
 指定したスタンプパレットを削除します。
 対象のスタンプパレットの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param paletteId スタンプパレットUUID
-	@return StampApiDeleteStampPaletteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paletteId スタンプパレットUUID
+ @return StampApiDeleteStampPaletteRequest
 */
 func (a *StampApiService) DeleteStampPalette(ctx context.Context, paletteId string) StampApiDeleteStampPaletteRequest {
 	return StampApiDeleteStampPaletteRequest{
@@ -697,9 +696,9 @@ EditStamp スタンプ情報を変更
 
 指定したスタンプの情報を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiEditStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiEditStampRequest
 */
 func (a *StampApiService) EditStamp(ctx context.Context, stampId string) StampApiEditStampRequest {
 	return StampApiEditStampRequest{
@@ -799,9 +798,9 @@ EditStampPalette スタンプパレットを編集
 リクエストのスタンプの配列の順番は保存されて変更されます。
 対象のスタンプパレットの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param paletteId スタンプパレットUUID
-	@return StampApiEditStampPaletteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paletteId スタンプパレットUUID
+ @return StampApiEditStampPaletteRequest
 */
 func (a *StampApiService) EditStampPalette(ctx context.Context, paletteId string) StampApiEditStampPaletteRequest {
 	return StampApiEditStampPaletteRequest{
@@ -893,9 +892,9 @@ GetMessageStamps メッセージのスタンプリストを取得
 
 指定したメッセージに押されているスタンプのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return StampApiGetMessageStampsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return StampApiGetMessageStampsRequest
 */
 func (a *StampApiService) GetMessageStamps(ctx context.Context, messageId string) StampApiGetMessageStampsRequest {
 	return StampApiGetMessageStampsRequest{
@@ -906,8 +905,7 @@ func (a *StampApiService) GetMessageStamps(ctx context.Context, messageId string
 }
 
 // Execute executes the request
-//
-//	@return []MessageStamp
+//  @return []MessageStamp
 func (a *StampApiService) GetMessageStampsExecute(r StampApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1006,8 +1004,8 @@ GetMyStampHistory スタンプ履歴を取得
 
 このAPIが返すスタンプ履歴は厳密な履歴ではありません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StampApiGetMyStampHistoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return StampApiGetMyStampHistoryRequest
 */
 func (a *StampApiService) GetMyStampHistory(ctx context.Context) StampApiGetMyStampHistoryRequest {
 	return StampApiGetMyStampHistoryRequest{
@@ -1017,8 +1015,7 @@ func (a *StampApiService) GetMyStampHistory(ctx context.Context) StampApiGetMySt
 }
 
 // Execute executes the request
-//
-//	@return []StampHistoryEntry
+//  @return []StampHistoryEntry
 func (a *StampApiService) GetMyStampHistoryExecute(r StampApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1110,9 +1107,9 @@ GetStamp スタンプ情報を取得
 
 指定したスタンプの情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiGetStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiGetStampRequest
 */
 func (a *StampApiService) GetStamp(ctx context.Context, stampId string) StampApiGetStampRequest {
 	return StampApiGetStampRequest{
@@ -1123,8 +1120,7 @@ func (a *StampApiService) GetStamp(ctx context.Context, stampId string) StampApi
 }
 
 // Execute executes the request
-//
-//	@return Stamp
+//  @return Stamp
 func (a *StampApiService) GetStampExecute(r StampApiGetStampRequest) (*Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1214,9 +1210,9 @@ GetStampImage スタンプ画像を取得
 
 指定したIDのスタンプ画像を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiGetStampImageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiGetStampImageRequest
 */
 func (a *StampApiService) GetStampImage(ctx context.Context, stampId string) StampApiGetStampImageRequest {
 	return StampApiGetStampImageRequest{
@@ -1227,8 +1223,7 @@ func (a *StampApiService) GetStampImage(ctx context.Context, stampId string) Sta
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *StampApiService) GetStampImageExecute(r StampApiGetStampImageRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1318,9 +1313,9 @@ GetStampPalette スタンプパレットを取得
 
 指定したスタンプパレットの情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param paletteId スタンプパレットUUID
-	@return StampApiGetStampPaletteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paletteId スタンプパレットUUID
+ @return StampApiGetStampPaletteRequest
 */
 func (a *StampApiService) GetStampPalette(ctx context.Context, paletteId string) StampApiGetStampPaletteRequest {
 	return StampApiGetStampPaletteRequest{
@@ -1331,8 +1326,7 @@ func (a *StampApiService) GetStampPalette(ctx context.Context, paletteId string)
 }
 
 // Execute executes the request
-//
-//	@return StampPalette
+//  @return StampPalette
 func (a *StampApiService) GetStampPaletteExecute(r StampApiGetStampPaletteRequest) (*StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1421,8 +1415,8 @@ GetStampPalettes スタンプパレットのリストを取得
 
 自身が所有しているスタンプパレットのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StampApiGetStampPalettesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return StampApiGetStampPalettesRequest
 */
 func (a *StampApiService) GetStampPalettes(ctx context.Context) StampApiGetStampPalettesRequest {
 	return StampApiGetStampPalettesRequest{
@@ -1432,8 +1426,7 @@ func (a *StampApiService) GetStampPalettes(ctx context.Context) StampApiGetStamp
 }
 
 // Execute executes the request
-//
-//	@return []StampPalette
+//  @return []StampPalette
 func (a *StampApiService) GetStampPalettesExecute(r StampApiGetStampPalettesRequest) ([]StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1522,9 +1515,9 @@ GetStampStats スタンプ統計情報を取得
 
 指定したスタンプの統計情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param stampId スタンプUUID
-	@return StampApiGetStampStatsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param stampId スタンプUUID
+ @return StampApiGetStampStatsRequest
 */
 func (a *StampApiService) GetStampStats(ctx context.Context, stampId string) StampApiGetStampStatsRequest {
 	return StampApiGetStampStatsRequest{
@@ -1535,8 +1528,7 @@ func (a *StampApiService) GetStampStats(ctx context.Context, stampId string) Sta
 }
 
 // Execute executes the request
-//
-//	@return StampStats
+//  @return StampStats
 func (a *StampApiService) GetStampStatsExecute(r StampApiGetStampStatsRequest) (*StampStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1640,8 +1632,8 @@ GetStamps スタンプリストを取得
 
 スタンプのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StampApiGetStampsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return StampApiGetStampsRequest
 */
 func (a *StampApiService) GetStamps(ctx context.Context) StampApiGetStampsRequest {
 	return StampApiGetStampsRequest{
@@ -1651,8 +1643,7 @@ func (a *StampApiService) GetStamps(ctx context.Context) StampApiGetStampsReques
 }
 
 // Execute executes the request
-//
-//	@return []Stamp
+//  @return []Stamp
 func (a *StampApiService) GetStampsExecute(r StampApiGetStampsRequest) ([]Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1748,10 +1739,10 @@ RemoveMessageStamp スタンプを消す
 
 指定したメッセージから指定した自身が押したスタンプを削除します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@param stampId スタンプUUID
-	@return StampApiRemoveMessageStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @param stampId スタンプUUID
+ @return StampApiRemoveMessageStampRequest
 */
 func (a *StampApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) StampApiRemoveMessageStampRequest {
 	return StampApiRemoveMessageStampRequest{
