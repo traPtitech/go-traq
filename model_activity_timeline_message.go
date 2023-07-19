@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ActivityTimelineMessage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ActivityTimelineMessage{}
+
 // ActivityTimelineMessage Timelineアクテビティ用メッセージ
 type ActivityTimelineMessage struct {
 	// メッセージUUID
@@ -199,26 +202,22 @@ func (o *ActivityTimelineMessage) SetUpdatedAt(v time.Time) {
 }
 
 func (o ActivityTimelineMessage) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["content"] = o.Content
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ActivityTimelineMessage) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["userId"] = o.UserId
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["content"] = o.Content
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
 }
 
 type NullableActivityTimelineMessage struct {

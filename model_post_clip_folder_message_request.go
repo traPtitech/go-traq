@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostClipFolderMessageRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostClipFolderMessageRequest{}
+
 // PostClipFolderMessageRequest クリップ追加リクエスト
 type PostClipFolderMessageRequest struct {
 	// メッセージUUID
@@ -63,11 +66,17 @@ func (o *PostClipFolderMessageRequest) SetMessageId(v string) {
 }
 
 func (o PostClipFolderMessageRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["messageId"] = o.MessageId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostClipFolderMessageRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["messageId"] = o.MessageId
+	return toSerialize, nil
 }
 
 type NullablePostClipFolderMessageRequest struct {

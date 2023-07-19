@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientDetail{}
+
 // OAuth2ClientDetail OAuth2クライアント詳細情報
 type OAuth2ClientDetail struct {
 	// クライアントUUID
@@ -225,29 +228,23 @@ func (o *OAuth2ClientDetail) SetSecret(v string) {
 }
 
 func (o OAuth2ClientDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["developerId"] = o.DeveloperId
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if true {
-		toSerialize["callbackUrl"] = o.CallbackUrl
-	}
-	if true {
-		toSerialize["secret"] = o.Secret
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["developerId"] = o.DeveloperId
+	toSerialize["description"] = o.Description
+	toSerialize["name"] = o.Name
+	toSerialize["scopes"] = o.Scopes
+	toSerialize["callbackUrl"] = o.CallbackUrl
+	toSerialize["secret"] = o.Secret
+	return toSerialize, nil
 }
 
 type NullableOAuth2ClientDetail struct {

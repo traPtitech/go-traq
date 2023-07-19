@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostLoginRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostLoginRequest{}
+
 // PostLoginRequest ログインリクエスト
 type PostLoginRequest struct {
 	// ユーザー名
@@ -90,14 +93,18 @@ func (o *PostLoginRequest) SetPassword(v string) {
 }
 
 func (o PostLoginRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["password"] = o.Password
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostLoginRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["password"] = o.Password
+	return toSerialize, nil
 }
 
 type NullablePostLoginRequest struct {

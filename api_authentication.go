@@ -13,26 +13,21 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // AuthenticationApiService AuthenticationApi service
 type AuthenticationApiService service
 
-type AuthenticationApiApiGetMyExternalAccountsRequest struct {
+type AuthenticationApiGetMyExternalAccountsRequest struct {
 	ctx        context.Context
 	ApiService *AuthenticationApiService
 }
 
-func (r AuthenticationApiApiGetMyExternalAccountsRequest) Execute() ([]ExternalProviderUser, *http.Response, error) {
+func (r AuthenticationApiGetMyExternalAccountsRequest) Execute() ([]ExternalProviderUser, *http.Response, error) {
 	return r.ApiService.GetMyExternalAccountsExecute(r)
 }
 
@@ -41,19 +36,20 @@ GetMyExternalAccounts 外部ログインアカウント一覧を取得
 
 自分に紐付けられている外部ログインアカウント一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiGetMyExternalAccountsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiGetMyExternalAccountsRequest
 */
-func (a *AuthenticationApiService) GetMyExternalAccounts(ctx context.Context) AuthenticationApiApiGetMyExternalAccountsRequest {
-	return AuthenticationApiApiGetMyExternalAccountsRequest{
+func (a *AuthenticationApiService) GetMyExternalAccounts(ctx context.Context) AuthenticationApiGetMyExternalAccountsRequest {
+	return AuthenticationApiGetMyExternalAccountsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ExternalProviderUser
-func (a *AuthenticationApiService) GetMyExternalAccountsExecute(r AuthenticationApiApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
+//
+//	@return []ExternalProviderUser
+func (a *AuthenticationApiService) GetMyExternalAccountsExecute(r AuthenticationApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -99,9 +95,9 @@ func (a *AuthenticationApiService) GetMyExternalAccountsExecute(r Authentication
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -126,12 +122,12 @@ func (a *AuthenticationApiService) GetMyExternalAccountsExecute(r Authentication
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiGetMySessionsRequest struct {
+type AuthenticationApiGetMySessionsRequest struct {
 	ctx        context.Context
 	ApiService *AuthenticationApiService
 }
 
-func (r AuthenticationApiApiGetMySessionsRequest) Execute() ([]LoginSession, *http.Response, error) {
+func (r AuthenticationApiGetMySessionsRequest) Execute() ([]LoginSession, *http.Response, error) {
 	return r.ApiService.GetMySessionsExecute(r)
 }
 
@@ -140,19 +136,20 @@ GetMySessions 自分のログインセッションリストを取得
 
 自分のログインセッションのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiGetMySessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiGetMySessionsRequest
 */
-func (a *AuthenticationApiService) GetMySessions(ctx context.Context) AuthenticationApiApiGetMySessionsRequest {
-	return AuthenticationApiApiGetMySessionsRequest{
+func (a *AuthenticationApiService) GetMySessions(ctx context.Context) AuthenticationApiGetMySessionsRequest {
+	return AuthenticationApiGetMySessionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []LoginSession
-func (a *AuthenticationApiService) GetMySessionsExecute(r AuthenticationApiApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
+//
+//	@return []LoginSession
+func (a *AuthenticationApiService) GetMySessionsExecute(r AuthenticationApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -198,9 +195,9 @@ func (a *AuthenticationApiService) GetMySessionsExecute(r AuthenticationApiApiGe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -225,18 +222,18 @@ func (a *AuthenticationApiService) GetMySessionsExecute(r AuthenticationApiApiGe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiLinkExternalAccountRequest struct {
+type AuthenticationApiLinkExternalAccountRequest struct {
 	ctx                     context.Context
 	ApiService              *AuthenticationApiService
 	postLinkExternalAccount *PostLinkExternalAccount
 }
 
-func (r AuthenticationApiApiLinkExternalAccountRequest) PostLinkExternalAccount(postLinkExternalAccount PostLinkExternalAccount) AuthenticationApiApiLinkExternalAccountRequest {
+func (r AuthenticationApiLinkExternalAccountRequest) PostLinkExternalAccount(postLinkExternalAccount PostLinkExternalAccount) AuthenticationApiLinkExternalAccountRequest {
 	r.postLinkExternalAccount = &postLinkExternalAccount
 	return r
 }
 
-func (r AuthenticationApiApiLinkExternalAccountRequest) Execute() (*http.Response, error) {
+func (r AuthenticationApiLinkExternalAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LinkExternalAccountExecute(r)
 }
 
@@ -247,18 +244,18 @@ LinkExternalAccount 外部ログインアカウントを紐付ける
 指定した`providerName`がサーバー側で有効である必要があります。
 リクエストが受理された場合、外部サービスの認証画面にリダイレクトされ、認証される必要があります。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiLinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLinkExternalAccountRequest
 */
-func (a *AuthenticationApiService) LinkExternalAccount(ctx context.Context) AuthenticationApiApiLinkExternalAccountRequest {
-	return AuthenticationApiApiLinkExternalAccountRequest{
+func (a *AuthenticationApiService) LinkExternalAccount(ctx context.Context) AuthenticationApiLinkExternalAccountRequest {
+	return AuthenticationApiLinkExternalAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AuthenticationApiService) LinkExternalAccountExecute(r AuthenticationApiApiLinkExternalAccountRequest) (*http.Response, error) {
+func (a *AuthenticationApiService) LinkExternalAccountExecute(r AuthenticationApiLinkExternalAccountRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -305,9 +302,9 @@ func (a *AuthenticationApiService) LinkExternalAccountExecute(r AuthenticationAp
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -323,7 +320,7 @@ func (a *AuthenticationApiService) LinkExternalAccountExecute(r AuthenticationAp
 	return localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiLoginRequest struct {
+type AuthenticationApiLoginRequest struct {
 	ctx              context.Context
 	ApiService       *AuthenticationApiService
 	redirect         *string
@@ -331,16 +328,17 @@ type AuthenticationApiApiLoginRequest struct {
 }
 
 // リダイレクト先
-func (r AuthenticationApiApiLoginRequest) Redirect(redirect string) AuthenticationApiApiLoginRequest {
+func (r AuthenticationApiLoginRequest) Redirect(redirect string) AuthenticationApiLoginRequest {
 	r.redirect = &redirect
 	return r
 }
-func (r AuthenticationApiApiLoginRequest) PostLoginRequest(postLoginRequest PostLoginRequest) AuthenticationApiApiLoginRequest {
+
+func (r AuthenticationApiLoginRequest) PostLoginRequest(postLoginRequest PostLoginRequest) AuthenticationApiLoginRequest {
 	r.postLoginRequest = &postLoginRequest
 	return r
 }
 
-func (r AuthenticationApiApiLoginRequest) Execute() (*http.Response, error) {
+func (r AuthenticationApiLoginRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LoginExecute(r)
 }
 
@@ -349,18 +347,18 @@ Login ログイン
 
 ログインします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiLoginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLoginRequest
 */
-func (a *AuthenticationApiService) Login(ctx context.Context) AuthenticationApiApiLoginRequest {
-	return AuthenticationApiApiLoginRequest{
+func (a *AuthenticationApiService) Login(ctx context.Context) AuthenticationApiLoginRequest {
+	return AuthenticationApiLoginRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AuthenticationApiService) LoginExecute(r AuthenticationApiApiLoginRequest) (*http.Response, error) {
+func (a *AuthenticationApiService) LoginExecute(r AuthenticationApiLoginRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -379,7 +377,7 @@ func (a *AuthenticationApiService) LoginExecute(r AuthenticationApiApiLoginReque
 	localVarFormParams := url.Values{}
 
 	if r.redirect != nil {
-		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -410,9 +408,9 @@ func (a *AuthenticationApiService) LoginExecute(r AuthenticationApiApiLoginReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -428,7 +426,7 @@ func (a *AuthenticationApiService) LoginExecute(r AuthenticationApiApiLoginReque
 	return localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiLogoutRequest struct {
+type AuthenticationApiLogoutRequest struct {
 	ctx        context.Context
 	ApiService *AuthenticationApiService
 	redirect   *string
@@ -436,18 +434,18 @@ type AuthenticationApiApiLogoutRequest struct {
 }
 
 // リダイレクト先
-func (r AuthenticationApiApiLogoutRequest) Redirect(redirect string) AuthenticationApiApiLogoutRequest {
+func (r AuthenticationApiLogoutRequest) Redirect(redirect string) AuthenticationApiLogoutRequest {
 	r.redirect = &redirect
 	return r
 }
 
 // 全てのセッションでログアウトするかどうか
-func (r AuthenticationApiApiLogoutRequest) All(all bool) AuthenticationApiApiLogoutRequest {
+func (r AuthenticationApiLogoutRequest) All(all bool) AuthenticationApiLogoutRequest {
 	r.all = &all
 	return r
 }
 
-func (r AuthenticationApiApiLogoutRequest) Execute() (*http.Response, error) {
+func (r AuthenticationApiLogoutRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LogoutExecute(r)
 }
 
@@ -456,18 +454,18 @@ Logout ログアウト
 
 ログアウトします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiLogoutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLogoutRequest
 */
-func (a *AuthenticationApiService) Logout(ctx context.Context) AuthenticationApiApiLogoutRequest {
-	return AuthenticationApiApiLogoutRequest{
+func (a *AuthenticationApiService) Logout(ctx context.Context) AuthenticationApiLogoutRequest {
+	return AuthenticationApiLogoutRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AuthenticationApiService) LogoutExecute(r AuthenticationApiApiLogoutRequest) (*http.Response, error) {
+func (a *AuthenticationApiService) LogoutExecute(r AuthenticationApiLogoutRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -486,10 +484,10 @@ func (a *AuthenticationApiService) LogoutExecute(r AuthenticationApiApiLogoutReq
 	localVarFormParams := url.Values{}
 
 	if r.redirect != nil {
-		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "")
 	}
 	if r.all != nil {
-		localVarQueryParams.Add("all", parameterToString(*r.all, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -518,9 +516,9 @@ func (a *AuthenticationApiService) LogoutExecute(r AuthenticationApiApiLogoutReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -536,13 +534,13 @@ func (a *AuthenticationApiService) LogoutExecute(r AuthenticationApiApiLogoutReq
 	return localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiRevokeMySessionRequest struct {
+type AuthenticationApiRevokeMySessionRequest struct {
 	ctx        context.Context
 	ApiService *AuthenticationApiService
 	sessionId  string
 }
 
-func (r AuthenticationApiApiRevokeMySessionRequest) Execute() (*http.Response, error) {
+func (r AuthenticationApiRevokeMySessionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeMySessionExecute(r)
 }
 
@@ -552,12 +550,12 @@ RevokeMySession セッションを無効化
 指定した自分のセッションを無効化(ログアウト)します。
 既に存在しない・無効化されているセッションを指定した場合も`204`を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sessionId セッションUUID
- @return AuthenticationApiApiRevokeMySessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sessionId セッションUUID
+	@return AuthenticationApiRevokeMySessionRequest
 */
-func (a *AuthenticationApiService) RevokeMySession(ctx context.Context, sessionId string) AuthenticationApiApiRevokeMySessionRequest {
-	return AuthenticationApiApiRevokeMySessionRequest{
+func (a *AuthenticationApiService) RevokeMySession(ctx context.Context, sessionId string) AuthenticationApiRevokeMySessionRequest {
+	return AuthenticationApiRevokeMySessionRequest{
 		ApiService: a,
 		ctx:        ctx,
 		sessionId:  sessionId,
@@ -565,7 +563,7 @@ func (a *AuthenticationApiService) RevokeMySession(ctx context.Context, sessionI
 }
 
 // Execute executes the request
-func (a *AuthenticationApiService) RevokeMySessionExecute(r AuthenticationApiApiRevokeMySessionRequest) (*http.Response, error) {
+func (a *AuthenticationApiService) RevokeMySessionExecute(r AuthenticationApiRevokeMySessionRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -578,7 +576,7 @@ func (a *AuthenticationApiService) RevokeMySessionExecute(r AuthenticationApiApi
 	}
 
 	localVarPath := localBasePath + "/users/me/sessions/{sessionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -611,9 +609,9 @@ func (a *AuthenticationApiService) RevokeMySessionExecute(r AuthenticationApiApi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -629,18 +627,18 @@ func (a *AuthenticationApiService) RevokeMySessionExecute(r AuthenticationApiApi
 	return localVarHTTPResponse, nil
 }
 
-type AuthenticationApiApiUnlinkExternalAccountRequest struct {
+type AuthenticationApiUnlinkExternalAccountRequest struct {
 	ctx                       context.Context
 	ApiService                *AuthenticationApiService
 	postUnlinkExternalAccount *PostUnlinkExternalAccount
 }
 
-func (r AuthenticationApiApiUnlinkExternalAccountRequest) PostUnlinkExternalAccount(postUnlinkExternalAccount PostUnlinkExternalAccount) AuthenticationApiApiUnlinkExternalAccountRequest {
+func (r AuthenticationApiUnlinkExternalAccountRequest) PostUnlinkExternalAccount(postUnlinkExternalAccount PostUnlinkExternalAccount) AuthenticationApiUnlinkExternalAccountRequest {
 	r.postUnlinkExternalAccount = &postUnlinkExternalAccount
 	return r
 }
 
-func (r AuthenticationApiApiUnlinkExternalAccountRequest) Execute() (*http.Response, error) {
+func (r AuthenticationApiUnlinkExternalAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UnlinkExternalAccountExecute(r)
 }
 
@@ -649,18 +647,18 @@ UnlinkExternalAccount 外部ログインアカウントの紐付けを解除
 
 自分に紐付けられている外部ログインアカウントの紐付けを解除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiApiUnlinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiUnlinkExternalAccountRequest
 */
-func (a *AuthenticationApiService) UnlinkExternalAccount(ctx context.Context) AuthenticationApiApiUnlinkExternalAccountRequest {
-	return AuthenticationApiApiUnlinkExternalAccountRequest{
+func (a *AuthenticationApiService) UnlinkExternalAccount(ctx context.Context) AuthenticationApiUnlinkExternalAccountRequest {
+	return AuthenticationApiUnlinkExternalAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AuthenticationApiService) UnlinkExternalAccountExecute(r AuthenticationApiApiUnlinkExternalAccountRequest) (*http.Response, error) {
+func (a *AuthenticationApiService) UnlinkExternalAccountExecute(r AuthenticationApiUnlinkExternalAccountRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -707,9 +705,9 @@ func (a *AuthenticationApiService) UnlinkExternalAccountExecute(r Authentication
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchChannelRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchChannelRequest{}
+
 // PatchChannelRequest チャンネル情報変更リクエスト
 type PatchChannelRequest struct {
 	// チャンネル名
@@ -45,7 +48,7 @@ func NewPatchChannelRequestWithDefaults() *PatchChannelRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PatchChannelRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *PatchChannelRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -63,7 +66,7 @@ func (o *PatchChannelRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PatchChannelRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *PatchChannelRequest) SetName(v string) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *PatchChannelRequest) GetArchived() bool {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PatchChannelRequest) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelRequest) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -95,7 +98,7 @@ func (o *PatchChannelRequest) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *PatchChannelRequest) HasArchived() bool {
-	if o != nil && o.Archived != nil {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PatchChannelRequest) SetArchived(v bool) {
 
 // GetForce returns the Force field value if set, zero value otherwise.
 func (o *PatchChannelRequest) GetForce() bool {
-	if o == nil || o.Force == nil {
+	if o == nil || IsNil(o.Force) {
 		var ret bool
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PatchChannelRequest) GetForce() bool {
 // GetForceOk returns a tuple with the Force field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelRequest) GetForceOk() (*bool, bool) {
-	if o == nil || o.Force == nil {
+	if o == nil || IsNil(o.Force) {
 		return nil, false
 	}
 	return o.Force, true
@@ -127,7 +130,7 @@ func (o *PatchChannelRequest) GetForceOk() (*bool, bool) {
 
 // HasForce returns a boolean if a field has been set.
 func (o *PatchChannelRequest) HasForce() bool {
-	if o != nil && o.Force != nil {
+	if o != nil && !IsNil(o.Force) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PatchChannelRequest) SetForce(v bool) {
 
 // GetParent returns the Parent field value if set, zero value otherwise.
 func (o *PatchChannelRequest) GetParent() string {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PatchChannelRequest) GetParent() string {
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelRequest) GetParentOk() (*string, bool) {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		return nil, false
 	}
 	return o.Parent, true
@@ -159,7 +162,7 @@ func (o *PatchChannelRequest) GetParentOk() (*string, bool) {
 
 // HasParent returns a boolean if a field has been set.
 func (o *PatchChannelRequest) HasParent() bool {
-	if o != nil && o.Parent != nil {
+	if o != nil && !IsNil(o.Parent) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *PatchChannelRequest) SetParent(v string) {
 }
 
 func (o PatchChannelRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.Force != nil {
-		toSerialize["force"] = o.Force
-	}
-	if o.Parent != nil {
-		toSerialize["parent"] = o.Parent
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchChannelRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Archived) {
+		toSerialize["archived"] = o.Archived
+	}
+	if !IsNil(o.Force) {
+		toSerialize["force"] = o.Force
+	}
+	if !IsNil(o.Parent) {
+		toSerialize["parent"] = o.Parent
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchChannelRequest struct {

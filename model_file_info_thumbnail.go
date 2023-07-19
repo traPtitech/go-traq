@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FileInfoThumbnail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileInfoThumbnail{}
+
 // FileInfoThumbnail サムネイル情報 サムネイルが存在しない場合はnullになります Deprecated: thumbnailsを参照してください
 type FileInfoThumbnail struct {
 	// MIMEタイプ
@@ -75,7 +78,7 @@ func (o *FileInfoThumbnail) SetMime(v string) {
 // GetWidth returns the Width field value if set, zero value otherwise.
 // Deprecated
 func (o *FileInfoThumbnail) GetWidth() int32 {
-	if o == nil || o.Width == nil {
+	if o == nil || IsNil(o.Width) {
 		var ret int32
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *FileInfoThumbnail) GetWidth() int32 {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *FileInfoThumbnail) GetWidthOk() (*int32, bool) {
-	if o == nil || o.Width == nil {
+	if o == nil || IsNil(o.Width) {
 		return nil, false
 	}
 	return o.Width, true
@@ -94,7 +97,7 @@ func (o *FileInfoThumbnail) GetWidthOk() (*int32, bool) {
 
 // HasWidth returns a boolean if a field has been set.
 func (o *FileInfoThumbnail) HasWidth() bool {
-	if o != nil && o.Width != nil {
+	if o != nil && !IsNil(o.Width) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *FileInfoThumbnail) SetWidth(v int32) {
 // GetHeight returns the Height field value if set, zero value otherwise.
 // Deprecated
 func (o *FileInfoThumbnail) GetHeight() int32 {
-	if o == nil || o.Height == nil {
+	if o == nil || IsNil(o.Height) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *FileInfoThumbnail) GetHeight() int32 {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *FileInfoThumbnail) GetHeightOk() (*int32, bool) {
-	if o == nil || o.Height == nil {
+	if o == nil || IsNil(o.Height) {
 		return nil, false
 	}
 	return o.Height, true
@@ -129,7 +132,7 @@ func (o *FileInfoThumbnail) GetHeightOk() (*int32, bool) {
 
 // HasHeight returns a boolean if a field has been set.
 func (o *FileInfoThumbnail) HasHeight() bool {
-	if o != nil && o.Height != nil {
+	if o != nil && !IsNil(o.Height) {
 		return true
 	}
 
@@ -143,17 +146,23 @@ func (o *FileInfoThumbnail) SetHeight(v int32) {
 }
 
 func (o FileInfoThumbnail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["mime"] = o.Mime
-	}
-	if o.Width != nil {
-		toSerialize["width"] = o.Width
-	}
-	if o.Height != nil {
-		toSerialize["height"] = o.Height
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FileInfoThumbnail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["mime"] = o.Mime
+	if !IsNil(o.Width) {
+		toSerialize["width"] = o.Width
+	}
+	if !IsNil(o.Height) {
+		toSerialize["height"] = o.Height
+	}
+	return toSerialize, nil
 }
 
 type NullableFileInfoThumbnail struct {

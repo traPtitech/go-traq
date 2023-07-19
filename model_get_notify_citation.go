@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetNotifyCitation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetNotifyCitation{}
+
 // GetNotifyCitation メッセージ引用通知の設定情報
 type GetNotifyCitation struct {
 	NotifyCitation bool `json:"notifyCitation"`
@@ -62,11 +65,17 @@ func (o *GetNotifyCitation) SetNotifyCitation(v bool) {
 }
 
 func (o GetNotifyCitation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["notifyCitation"] = o.NotifyCitation
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetNotifyCitation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["notifyCitation"] = o.NotifyCitation
+	return toSerialize, nil
 }
 
 type NullableGetNotifyCitation struct {

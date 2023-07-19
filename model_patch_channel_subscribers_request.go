@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchChannelSubscribersRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchChannelSubscribersRequest{}
+
 // PatchChannelSubscribersRequest チャンネル購読者編集リクエスト
 type PatchChannelSubscribersRequest struct {
 	// 通知をオンにするユーザーのUUID配列
@@ -41,7 +44,7 @@ func NewPatchChannelSubscribersRequestWithDefaults() *PatchChannelSubscribersReq
 
 // GetOn returns the On field value if set, zero value otherwise.
 func (o *PatchChannelSubscribersRequest) GetOn() []string {
-	if o == nil || o.On == nil {
+	if o == nil || IsNil(o.On) {
 		var ret []string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *PatchChannelSubscribersRequest) GetOn() []string {
 // GetOnOk returns a tuple with the On field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelSubscribersRequest) GetOnOk() ([]string, bool) {
-	if o == nil || o.On == nil {
+	if o == nil || IsNil(o.On) {
 		return nil, false
 	}
 	return o.On, true
@@ -59,7 +62,7 @@ func (o *PatchChannelSubscribersRequest) GetOnOk() ([]string, bool) {
 
 // HasOn returns a boolean if a field has been set.
 func (o *PatchChannelSubscribersRequest) HasOn() bool {
-	if o != nil && o.On != nil {
+	if o != nil && !IsNil(o.On) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *PatchChannelSubscribersRequest) SetOn(v []string) {
 
 // GetOff returns the Off field value if set, zero value otherwise.
 func (o *PatchChannelSubscribersRequest) GetOff() []string {
-	if o == nil || o.Off == nil {
+	if o == nil || IsNil(o.Off) {
 		var ret []string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *PatchChannelSubscribersRequest) GetOff() []string {
 // GetOffOk returns a tuple with the Off field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchChannelSubscribersRequest) GetOffOk() ([]string, bool) {
-	if o == nil || o.Off == nil {
+	if o == nil || IsNil(o.Off) {
 		return nil, false
 	}
 	return o.Off, true
@@ -91,7 +94,7 @@ func (o *PatchChannelSubscribersRequest) GetOffOk() ([]string, bool) {
 
 // HasOff returns a boolean if a field has been set.
 func (o *PatchChannelSubscribersRequest) HasOff() bool {
-	if o != nil && o.Off != nil {
+	if o != nil && !IsNil(o.Off) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *PatchChannelSubscribersRequest) SetOff(v []string) {
 }
 
 func (o PatchChannelSubscribersRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.On != nil {
-		toSerialize["on"] = o.On
-	}
-	if o.Off != nil {
-		toSerialize["off"] = o.Off
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchChannelSubscribersRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.On) {
+		toSerialize["on"] = o.On
+	}
+	if !IsNil(o.Off) {
+		toSerialize["off"] = o.Off
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchChannelSubscribersRequest struct {

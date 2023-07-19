@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostStampPaletteRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostStampPaletteRequest{}
+
 // PostStampPaletteRequest スタンプパレット作成リクエスト
 type PostStampPaletteRequest struct {
 	// パレット内のスタンプのUUID配列
@@ -117,17 +120,19 @@ func (o *PostStampPaletteRequest) SetDescription(v string) {
 }
 
 func (o PostStampPaletteRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["stamps"] = o.Stamps
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostStampPaletteRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["stamps"] = o.Stamps
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
 }
 
 type NullablePostStampPaletteRequest struct {

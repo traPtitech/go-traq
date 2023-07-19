@@ -13,22 +13,17 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // MessageApiService MessageApi service
 type MessageApiService service
 
-type MessageApiApiAddMessageStampRequest struct {
+type MessageApiAddMessageStampRequest struct {
 	ctx                     context.Context
 	ApiService              *MessageApiService
 	messageId               string
@@ -36,12 +31,12 @@ type MessageApiApiAddMessageStampRequest struct {
 	postMessageStampRequest *PostMessageStampRequest
 }
 
-func (r MessageApiApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) MessageApiApiAddMessageStampRequest {
+func (r MessageApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) MessageApiAddMessageStampRequest {
 	r.postMessageStampRequest = &postMessageStampRequest
 	return r
 }
 
-func (r MessageApiApiAddMessageStampRequest) Execute() (*http.Response, error) {
+func (r MessageApiAddMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddMessageStampExecute(r)
 }
 
@@ -50,13 +45,13 @@ AddMessageStamp スタンプを押す
 
 指定したメッセージに指定したスタンプを押します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @param stampId スタンプUUID
- @return MessageApiApiAddMessageStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@param stampId スタンプUUID
+	@return MessageApiAddMessageStampRequest
 */
-func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiApiAddMessageStampRequest {
-	return MessageApiApiAddMessageStampRequest{
+func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiAddMessageStampRequest {
+	return MessageApiAddMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -65,7 +60,7 @@ func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId strin
 }
 
 // Execute executes the request
-func (a *MessageApiService) AddMessageStampExecute(r MessageApiApiAddMessageStampRequest) (*http.Response, error) {
+func (a *MessageApiService) AddMessageStampExecute(r MessageApiAddMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -78,8 +73,8 @@ func (a *MessageApiService) AddMessageStampExecute(r MessageApiApiAddMessageStam
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -114,9 +109,9 @@ func (a *MessageApiService) AddMessageStampExecute(r MessageApiApiAddMessageStam
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -132,13 +127,13 @@ func (a *MessageApiService) AddMessageStampExecute(r MessageApiApiAddMessageStam
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiApiCreatePinRequest struct {
+type MessageApiCreatePinRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r MessageApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.CreatePinExecute(r)
 }
 
@@ -148,12 +143,12 @@ CreatePin ピン留めする
 指定したメッセージをピン留めします。
 アーカイブされているチャンネルのメッセージ・存在しないメッセージ・チャンネル当たりの上限数を超えたメッセージのピン留めはできません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiCreatePinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiCreatePinRequest
 */
-func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) MessageApiApiCreatePinRequest {
-	return MessageApiApiCreatePinRequest{
+func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) MessageApiCreatePinRequest {
+	return MessageApiCreatePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -161,8 +156,9 @@ func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) Mes
 }
 
 // Execute executes the request
-//  @return MessagePin
-func (a *MessageApiService) CreatePinExecute(r MessageApiApiCreatePinRequest) (*MessagePin, *http.Response, error) {
+//
+//	@return MessagePin
+func (a *MessageApiService) CreatePinExecute(r MessageApiCreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -176,7 +172,7 @@ func (a *MessageApiService) CreatePinExecute(r MessageApiApiCreatePinRequest) (*
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -209,9 +205,9 @@ func (a *MessageApiService) CreatePinExecute(r MessageApiApiCreatePinRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -236,13 +232,13 @@ func (a *MessageApiService) CreatePinExecute(r MessageApiApiCreatePinRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiDeleteMessageRequest struct {
+type MessageApiDeleteMessageRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiDeleteMessageRequest) Execute() (*http.Response, error) {
+func (r MessageApiDeleteMessageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteMessageExecute(r)
 }
 
@@ -253,12 +249,12 @@ DeleteMessage メッセージを削除
 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
 アーカイブされているチャンネルのメッセージを編集することは出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiDeleteMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiDeleteMessageRequest
 */
-func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string) MessageApiApiDeleteMessageRequest {
-	return MessageApiApiDeleteMessageRequest{
+func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string) MessageApiDeleteMessageRequest {
+	return MessageApiDeleteMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -266,7 +262,7 @@ func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string)
 }
 
 // Execute executes the request
-func (a *MessageApiService) DeleteMessageExecute(r MessageApiApiDeleteMessageRequest) (*http.Response, error) {
+func (a *MessageApiService) DeleteMessageExecute(r MessageApiDeleteMessageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -279,7 +275,7 @@ func (a *MessageApiService) DeleteMessageExecute(r MessageApiApiDeleteMessageReq
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -312,9 +308,9 @@ func (a *MessageApiService) DeleteMessageExecute(r MessageApiApiDeleteMessageReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -330,19 +326,19 @@ func (a *MessageApiService) DeleteMessageExecute(r MessageApiApiDeleteMessageReq
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiApiEditMessageRequest struct {
+type MessageApiEditMessageRequest struct {
 	ctx                context.Context
 	ApiService         *MessageApiService
 	messageId          string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiApiEditMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiApiEditMessageRequest {
+func (r MessageApiEditMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiEditMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiApiEditMessageRequest) Execute() (*http.Response, error) {
+func (r MessageApiEditMessageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditMessageExecute(r)
 }
 
@@ -353,12 +349,12 @@ EditMessage メッセージを編集
 自身が投稿したメッセージのみ編集することができます。
 アーカイブされているチャンネルのメッセージを編集することは出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiEditMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiEditMessageRequest
 */
-func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) MessageApiApiEditMessageRequest {
-	return MessageApiApiEditMessageRequest{
+func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) MessageApiEditMessageRequest {
+	return MessageApiEditMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -366,7 +362,7 @@ func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) M
 }
 
 // Execute executes the request
-func (a *MessageApiService) EditMessageExecute(r MessageApiApiEditMessageRequest) (*http.Response, error) {
+func (a *MessageApiService) EditMessageExecute(r MessageApiEditMessageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -379,7 +375,7 @@ func (a *MessageApiService) EditMessageExecute(r MessageApiApiEditMessageRequest
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -414,9 +410,9 @@ func (a *MessageApiService) EditMessageExecute(r MessageApiApiEditMessageRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -432,7 +428,7 @@ func (a *MessageApiService) EditMessageExecute(r MessageApiApiEditMessageRequest
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetDirectMessagesRequest struct {
+type MessageApiGetDirectMessagesRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	userId     string
@@ -445,42 +441,42 @@ type MessageApiApiGetDirectMessagesRequest struct {
 }
 
 // 取得する件数
-func (r MessageApiApiGetDirectMessagesRequest) Limit(limit int32) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Limit(limit int32) MessageApiGetDirectMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r MessageApiApiGetDirectMessagesRequest) Offset(offset int32) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Offset(offset int32) MessageApiGetDirectMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r MessageApiApiGetDirectMessagesRequest) Since(since time.Time) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Since(since time.Time) MessageApiGetDirectMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r MessageApiApiGetDirectMessagesRequest) Until(until time.Time) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Until(until time.Time) MessageApiGetDirectMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r MessageApiApiGetDirectMessagesRequest) Inclusive(inclusive bool) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Inclusive(inclusive bool) MessageApiGetDirectMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r MessageApiApiGetDirectMessagesRequest) Order(order string) MessageApiApiGetDirectMessagesRequest {
+func (r MessageApiGetDirectMessagesRequest) Order(order string) MessageApiGetDirectMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r MessageApiApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r MessageApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetDirectMessagesExecute(r)
 }
 
@@ -489,12 +485,12 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 指定したユーザーとのダイレクトメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return MessageApiApiGetDirectMessagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return MessageApiGetDirectMessagesRequest
 */
-func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string) MessageApiApiGetDirectMessagesRequest {
-	return MessageApiApiGetDirectMessagesRequest{
+func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string) MessageApiGetDirectMessagesRequest {
+	return MessageApiGetDirectMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -502,8 +498,9 @@ func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string
 }
 
 // Execute executes the request
-//  @return []Message
-func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
+//
+//	@return []Message
+func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -517,29 +514,29 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiApiGetDirectMes
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
 	}
 	if r.until != nil {
-		localVarQueryParams.Add("until", parameterToString(*r.until, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
 	}
 	if r.inclusive != nil {
-		localVarQueryParams.Add("inclusive", parameterToString(*r.inclusive, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
 	}
 	if r.order != nil {
-		localVarQueryParams.Add("order", parameterToString(*r.order, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -568,9 +565,9 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiApiGetDirectMes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -595,13 +592,13 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiApiGetDirectMes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetMessageRequest struct {
+type MessageApiGetMessageRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiGetMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageApiGetMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.GetMessageExecute(r)
 }
 
@@ -610,12 +607,12 @@ GetMessage メッセージを取得
 
 指定したメッセージを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiGetMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiGetMessageRequest
 */
-func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) MessageApiApiGetMessageRequest {
-	return MessageApiApiGetMessageRequest{
+func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) MessageApiGetMessageRequest {
+	return MessageApiGetMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -623,8 +620,9 @@ func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) Me
 }
 
 // Execute executes the request
-//  @return Message
-func (a *MessageApiService) GetMessageExecute(r MessageApiApiGetMessageRequest) (*Message, *http.Response, error) {
+//
+//	@return Message
+func (a *MessageApiService) GetMessageExecute(r MessageApiGetMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -638,7 +636,7 @@ func (a *MessageApiService) GetMessageExecute(r MessageApiApiGetMessageRequest) 
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -671,9 +669,9 @@ func (a *MessageApiService) GetMessageExecute(r MessageApiApiGetMessageRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -698,13 +696,13 @@ func (a *MessageApiService) GetMessageExecute(r MessageApiApiGetMessageRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetMessageClipsRequest struct {
+type MessageApiGetMessageClipsRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
+func (r MessageApiGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
 	return r.ApiService.GetMessageClipsExecute(r)
 }
 
@@ -713,12 +711,12 @@ GetMessageClips 自分のクリップを取得
 
 対象のメッセージの自分のクリップの一覧を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiGetMessageClipsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiGetMessageClipsRequest
 */
-func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId string) MessageApiApiGetMessageClipsRequest {
-	return MessageApiApiGetMessageClipsRequest{
+func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId string) MessageApiGetMessageClipsRequest {
+	return MessageApiGetMessageClipsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -726,8 +724,9 @@ func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId strin
 }
 
 // Execute executes the request
-//  @return []MessageClip
-func (a *MessageApiService) GetMessageClipsExecute(r MessageApiApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
+//
+//	@return []MessageClip
+func (a *MessageApiService) GetMessageClipsExecute(r MessageApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -741,7 +740,7 @@ func (a *MessageApiService) GetMessageClipsExecute(r MessageApiApiGetMessageClip
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/clips"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -774,9 +773,9 @@ func (a *MessageApiService) GetMessageClipsExecute(r MessageApiApiGetMessageClip
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -801,13 +800,13 @@ func (a *MessageApiService) GetMessageClipsExecute(r MessageApiApiGetMessageClip
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetMessageStampsRequest struct {
+type MessageApiGetMessageStampsRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
+func (r MessageApiGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
 	return r.ApiService.GetMessageStampsExecute(r)
 }
 
@@ -816,12 +815,12 @@ GetMessageStamps メッセージのスタンプリストを取得
 
 指定したメッセージに押されているスタンプのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiGetMessageStampsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiGetMessageStampsRequest
 */
-func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId string) MessageApiApiGetMessageStampsRequest {
-	return MessageApiApiGetMessageStampsRequest{
+func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId string) MessageApiGetMessageStampsRequest {
+	return MessageApiGetMessageStampsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -829,8 +828,9 @@ func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId stri
 }
 
 // Execute executes the request
-//  @return []MessageStamp
-func (a *MessageApiService) GetMessageStampsExecute(r MessageApiApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
+//
+//	@return []MessageStamp
+func (a *MessageApiService) GetMessageStampsExecute(r MessageApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -844,7 +844,7 @@ func (a *MessageApiService) GetMessageStampsExecute(r MessageApiApiGetMessageSta
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -877,9 +877,9 @@ func (a *MessageApiService) GetMessageStampsExecute(r MessageApiApiGetMessageSta
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -904,7 +904,7 @@ func (a *MessageApiService) GetMessageStampsExecute(r MessageApiApiGetMessageSta
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetMessagesRequest struct {
+type MessageApiGetMessagesRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	channelId  string
@@ -917,42 +917,42 @@ type MessageApiApiGetMessagesRequest struct {
 }
 
 // 取得する件数
-func (r MessageApiApiGetMessagesRequest) Limit(limit int32) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Limit(limit int32) MessageApiGetMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r MessageApiApiGetMessagesRequest) Offset(offset int32) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Offset(offset int32) MessageApiGetMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r MessageApiApiGetMessagesRequest) Since(since time.Time) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Since(since time.Time) MessageApiGetMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r MessageApiApiGetMessagesRequest) Until(until time.Time) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Until(until time.Time) MessageApiGetMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r MessageApiApiGetMessagesRequest) Inclusive(inclusive bool) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Inclusive(inclusive bool) MessageApiGetMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r MessageApiApiGetMessagesRequest) Order(order string) MessageApiApiGetMessagesRequest {
+func (r MessageApiGetMessagesRequest) Order(order string) MessageApiGetMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r MessageApiApiGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r MessageApiGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetMessagesExecute(r)
 }
 
@@ -961,12 +961,12 @@ GetMessages チャンネルメッセージのリストを取得
 
 指定したチャンネルのメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return MessageApiApiGetMessagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return MessageApiGetMessagesRequest
 */
-func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) MessageApiApiGetMessagesRequest {
-	return MessageApiApiGetMessagesRequest{
+func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) MessageApiGetMessagesRequest {
+	return MessageApiGetMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -974,8 +974,9 @@ func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) M
 }
 
 // Execute executes the request
-//  @return []Message
-func (a *MessageApiService) GetMessagesExecute(r MessageApiApiGetMessagesRequest) ([]Message, *http.Response, error) {
+//
+//	@return []Message
+func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -989,29 +990,29 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiApiGetMessagesRequest
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
 	}
 	if r.until != nil {
-		localVarQueryParams.Add("until", parameterToString(*r.until, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
 	}
 	if r.inclusive != nil {
-		localVarQueryParams.Add("inclusive", parameterToString(*r.inclusive, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
 	}
 	if r.order != nil {
-		localVarQueryParams.Add("order", parameterToString(*r.order, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1040,9 +1041,9 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiApiGetMessagesRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1067,13 +1068,13 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiApiGetMessagesRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiGetPinRequest struct {
+type MessageApiGetPinRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r MessageApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.GetPinExecute(r)
 }
 
@@ -1082,12 +1083,12 @@ GetPin ピン留めを取得
 
 指定したメッセージのピン留め情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiGetPinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiGetPinRequest
 */
-func (a *MessageApiService) GetPin(ctx context.Context, messageId string) MessageApiApiGetPinRequest {
-	return MessageApiApiGetPinRequest{
+func (a *MessageApiService) GetPin(ctx context.Context, messageId string) MessageApiGetPinRequest {
+	return MessageApiGetPinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1095,8 +1096,9 @@ func (a *MessageApiService) GetPin(ctx context.Context, messageId string) Messag
 }
 
 // Execute executes the request
-//  @return MessagePin
-func (a *MessageApiService) GetPinExecute(r MessageApiApiGetPinRequest) (*MessagePin, *http.Response, error) {
+//
+//	@return MessagePin
+func (a *MessageApiService) GetPinExecute(r MessageApiGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1110,7 +1112,7 @@ func (a *MessageApiService) GetPinExecute(r MessageApiApiGetPinRequest) (*Messag
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1143,9 +1145,9 @@ func (a *MessageApiService) GetPinExecute(r MessageApiApiGetPinRequest) (*Messag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1170,19 +1172,19 @@ func (a *MessageApiService) GetPinExecute(r MessageApiApiGetPinRequest) (*Messag
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiPostDirectMessageRequest struct {
+type MessageApiPostDirectMessageRequest struct {
 	ctx                context.Context
 	ApiService         *MessageApiService
 	userId             string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiApiPostDirectMessageRequest {
+func (r MessageApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiPostDirectMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostDirectMessageExecute(r)
 }
 
@@ -1191,12 +1193,12 @@ PostDirectMessage ダイレクトメッセージを送信
 
 指定したユーザーにダイレクトメッセージを送信します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return MessageApiApiPostDirectMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return MessageApiPostDirectMessageRequest
 */
-func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string) MessageApiApiPostDirectMessageRequest {
-	return MessageApiApiPostDirectMessageRequest{
+func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string) MessageApiPostDirectMessageRequest {
+	return MessageApiPostDirectMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1204,8 +1206,9 @@ func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string
 }
 
 // Execute executes the request
-//  @return Message
-func (a *MessageApiService) PostDirectMessageExecute(r MessageApiApiPostDirectMessageRequest) (*Message, *http.Response, error) {
+//
+//	@return Message
+func (a *MessageApiService) PostDirectMessageExecute(r MessageApiPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1219,7 +1222,7 @@ func (a *MessageApiService) PostDirectMessageExecute(r MessageApiApiPostDirectMe
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1254,9 +1257,9 @@ func (a *MessageApiService) PostDirectMessageExecute(r MessageApiApiPostDirectMe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1281,19 +1284,19 @@ func (a *MessageApiService) PostDirectMessageExecute(r MessageApiApiPostDirectMe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiPostMessageRequest struct {
+type MessageApiPostMessageRequest struct {
 	ctx                context.Context
 	ApiService         *MessageApiService
 	channelId          string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiApiPostMessageRequest {
+func (r MessageApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiPostMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiApiPostMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageApiPostMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostMessageExecute(r)
 }
 
@@ -1304,12 +1307,12 @@ PostMessage チャンネルにメッセージを投稿
 embedをtrueに指定すると、メッセージ埋め込みが自動で行われます。
 アーカイブされているチャンネルに投稿することはできません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return MessageApiApiPostMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return MessageApiPostMessageRequest
 */
-func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) MessageApiApiPostMessageRequest {
-	return MessageApiApiPostMessageRequest{
+func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) MessageApiPostMessageRequest {
+	return MessageApiPostMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1317,8 +1320,9 @@ func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) M
 }
 
 // Execute executes the request
-//  @return Message
-func (a *MessageApiService) PostMessageExecute(r MessageApiApiPostMessageRequest) (*Message, *http.Response, error) {
+//
+//	@return Message
+func (a *MessageApiService) PostMessageExecute(r MessageApiPostMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1332,7 +1336,7 @@ func (a *MessageApiService) PostMessageExecute(r MessageApiApiPostMessageRequest
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1367,9 +1371,9 @@ func (a *MessageApiService) PostMessageExecute(r MessageApiApiPostMessageRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1394,14 +1398,14 @@ func (a *MessageApiService) PostMessageExecute(r MessageApiApiPostMessageRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiApiRemoveMessageStampRequest struct {
+type MessageApiRemoveMessageStampRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 	stampId    string
 }
 
-func (r MessageApiApiRemoveMessageStampRequest) Execute() (*http.Response, error) {
+func (r MessageApiRemoveMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMessageStampExecute(r)
 }
 
@@ -1410,13 +1414,13 @@ RemoveMessageStamp スタンプを消す
 
 指定したメッセージから指定した自身が押したスタンプを削除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @param stampId スタンプUUID
- @return MessageApiApiRemoveMessageStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@param stampId スタンプUUID
+	@return MessageApiRemoveMessageStampRequest
 */
-func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiApiRemoveMessageStampRequest {
-	return MessageApiApiRemoveMessageStampRequest{
+func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiRemoveMessageStampRequest {
+	return MessageApiRemoveMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1425,7 +1429,7 @@ func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId st
 }
 
 // Execute executes the request
-func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiApiRemoveMessageStampRequest) (*http.Response, error) {
+func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiRemoveMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1438,8 +1442,8 @@ func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiApiRemoveMessa
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1472,9 +1476,9 @@ func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiApiRemoveMessa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1490,13 +1494,13 @@ func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiApiRemoveMessa
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiApiRemovePinRequest struct {
+type MessageApiRemovePinRequest struct {
 	ctx        context.Context
 	ApiService *MessageApiService
 	messageId  string
 }
 
-func (r MessageApiApiRemovePinRequest) Execute() (*http.Response, error) {
+func (r MessageApiRemovePinRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemovePinExecute(r)
 }
 
@@ -1505,12 +1509,12 @@ RemovePin ピン留めを外す
 
 指定したメッセージのピン留めを外します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return MessageApiApiRemovePinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return MessageApiRemovePinRequest
 */
-func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) MessageApiApiRemovePinRequest {
-	return MessageApiApiRemovePinRequest{
+func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) MessageApiRemovePinRequest {
+	return MessageApiRemovePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1518,7 +1522,7 @@ func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) Mes
 }
 
 // Execute executes the request
-func (a *MessageApiService) RemovePinExecute(r MessageApiApiRemovePinRequest) (*http.Response, error) {
+func (a *MessageApiService) RemovePinExecute(r MessageApiRemovePinRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1531,7 +1535,7 @@ func (a *MessageApiService) RemovePinExecute(r MessageApiApiRemovePinRequest) (*
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1564,9 +1568,9 @@ func (a *MessageApiService) RemovePinExecute(r MessageApiApiRemovePinRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1582,7 +1586,7 @@ func (a *MessageApiService) RemovePinExecute(r MessageApiApiRemovePinRequest) (*
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiApiSearchMessagesRequest struct {
+type MessageApiSearchMessagesRequest struct {
 	ctx            context.Context
 	ApiService     *MessageApiService
 	word           *string
@@ -1604,102 +1608,102 @@ type MessageApiApiSearchMessagesRequest struct {
 }
 
 // 検索ワード Simple-Query-String-Syntaxをパースして検索します
-func (r MessageApiApiSearchMessagesRequest) Word(word string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Word(word string) MessageApiSearchMessagesRequest {
 	r.word = &word
 	return r
 }
 
 // 投稿日時が指定日時より後
-func (r MessageApiApiSearchMessagesRequest) After(after time.Time) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) After(after time.Time) MessageApiSearchMessagesRequest {
 	r.after = &after
 	return r
 }
 
 // 投稿日時が指定日時より前
-func (r MessageApiApiSearchMessagesRequest) Before(before time.Time) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Before(before time.Time) MessageApiSearchMessagesRequest {
 	r.before = &before
 	return r
 }
 
 // メッセージが投稿されたチャンネル
-func (r MessageApiApiSearchMessagesRequest) In(in string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) In(in string) MessageApiSearchMessagesRequest {
 	r.in = &in
 	return r
 }
 
 // メンションされたユーザー
-func (r MessageApiApiSearchMessagesRequest) To(to string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) To(to string) MessageApiSearchMessagesRequest {
 	r.to = &to
 	return r
 }
 
 // メッセージを投稿したユーザー
-func (r MessageApiApiSearchMessagesRequest) From(from string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) From(from string) MessageApiSearchMessagesRequest {
 	r.from = &from
 	return r
 }
 
 // 引用しているメッセージ
-func (r MessageApiApiSearchMessagesRequest) Citation(citation string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Citation(citation string) MessageApiSearchMessagesRequest {
 	r.citation = &citation
 	return r
 }
 
 // メッセージを投稿したユーザーがBotかどうか
-func (r MessageApiApiSearchMessagesRequest) Bot(bot bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Bot(bot bool) MessageApiSearchMessagesRequest {
 	r.bot = &bot
 	return r
 }
 
 // メッセージがURLを含むか
-func (r MessageApiApiSearchMessagesRequest) HasURL(hasURL bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) HasURL(hasURL bool) MessageApiSearchMessagesRequest {
 	r.hasURL = &hasURL
 	return r
 }
 
 // メッセージが添付ファイルを含むか
-func (r MessageApiApiSearchMessagesRequest) HasAttachments(hasAttachments bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) HasAttachments(hasAttachments bool) MessageApiSearchMessagesRequest {
 	r.hasAttachments = &hasAttachments
 	return r
 }
 
 // メッセージが画像を含むか
-func (r MessageApiApiSearchMessagesRequest) HasImage(hasImage bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) HasImage(hasImage bool) MessageApiSearchMessagesRequest {
 	r.hasImage = &hasImage
 	return r
 }
 
 // メッセージが動画を含むか
-func (r MessageApiApiSearchMessagesRequest) HasVideo(hasVideo bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) HasVideo(hasVideo bool) MessageApiSearchMessagesRequest {
 	r.hasVideo = &hasVideo
 	return r
 }
 
 // メッセージが音声ファイルを含むか
-func (r MessageApiApiSearchMessagesRequest) HasAudio(hasAudio bool) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) HasAudio(hasAudio bool) MessageApiSearchMessagesRequest {
 	r.hasAudio = &hasAudio
 	return r
 }
 
 // 検索結果から取得するメッセージの最大件数
-func (r MessageApiApiSearchMessagesRequest) Limit(limit int32) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Limit(limit int32) MessageApiSearchMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 検索結果から取得するメッセージのオフセット
-func (r MessageApiApiSearchMessagesRequest) Offset(offset int32) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Offset(offset int32) MessageApiSearchMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // ソート順 (作成日時が新しい &#x60;createdAt&#x60;, 作成日時が古い &#x60;-createdAt&#x60;, 更新日時が新しい &#x60;updatedAt&#x60;, 更新日時が古い &#x60;-updatedAt&#x60;)
-func (r MessageApiApiSearchMessagesRequest) Sort(sort string) MessageApiApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) Sort(sort string) MessageApiSearchMessagesRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r MessageApiApiSearchMessagesRequest) Execute() (*MessageSearchResult, *http.Response, error) {
+func (r MessageApiSearchMessagesRequest) Execute() (*MessageSearchResult, *http.Response, error) {
 	return r.ApiService.SearchMessagesExecute(r)
 }
 
@@ -1708,19 +1712,20 @@ SearchMessages メッセージを検索
 
 メッセージを検索します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MessageApiApiSearchMessagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MessageApiSearchMessagesRequest
 */
-func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiApiSearchMessagesRequest {
-	return MessageApiApiSearchMessagesRequest{
+func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiSearchMessagesRequest {
+	return MessageApiSearchMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return MessageSearchResult
-func (a *MessageApiService) SearchMessagesExecute(r MessageApiApiSearchMessagesRequest) (*MessageSearchResult, *http.Response, error) {
+//
+//	@return MessageSearchResult
+func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequest) (*MessageSearchResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1740,52 +1745,52 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiApiSearchMessagesR
 	localVarFormParams := url.Values{}
 
 	if r.word != nil {
-		localVarQueryParams.Add("word", parameterToString(*r.word, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "word", r.word, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
 	}
 	if r.in != nil {
-		localVarQueryParams.Add("in", parameterToString(*r.in, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "in", r.in, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.citation != nil {
-		localVarQueryParams.Add("citation", parameterToString(*r.citation, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "citation", r.citation, "")
 	}
 	if r.bot != nil {
-		localVarQueryParams.Add("bot", parameterToString(*r.bot, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bot", r.bot, "")
 	}
 	if r.hasURL != nil {
-		localVarQueryParams.Add("hasURL", parameterToString(*r.hasURL, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasURL", r.hasURL, "")
 	}
 	if r.hasAttachments != nil {
-		localVarQueryParams.Add("hasAttachments", parameterToString(*r.hasAttachments, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAttachments", r.hasAttachments, "")
 	}
 	if r.hasImage != nil {
-		localVarQueryParams.Add("hasImage", parameterToString(*r.hasImage, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasImage", r.hasImage, "")
 	}
 	if r.hasVideo != nil {
-		localVarQueryParams.Add("hasVideo", parameterToString(*r.hasVideo, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasVideo", r.hasVideo, "")
 	}
 	if r.hasAudio != nil {
-		localVarQueryParams.Add("hasAudio", parameterToString(*r.hasAudio, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAudio", r.hasAudio, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.sort != nil {
-		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1814,9 +1819,9 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiApiSearchMessagesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

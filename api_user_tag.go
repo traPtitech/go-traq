@@ -13,32 +13,27 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // UserTagApiService UserTagApi service
 type UserTagApiService service
 
-type UserTagApiApiAddMyUserTagRequest struct {
+type UserTagApiAddMyUserTagRequest struct {
 	ctx                context.Context
 	ApiService         *UserTagApiService
 	postUserTagRequest *PostUserTagRequest
 }
 
-func (r UserTagApiApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiApiAddMyUserTagRequest {
+func (r UserTagApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiAddMyUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
 }
 
-func (r UserTagApiApiAddMyUserTagRequest) Execute() (*UserTag, *http.Response, error) {
+func (r UserTagApiAddMyUserTagRequest) Execute() (*UserTag, *http.Response, error) {
 	return r.ApiService.AddMyUserTagExecute(r)
 }
 
@@ -47,19 +42,20 @@ AddMyUserTag 自分にタグを追加
 
 自分に新しくタグを追加します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserTagApiApiAddMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserTagApiAddMyUserTagRequest
 */
-func (a *UserTagApiService) AddMyUserTag(ctx context.Context) UserTagApiApiAddMyUserTagRequest {
-	return UserTagApiApiAddMyUserTagRequest{
+func (a *UserTagApiService) AddMyUserTag(ctx context.Context) UserTagApiAddMyUserTagRequest {
+	return UserTagApiAddMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserTag
-func (a *UserTagApiService) AddMyUserTagExecute(r UserTagApiApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
+//
+//	@return UserTag
+func (a *UserTagApiService) AddMyUserTagExecute(r UserTagApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -107,9 +103,9 @@ func (a *UserTagApiService) AddMyUserTagExecute(r UserTagApiApiAddMyUserTagReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -134,19 +130,19 @@ func (a *UserTagApiService) AddMyUserTagExecute(r UserTagApiApiAddMyUserTagReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserTagApiApiAddUserTagRequest struct {
+type UserTagApiAddUserTagRequest struct {
 	ctx                context.Context
 	ApiService         *UserTagApiService
 	userId             string
 	postUserTagRequest *PostUserTagRequest
 }
 
-func (r UserTagApiApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiApiAddUserTagRequest {
+func (r UserTagApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiAddUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
 }
 
-func (r UserTagApiApiAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
+func (r UserTagApiAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
 	return r.ApiService.AddUserTagExecute(r)
 }
 
@@ -156,12 +152,12 @@ AddUserTag ユーザーにタグを追加
 指定したユーザーに指定したタグを追加します。
 Webhookユーザーにタグを追加することは出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserTagApiApiAddUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserTagApiAddUserTagRequest
 */
-func (a *UserTagApiService) AddUserTag(ctx context.Context, userId string) UserTagApiApiAddUserTagRequest {
-	return UserTagApiApiAddUserTagRequest{
+func (a *UserTagApiService) AddUserTag(ctx context.Context, userId string) UserTagApiAddUserTagRequest {
+	return UserTagApiAddUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -169,8 +165,9 @@ func (a *UserTagApiService) AddUserTag(ctx context.Context, userId string) UserT
 }
 
 // Execute executes the request
-//  @return UserTag
-func (a *UserTagApiService) AddUserTagExecute(r UserTagApiApiAddUserTagRequest) (*UserTag, *http.Response, error) {
+//
+//	@return UserTag
+func (a *UserTagApiService) AddUserTagExecute(r UserTagApiAddUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -184,7 +181,7 @@ func (a *UserTagApiService) AddUserTagExecute(r UserTagApiApiAddUserTagRequest) 
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -219,9 +216,9 @@ func (a *UserTagApiService) AddUserTagExecute(r UserTagApiApiAddUserTagRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -246,19 +243,19 @@ func (a *UserTagApiService) AddUserTagExecute(r UserTagApiApiAddUserTagRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserTagApiApiEditMyUserTagRequest struct {
+type UserTagApiEditMyUserTagRequest struct {
 	ctx                 context.Context
 	ApiService          *UserTagApiService
 	tagId               string
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-func (r UserTagApiApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiApiEditMyUserTagRequest {
+func (r UserTagApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiEditMyUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
 }
 
-func (r UserTagApiApiEditMyUserTagRequest) Execute() (*http.Response, error) {
+func (r UserTagApiEditMyUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditMyUserTagExecute(r)
 }
 
@@ -267,12 +264,12 @@ EditMyUserTag 自分のタグを編集
 
 自分の指定したタグの状態を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiApiEditMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiEditMyUserTagRequest
 */
-func (a *UserTagApiService) EditMyUserTag(ctx context.Context, tagId string) UserTagApiApiEditMyUserTagRequest {
-	return UserTagApiApiEditMyUserTagRequest{
+func (a *UserTagApiService) EditMyUserTag(ctx context.Context, tagId string) UserTagApiEditMyUserTagRequest {
+	return UserTagApiEditMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tagId:      tagId,
@@ -280,7 +277,7 @@ func (a *UserTagApiService) EditMyUserTag(ctx context.Context, tagId string) Use
 }
 
 // Execute executes the request
-func (a *UserTagApiService) EditMyUserTagExecute(r UserTagApiApiEditMyUserTagRequest) (*http.Response, error) {
+func (a *UserTagApiService) EditMyUserTagExecute(r UserTagApiEditMyUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -293,7 +290,7 @@ func (a *UserTagApiService) EditMyUserTagExecute(r UserTagApiApiEditMyUserTagReq
 	}
 
 	localVarPath := localBasePath + "/users/me/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -328,9 +325,9 @@ func (a *UserTagApiService) EditMyUserTagExecute(r UserTagApiApiEditMyUserTagReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -346,7 +343,7 @@ func (a *UserTagApiService) EditMyUserTagExecute(r UserTagApiApiEditMyUserTagReq
 	return localVarHTTPResponse, nil
 }
 
-type UserTagApiApiEditUserTagRequest struct {
+type UserTagApiEditUserTagRequest struct {
 	ctx                 context.Context
 	ApiService          *UserTagApiService
 	userId              string
@@ -354,12 +351,12 @@ type UserTagApiApiEditUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-func (r UserTagApiApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiApiEditUserTagRequest {
+func (r UserTagApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiEditUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
 }
 
-func (r UserTagApiApiEditUserTagRequest) Execute() (*http.Response, error) {
+func (r UserTagApiEditUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserTagExecute(r)
 }
 
@@ -369,13 +366,13 @@ EditUserTag ユーザーのタグを編集
 指定したユーザーの指定したタグの状態を変更します。
 他人の状態は変更できません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserTagApiApiEditUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserTagApiEditUserTagRequest
 */
-func (a *UserTagApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserTagApiApiEditUserTagRequest {
-	return UserTagApiApiEditUserTagRequest{
+func (a *UserTagApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserTagApiEditUserTagRequest {
+	return UserTagApiEditUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -384,7 +381,7 @@ func (a *UserTagApiService) EditUserTag(ctx context.Context, userId string, tagI
 }
 
 // Execute executes the request
-func (a *UserTagApiService) EditUserTagExecute(r UserTagApiApiEditUserTagRequest) (*http.Response, error) {
+func (a *UserTagApiService) EditUserTagExecute(r UserTagApiEditUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -397,8 +394,8 @@ func (a *UserTagApiService) EditUserTagExecute(r UserTagApiApiEditUserTagRequest
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -433,9 +430,9 @@ func (a *UserTagApiService) EditUserTagExecute(r UserTagApiApiEditUserTagRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -451,12 +448,12 @@ func (a *UserTagApiService) EditUserTagExecute(r UserTagApiApiEditUserTagRequest
 	return localVarHTTPResponse, nil
 }
 
-type UserTagApiApiGetMyUserTagsRequest struct {
+type UserTagApiGetMyUserTagsRequest struct {
 	ctx        context.Context
 	ApiService *UserTagApiService
 }
 
-func (r UserTagApiApiGetMyUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
+func (r UserTagApiGetMyUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
 	return r.ApiService.GetMyUserTagsExecute(r)
 }
 
@@ -465,19 +462,20 @@ GetMyUserTags 自分のタグリストを取得
 
 自分に付けられているタグの配列を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserTagApiApiGetMyUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserTagApiGetMyUserTagsRequest
 */
-func (a *UserTagApiService) GetMyUserTags(ctx context.Context) UserTagApiApiGetMyUserTagsRequest {
-	return UserTagApiApiGetMyUserTagsRequest{
+func (a *UserTagApiService) GetMyUserTags(ctx context.Context) UserTagApiGetMyUserTagsRequest {
+	return UserTagApiGetMyUserTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserTag
-func (a *UserTagApiService) GetMyUserTagsExecute(r UserTagApiApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
+//
+//	@return []UserTag
+func (a *UserTagApiService) GetMyUserTagsExecute(r UserTagApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -523,9 +521,9 @@ func (a *UserTagApiService) GetMyUserTagsExecute(r UserTagApiApiGetMyUserTagsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -550,13 +548,13 @@ func (a *UserTagApiService) GetMyUserTagsExecute(r UserTagApiApiGetMyUserTagsReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserTagApiApiGetTagRequest struct {
+type UserTagApiGetTagRequest struct {
 	ctx        context.Context
 	ApiService *UserTagApiService
 	tagId      string
 }
 
-func (r UserTagApiApiGetTagRequest) Execute() (*Tag, *http.Response, error) {
+func (r UserTagApiGetTagRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.GetTagExecute(r)
 }
 
@@ -565,12 +563,12 @@ GetTag タグ情報を取得
 
 指定したタグの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiApiGetTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiGetTagRequest
 */
-func (a *UserTagApiService) GetTag(ctx context.Context, tagId string) UserTagApiApiGetTagRequest {
-	return UserTagApiApiGetTagRequest{
+func (a *UserTagApiService) GetTag(ctx context.Context, tagId string) UserTagApiGetTagRequest {
+	return UserTagApiGetTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tagId:      tagId,
@@ -578,8 +576,9 @@ func (a *UserTagApiService) GetTag(ctx context.Context, tagId string) UserTagApi
 }
 
 // Execute executes the request
-//  @return Tag
-func (a *UserTagApiService) GetTagExecute(r UserTagApiApiGetTagRequest) (*Tag, *http.Response, error) {
+//
+//	@return Tag
+func (a *UserTagApiService) GetTagExecute(r UserTagApiGetTagRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -593,7 +592,7 @@ func (a *UserTagApiService) GetTagExecute(r UserTagApiApiGetTagRequest) (*Tag, *
 	}
 
 	localVarPath := localBasePath + "/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -626,9 +625,9 @@ func (a *UserTagApiService) GetTagExecute(r UserTagApiApiGetTagRequest) (*Tag, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -653,13 +652,13 @@ func (a *UserTagApiService) GetTagExecute(r UserTagApiApiGetTagRequest) (*Tag, *
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserTagApiApiGetUserTagsRequest struct {
+type UserTagApiGetUserTagsRequest struct {
 	ctx        context.Context
 	ApiService *UserTagApiService
 	userId     string
 }
 
-func (r UserTagApiApiGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
+func (r UserTagApiGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
 	return r.ApiService.GetUserTagsExecute(r)
 }
 
@@ -668,12 +667,12 @@ GetUserTags ユーザーのタグリストを取得
 
 指定したユーザーのタグリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserTagApiApiGetUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserTagApiGetUserTagsRequest
 */
-func (a *UserTagApiService) GetUserTags(ctx context.Context, userId string) UserTagApiApiGetUserTagsRequest {
-	return UserTagApiApiGetUserTagsRequest{
+func (a *UserTagApiService) GetUserTags(ctx context.Context, userId string) UserTagApiGetUserTagsRequest {
+	return UserTagApiGetUserTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -681,8 +680,9 @@ func (a *UserTagApiService) GetUserTags(ctx context.Context, userId string) User
 }
 
 // Execute executes the request
-//  @return []UserTag
-func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
+//
+//	@return []UserTag
+func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -696,7 +696,7 @@ func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiApiGetUserTagsRequest
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -729,9 +729,9 @@ func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiApiGetUserTagsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -756,13 +756,13 @@ func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiApiGetUserTagsRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserTagApiApiRemoveMyUserTagRequest struct {
+type UserTagApiRemoveMyUserTagRequest struct {
 	ctx        context.Context
 	ApiService *UserTagApiService
 	tagId      string
 }
 
-func (r UserTagApiApiRemoveMyUserTagRequest) Execute() (*http.Response, error) {
+func (r UserTagApiRemoveMyUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMyUserTagExecute(r)
 }
 
@@ -771,12 +771,12 @@ RemoveMyUserTag 自分からタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiApiRemoveMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiRemoveMyUserTagRequest
 */
-func (a *UserTagApiService) RemoveMyUserTag(ctx context.Context, tagId string) UserTagApiApiRemoveMyUserTagRequest {
-	return UserTagApiApiRemoveMyUserTagRequest{
+func (a *UserTagApiService) RemoveMyUserTag(ctx context.Context, tagId string) UserTagApiRemoveMyUserTagRequest {
+	return UserTagApiRemoveMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tagId:      tagId,
@@ -784,7 +784,7 @@ func (a *UserTagApiService) RemoveMyUserTag(ctx context.Context, tagId string) U
 }
 
 // Execute executes the request
-func (a *UserTagApiService) RemoveMyUserTagExecute(r UserTagApiApiRemoveMyUserTagRequest) (*http.Response, error) {
+func (a *UserTagApiService) RemoveMyUserTagExecute(r UserTagApiRemoveMyUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -797,7 +797,7 @@ func (a *UserTagApiService) RemoveMyUserTagExecute(r UserTagApiApiRemoveMyUserTa
 	}
 
 	localVarPath := localBasePath + "/users/me/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -830,9 +830,9 @@ func (a *UserTagApiService) RemoveMyUserTagExecute(r UserTagApiApiRemoveMyUserTa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -848,14 +848,14 @@ func (a *UserTagApiService) RemoveMyUserTagExecute(r UserTagApiApiRemoveMyUserTa
 	return localVarHTTPResponse, nil
 }
 
-type UserTagApiApiRemoveUserTagRequest struct {
+type UserTagApiRemoveUserTagRequest struct {
 	ctx        context.Context
 	ApiService *UserTagApiService
 	userId     string
 	tagId      string
 }
 
-func (r UserTagApiApiRemoveUserTagRequest) Execute() (*http.Response, error) {
+func (r UserTagApiRemoveUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserTagExecute(r)
 }
 
@@ -864,13 +864,13 @@ RemoveUserTag ユーザーからタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserTagApiApiRemoveUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserTagApiRemoveUserTagRequest
 */
-func (a *UserTagApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserTagApiApiRemoveUserTagRequest {
-	return UserTagApiApiRemoveUserTagRequest{
+func (a *UserTagApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserTagApiRemoveUserTagRequest {
+	return UserTagApiRemoveUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -879,7 +879,7 @@ func (a *UserTagApiService) RemoveUserTag(ctx context.Context, userId string, ta
 }
 
 // Execute executes the request
-func (a *UserTagApiService) RemoveUserTagExecute(r UserTagApiApiRemoveUserTagRequest) (*http.Response, error) {
+func (a *UserTagApiService) RemoveUserTagExecute(r UserTagApiRemoveUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -892,8 +892,8 @@ func (a *UserTagApiService) RemoveUserTagExecute(r UserTagApiApiRemoveUserTagReq
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -926,9 +926,9 @@ func (a *UserTagApiService) RemoveUserTagExecute(r UserTagApiApiRemoveUserTagReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

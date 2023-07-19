@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VisibilityChangedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VisibilityChangedEvent{}
+
 // VisibilityChangedEvent チャンネル可視状態変更イベント
 type VisibilityChangedEvent struct {
 	// 変更者UUID
@@ -90,14 +93,18 @@ func (o *VisibilityChangedEvent) SetVisibility(v bool) {
 }
 
 func (o VisibilityChangedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["visibility"] = o.Visibility
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VisibilityChangedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["visibility"] = o.Visibility
+	return toSerialize, nil
 }
 
 type NullableVisibilityChangedEvent struct {

@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the LoginSession type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginSession{}
+
 // LoginSession ログインセッション情報
 type LoginSession struct {
 	// セッションUUID
@@ -91,14 +94,18 @@ func (o *LoginSession) SetIssuedAt(v time.Time) {
 }
 
 func (o LoginSession) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["issuedAt"] = o.IssuedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginSession) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["issuedAt"] = o.IssuedAt
+	return toSerialize, nil
 }
 
 type NullableLoginSession struct {

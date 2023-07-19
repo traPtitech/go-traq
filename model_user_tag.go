@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the UserTag type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserTag{}
+
 // UserTag ユーザータグ
 type UserTag struct {
 	// タグUUID
@@ -172,23 +175,21 @@ func (o *UserTag) SetUpdatedAt(v time.Time) {
 }
 
 func (o UserTag) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["tagId"] = o.TagId
-	}
-	if true {
-		toSerialize["tag"] = o.Tag
-	}
-	if true {
-		toSerialize["isLocked"] = o.IsLocked
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserTag) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["tagId"] = o.TagId
+	toSerialize["tag"] = o.Tag
+	toSerialize["isLocked"] = o.IsLocked
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
 }
 
 type NullableUserTag struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostClipFolderRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostClipFolderRequest{}
+
 // PostClipFolderRequest クリップフォルダ作成リクエスト
 type PostClipFolderRequest struct {
 	// フォルダ名
@@ -90,14 +93,18 @@ func (o *PostClipFolderRequest) SetDescription(v string) {
 }
 
 func (o PostClipFolderRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostClipFolderRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
 }
 
 type NullablePostClipFolderRequest struct {

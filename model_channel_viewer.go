@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ChannelViewer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelViewer{}
+
 // ChannelViewer チャンネル閲覧者情報
 type ChannelViewer struct {
 	// ユーザーUUID
@@ -117,17 +120,19 @@ func (o *ChannelViewer) SetUpdatedAt(v time.Time) {
 }
 
 func (o ChannelViewer) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChannelViewer) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["state"] = o.State
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
 }
 
 type NullableChannelViewer struct {

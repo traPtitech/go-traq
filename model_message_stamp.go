@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the MessageStamp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MessageStamp{}
+
 // MessageStamp メッセージに押されたスタンプ
 type MessageStamp struct {
 	// ユーザーUUID
@@ -172,23 +175,21 @@ func (o *MessageStamp) SetUpdatedAt(v time.Time) {
 }
 
 func (o MessageStamp) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["stampId"] = o.StampId
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MessageStamp) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["stampId"] = o.StampId
+	toSerialize["count"] = o.Count
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
 }
 
 type NullableMessageStamp struct {

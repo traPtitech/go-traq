@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchUserRequest{}
+
 // PatchUserRequest ユーザー情報編集リクエスト
 type PatchUserRequest struct {
 	// 新しい表示名
@@ -44,7 +47,7 @@ func NewPatchUserRequestWithDefaults() *PatchUserRequest {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *PatchUserRequest) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *PatchUserRequest) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchUserRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -62,7 +65,7 @@ func (o *PatchUserRequest) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *PatchUserRequest) SetDisplayName(v string) {
 
 // GetTwitterId returns the TwitterId field value if set, zero value otherwise.
 func (o *PatchUserRequest) GetTwitterId() string {
-	if o == nil || o.TwitterId == nil {
+	if o == nil || IsNil(o.TwitterId) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *PatchUserRequest) GetTwitterId() string {
 // GetTwitterIdOk returns a tuple with the TwitterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchUserRequest) GetTwitterIdOk() (*string, bool) {
-	if o == nil || o.TwitterId == nil {
+	if o == nil || IsNil(o.TwitterId) {
 		return nil, false
 	}
 	return o.TwitterId, true
@@ -94,7 +97,7 @@ func (o *PatchUserRequest) GetTwitterIdOk() (*string, bool) {
 
 // HasTwitterId returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasTwitterId() bool {
-	if o != nil && o.TwitterId != nil {
+	if o != nil && !IsNil(o.TwitterId) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *PatchUserRequest) SetTwitterId(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *PatchUserRequest) GetState() UserAccountState {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret UserAccountState
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *PatchUserRequest) GetState() UserAccountState {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchUserRequest) GetStateOk() (*UserAccountState, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -126,7 +129,7 @@ func (o *PatchUserRequest) GetStateOk() (*UserAccountState, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *PatchUserRequest) SetState(v UserAccountState) {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *PatchUserRequest) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *PatchUserRequest) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchUserRequest) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -158,7 +161,7 @@ func (o *PatchUserRequest) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -171,20 +174,28 @@ func (o *PatchUserRequest) SetRole(v string) {
 }
 
 func (o PatchUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DisplayName != nil {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if o.TwitterId != nil {
-		toSerialize["twitterId"] = o.TwitterId
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchUserRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.TwitterId) {
+		toSerialize["twitterId"] = o.TwitterId
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchUserRequest struct {

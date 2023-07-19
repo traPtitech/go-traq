@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostChannelRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostChannelRequest{}
+
 // PostChannelRequest チャンネル作成リクエスト
 type PostChannelRequest struct {
 	// チャンネル名
@@ -92,14 +95,18 @@ func (o *PostChannelRequest) SetParent(v string) {
 }
 
 func (o PostChannelRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["parent"] = o.Parent.Get()
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostChannelRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["parent"] = o.Parent.Get()
+	return toSerialize, nil
 }
 
 type NullablePostChannelRequest struct {

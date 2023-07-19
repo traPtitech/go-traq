@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSettings{}
+
 // UserSettings ユーザー設定の情報
 type UserSettings struct {
 	// ユーザーUUID
@@ -90,14 +93,18 @@ func (o *UserSettings) SetNotifyCitation(v bool) {
 }
 
 func (o UserSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["notifyCitation"] = o.NotifyCitation
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["notifyCitation"] = o.NotifyCitation
+	return toSerialize, nil
 }
 
 type NullableUserSettings struct {

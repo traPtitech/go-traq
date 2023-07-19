@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchStampRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchStampRequest{}
+
 // PatchStampRequest スタンプ情報変更リクエスト
 type PatchStampRequest struct {
 	// スタンプ名
@@ -41,7 +44,7 @@ func NewPatchStampRequestWithDefaults() *PatchStampRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PatchStampRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *PatchStampRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchStampRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -59,7 +62,7 @@ func (o *PatchStampRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PatchStampRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *PatchStampRequest) SetName(v string) {
 
 // GetCreatorId returns the CreatorId field value if set, zero value otherwise.
 func (o *PatchStampRequest) GetCreatorId() string {
-	if o == nil || o.CreatorId == nil {
+	if o == nil || IsNil(o.CreatorId) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *PatchStampRequest) GetCreatorId() string {
 // GetCreatorIdOk returns a tuple with the CreatorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchStampRequest) GetCreatorIdOk() (*string, bool) {
-	if o == nil || o.CreatorId == nil {
+	if o == nil || IsNil(o.CreatorId) {
 		return nil, false
 	}
 	return o.CreatorId, true
@@ -91,7 +94,7 @@ func (o *PatchStampRequest) GetCreatorIdOk() (*string, bool) {
 
 // HasCreatorId returns a boolean if a field has been set.
 func (o *PatchStampRequest) HasCreatorId() bool {
-	if o != nil && o.CreatorId != nil {
+	if o != nil && !IsNil(o.CreatorId) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *PatchStampRequest) SetCreatorId(v string) {
 }
 
 func (o PatchStampRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.CreatorId != nil {
-		toSerialize["creatorId"] = o.CreatorId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchStampRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.CreatorId) {
+		toSerialize["creatorId"] = o.CreatorId
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchStampRequest struct {

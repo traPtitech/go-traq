@@ -13,27 +13,22 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // PinApiService PinApi service
 type PinApiService service
 
-type PinApiApiCreatePinRequest struct {
+type PinApiCreatePinRequest struct {
 	ctx        context.Context
 	ApiService *PinApiService
 	messageId  string
 }
 
-func (r PinApiApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r PinApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.CreatePinExecute(r)
 }
 
@@ -43,12 +38,12 @@ CreatePin ピン留めする
 指定したメッセージをピン留めします。
 アーカイブされているチャンネルのメッセージ・存在しないメッセージ・チャンネル当たりの上限数を超えたメッセージのピン留めはできません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return PinApiApiCreatePinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return PinApiCreatePinRequest
 */
-func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiApiCreatePinRequest {
-	return PinApiApiCreatePinRequest{
+func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiCreatePinRequest {
+	return PinApiCreatePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -56,8 +51,9 @@ func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiA
 }
 
 // Execute executes the request
-//  @return MessagePin
-func (a *PinApiService) CreatePinExecute(r PinApiApiCreatePinRequest) (*MessagePin, *http.Response, error) {
+//
+//	@return MessagePin
+func (a *PinApiService) CreatePinExecute(r PinApiCreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -71,7 +67,7 @@ func (a *PinApiService) CreatePinExecute(r PinApiApiCreatePinRequest) (*MessageP
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -104,9 +100,9 @@ func (a *PinApiService) CreatePinExecute(r PinApiApiCreatePinRequest) (*MessageP
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -131,13 +127,13 @@ func (a *PinApiService) CreatePinExecute(r PinApiApiCreatePinRequest) (*MessageP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiApiGetChannelPinsRequest struct {
+type PinApiGetChannelPinsRequest struct {
 	ctx        context.Context
 	ApiService *PinApiService
 	channelId  string
 }
 
-func (r PinApiApiGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
+func (r PinApiGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
 	return r.ApiService.GetChannelPinsExecute(r)
 }
 
@@ -146,12 +142,12 @@ GetChannelPins チャンネルピンのリストを取得
 
 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return PinApiApiGetChannelPinsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return PinApiGetChannelPinsRequest
 */
-func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) PinApiApiGetChannelPinsRequest {
-	return PinApiApiGetChannelPinsRequest{
+func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) PinApiGetChannelPinsRequest {
+	return PinApiGetChannelPinsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -159,8 +155,9 @@ func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) Pi
 }
 
 // Execute executes the request
-//  @return []Pin
-func (a *PinApiService) GetChannelPinsExecute(r PinApiApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
+//
+//	@return []Pin
+func (a *PinApiService) GetChannelPinsExecute(r PinApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -174,7 +171,7 @@ func (a *PinApiService) GetChannelPinsExecute(r PinApiApiGetChannelPinsRequest) 
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/pins"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -207,9 +204,9 @@ func (a *PinApiService) GetChannelPinsExecute(r PinApiApiGetChannelPinsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -234,13 +231,13 @@ func (a *PinApiService) GetChannelPinsExecute(r PinApiApiGetChannelPinsRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiApiGetPinRequest struct {
+type PinApiGetPinRequest struct {
 	ctx        context.Context
 	ApiService *PinApiService
 	messageId  string
 }
 
-func (r PinApiApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r PinApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.GetPinExecute(r)
 }
 
@@ -249,12 +246,12 @@ GetPin ピン留めを取得
 
 指定したメッセージのピン留め情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return PinApiApiGetPinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return PinApiGetPinRequest
 */
-func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiApiGetPinRequest {
-	return PinApiApiGetPinRequest{
+func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiGetPinRequest {
+	return PinApiGetPinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -262,8 +259,9 @@ func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiApiG
 }
 
 // Execute executes the request
-//  @return MessagePin
-func (a *PinApiService) GetPinExecute(r PinApiApiGetPinRequest) (*MessagePin, *http.Response, error) {
+//
+//	@return MessagePin
+func (a *PinApiService) GetPinExecute(r PinApiGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -277,7 +275,7 @@ func (a *PinApiService) GetPinExecute(r PinApiApiGetPinRequest) (*MessagePin, *h
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -310,9 +308,9 @@ func (a *PinApiService) GetPinExecute(r PinApiApiGetPinRequest) (*MessagePin, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -337,13 +335,13 @@ func (a *PinApiService) GetPinExecute(r PinApiApiGetPinRequest) (*MessagePin, *h
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiApiRemovePinRequest struct {
+type PinApiRemovePinRequest struct {
 	ctx        context.Context
 	ApiService *PinApiService
 	messageId  string
 }
 
-func (r PinApiApiRemovePinRequest) Execute() (*http.Response, error) {
+func (r PinApiRemovePinRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemovePinExecute(r)
 }
 
@@ -352,12 +350,12 @@ RemovePin ピン留めを外す
 
 指定したメッセージのピン留めを外します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return PinApiApiRemovePinRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return PinApiRemovePinRequest
 */
-func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiApiRemovePinRequest {
-	return PinApiApiRemovePinRequest{
+func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiRemovePinRequest {
+	return PinApiRemovePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -365,7 +363,7 @@ func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiA
 }
 
 // Execute executes the request
-func (a *PinApiService) RemovePinExecute(r PinApiApiRemovePinRequest) (*http.Response, error) {
+func (a *PinApiService) RemovePinExecute(r PinApiRemovePinRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -378,7 +376,7 @@ func (a *PinApiService) RemovePinExecute(r PinApiApiRemovePinRequest) (*http.Res
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/pin"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -411,9 +409,9 @@ func (a *PinApiService) RemovePinExecute(r PinApiApiRemovePinRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

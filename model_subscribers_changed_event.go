@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SubscribersChangedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubscribersChangedEvent{}
+
 // SubscribersChangedEvent 購読者変更イベント
 type SubscribersChangedEvent struct {
 	// 変更者UUID
@@ -117,17 +120,19 @@ func (o *SubscribersChangedEvent) SetOff(v []string) {
 }
 
 func (o SubscribersChangedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["on"] = o.On
-	}
-	if true {
-		toSerialize["off"] = o.Off
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SubscribersChangedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["on"] = o.On
+	toSerialize["off"] = o.Off
+	return toSerialize, nil
 }
 
 type NullableSubscribersChangedEvent struct {

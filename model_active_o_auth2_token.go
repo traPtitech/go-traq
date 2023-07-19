@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ActiveOAuth2Token type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ActiveOAuth2Token{}
+
 // ActiveOAuth2Token 有効なOAuth2トークン情報
 type ActiveOAuth2Token struct {
 	// トークンUUID
@@ -145,20 +148,20 @@ func (o *ActiveOAuth2Token) SetIssuedAt(v time.Time) {
 }
 
 func (o ActiveOAuth2Token) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if true {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if true {
-		toSerialize["issuedAt"] = o.IssuedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ActiveOAuth2Token) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["clientId"] = o.ClientId
+	toSerialize["scopes"] = o.Scopes
+	toSerialize["issuedAt"] = o.IssuedAt
+	return toSerialize, nil
 }
 
 type NullableActiveOAuth2Token struct {

@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the MessageClip type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MessageClip{}
+
 // MessageClip メッセージクリップ
 type MessageClip struct {
 	// クリップされているフォルダのID
@@ -91,14 +94,18 @@ func (o *MessageClip) SetClippedAt(v time.Time) {
 }
 
 func (o MessageClip) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["folderId"] = o.FolderId
-	}
-	if true {
-		toSerialize["clippedAt"] = o.ClippedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MessageClip) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["folderId"] = o.FolderId
+	toSerialize["clippedAt"] = o.ClippedAt
+	return toSerialize, nil
 }
 
 type NullableMessageClip struct {

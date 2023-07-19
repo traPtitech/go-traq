@@ -13,34 +13,29 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // GroupApiService GroupApi service
 type GroupApiService service
 
-type GroupApiApiAddUserGroupAdminRequest struct {
+type GroupApiAddUserGroupAdminRequest struct {
 	ctx                       context.Context
 	ApiService                *GroupApiService
 	groupId                   string
 	postUserGroupAdminRequest *PostUserGroupAdminRequest
 }
 
-func (r GroupApiApiAddUserGroupAdminRequest) PostUserGroupAdminRequest(postUserGroupAdminRequest PostUserGroupAdminRequest) GroupApiApiAddUserGroupAdminRequest {
+func (r GroupApiAddUserGroupAdminRequest) PostUserGroupAdminRequest(postUserGroupAdminRequest PostUserGroupAdminRequest) GroupApiAddUserGroupAdminRequest {
 	r.postUserGroupAdminRequest = &postUserGroupAdminRequest
 	return r
 }
 
-func (r GroupApiApiAddUserGroupAdminRequest) Execute() (*http.Response, error) {
+func (r GroupApiAddUserGroupAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddUserGroupAdminExecute(r)
 }
 
@@ -50,12 +45,12 @@ AddUserGroupAdmin グループ管理者を追加
 指定したグループに管理者を追加します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiAddUserGroupAdminRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiAddUserGroupAdminRequest
 */
-func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string) GroupApiApiAddUserGroupAdminRequest {
-	return GroupApiApiAddUserGroupAdminRequest{
+func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string) GroupApiAddUserGroupAdminRequest {
+	return GroupApiAddUserGroupAdminRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -63,7 +58,7 @@ func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string)
 }
 
 // Execute executes the request
-func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiApiAddUserGroupAdminRequest) (*http.Response, error) {
+func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiAddUserGroupAdminRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -76,7 +71,7 @@ func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiApiAddUserGroupAdmi
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/admins"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -111,9 +106,9 @@ func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiApiAddUserGroupAdmi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -129,19 +124,19 @@ func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiApiAddUserGroupAdmi
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiAddUserGroupMemberRequest struct {
+type GroupApiAddUserGroupMemberRequest struct {
 	ctx             context.Context
 	ApiService      *GroupApiService
 	groupId         string
 	userGroupMember *UserGroupMember
 }
 
-func (r GroupApiApiAddUserGroupMemberRequest) UserGroupMember(userGroupMember UserGroupMember) GroupApiApiAddUserGroupMemberRequest {
+func (r GroupApiAddUserGroupMemberRequest) UserGroupMember(userGroupMember UserGroupMember) GroupApiAddUserGroupMemberRequest {
 	r.userGroupMember = &userGroupMember
 	return r
 }
 
-func (r GroupApiApiAddUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupApiAddUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddUserGroupMemberExecute(r)
 }
 
@@ -151,12 +146,12 @@ AddUserGroupMember グループメンバーを追加
 指定したグループにメンバーを追加します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiAddUserGroupMemberRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiAddUserGroupMemberRequest
 */
-func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string) GroupApiApiAddUserGroupMemberRequest {
-	return GroupApiApiAddUserGroupMemberRequest{
+func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string) GroupApiAddUserGroupMemberRequest {
+	return GroupApiAddUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -164,7 +159,7 @@ func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string
 }
 
 // Execute executes the request
-func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiApiAddUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiAddUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -177,7 +172,7 @@ func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiApiAddUserGroupMem
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -212,9 +207,9 @@ func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiApiAddUserGroupMem
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -230,20 +225,20 @@ func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiApiAddUserGroupMem
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiChangeUserGroupIconRequest struct {
+type GroupApiChangeUserGroupIconRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
-	file       **os.File
+	file       *os.File
 }
 
 // アイコン画像(1MBまでのpng, jpeg, gif)
-func (r GroupApiApiChangeUserGroupIconRequest) File(file *os.File) GroupApiApiChangeUserGroupIconRequest {
-	r.file = &file
+func (r GroupApiChangeUserGroupIconRequest) File(file *os.File) GroupApiChangeUserGroupIconRequest {
+	r.file = file
 	return r
 }
 
-func (r GroupApiApiChangeUserGroupIconRequest) Execute() (*http.Response, error) {
+func (r GroupApiChangeUserGroupIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserGroupIconExecute(r)
 }
 
@@ -253,12 +248,12 @@ ChangeUserGroupIcon ユーザーグループのアイコンを変更
 ユーザーグループのアイコンを変更します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiChangeUserGroupIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiChangeUserGroupIconRequest
 */
-func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId string) GroupApiApiChangeUserGroupIconRequest {
-	return GroupApiApiChangeUserGroupIconRequest{
+func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId string) GroupApiChangeUserGroupIconRequest {
+	return GroupApiChangeUserGroupIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -266,7 +261,7 @@ func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiApiChangeUserGroupIconRequest) (*http.Response, error) {
+func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiChangeUserGroupIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -279,7 +274,7 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiApiChangeUserGrou
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/icon"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -311,14 +306,16 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiApiChangeUserGrou
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -329,9 +326,9 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiApiChangeUserGrou
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -347,18 +344,18 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiApiChangeUserGrou
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiCreateUserGroupRequest struct {
+type GroupApiCreateUserGroupRequest struct {
 	ctx                  context.Context
 	ApiService           *GroupApiService
 	postUserGroupRequest *PostUserGroupRequest
 }
 
-func (r GroupApiApiCreateUserGroupRequest) PostUserGroupRequest(postUserGroupRequest PostUserGroupRequest) GroupApiApiCreateUserGroupRequest {
+func (r GroupApiCreateUserGroupRequest) PostUserGroupRequest(postUserGroupRequest PostUserGroupRequest) GroupApiCreateUserGroupRequest {
 	r.postUserGroupRequest = &postUserGroupRequest
 	return r
 }
 
-func (r GroupApiApiCreateUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
+func (r GroupApiCreateUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
 	return r.ApiService.CreateUserGroupExecute(r)
 }
 
@@ -368,19 +365,20 @@ CreateUserGroup ユーザーグループを作成
 ユーザーグループを作成します。
 作成者は自動的にグループ管理者になります。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return GroupApiApiCreateUserGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GroupApiCreateUserGroupRequest
 */
-func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiApiCreateUserGroupRequest {
-	return GroupApiApiCreateUserGroupRequest{
+func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiCreateUserGroupRequest {
+	return GroupApiCreateUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserGroup
-func (a *GroupApiService) CreateUserGroupExecute(r GroupApiApiCreateUserGroupRequest) (*UserGroup, *http.Response, error) {
+//
+//	@return UserGroup
+func (a *GroupApiService) CreateUserGroupExecute(r GroupApiCreateUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -428,9 +426,9 @@ func (a *GroupApiService) CreateUserGroupExecute(r GroupApiApiCreateUserGroupReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -455,13 +453,13 @@ func (a *GroupApiService) CreateUserGroupExecute(r GroupApiApiCreateUserGroupReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiApiDeleteUserGroupRequest struct {
+type GroupApiDeleteUserGroupRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 }
 
-func (r GroupApiApiDeleteUserGroupRequest) Execute() (*http.Response, error) {
+func (r GroupApiDeleteUserGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteUserGroupExecute(r)
 }
 
@@ -471,12 +469,12 @@ DeleteUserGroup ユーザーグループを削除
 指定したユーザーグループを削除します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiDeleteUserGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiDeleteUserGroupRequest
 */
-func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) GroupApiApiDeleteUserGroupRequest {
-	return GroupApiApiDeleteUserGroupRequest{
+func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) GroupApiDeleteUserGroupRequest {
+	return GroupApiDeleteUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -484,7 +482,7 @@ func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) G
 }
 
 // Execute executes the request
-func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiApiDeleteUserGroupRequest) (*http.Response, error) {
+func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiDeleteUserGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -497,7 +495,7 @@ func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiApiDeleteUserGroupReq
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -530,9 +528,9 @@ func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiApiDeleteUserGroupReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -548,19 +546,19 @@ func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiApiDeleteUserGroupReq
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiEditUserGroupRequest struct {
+type GroupApiEditUserGroupRequest struct {
 	ctx                   context.Context
 	ApiService            *GroupApiService
 	groupId               string
 	patchUserGroupRequest *PatchUserGroupRequest
 }
 
-func (r GroupApiApiEditUserGroupRequest) PatchUserGroupRequest(patchUserGroupRequest PatchUserGroupRequest) GroupApiApiEditUserGroupRequest {
+func (r GroupApiEditUserGroupRequest) PatchUserGroupRequest(patchUserGroupRequest PatchUserGroupRequest) GroupApiEditUserGroupRequest {
 	r.patchUserGroupRequest = &patchUserGroupRequest
 	return r
 }
 
-func (r GroupApiApiEditUserGroupRequest) Execute() (*http.Response, error) {
+func (r GroupApiEditUserGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserGroupExecute(r)
 }
 
@@ -570,12 +568,12 @@ EditUserGroup ユーザーグループを編集
 指定したユーザーグループの情報を編集します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiEditUserGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiEditUserGroupRequest
 */
-func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) GroupApiApiEditUserGroupRequest {
-	return GroupApiApiEditUserGroupRequest{
+func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) GroupApiEditUserGroupRequest {
+	return GroupApiEditUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -583,7 +581,7 @@ func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) Gro
 }
 
 // Execute executes the request
-func (a *GroupApiService) EditUserGroupExecute(r GroupApiApiEditUserGroupRequest) (*http.Response, error) {
+func (a *GroupApiService) EditUserGroupExecute(r GroupApiEditUserGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -596,7 +594,7 @@ func (a *GroupApiService) EditUserGroupExecute(r GroupApiApiEditUserGroupRequest
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -631,9 +629,9 @@ func (a *GroupApiService) EditUserGroupExecute(r GroupApiApiEditUserGroupRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -649,7 +647,7 @@ func (a *GroupApiService) EditUserGroupExecute(r GroupApiApiEditUserGroupRequest
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiEditUserGroupMemberRequest struct {
+type GroupApiEditUserGroupMemberRequest struct {
 	ctx                     context.Context
 	ApiService              *GroupApiService
 	groupId                 string
@@ -657,12 +655,12 @@ type GroupApiApiEditUserGroupMemberRequest struct {
 	patchGroupMemberRequest *PatchGroupMemberRequest
 }
 
-func (r GroupApiApiEditUserGroupMemberRequest) PatchGroupMemberRequest(patchGroupMemberRequest PatchGroupMemberRequest) GroupApiApiEditUserGroupMemberRequest {
+func (r GroupApiEditUserGroupMemberRequest) PatchGroupMemberRequest(patchGroupMemberRequest PatchGroupMemberRequest) GroupApiEditUserGroupMemberRequest {
 	r.patchGroupMemberRequest = &patchGroupMemberRequest
 	return r
 }
 
-func (r GroupApiApiEditUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupApiEditUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserGroupMemberExecute(r)
 }
 
@@ -672,13 +670,13 @@ EditUserGroupMember グループメンバーを編集
 指定したユーザーグループ内の指定したユーザーの属性を編集します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @param userId ユーザーUUID
- @return GroupApiApiEditUserGroupMemberRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@param userId ユーザーUUID
+	@return GroupApiEditUserGroupMemberRequest
 */
-func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiApiEditUserGroupMemberRequest {
-	return GroupApiApiEditUserGroupMemberRequest{
+func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiEditUserGroupMemberRequest {
+	return GroupApiEditUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -687,7 +685,7 @@ func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiApiEditUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiEditUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -700,8 +698,8 @@ func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiApiEditUserGroupM
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -736,9 +734,9 @@ func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiApiEditUserGroupM
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -754,13 +752,13 @@ func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiApiEditUserGroupM
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiGetUserGroupRequest struct {
+type GroupApiGetUserGroupRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 }
 
-func (r GroupApiApiGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
+func (r GroupApiGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
 	return r.ApiService.GetUserGroupExecute(r)
 }
 
@@ -769,12 +767,12 @@ GetUserGroup ユーザーグループを取得
 
 指定したユーザーグループの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiGetUserGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiGetUserGroupRequest
 */
-func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) GroupApiApiGetUserGroupRequest {
-	return GroupApiApiGetUserGroupRequest{
+func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) GroupApiGetUserGroupRequest {
+	return GroupApiGetUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -782,8 +780,9 @@ func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) Grou
 }
 
 // Execute executes the request
-//  @return UserGroup
-func (a *GroupApiService) GetUserGroupExecute(r GroupApiApiGetUserGroupRequest) (*UserGroup, *http.Response, error) {
+//
+//	@return UserGroup
+func (a *GroupApiService) GetUserGroupExecute(r GroupApiGetUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -797,7 +796,7 @@ func (a *GroupApiService) GetUserGroupExecute(r GroupApiApiGetUserGroupRequest) 
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -830,9 +829,9 @@ func (a *GroupApiService) GetUserGroupExecute(r GroupApiApiGetUserGroupRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -857,13 +856,13 @@ func (a *GroupApiService) GetUserGroupExecute(r GroupApiApiGetUserGroupRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiApiGetUserGroupAdminsRequest struct {
+type GroupApiGetUserGroupAdminsRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 }
 
-func (r GroupApiApiGetUserGroupAdminsRequest) Execute() ([]string, *http.Response, error) {
+func (r GroupApiGetUserGroupAdminsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetUserGroupAdminsExecute(r)
 }
 
@@ -872,12 +871,12 @@ GetUserGroupAdmins グループ管理者を取得
 
 指定したグループの管理者のリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiGetUserGroupAdminsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiGetUserGroupAdminsRequest
 */
-func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string) GroupApiApiGetUserGroupAdminsRequest {
-	return GroupApiApiGetUserGroupAdminsRequest{
+func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string) GroupApiGetUserGroupAdminsRequest {
+	return GroupApiGetUserGroupAdminsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -885,8 +884,9 @@ func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string
 }
 
 // Execute executes the request
-//  @return []string
-func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiApiGetUserGroupAdminsRequest) ([]string, *http.Response, error) {
+//
+//	@return []string
+func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiGetUserGroupAdminsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -900,7 +900,7 @@ func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiApiGetUserGroupAdm
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/admins"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -933,9 +933,9 @@ func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiApiGetUserGroupAdm
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -960,13 +960,13 @@ func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiApiGetUserGroupAdm
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiApiGetUserGroupMembersRequest struct {
+type GroupApiGetUserGroupMembersRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 }
 
-func (r GroupApiApiGetUserGroupMembersRequest) Execute() ([]UserGroupMember, *http.Response, error) {
+func (r GroupApiGetUserGroupMembersRequest) Execute() ([]UserGroupMember, *http.Response, error) {
 	return r.ApiService.GetUserGroupMembersExecute(r)
 }
 
@@ -975,12 +975,12 @@ GetUserGroupMembers グループメンバーを取得
 
 指定したグループのメンバーのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @return GroupApiApiGetUserGroupMembersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiGetUserGroupMembersRequest
 */
-func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId string) GroupApiApiGetUserGroupMembersRequest {
-	return GroupApiApiGetUserGroupMembersRequest{
+func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId string) GroupApiGetUserGroupMembersRequest {
+	return GroupApiGetUserGroupMembersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -988,8 +988,9 @@ func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-//  @return []UserGroupMember
-func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiApiGetUserGroupMembersRequest) ([]UserGroupMember, *http.Response, error) {
+//
+//	@return []UserGroupMember
+func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiGetUserGroupMembersRequest) ([]UserGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1003,7 +1004,7 @@ func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiApiGetUserGroupMe
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1036,9 +1037,9 @@ func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiApiGetUserGroupMe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1063,12 +1064,12 @@ func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiApiGetUserGroupMe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiApiGetUserGroupsRequest struct {
+type GroupApiGetUserGroupsRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 }
 
-func (r GroupApiApiGetUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
+func (r GroupApiGetUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
 	return r.ApiService.GetUserGroupsExecute(r)
 }
 
@@ -1077,19 +1078,20 @@ GetUserGroups ユーザーグループのリストを取得
 
 ユーザーグループのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return GroupApiApiGetUserGroupsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GroupApiGetUserGroupsRequest
 */
-func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiApiGetUserGroupsRequest {
-	return GroupApiApiGetUserGroupsRequest{
+func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiGetUserGroupsRequest {
+	return GroupApiGetUserGroupsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserGroup
-func (a *GroupApiService) GetUserGroupsExecute(r GroupApiApiGetUserGroupsRequest) ([]UserGroup, *http.Response, error) {
+//
+//	@return []UserGroup
+func (a *GroupApiService) GetUserGroupsExecute(r GroupApiGetUserGroupsRequest) ([]UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1135,9 +1137,9 @@ func (a *GroupApiService) GetUserGroupsExecute(r GroupApiApiGetUserGroupsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1162,14 +1164,14 @@ func (a *GroupApiService) GetUserGroupsExecute(r GroupApiApiGetUserGroupsRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiApiRemoveUserGroupAdminRequest struct {
+type GroupApiRemoveUserGroupAdminRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 	userId     string
 }
 
-func (r GroupApiApiRemoveUserGroupAdminRequest) Execute() (*http.Response, error) {
+func (r GroupApiRemoveUserGroupAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserGroupAdminExecute(r)
 }
 
@@ -1180,13 +1182,13 @@ RemoveUserGroupAdmin グループ管理者を削除
 対象のユーザーグループの管理者権限が必要です。
 グループから管理者が存在しなくなる場合は400エラーを返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @param userId ユーザーUUID
- @return GroupApiApiRemoveUserGroupAdminRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@param userId ユーザーUUID
+	@return GroupApiRemoveUserGroupAdminRequest
 */
-func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId string, userId string) GroupApiApiRemoveUserGroupAdminRequest {
-	return GroupApiApiRemoveUserGroupAdminRequest{
+func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupAdminRequest {
+	return GroupApiRemoveUserGroupAdminRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -1195,7 +1197,7 @@ func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId stri
 }
 
 // Execute executes the request
-func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiApiRemoveUserGroupAdminRequest) (*http.Response, error) {
+func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiRemoveUserGroupAdminRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1208,8 +1210,8 @@ func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiApiRemoveUserGro
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/admins/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1242,9 +1244,9 @@ func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiApiRemoveUserGro
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1260,14 +1262,14 @@ func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiApiRemoveUserGro
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiApiRemoveUserGroupMemberRequest struct {
+type GroupApiRemoveUserGroupMemberRequest struct {
 	ctx        context.Context
 	ApiService *GroupApiService
 	groupId    string
 	userId     string
 }
 
-func (r GroupApiApiRemoveUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupApiRemoveUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserGroupMemberExecute(r)
 }
 
@@ -1278,13 +1280,13 @@ RemoveUserGroupMember グループメンバーを削除
 既にグループから削除されているメンバーを指定した場合は204を返します。
 対象のユーザーグループの管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId ユーザーグループUUID
- @param userId ユーザーUUID
- @return GroupApiApiRemoveUserGroupMemberRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@param userId ユーザーUUID
+	@return GroupApiRemoveUserGroupMemberRequest
 */
-func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiApiRemoveUserGroupMemberRequest {
-	return GroupApiApiRemoveUserGroupMemberRequest{
+func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupMemberRequest {
+	return GroupApiRemoveUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -1293,7 +1295,7 @@ func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId str
 }
 
 // Execute executes the request
-func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiApiRemoveUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiRemoveUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1306,8 +1308,8 @@ func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiApiRemoveUserGr
 	}
 
 	localVarPath := localBasePath + "/groups/{groupId}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1340,9 +1342,9 @@ func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiApiRemoveUserGr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

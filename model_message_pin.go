@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the MessagePin type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MessagePin{}
+
 // MessagePin ピン情報
 type MessagePin struct {
 	// ピン留めしたユーザーUUID
@@ -91,14 +94,18 @@ func (o *MessagePin) SetPinnedAt(v time.Time) {
 }
 
 func (o MessagePin) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["pinnedAt"] = o.PinnedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MessagePin) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["pinnedAt"] = o.PinnedAt
+	return toSerialize, nil
 }
 
 type NullableMessagePin struct {

@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the StampHistoryEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StampHistoryEntry{}
+
 // StampHistoryEntry スタンプ履歴の1項目
 type StampHistoryEntry struct {
 	// スタンプUUID
@@ -91,14 +94,18 @@ func (o *StampHistoryEntry) SetDatetime(v time.Time) {
 }
 
 func (o StampHistoryEntry) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["stampId"] = o.StampId
-	}
-	if true {
-		toSerialize["datetime"] = o.Datetime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StampHistoryEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["stampId"] = o.StampId
+	toSerialize["datetime"] = o.Datetime
+	return toSerialize, nil
 }
 
 type NullableStampHistoryEntry struct {

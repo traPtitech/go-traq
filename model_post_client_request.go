@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostClientRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostClientRequest{}
+
 // PostClientRequest OAuth2クライアント作成リクエスト
 type PostClientRequest struct {
 	// クライアント名
@@ -144,20 +147,20 @@ func (o *PostClientRequest) SetDescription(v string) {
 }
 
 func (o PostClientRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["callbackUrl"] = o.CallbackUrl
-	}
-	if true {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostClientRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["callbackUrl"] = o.CallbackUrl
+	toSerialize["scopes"] = o.Scopes
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
 }
 
 type NullablePostClientRequest struct {

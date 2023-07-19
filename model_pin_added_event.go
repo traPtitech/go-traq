@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PinAddedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PinAddedEvent{}
+
 // PinAddedEvent ピン追加イベント
 type PinAddedEvent struct {
 	// 変更者UUID
@@ -90,14 +93,18 @@ func (o *PinAddedEvent) SetMessageId(v string) {
 }
 
 func (o PinAddedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["messageId"] = o.MessageId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PinAddedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["messageId"] = o.MessageId
+	return toSerialize, nil
 }
 
 type NullablePinAddedEvent struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostBotRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostBotRequest{}
+
 // PostBotRequest BOT作成リクエスト
 type PostBotRequest struct {
 	// BOTユーザーID 自動的に接頭辞\"BOT_\"が付与されます
@@ -146,7 +149,7 @@ func (o *PostBotRequest) SetMode(v BotMode) {
 
 // GetEndpoint returns the Endpoint field value if set, zero value otherwise.
 func (o *PostBotRequest) GetEndpoint() string {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		var ret string
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *PostBotRequest) GetEndpoint() string {
 // GetEndpointOk returns a tuple with the Endpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostBotRequest) GetEndpointOk() (*string, bool) {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		return nil, false
 	}
 	return o.Endpoint, true
@@ -164,7 +167,7 @@ func (o *PostBotRequest) GetEndpointOk() (*string, bool) {
 
 // HasEndpoint returns a boolean if a field has been set.
 func (o *PostBotRequest) HasEndpoint() bool {
-	if o != nil && o.Endpoint != nil {
+	if o != nil && !IsNil(o.Endpoint) {
 		return true
 	}
 
@@ -177,23 +180,23 @@ func (o *PostBotRequest) SetEndpoint(v string) {
 }
 
 func (o PostBotRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["mode"] = o.Mode
-	}
-	if o.Endpoint != nil {
-		toSerialize["endpoint"] = o.Endpoint
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostBotRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["description"] = o.Description
+	toSerialize["mode"] = o.Mode
+	if !IsNil(o.Endpoint) {
+		toSerialize["endpoint"] = o.Endpoint
+	}
+	return toSerialize, nil
 }
 
 type NullablePostBotRequest struct {

@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the Webhook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Webhook{}
+
 // Webhook Webhook情報
 type Webhook struct {
 	// WebhookUUID
@@ -280,35 +283,25 @@ func (o *Webhook) SetUpdatedAt(v time.Time) {
 }
 
 func (o Webhook) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["botUserId"] = o.BotUserId
-	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["secure"] = o.Secure
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["ownerId"] = o.OwnerId
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Webhook) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["botUserId"] = o.BotUserId
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["description"] = o.Description
+	toSerialize["secure"] = o.Secure
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["ownerId"] = o.OwnerId
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
 }
 
 type NullableWebhook struct {

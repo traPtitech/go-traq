@@ -13,28 +13,23 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // BotApiService BotApi service
 type BotApiService service
 
-type BotApiApiActivateBotRequest struct {
+type BotApiActivateBotRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
 }
 
-func (r BotApiApiActivateBotRequest) Execute() (*http.Response, error) {
+func (r BotApiActivateBotRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ActivateBotExecute(r)
 }
 
@@ -44,12 +39,12 @@ ActivateBot BOTをアクティベート
 指定したBOTを有効化します。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiActivateBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiActivateBotRequest
 */
-func (a *BotApiService) ActivateBot(ctx context.Context, botId string) BotApiApiActivateBotRequest {
-	return BotApiApiActivateBotRequest{
+func (a *BotApiService) ActivateBot(ctx context.Context, botId string) BotApiActivateBotRequest {
+	return BotApiActivateBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -57,7 +52,7 @@ func (a *BotApiService) ActivateBot(ctx context.Context, botId string) BotApiApi
 }
 
 // Execute executes the request
-func (a *BotApiService) ActivateBotExecute(r BotApiApiActivateBotRequest) (*http.Response, error) {
+func (a *BotApiService) ActivateBotExecute(r BotApiActivateBotRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -70,7 +65,7 @@ func (a *BotApiService) ActivateBotExecute(r BotApiApiActivateBotRequest) (*http
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/actions/activate"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -103,9 +98,9 @@ func (a *BotApiService) ActivateBotExecute(r BotApiApiActivateBotRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -121,20 +116,20 @@ func (a *BotApiService) ActivateBotExecute(r BotApiApiActivateBotRequest) (*http
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiChangeBotIconRequest struct {
+type BotApiChangeBotIconRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
-	file       **os.File
+	file       *os.File
 }
 
 // アイコン画像(1MBまでのpng, jpeg, gif)
-func (r BotApiApiChangeBotIconRequest) File(file *os.File) BotApiApiChangeBotIconRequest {
-	r.file = &file
+func (r BotApiChangeBotIconRequest) File(file *os.File) BotApiChangeBotIconRequest {
+	r.file = file
 	return r
 }
 
-func (r BotApiApiChangeBotIconRequest) Execute() (*http.Response, error) {
+func (r BotApiChangeBotIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeBotIconExecute(r)
 }
 
@@ -144,12 +139,12 @@ ChangeBotIcon BOTのアイコン画像を変更
 指定したBOTのアイコン画像を変更を変更します。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiChangeBotIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiChangeBotIconRequest
 */
-func (a *BotApiService) ChangeBotIcon(ctx context.Context, botId string) BotApiApiChangeBotIconRequest {
-	return BotApiApiChangeBotIconRequest{
+func (a *BotApiService) ChangeBotIcon(ctx context.Context, botId string) BotApiChangeBotIconRequest {
+	return BotApiChangeBotIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -157,7 +152,7 @@ func (a *BotApiService) ChangeBotIcon(ctx context.Context, botId string) BotApiA
 }
 
 // Execute executes the request
-func (a *BotApiService) ChangeBotIconExecute(r BotApiApiChangeBotIconRequest) (*http.Response, error) {
+func (a *BotApiService) ChangeBotIconExecute(r BotApiChangeBotIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -170,7 +165,7 @@ func (a *BotApiService) ChangeBotIconExecute(r BotApiApiChangeBotIconRequest) (*
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/icon"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -202,14 +197,16 @@ func (a *BotApiService) ChangeBotIconExecute(r BotApiApiChangeBotIconRequest) (*
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -220,9 +217,9 @@ func (a *BotApiService) ChangeBotIconExecute(r BotApiApiChangeBotIconRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -238,12 +235,12 @@ func (a *BotApiService) ChangeBotIconExecute(r BotApiApiChangeBotIconRequest) (*
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiConnectBotWSRequest struct {
+type BotApiConnectBotWSRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 }
 
-func (r BotApiApiConnectBotWSRequest) Execute() (*http.Response, error) {
+func (r BotApiConnectBotWSRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ConnectBotWSExecute(r)
 }
 
@@ -285,18 +282,18 @@ TextMessageとして各種イベントが`type`、`reqId`、`body`を持つJSON�
 
 `{"type":"ERROR","body":"message"}`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return BotApiApiConnectBotWSRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BotApiConnectBotWSRequest
 */
-func (a *BotApiService) ConnectBotWS(ctx context.Context) BotApiApiConnectBotWSRequest {
-	return BotApiApiConnectBotWSRequest{
+func (a *BotApiService) ConnectBotWS(ctx context.Context) BotApiConnectBotWSRequest {
+	return BotApiConnectBotWSRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *BotApiService) ConnectBotWSExecute(r BotApiApiConnectBotWSRequest) (*http.Response, error) {
+func (a *BotApiService) ConnectBotWSExecute(r BotApiConnectBotWSRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
@@ -341,9 +338,9 @@ func (a *BotApiService) ConnectBotWSExecute(r BotApiApiConnectBotWSRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -359,18 +356,18 @@ func (a *BotApiService) ConnectBotWSExecute(r BotApiApiConnectBotWSRequest) (*ht
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiCreateBotRequest struct {
+type BotApiCreateBotRequest struct {
 	ctx            context.Context
 	ApiService     *BotApiService
 	postBotRequest *PostBotRequest
 }
 
-func (r BotApiApiCreateBotRequest) PostBotRequest(postBotRequest PostBotRequest) BotApiApiCreateBotRequest {
+func (r BotApiCreateBotRequest) PostBotRequest(postBotRequest PostBotRequest) BotApiCreateBotRequest {
 	r.postBotRequest = &postBotRequest
 	return r
 }
 
-func (r BotApiApiCreateBotRequest) Execute() (*BotDetail, *http.Response, error) {
+func (r BotApiCreateBotRequest) Execute() (*BotDetail, *http.Response, error) {
 	return r.ApiService.CreateBotExecute(r)
 }
 
@@ -381,19 +378,20 @@ BOTを作成します。
 作成後に購読イベントの設定を行う必要があります。
 さらにHTTP Modeの場合はアクティベーションを行う必要があります。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return BotApiApiCreateBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BotApiCreateBotRequest
 */
-func (a *BotApiService) CreateBot(ctx context.Context) BotApiApiCreateBotRequest {
-	return BotApiApiCreateBotRequest{
+func (a *BotApiService) CreateBot(ctx context.Context) BotApiCreateBotRequest {
+	return BotApiCreateBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BotDetail
-func (a *BotApiService) CreateBotExecute(r BotApiApiCreateBotRequest) (*BotDetail, *http.Response, error) {
+//
+//	@return BotDetail
+func (a *BotApiService) CreateBotExecute(r BotApiCreateBotRequest) (*BotDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -441,9 +439,9 @@ func (a *BotApiService) CreateBotExecute(r BotApiApiCreateBotRequest) (*BotDetai
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -468,13 +466,13 @@ func (a *BotApiService) CreateBotExecute(r BotApiApiCreateBotRequest) (*BotDetai
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiDeleteBotRequest struct {
+type BotApiDeleteBotRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
 }
 
-func (r BotApiApiDeleteBotRequest) Execute() (*http.Response, error) {
+func (r BotApiDeleteBotRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteBotExecute(r)
 }
 
@@ -484,12 +482,12 @@ DeleteBot BOTを削除
 指定したBOTを削除します。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiDeleteBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiDeleteBotRequest
 */
-func (a *BotApiService) DeleteBot(ctx context.Context, botId string) BotApiApiDeleteBotRequest {
-	return BotApiApiDeleteBotRequest{
+func (a *BotApiService) DeleteBot(ctx context.Context, botId string) BotApiDeleteBotRequest {
+	return BotApiDeleteBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -497,7 +495,7 @@ func (a *BotApiService) DeleteBot(ctx context.Context, botId string) BotApiApiDe
 }
 
 // Execute executes the request
-func (a *BotApiService) DeleteBotExecute(r BotApiApiDeleteBotRequest) (*http.Response, error) {
+func (a *BotApiService) DeleteBotExecute(r BotApiDeleteBotRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -510,7 +508,7 @@ func (a *BotApiService) DeleteBotExecute(r BotApiApiDeleteBotRequest) (*http.Res
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -543,9 +541,9 @@ func (a *BotApiService) DeleteBotExecute(r BotApiApiDeleteBotRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -561,19 +559,19 @@ func (a *BotApiService) DeleteBotExecute(r BotApiApiDeleteBotRequest) (*http.Res
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiEditBotRequest struct {
+type BotApiEditBotRequest struct {
 	ctx             context.Context
 	ApiService      *BotApiService
 	botId           string
 	patchBotRequest *PatchBotRequest
 }
 
-func (r BotApiApiEditBotRequest) PatchBotRequest(patchBotRequest PatchBotRequest) BotApiApiEditBotRequest {
+func (r BotApiEditBotRequest) PatchBotRequest(patchBotRequest PatchBotRequest) BotApiEditBotRequest {
 	r.patchBotRequest = &patchBotRequest
 	return r
 }
 
-func (r BotApiApiEditBotRequest) Execute() (*http.Response, error) {
+func (r BotApiEditBotRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditBotExecute(r)
 }
 
@@ -584,12 +582,12 @@ EditBot BOT情報を変更
 対象のBOTの管理権限が必要です。
 BOT開発者UUIDを変更した場合は、変更先ユーザーにBOT管理権限が移譲され、自分自身は権限を失います。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiEditBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiEditBotRequest
 */
-func (a *BotApiService) EditBot(ctx context.Context, botId string) BotApiApiEditBotRequest {
-	return BotApiApiEditBotRequest{
+func (a *BotApiService) EditBot(ctx context.Context, botId string) BotApiEditBotRequest {
+	return BotApiEditBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -597,7 +595,7 @@ func (a *BotApiService) EditBot(ctx context.Context, botId string) BotApiApiEdit
 }
 
 // Execute executes the request
-func (a *BotApiService) EditBotExecute(r BotApiApiEditBotRequest) (*http.Response, error) {
+func (a *BotApiService) EditBotExecute(r BotApiEditBotRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -610,7 +608,7 @@ func (a *BotApiService) EditBotExecute(r BotApiApiEditBotRequest) (*http.Respons
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -645,9 +643,9 @@ func (a *BotApiService) EditBotExecute(r BotApiApiEditBotRequest) (*http.Respons
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -663,7 +661,7 @@ func (a *BotApiService) EditBotExecute(r BotApiApiEditBotRequest) (*http.Respons
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiGetBotRequest struct {
+type BotApiGetBotRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
@@ -671,13 +669,12 @@ type BotApiApiGetBotRequest struct {
 }
 
 // 詳細情報を含めるかどうか
-func (r BotApiApiGetBotRequest) Detail(detail bool) BotApiApiGetBotRequest {
+func (r BotApiGetBotRequest) Detail(detail bool) BotApiGetBotRequest {
 	r.detail = &detail
 	return r
 }
 
-func (r BotApiApiGetBotRequest) Execute() (interface {
-}, *http.Response, error) {
+func (r BotApiGetBotRequest) Execute() (*GetBot200Response, *http.Response, error) {
 	return r.ApiService.GetBotExecute(r)
 }
 
@@ -687,12 +684,12 @@ GetBot BOT情報を取得
 指定したBOTのBOT情報を取得します。
 BOT詳細情報を取得する場合は、対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiGetBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiGetBotRequest
 */
-func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiApiGetBotRequest {
-	return BotApiApiGetBotRequest{
+func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiGetBotRequest {
+	return BotApiGetBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -700,15 +697,14 @@ func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiApiGetBo
 }
 
 // Execute executes the request
-//  @return OneOfBotBotDetail
-func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface {
-}, *http.Response, error) {
+//
+//	@return GetBot200Response
+func (a *BotApiService) GetBotExecute(r BotApiGetBotRequest) (*GetBot200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface {
-		}
+		localVarReturnValue *GetBot200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.GetBot")
@@ -717,14 +713,14 @@ func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface {
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
-		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -753,9 +749,9 @@ func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -780,13 +776,13 @@ func (a *BotApiService) GetBotExecute(r BotApiApiGetBotRequest) (interface {
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiGetBotIconRequest struct {
+type BotApiGetBotIconRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
 }
 
-func (r BotApiApiGetBotIconRequest) Execute() (**os.File, *http.Response, error) {
+func (r BotApiGetBotIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetBotIconExecute(r)
 }
 
@@ -795,12 +791,12 @@ GetBotIcon BOTのアイコン画像を取得
 
 指定したBOTのアイコン画像を取得を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiGetBotIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiGetBotIconRequest
 */
-func (a *BotApiService) GetBotIcon(ctx context.Context, botId string) BotApiApiGetBotIconRequest {
-	return BotApiApiGetBotIconRequest{
+func (a *BotApiService) GetBotIcon(ctx context.Context, botId string) BotApiGetBotIconRequest {
+	return BotApiGetBotIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -808,13 +804,14 @@ func (a *BotApiService) GetBotIcon(ctx context.Context, botId string) BotApiApiG
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *BotApiService) GetBotIconExecute(r BotApiApiGetBotIconRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *BotApiService) GetBotIconExecute(r BotApiGetBotIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.GetBotIcon")
@@ -823,7 +820,7 @@ func (a *BotApiService) GetBotIconExecute(r BotApiApiGetBotIconRequest) (**os.Fi
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/icon"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -856,9 +853,9 @@ func (a *BotApiService) GetBotIconExecute(r BotApiApiGetBotIconRequest) (**os.Fi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -883,7 +880,7 @@ func (a *BotApiService) GetBotIconExecute(r BotApiApiGetBotIconRequest) (**os.Fi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiGetBotLogsRequest struct {
+type BotApiGetBotLogsRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
@@ -892,18 +889,18 @@ type BotApiApiGetBotLogsRequest struct {
 }
 
 // 取得する件数
-func (r BotApiApiGetBotLogsRequest) Limit(limit int32) BotApiApiGetBotLogsRequest {
+func (r BotApiGetBotLogsRequest) Limit(limit int32) BotApiGetBotLogsRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r BotApiApiGetBotLogsRequest) Offset(offset int32) BotApiApiGetBotLogsRequest {
+func (r BotApiGetBotLogsRequest) Offset(offset int32) BotApiGetBotLogsRequest {
 	r.offset = &offset
 	return r
 }
 
-func (r BotApiApiGetBotLogsRequest) Execute() ([]BotEventLog, *http.Response, error) {
+func (r BotApiGetBotLogsRequest) Execute() ([]BotEventLog, *http.Response, error) {
 	return r.ApiService.GetBotLogsExecute(r)
 }
 
@@ -913,12 +910,12 @@ GetBotLogs BOTのイベントログを取得
 指定したBOTのイベントログを取得します。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiGetBotLogsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiGetBotLogsRequest
 */
-func (a *BotApiService) GetBotLogs(ctx context.Context, botId string) BotApiApiGetBotLogsRequest {
-	return BotApiApiGetBotLogsRequest{
+func (a *BotApiService) GetBotLogs(ctx context.Context, botId string) BotApiGetBotLogsRequest {
+	return BotApiGetBotLogsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -926,8 +923,9 @@ func (a *BotApiService) GetBotLogs(ctx context.Context, botId string) BotApiApiG
 }
 
 // Execute executes the request
-//  @return []BotEventLog
-func (a *BotApiService) GetBotLogsExecute(r BotApiApiGetBotLogsRequest) ([]BotEventLog, *http.Response, error) {
+//
+//	@return []BotEventLog
+func (a *BotApiService) GetBotLogsExecute(r BotApiGetBotLogsRequest) ([]BotEventLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -941,17 +939,17 @@ func (a *BotApiService) GetBotLogsExecute(r BotApiApiGetBotLogsRequest) ([]BotEv
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/logs"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -980,9 +978,9 @@ func (a *BotApiService) GetBotLogsExecute(r BotApiApiGetBotLogsRequest) ([]BotEv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1007,19 +1005,19 @@ func (a *BotApiService) GetBotLogsExecute(r BotApiApiGetBotLogsRequest) ([]BotEv
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiGetBotsRequest struct {
+type BotApiGetBotsRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	all        *bool
 }
 
 // 全てのBOTを取得するかどうか
-func (r BotApiApiGetBotsRequest) All(all bool) BotApiApiGetBotsRequest {
+func (r BotApiGetBotsRequest) All(all bool) BotApiGetBotsRequest {
 	r.all = &all
 	return r
 }
 
-func (r BotApiApiGetBotsRequest) Execute() ([]Bot, *http.Response, error) {
+func (r BotApiGetBotsRequest) Execute() ([]Bot, *http.Response, error) {
 	return r.ApiService.GetBotsExecute(r)
 }
 
@@ -1029,19 +1027,20 @@ GetBots BOTリストを取得
 BOT情報のリストを取得します。
 allを指定しない場合、自分が開発者のBOTのみを返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return BotApiApiGetBotsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BotApiGetBotsRequest
 */
-func (a *BotApiService) GetBots(ctx context.Context) BotApiApiGetBotsRequest {
-	return BotApiApiGetBotsRequest{
+func (a *BotApiService) GetBots(ctx context.Context) BotApiGetBotsRequest {
+	return BotApiGetBotsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Bot
-func (a *BotApiService) GetBotsExecute(r BotApiApiGetBotsRequest) ([]Bot, *http.Response, error) {
+//
+//	@return []Bot
+func (a *BotApiService) GetBotsExecute(r BotApiGetBotsRequest) ([]Bot, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1061,7 +1060,7 @@ func (a *BotApiService) GetBotsExecute(r BotApiApiGetBotsRequest) ([]Bot, *http.
 	localVarFormParams := url.Values{}
 
 	if r.all != nil {
-		localVarQueryParams.Add("all", parameterToString(*r.all, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1090,9 +1089,9 @@ func (a *BotApiService) GetBotsExecute(r BotApiApiGetBotsRequest) ([]Bot, *http.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1117,13 +1116,13 @@ func (a *BotApiService) GetBotsExecute(r BotApiApiGetBotsRequest) ([]Bot, *http.
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiGetChannelBotsRequest struct {
+type BotApiGetChannelBotsRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	channelId  string
 }
 
-func (r BotApiApiGetChannelBotsRequest) Execute() ([]BotUser, *http.Response, error) {
+func (r BotApiGetChannelBotsRequest) Execute() ([]BotUser, *http.Response, error) {
 	return r.ApiService.GetChannelBotsExecute(r)
 }
 
@@ -1132,12 +1131,12 @@ GetChannelBots チャンネル参加中のBOTのリストを取得
 
 指定したチャンネルに参加しているBOTのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return BotApiApiGetChannelBotsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return BotApiGetChannelBotsRequest
 */
-func (a *BotApiService) GetChannelBots(ctx context.Context, channelId string) BotApiApiGetChannelBotsRequest {
-	return BotApiApiGetChannelBotsRequest{
+func (a *BotApiService) GetChannelBots(ctx context.Context, channelId string) BotApiGetChannelBotsRequest {
+	return BotApiGetChannelBotsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1145,8 +1144,9 @@ func (a *BotApiService) GetChannelBots(ctx context.Context, channelId string) Bo
 }
 
 // Execute executes the request
-//  @return []BotUser
-func (a *BotApiService) GetChannelBotsExecute(r BotApiApiGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
+//
+//	@return []BotUser
+func (a *BotApiService) GetChannelBotsExecute(r BotApiGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1160,7 +1160,7 @@ func (a *BotApiService) GetChannelBotsExecute(r BotApiApiGetChannelBotsRequest) 
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/bots"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1193,9 +1193,9 @@ func (a *BotApiService) GetChannelBotsExecute(r BotApiApiGetChannelBotsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1220,13 +1220,13 @@ func (a *BotApiService) GetChannelBotsExecute(r BotApiApiGetChannelBotsRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotApiApiInactivateBotRequest struct {
+type BotApiInactivateBotRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
 }
 
-func (r BotApiApiInactivateBotRequest) Execute() (*http.Response, error) {
+func (r BotApiInactivateBotRequest) Execute() (*http.Response, error) {
 	return r.ApiService.InactivateBotExecute(r)
 }
 
@@ -1235,12 +1235,12 @@ InactivateBot BOTをインアクティベート
 
 指定したBOTを無効化します。対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiInactivateBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiInactivateBotRequest
 */
-func (a *BotApiService) InactivateBot(ctx context.Context, botId string) BotApiApiInactivateBotRequest {
-	return BotApiApiInactivateBotRequest{
+func (a *BotApiService) InactivateBot(ctx context.Context, botId string) BotApiInactivateBotRequest {
+	return BotApiInactivateBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -1248,7 +1248,7 @@ func (a *BotApiService) InactivateBot(ctx context.Context, botId string) BotApiA
 }
 
 // Execute executes the request
-func (a *BotApiService) InactivateBotExecute(r BotApiApiInactivateBotRequest) (*http.Response, error) {
+func (a *BotApiService) InactivateBotExecute(r BotApiInactivateBotRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -1261,7 +1261,7 @@ func (a *BotApiService) InactivateBotExecute(r BotApiApiInactivateBotRequest) (*
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/actions/inactivate"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1294,9 +1294,9 @@ func (a *BotApiService) InactivateBotExecute(r BotApiApiInactivateBotRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1312,19 +1312,19 @@ func (a *BotApiService) InactivateBotExecute(r BotApiApiInactivateBotRequest) (*
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiLetBotJoinChannelRequest struct {
+type BotApiLetBotJoinChannelRequest struct {
 	ctx                      context.Context
 	ApiService               *BotApiService
 	botId                    string
 	postBotActionJoinRequest *PostBotActionJoinRequest
 }
 
-func (r BotApiApiLetBotJoinChannelRequest) PostBotActionJoinRequest(postBotActionJoinRequest PostBotActionJoinRequest) BotApiApiLetBotJoinChannelRequest {
+func (r BotApiLetBotJoinChannelRequest) PostBotActionJoinRequest(postBotActionJoinRequest PostBotActionJoinRequest) BotApiLetBotJoinChannelRequest {
 	r.postBotActionJoinRequest = &postBotActionJoinRequest
 	return r
 }
 
-func (r BotApiApiLetBotJoinChannelRequest) Execute() (*http.Response, error) {
+func (r BotApiLetBotJoinChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LetBotJoinChannelExecute(r)
 }
 
@@ -1335,12 +1335,12 @@ LetBotJoinChannel BOTをチャンネルに参加させる
 チャンネルに参加したBOTは、そのチャンネルの各種イベントを受け取るようになります。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiLetBotJoinChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiLetBotJoinChannelRequest
 */
-func (a *BotApiService) LetBotJoinChannel(ctx context.Context, botId string) BotApiApiLetBotJoinChannelRequest {
-	return BotApiApiLetBotJoinChannelRequest{
+func (a *BotApiService) LetBotJoinChannel(ctx context.Context, botId string) BotApiLetBotJoinChannelRequest {
+	return BotApiLetBotJoinChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -1348,7 +1348,7 @@ func (a *BotApiService) LetBotJoinChannel(ctx context.Context, botId string) Bot
 }
 
 // Execute executes the request
-func (a *BotApiService) LetBotJoinChannelExecute(r BotApiApiLetBotJoinChannelRequest) (*http.Response, error) {
+func (a *BotApiService) LetBotJoinChannelExecute(r BotApiLetBotJoinChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -1361,7 +1361,7 @@ func (a *BotApiService) LetBotJoinChannelExecute(r BotApiApiLetBotJoinChannelReq
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/actions/join"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1396,9 +1396,9 @@ func (a *BotApiService) LetBotJoinChannelExecute(r BotApiApiLetBotJoinChannelReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1414,19 +1414,19 @@ func (a *BotApiService) LetBotJoinChannelExecute(r BotApiApiLetBotJoinChannelReq
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiLetBotLeaveChannelRequest struct {
+type BotApiLetBotLeaveChannelRequest struct {
 	ctx                       context.Context
 	ApiService                *BotApiService
 	botId                     string
 	postBotActionLeaveRequest *PostBotActionLeaveRequest
 }
 
-func (r BotApiApiLetBotLeaveChannelRequest) PostBotActionLeaveRequest(postBotActionLeaveRequest PostBotActionLeaveRequest) BotApiApiLetBotLeaveChannelRequest {
+func (r BotApiLetBotLeaveChannelRequest) PostBotActionLeaveRequest(postBotActionLeaveRequest PostBotActionLeaveRequest) BotApiLetBotLeaveChannelRequest {
 	r.postBotActionLeaveRequest = &postBotActionLeaveRequest
 	return r
 }
 
-func (r BotApiApiLetBotLeaveChannelRequest) Execute() (*http.Response, error) {
+func (r BotApiLetBotLeaveChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LetBotLeaveChannelExecute(r)
 }
 
@@ -1436,12 +1436,12 @@ LetBotLeaveChannel BOTをチャンネルから退出させる
 指定したBOTを指定したチャンネルから退出させます。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiLetBotLeaveChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiLetBotLeaveChannelRequest
 */
-func (a *BotApiService) LetBotLeaveChannel(ctx context.Context, botId string) BotApiApiLetBotLeaveChannelRequest {
-	return BotApiApiLetBotLeaveChannelRequest{
+func (a *BotApiService) LetBotLeaveChannel(ctx context.Context, botId string) BotApiLetBotLeaveChannelRequest {
+	return BotApiLetBotLeaveChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -1449,7 +1449,7 @@ func (a *BotApiService) LetBotLeaveChannel(ctx context.Context, botId string) Bo
 }
 
 // Execute executes the request
-func (a *BotApiService) LetBotLeaveChannelExecute(r BotApiApiLetBotLeaveChannelRequest) (*http.Response, error) {
+func (a *BotApiService) LetBotLeaveChannelExecute(r BotApiLetBotLeaveChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -1462,7 +1462,7 @@ func (a *BotApiService) LetBotLeaveChannelExecute(r BotApiApiLetBotLeaveChannelR
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/actions/leave"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1497,9 +1497,9 @@ func (a *BotApiService) LetBotLeaveChannelExecute(r BotApiApiLetBotLeaveChannelR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1515,13 +1515,13 @@ func (a *BotApiService) LetBotLeaveChannelExecute(r BotApiApiLetBotLeaveChannelR
 	return localVarHTTPResponse, nil
 }
 
-type BotApiApiReissueBotRequest struct {
+type BotApiReissueBotRequest struct {
 	ctx        context.Context
 	ApiService *BotApiService
 	botId      string
 }
 
-func (r BotApiApiReissueBotRequest) Execute() (*BotTokens, *http.Response, error) {
+func (r BotApiReissueBotRequest) Execute() (*BotTokens, *http.Response, error) {
 	return r.ApiService.ReissueBotExecute(r)
 }
 
@@ -1531,12 +1531,12 @@ ReissueBot BOTのトークンを再発行
 指定したBOTの現在の各種トークンを無効化し、再発行を行います。
 対象のBOTの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param botId BOTUUID
- @return BotApiApiReissueBotRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId BOTUUID
+	@return BotApiReissueBotRequest
 */
-func (a *BotApiService) ReissueBot(ctx context.Context, botId string) BotApiApiReissueBotRequest {
-	return BotApiApiReissueBotRequest{
+func (a *BotApiService) ReissueBot(ctx context.Context, botId string) BotApiReissueBotRequest {
+	return BotApiReissueBotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		botId:      botId,
@@ -1544,8 +1544,9 @@ func (a *BotApiService) ReissueBot(ctx context.Context, botId string) BotApiApiR
 }
 
 // Execute executes the request
-//  @return BotTokens
-func (a *BotApiService) ReissueBotExecute(r BotApiApiReissueBotRequest) (*BotTokens, *http.Response, error) {
+//
+//	@return BotTokens
+func (a *BotApiService) ReissueBotExecute(r BotApiReissueBotRequest) (*BotTokens, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1559,7 +1560,7 @@ func (a *BotApiService) ReissueBotExecute(r BotApiApiReissueBotRequest) (*BotTok
 	}
 
 	localVarPath := localBasePath + "/bots/{botId}/actions/reissue"
-	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterToString(r.botId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1592,9 +1593,9 @@ func (a *BotApiService) ReissueBotExecute(r BotApiApiReissueBotRequest) (*BotTok
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

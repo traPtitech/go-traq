@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostUserRequest{}
+
 // PostUserRequest ユーザー登録リクエスト
 type PostUserRequest struct {
 	// ユーザー名
@@ -66,7 +69,7 @@ func (o *PostUserRequest) SetName(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *PostUserRequest) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *PostUserRequest) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostUserRequest) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -84,7 +87,7 @@ func (o *PostUserRequest) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *PostUserRequest) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -97,14 +100,20 @@ func (o *PostUserRequest) SetPassword(v string) {
 }
 
 func (o PostUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostUserRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	return toSerialize, nil
 }
 
 type NullablePostUserRequest struct {

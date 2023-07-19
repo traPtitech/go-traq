@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Channel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Channel{}
+
 // Channel チャンネル
 type Channel struct {
 	// チャンネルUUID
@@ -227,29 +230,23 @@ func (o *Channel) SetChildren(v []string) {
 }
 
 func (o Channel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["parentId"] = o.ParentId.Get()
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
-	}
-	if true {
-		toSerialize["force"] = o.Force
-	}
-	if true {
-		toSerialize["topic"] = o.Topic
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["children"] = o.Children
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Channel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["parentId"] = o.ParentId.Get()
+	toSerialize["archived"] = o.Archived
+	toSerialize["force"] = o.Force
+	toSerialize["topic"] = o.Topic
+	toSerialize["name"] = o.Name
+	toSerialize["children"] = o.Children
+	return toSerialize, nil
 }
 
 type NullableChannel struct {

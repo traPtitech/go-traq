@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchWebhookRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchWebhookRequest{}
+
 // PatchWebhookRequest Webhook情報変更リクエスト
 type PatchWebhookRequest struct {
 	// Webhookユーザー表示名
@@ -47,7 +50,7 @@ func NewPatchWebhookRequestWithDefaults() *PatchWebhookRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PatchWebhookRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *PatchWebhookRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchWebhookRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -65,7 +68,7 @@ func (o *PatchWebhookRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PatchWebhookRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *PatchWebhookRequest) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PatchWebhookRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *PatchWebhookRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchWebhookRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -97,7 +100,7 @@ func (o *PatchWebhookRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PatchWebhookRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *PatchWebhookRequest) SetDescription(v string) {
 
 // GetChannelId returns the ChannelId field value if set, zero value otherwise.
 func (o *PatchWebhookRequest) GetChannelId() string {
-	if o == nil || o.ChannelId == nil {
+	if o == nil || IsNil(o.ChannelId) {
 		var ret string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *PatchWebhookRequest) GetChannelId() string {
 // GetChannelIdOk returns a tuple with the ChannelId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchWebhookRequest) GetChannelIdOk() (*string, bool) {
-	if o == nil || o.ChannelId == nil {
+	if o == nil || IsNil(o.ChannelId) {
 		return nil, false
 	}
 	return o.ChannelId, true
@@ -129,7 +132,7 @@ func (o *PatchWebhookRequest) GetChannelIdOk() (*string, bool) {
 
 // HasChannelId returns a boolean if a field has been set.
 func (o *PatchWebhookRequest) HasChannelId() bool {
-	if o != nil && o.ChannelId != nil {
+	if o != nil && !IsNil(o.ChannelId) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *PatchWebhookRequest) SetChannelId(v string) {
 
 // GetSecret returns the Secret field value if set, zero value otherwise.
 func (o *PatchWebhookRequest) GetSecret() string {
-	if o == nil || o.Secret == nil {
+	if o == nil || IsNil(o.Secret) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *PatchWebhookRequest) GetSecret() string {
 // GetSecretOk returns a tuple with the Secret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchWebhookRequest) GetSecretOk() (*string, bool) {
-	if o == nil || o.Secret == nil {
+	if o == nil || IsNil(o.Secret) {
 		return nil, false
 	}
 	return o.Secret, true
@@ -161,7 +164,7 @@ func (o *PatchWebhookRequest) GetSecretOk() (*string, bool) {
 
 // HasSecret returns a boolean if a field has been set.
 func (o *PatchWebhookRequest) HasSecret() bool {
-	if o != nil && o.Secret != nil {
+	if o != nil && !IsNil(o.Secret) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *PatchWebhookRequest) SetSecret(v string) {
 
 // GetOwnerId returns the OwnerId field value if set, zero value otherwise.
 func (o *PatchWebhookRequest) GetOwnerId() string {
-	if o == nil || o.OwnerId == nil {
+	if o == nil || IsNil(o.OwnerId) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *PatchWebhookRequest) GetOwnerId() string {
 // GetOwnerIdOk returns a tuple with the OwnerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchWebhookRequest) GetOwnerIdOk() (*string, bool) {
-	if o == nil || o.OwnerId == nil {
+	if o == nil || IsNil(o.OwnerId) {
 		return nil, false
 	}
 	return o.OwnerId, true
@@ -193,7 +196,7 @@ func (o *PatchWebhookRequest) GetOwnerIdOk() (*string, bool) {
 
 // HasOwnerId returns a boolean if a field has been set.
 func (o *PatchWebhookRequest) HasOwnerId() bool {
-	if o != nil && o.OwnerId != nil {
+	if o != nil && !IsNil(o.OwnerId) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *PatchWebhookRequest) SetOwnerId(v string) {
 }
 
 func (o PatchWebhookRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ChannelId != nil {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if o.Secret != nil {
-		toSerialize["secret"] = o.Secret
-	}
-	if o.OwnerId != nil {
-		toSerialize["ownerId"] = o.OwnerId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchWebhookRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ChannelId) {
+		toSerialize["channelId"] = o.ChannelId
+	}
+	if !IsNil(o.Secret) {
+		toSerialize["secret"] = o.Secret
+	}
+	if !IsNil(o.OwnerId) {
+		toSerialize["ownerId"] = o.OwnerId
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchWebhookRequest struct {

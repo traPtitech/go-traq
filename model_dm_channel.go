@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DMChannel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DMChannel{}
+
 // DMChannel ダイレクトメッセージチャンネル
 type DMChannel struct {
 	// チャンネルUUID
@@ -90,14 +93,18 @@ func (o *DMChannel) SetUserId(v string) {
 }
 
 func (o DMChannel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DMChannel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["userId"] = o.UserId
+	return toSerialize, nil
 }
 
 type NullableDMChannel struct {

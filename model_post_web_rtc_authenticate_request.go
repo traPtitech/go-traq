@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostWebRTCAuthenticateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostWebRTCAuthenticateRequest{}
+
 // PostWebRTCAuthenticateRequest skyway用認証リクエスト
 type PostWebRTCAuthenticateRequest struct {
 	// ピアID
@@ -63,11 +66,17 @@ func (o *PostWebRTCAuthenticateRequest) SetPeerId(v string) {
 }
 
 func (o PostWebRTCAuthenticateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["peerId"] = o.PeerId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostWebRTCAuthenticateRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["peerId"] = o.PeerId
+	return toSerialize, nil
 }
 
 type NullablePostWebRTCAuthenticateRequest struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostUserTagRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostUserTagRequest{}
+
 // PostUserTagRequest ユーザータグ追加リクエスト
 type PostUserTagRequest struct {
 	// タグ文字列
@@ -63,11 +66,17 @@ func (o *PostUserTagRequest) SetTag(v string) {
 }
 
 func (o PostUserTagRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["tag"] = o.Tag
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostUserTagRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["tag"] = o.Tag
+	return toSerialize, nil
 }
 
 type NullablePostUserTagRequest struct {

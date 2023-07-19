@@ -15,23 +15,23 @@ import (
 	"time"
 )
 
+// checks if the ChannelEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelEvent{}
+
 // ChannelEvent チャンネルイベント
 type ChannelEvent struct {
 	// イベントタイプ
 	Type string `json:"type"`
 	// イベント日時
-	Datetime time.Time `json:"datetime"`
-	// イベント内容
-	Detail interface {
-	} `json:"detail"`
+	Datetime time.Time          `json:"datetime"`
+	Detail   ChannelEventDetail `json:"detail"`
 }
 
 // NewChannelEvent instantiates a new ChannelEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChannelEvent(type_ string, datetime time.Time, detail interface {
-}) *ChannelEvent {
+func NewChannelEvent(type_ string, datetime time.Time, detail ChannelEventDetail) *ChannelEvent {
 	this := ChannelEvent{}
 	this.Type = type_
 	this.Datetime = datetime
@@ -96,12 +96,9 @@ func (o *ChannelEvent) SetDatetime(v time.Time) {
 }
 
 // GetDetail returns the Detail field value
-// If the value is explicit nil, the zero value for OneOfTopicChangedEventSubscribersChangedEventPinAddedEventPinRemovedEventNameChangedEventParentChangedEventVisibilityChangedEventForcedNotificationChangedEventChildCreatedEvent will be returned
-func (o *ChannelEvent) GetDetail() interface {
-} {
+func (o *ChannelEvent) GetDetail() ChannelEventDetail {
 	if o == nil {
-		var ret interface {
-		}
+		var ret ChannelEventDetail
 		return ret
 	}
 
@@ -110,33 +107,32 @@ func (o *ChannelEvent) GetDetail() interface {
 
 // GetDetailOk returns a tuple with the Detail field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ChannelEvent) GetDetailOk() (interface {
-}, bool) {
-	if o == nil || o.Detail == nil {
+func (o *ChannelEvent) GetDetailOk() (*ChannelEventDetail, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Detail, true
 }
 
 // SetDetail sets field value
-func (o *ChannelEvent) SetDetail(v interface {
-}) {
+func (o *ChannelEvent) SetDetail(v ChannelEventDetail) {
 	o.Detail = v
 }
 
 func (o ChannelEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["datetime"] = o.Datetime
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChannelEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["datetime"] = o.Datetime
+	toSerialize["detail"] = o.Detail
+	return toSerialize, nil
 }
 
 type NullableChannelEvent struct {

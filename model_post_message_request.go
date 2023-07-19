@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostMessageRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostMessageRequest{}
+
 // PostMessageRequest メッセージ投稿リクエスト
 type PostMessageRequest struct {
 	// メッセージ本文
@@ -70,7 +73,7 @@ func (o *PostMessageRequest) SetContent(v string) {
 
 // GetEmbed returns the Embed field value if set, zero value otherwise.
 func (o *PostMessageRequest) GetEmbed() bool {
-	if o == nil || o.Embed == nil {
+	if o == nil || IsNil(o.Embed) {
 		var ret bool
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *PostMessageRequest) GetEmbed() bool {
 // GetEmbedOk returns a tuple with the Embed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostMessageRequest) GetEmbedOk() (*bool, bool) {
-	if o == nil || o.Embed == nil {
+	if o == nil || IsNil(o.Embed) {
 		return nil, false
 	}
 	return o.Embed, true
@@ -88,7 +91,7 @@ func (o *PostMessageRequest) GetEmbedOk() (*bool, bool) {
 
 // HasEmbed returns a boolean if a field has been set.
 func (o *PostMessageRequest) HasEmbed() bool {
-	if o != nil && o.Embed != nil {
+	if o != nil && !IsNil(o.Embed) {
 		return true
 	}
 
@@ -101,14 +104,20 @@ func (o *PostMessageRequest) SetEmbed(v bool) {
 }
 
 func (o PostMessageRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["content"] = o.Content
-	}
-	if o.Embed != nil {
-		toSerialize["embed"] = o.Embed
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostMessageRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["content"] = o.Content
+	if !IsNil(o.Embed) {
+		toSerialize["embed"] = o.Embed
+	}
+	return toSerialize, nil
 }
 
 type NullablePostMessageRequest struct {

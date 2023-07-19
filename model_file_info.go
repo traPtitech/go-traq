@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the FileInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileInfo{}
+
 // FileInfo ファイル情報
 type FileInfo struct {
 	// ファイルUUID
@@ -342,41 +345,27 @@ func (o *FileInfo) SetUploaderId(v string) {
 }
 
 func (o FileInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["mime"] = o.Mime
-	}
-	if true {
-		toSerialize["size"] = o.Size
-	}
-	if true {
-		toSerialize["md5"] = o.Md5
-	}
-	if true {
-		toSerialize["isAnimatedImage"] = o.IsAnimatedImage
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["thumbnails"] = o.Thumbnails
-	}
-	if true {
-		toSerialize["thumbnail"] = o.Thumbnail.Get()
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId.Get()
-	}
-	if true {
-		toSerialize["uploaderId"] = o.UploaderId.Get()
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FileInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["mime"] = o.Mime
+	toSerialize["size"] = o.Size
+	toSerialize["md5"] = o.Md5
+	toSerialize["isAnimatedImage"] = o.IsAnimatedImage
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["thumbnails"] = o.Thumbnails
+	toSerialize["thumbnail"] = o.Thumbnail.Get()
+	toSerialize["channelId"] = o.ChannelId.Get()
+	toSerialize["uploaderId"] = o.UploaderId.Get()
+	return toSerialize, nil
 }
 
 type NullableFileInfo struct {

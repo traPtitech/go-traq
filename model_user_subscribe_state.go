@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSubscribeState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSubscribeState{}
+
 // UserSubscribeState ユーザーのチャンネル購読状態
 type UserSubscribeState struct {
 	// チャンネルUUID
@@ -89,14 +92,18 @@ func (o *UserSubscribeState) SetLevel(v ChannelSubscribeLevel) {
 }
 
 func (o UserSubscribeState) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["level"] = o.Level
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserSubscribeState) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["level"] = o.Level
+	return toSerialize, nil
 }
 
 type NullableUserSubscribeState struct {

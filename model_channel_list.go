@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ChannelList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelList{}
+
 // ChannelList GET /channelsレスポンス
 type ChannelList struct {
 	// パブリックチャンネルの配列
@@ -66,7 +69,7 @@ func (o *ChannelList) SetPublic(v []Channel) {
 
 // GetDm returns the Dm field value if set, zero value otherwise.
 func (o *ChannelList) GetDm() []DMChannel {
-	if o == nil || o.Dm == nil {
+	if o == nil || IsNil(o.Dm) {
 		var ret []DMChannel
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *ChannelList) GetDm() []DMChannel {
 // GetDmOk returns a tuple with the Dm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChannelList) GetDmOk() ([]DMChannel, bool) {
-	if o == nil || o.Dm == nil {
+	if o == nil || IsNil(o.Dm) {
 		return nil, false
 	}
 	return o.Dm, true
@@ -84,7 +87,7 @@ func (o *ChannelList) GetDmOk() ([]DMChannel, bool) {
 
 // HasDm returns a boolean if a field has been set.
 func (o *ChannelList) HasDm() bool {
-	if o != nil && o.Dm != nil {
+	if o != nil && !IsNil(o.Dm) {
 		return true
 	}
 
@@ -97,14 +100,20 @@ func (o *ChannelList) SetDm(v []DMChannel) {
 }
 
 func (o ChannelList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["public"] = o.Public
-	}
-	if o.Dm != nil {
-		toSerialize["dm"] = o.Dm
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChannelList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["public"] = o.Public
+	if !IsNil(o.Dm) {
+		toSerialize["dm"] = o.Dm
+	}
+	return toSerialize, nil
 }
 
 type NullableChannelList struct {

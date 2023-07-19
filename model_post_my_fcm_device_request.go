@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostMyFCMDeviceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostMyFCMDeviceRequest{}
+
 // PostMyFCMDeviceRequest FCMデバイス登録リクエスト
 type PostMyFCMDeviceRequest struct {
 	// FCMのデバイストークン
@@ -63,11 +66,17 @@ func (o *PostMyFCMDeviceRequest) SetToken(v string) {
 }
 
 func (o PostMyFCMDeviceRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["token"] = o.Token
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostMyFCMDeviceRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["token"] = o.Token
+	return toSerialize, nil
 }
 
 type NullablePostMyFCMDeviceRequest struct {

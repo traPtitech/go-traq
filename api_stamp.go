@@ -13,22 +13,17 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // StampApiService StampApi service
 type StampApiService service
 
-type StampApiApiAddMessageStampRequest struct {
+type StampApiAddMessageStampRequest struct {
 	ctx                     context.Context
 	ApiService              *StampApiService
 	messageId               string
@@ -36,12 +31,12 @@ type StampApiApiAddMessageStampRequest struct {
 	postMessageStampRequest *PostMessageStampRequest
 }
 
-func (r StampApiApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) StampApiApiAddMessageStampRequest {
+func (r StampApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) StampApiAddMessageStampRequest {
 	r.postMessageStampRequest = &postMessageStampRequest
 	return r
 }
 
-func (r StampApiApiAddMessageStampRequest) Execute() (*http.Response, error) {
+func (r StampApiAddMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddMessageStampExecute(r)
 }
 
@@ -50,13 +45,13 @@ AddMessageStamp スタンプを押す
 
 指定したメッセージに指定したスタンプを押します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @param stampId スタンプUUID
- @return StampApiApiAddMessageStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@param stampId スタンプUUID
+	@return StampApiAddMessageStampRequest
 */
-func (a *StampApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) StampApiApiAddMessageStampRequest {
-	return StampApiApiAddMessageStampRequest{
+func (a *StampApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) StampApiAddMessageStampRequest {
+	return StampApiAddMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -65,7 +60,7 @@ func (a *StampApiService) AddMessageStamp(ctx context.Context, messageId string,
 }
 
 // Execute executes the request
-func (a *StampApiService) AddMessageStampExecute(r StampApiApiAddMessageStampRequest) (*http.Response, error) {
+func (a *StampApiService) AddMessageStampExecute(r StampApiAddMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -78,8 +73,8 @@ func (a *StampApiService) AddMessageStampExecute(r StampApiApiAddMessageStampReq
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -114,9 +109,9 @@ func (a *StampApiService) AddMessageStampExecute(r StampApiApiAddMessageStampReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -132,20 +127,20 @@ func (a *StampApiService) AddMessageStampExecute(r StampApiApiAddMessageStampReq
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiChangeStampImageRequest struct {
+type StampApiChangeStampImageRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	stampId    string
-	file       **os.File
+	file       *os.File
 }
 
 // スタンプ画像(1MBまでのpng, jpeg, gif)
-func (r StampApiApiChangeStampImageRequest) File(file *os.File) StampApiApiChangeStampImageRequest {
-	r.file = &file
+func (r StampApiChangeStampImageRequest) File(file *os.File) StampApiChangeStampImageRequest {
+	r.file = file
 	return r
 }
 
-func (r StampApiApiChangeStampImageRequest) Execute() (*http.Response, error) {
+func (r StampApiChangeStampImageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeStampImageExecute(r)
 }
 
@@ -154,12 +149,12 @@ ChangeStampImage スタンプ画像を変更
 
 指定したスタンプの画像を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiChangeStampImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiChangeStampImageRequest
 */
-func (a *StampApiService) ChangeStampImage(ctx context.Context, stampId string) StampApiApiChangeStampImageRequest {
-	return StampApiApiChangeStampImageRequest{
+func (a *StampApiService) ChangeStampImage(ctx context.Context, stampId string) StampApiChangeStampImageRequest {
+	return StampApiChangeStampImageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -167,7 +162,7 @@ func (a *StampApiService) ChangeStampImage(ctx context.Context, stampId string) 
 }
 
 // Execute executes the request
-func (a *StampApiService) ChangeStampImageExecute(r StampApiApiChangeStampImageRequest) (*http.Response, error) {
+func (a *StampApiService) ChangeStampImageExecute(r StampApiChangeStampImageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -180,7 +175,7 @@ func (a *StampApiService) ChangeStampImageExecute(r StampApiApiChangeStampImageR
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}/image"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -212,14 +207,16 @@ func (a *StampApiService) ChangeStampImageExecute(r StampApiApiChangeStampImageR
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -230,9 +227,9 @@ func (a *StampApiService) ChangeStampImageExecute(r StampApiApiChangeStampImageR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -248,26 +245,26 @@ func (a *StampApiService) ChangeStampImageExecute(r StampApiApiChangeStampImageR
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiCreateStampRequest struct {
+type StampApiCreateStampRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	name       *string
-	file       **os.File
+	file       *os.File
 }
 
 // スタンプ名
-func (r StampApiApiCreateStampRequest) Name(name string) StampApiApiCreateStampRequest {
+func (r StampApiCreateStampRequest) Name(name string) StampApiCreateStampRequest {
 	r.name = &name
 	return r
 }
 
 // スタンプ画像(1MBまでのpng, jpeg, gif)
-func (r StampApiApiCreateStampRequest) File(file *os.File) StampApiApiCreateStampRequest {
-	r.file = &file
+func (r StampApiCreateStampRequest) File(file *os.File) StampApiCreateStampRequest {
+	r.file = file
 	return r
 }
 
-func (r StampApiApiCreateStampRequest) Execute() (*Stamp, *http.Response, error) {
+func (r StampApiCreateStampRequest) Execute() (*Stamp, *http.Response, error) {
 	return r.ApiService.CreateStampExecute(r)
 }
 
@@ -276,19 +273,20 @@ CreateStamp スタンプを作成
 
 スタンプを新規作成します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StampApiApiCreateStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StampApiCreateStampRequest
 */
-func (a *StampApiService) CreateStamp(ctx context.Context) StampApiApiCreateStampRequest {
-	return StampApiApiCreateStampRequest{
+func (a *StampApiService) CreateStamp(ctx context.Context) StampApiCreateStampRequest {
+	return StampApiCreateStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Stamp
-func (a *StampApiService) CreateStampExecute(r StampApiApiCreateStampRequest) (*Stamp, *http.Response, error) {
+//
+//	@return Stamp
+func (a *StampApiService) CreateStampExecute(r StampApiCreateStampRequest) (*Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -330,21 +328,23 @@ func (a *StampApiService) CreateStampExecute(r StampApiApiCreateStampRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarFormParams.Add("name", parameterToString(*r.name, ""))
+	parameterAddToHeaderOrQuery(localVarFormParams, "name", r.name, "")
 	var fileLocalVarFormFileName string
 	var fileLocalVarFileName string
 	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -355,9 +355,9 @@ func (a *StampApiService) CreateStampExecute(r StampApiApiCreateStampRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -382,18 +382,18 @@ func (a *StampApiService) CreateStampExecute(r StampApiApiCreateStampRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiCreateStampPaletteRequest struct {
+type StampApiCreateStampPaletteRequest struct {
 	ctx                     context.Context
 	ApiService              *StampApiService
 	postStampPaletteRequest *PostStampPaletteRequest
 }
 
-func (r StampApiApiCreateStampPaletteRequest) PostStampPaletteRequest(postStampPaletteRequest PostStampPaletteRequest) StampApiApiCreateStampPaletteRequest {
+func (r StampApiCreateStampPaletteRequest) PostStampPaletteRequest(postStampPaletteRequest PostStampPaletteRequest) StampApiCreateStampPaletteRequest {
 	r.postStampPaletteRequest = &postStampPaletteRequest
 	return r
 }
 
-func (r StampApiApiCreateStampPaletteRequest) Execute() (*StampPalette, *http.Response, error) {
+func (r StampApiCreateStampPaletteRequest) Execute() (*StampPalette, *http.Response, error) {
 	return r.ApiService.CreateStampPaletteExecute(r)
 }
 
@@ -402,19 +402,20 @@ CreateStampPalette スタンプパレットを作成
 
 スタンプパレットを作成します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StampApiApiCreateStampPaletteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StampApiCreateStampPaletteRequest
 */
-func (a *StampApiService) CreateStampPalette(ctx context.Context) StampApiApiCreateStampPaletteRequest {
-	return StampApiApiCreateStampPaletteRequest{
+func (a *StampApiService) CreateStampPalette(ctx context.Context) StampApiCreateStampPaletteRequest {
+	return StampApiCreateStampPaletteRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return StampPalette
-func (a *StampApiService) CreateStampPaletteExecute(r StampApiApiCreateStampPaletteRequest) (*StampPalette, *http.Response, error) {
+//
+//	@return StampPalette
+func (a *StampApiService) CreateStampPaletteExecute(r StampApiCreateStampPaletteRequest) (*StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -462,9 +463,9 @@ func (a *StampApiService) CreateStampPaletteExecute(r StampApiApiCreateStampPale
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -489,13 +490,13 @@ func (a *StampApiService) CreateStampPaletteExecute(r StampApiApiCreateStampPale
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiDeleteStampRequest struct {
+type StampApiDeleteStampRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	stampId    string
 }
 
-func (r StampApiApiDeleteStampRequest) Execute() (*http.Response, error) {
+func (r StampApiDeleteStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteStampExecute(r)
 }
 
@@ -505,12 +506,12 @@ DeleteStamp スタンプを削除
 指定したスタンプを削除します。
 対象のスタンプの削除権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiDeleteStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiDeleteStampRequest
 */
-func (a *StampApiService) DeleteStamp(ctx context.Context, stampId string) StampApiApiDeleteStampRequest {
-	return StampApiApiDeleteStampRequest{
+func (a *StampApiService) DeleteStamp(ctx context.Context, stampId string) StampApiDeleteStampRequest {
+	return StampApiDeleteStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -518,7 +519,7 @@ func (a *StampApiService) DeleteStamp(ctx context.Context, stampId string) Stamp
 }
 
 // Execute executes the request
-func (a *StampApiService) DeleteStampExecute(r StampApiApiDeleteStampRequest) (*http.Response, error) {
+func (a *StampApiService) DeleteStampExecute(r StampApiDeleteStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -531,7 +532,7 @@ func (a *StampApiService) DeleteStampExecute(r StampApiApiDeleteStampRequest) (*
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -564,9 +565,9 @@ func (a *StampApiService) DeleteStampExecute(r StampApiApiDeleteStampRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -582,13 +583,13 @@ func (a *StampApiService) DeleteStampExecute(r StampApiApiDeleteStampRequest) (*
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiDeleteStampPaletteRequest struct {
+type StampApiDeleteStampPaletteRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	paletteId  string
 }
 
-func (r StampApiApiDeleteStampPaletteRequest) Execute() (*http.Response, error) {
+func (r StampApiDeleteStampPaletteRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteStampPaletteExecute(r)
 }
 
@@ -598,12 +599,12 @@ DeleteStampPalette スタンプパレットを削除
 指定したスタンプパレットを削除します。
 対象のスタンプパレットの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param paletteId スタンプパレットUUID
- @return StampApiApiDeleteStampPaletteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param paletteId スタンプパレットUUID
+	@return StampApiDeleteStampPaletteRequest
 */
-func (a *StampApiService) DeleteStampPalette(ctx context.Context, paletteId string) StampApiApiDeleteStampPaletteRequest {
-	return StampApiApiDeleteStampPaletteRequest{
+func (a *StampApiService) DeleteStampPalette(ctx context.Context, paletteId string) StampApiDeleteStampPaletteRequest {
+	return StampApiDeleteStampPaletteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paletteId:  paletteId,
@@ -611,7 +612,7 @@ func (a *StampApiService) DeleteStampPalette(ctx context.Context, paletteId stri
 }
 
 // Execute executes the request
-func (a *StampApiService) DeleteStampPaletteExecute(r StampApiApiDeleteStampPaletteRequest) (*http.Response, error) {
+func (a *StampApiService) DeleteStampPaletteExecute(r StampApiDeleteStampPaletteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -624,7 +625,7 @@ func (a *StampApiService) DeleteStampPaletteExecute(r StampApiApiDeleteStampPale
 	}
 
 	localVarPath := localBasePath + "/stamp-palettes/{paletteId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterToString(r.paletteId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterValueToString(r.paletteId, "paletteId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -657,9 +658,9 @@ func (a *StampApiService) DeleteStampPaletteExecute(r StampApiApiDeleteStampPale
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -675,19 +676,19 @@ func (a *StampApiService) DeleteStampPaletteExecute(r StampApiApiDeleteStampPale
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiEditStampRequest struct {
+type StampApiEditStampRequest struct {
 	ctx               context.Context
 	ApiService        *StampApiService
 	stampId           string
 	patchStampRequest *PatchStampRequest
 }
 
-func (r StampApiApiEditStampRequest) PatchStampRequest(patchStampRequest PatchStampRequest) StampApiApiEditStampRequest {
+func (r StampApiEditStampRequest) PatchStampRequest(patchStampRequest PatchStampRequest) StampApiEditStampRequest {
 	r.patchStampRequest = &patchStampRequest
 	return r
 }
 
-func (r StampApiApiEditStampRequest) Execute() (*http.Response, error) {
+func (r StampApiEditStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditStampExecute(r)
 }
 
@@ -696,12 +697,12 @@ EditStamp スタンプ情報を変更
 
 指定したスタンプの情報を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiEditStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiEditStampRequest
 */
-func (a *StampApiService) EditStamp(ctx context.Context, stampId string) StampApiApiEditStampRequest {
-	return StampApiApiEditStampRequest{
+func (a *StampApiService) EditStamp(ctx context.Context, stampId string) StampApiEditStampRequest {
+	return StampApiEditStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -709,7 +710,7 @@ func (a *StampApiService) EditStamp(ctx context.Context, stampId string) StampAp
 }
 
 // Execute executes the request
-func (a *StampApiService) EditStampExecute(r StampApiApiEditStampRequest) (*http.Response, error) {
+func (a *StampApiService) EditStampExecute(r StampApiEditStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -722,7 +723,7 @@ func (a *StampApiService) EditStampExecute(r StampApiApiEditStampRequest) (*http
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -757,9 +758,9 @@ func (a *StampApiService) EditStampExecute(r StampApiApiEditStampRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -775,19 +776,19 @@ func (a *StampApiService) EditStampExecute(r StampApiApiEditStampRequest) (*http
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiEditStampPaletteRequest struct {
+type StampApiEditStampPaletteRequest struct {
 	ctx                      context.Context
 	ApiService               *StampApiService
 	paletteId                string
 	patchStampPaletteRequest *PatchStampPaletteRequest
 }
 
-func (r StampApiApiEditStampPaletteRequest) PatchStampPaletteRequest(patchStampPaletteRequest PatchStampPaletteRequest) StampApiApiEditStampPaletteRequest {
+func (r StampApiEditStampPaletteRequest) PatchStampPaletteRequest(patchStampPaletteRequest PatchStampPaletteRequest) StampApiEditStampPaletteRequest {
 	r.patchStampPaletteRequest = &patchStampPaletteRequest
 	return r
 }
 
-func (r StampApiApiEditStampPaletteRequest) Execute() (*http.Response, error) {
+func (r StampApiEditStampPaletteRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditStampPaletteExecute(r)
 }
 
@@ -798,12 +799,12 @@ EditStampPalette スタンプパレットを編集
 リクエストのスタンプの配列の順番は保存されて変更されます。
 対象のスタンプパレットの管理権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param paletteId スタンプパレットUUID
- @return StampApiApiEditStampPaletteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param paletteId スタンプパレットUUID
+	@return StampApiEditStampPaletteRequest
 */
-func (a *StampApiService) EditStampPalette(ctx context.Context, paletteId string) StampApiApiEditStampPaletteRequest {
-	return StampApiApiEditStampPaletteRequest{
+func (a *StampApiService) EditStampPalette(ctx context.Context, paletteId string) StampApiEditStampPaletteRequest {
+	return StampApiEditStampPaletteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paletteId:  paletteId,
@@ -811,7 +812,7 @@ func (a *StampApiService) EditStampPalette(ctx context.Context, paletteId string
 }
 
 // Execute executes the request
-func (a *StampApiService) EditStampPaletteExecute(r StampApiApiEditStampPaletteRequest) (*http.Response, error) {
+func (a *StampApiService) EditStampPaletteExecute(r StampApiEditStampPaletteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -824,7 +825,7 @@ func (a *StampApiService) EditStampPaletteExecute(r StampApiApiEditStampPaletteR
 	}
 
 	localVarPath := localBasePath + "/stamp-palettes/{paletteId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterToString(r.paletteId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterValueToString(r.paletteId, "paletteId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -859,9 +860,9 @@ func (a *StampApiService) EditStampPaletteExecute(r StampApiApiEditStampPaletteR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -877,13 +878,13 @@ func (a *StampApiService) EditStampPaletteExecute(r StampApiApiEditStampPaletteR
 	return localVarHTTPResponse, nil
 }
 
-type StampApiApiGetMessageStampsRequest struct {
+type StampApiGetMessageStampsRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	messageId  string
 }
 
-func (r StampApiApiGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
+func (r StampApiGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
 	return r.ApiService.GetMessageStampsExecute(r)
 }
 
@@ -892,12 +893,12 @@ GetMessageStamps メッセージのスタンプリストを取得
 
 指定したメッセージに押されているスタンプのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @return StampApiApiGetMessageStampsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@return StampApiGetMessageStampsRequest
 */
-func (a *StampApiService) GetMessageStamps(ctx context.Context, messageId string) StampApiApiGetMessageStampsRequest {
-	return StampApiApiGetMessageStampsRequest{
+func (a *StampApiService) GetMessageStamps(ctx context.Context, messageId string) StampApiGetMessageStampsRequest {
+	return StampApiGetMessageStampsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -905,8 +906,9 @@ func (a *StampApiService) GetMessageStamps(ctx context.Context, messageId string
 }
 
 // Execute executes the request
-//  @return []MessageStamp
-func (a *StampApiService) GetMessageStampsExecute(r StampApiApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
+//
+//	@return []MessageStamp
+func (a *StampApiService) GetMessageStampsExecute(r StampApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -920,7 +922,7 @@ func (a *StampApiService) GetMessageStampsExecute(r StampApiApiGetMessageStampsR
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -953,9 +955,9 @@ func (a *StampApiService) GetMessageStampsExecute(r StampApiApiGetMessageStampsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -980,19 +982,19 @@ func (a *StampApiService) GetMessageStampsExecute(r StampApiApiGetMessageStampsR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetMyStampHistoryRequest struct {
+type StampApiGetMyStampHistoryRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	limit      *int32
 }
 
 // 件数
-func (r StampApiApiGetMyStampHistoryRequest) Limit(limit int32) StampApiApiGetMyStampHistoryRequest {
+func (r StampApiGetMyStampHistoryRequest) Limit(limit int32) StampApiGetMyStampHistoryRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r StampApiApiGetMyStampHistoryRequest) Execute() ([]StampHistoryEntry, *http.Response, error) {
+func (r StampApiGetMyStampHistoryRequest) Execute() ([]StampHistoryEntry, *http.Response, error) {
 	return r.ApiService.GetMyStampHistoryExecute(r)
 }
 
@@ -1004,19 +1006,20 @@ GetMyStampHistory スタンプ履歴を取得
 
 このAPIが返すスタンプ履歴は厳密な履歴ではありません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StampApiApiGetMyStampHistoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StampApiGetMyStampHistoryRequest
 */
-func (a *StampApiService) GetMyStampHistory(ctx context.Context) StampApiApiGetMyStampHistoryRequest {
-	return StampApiApiGetMyStampHistoryRequest{
+func (a *StampApiService) GetMyStampHistory(ctx context.Context) StampApiGetMyStampHistoryRequest {
+	return StampApiGetMyStampHistoryRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []StampHistoryEntry
-func (a *StampApiService) GetMyStampHistoryExecute(r StampApiApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
+//
+//	@return []StampHistoryEntry
+func (a *StampApiService) GetMyStampHistoryExecute(r StampApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1036,7 +1039,7 @@ func (a *StampApiService) GetMyStampHistoryExecute(r StampApiApiGetMyStampHistor
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1065,9 +1068,9 @@ func (a *StampApiService) GetMyStampHistoryExecute(r StampApiApiGetMyStampHistor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1092,13 +1095,13 @@ func (a *StampApiService) GetMyStampHistoryExecute(r StampApiApiGetMyStampHistor
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampRequest struct {
+type StampApiGetStampRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	stampId    string
 }
 
-func (r StampApiApiGetStampRequest) Execute() (*Stamp, *http.Response, error) {
+func (r StampApiGetStampRequest) Execute() (*Stamp, *http.Response, error) {
 	return r.ApiService.GetStampExecute(r)
 }
 
@@ -1107,12 +1110,12 @@ GetStamp スタンプ情報を取得
 
 指定したスタンプの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiGetStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiGetStampRequest
 */
-func (a *StampApiService) GetStamp(ctx context.Context, stampId string) StampApiApiGetStampRequest {
-	return StampApiApiGetStampRequest{
+func (a *StampApiService) GetStamp(ctx context.Context, stampId string) StampApiGetStampRequest {
+	return StampApiGetStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -1120,8 +1123,9 @@ func (a *StampApiService) GetStamp(ctx context.Context, stampId string) StampApi
 }
 
 // Execute executes the request
-//  @return Stamp
-func (a *StampApiService) GetStampExecute(r StampApiApiGetStampRequest) (*Stamp, *http.Response, error) {
+//
+//	@return Stamp
+func (a *StampApiService) GetStampExecute(r StampApiGetStampRequest) (*Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1135,7 +1139,7 @@ func (a *StampApiService) GetStampExecute(r StampApiApiGetStampRequest) (*Stamp,
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1168,9 +1172,9 @@ func (a *StampApiService) GetStampExecute(r StampApiApiGetStampRequest) (*Stamp,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1195,13 +1199,13 @@ func (a *StampApiService) GetStampExecute(r StampApiApiGetStampRequest) (*Stamp,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampImageRequest struct {
+type StampApiGetStampImageRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	stampId    string
 }
 
-func (r StampApiApiGetStampImageRequest) Execute() (**os.File, *http.Response, error) {
+func (r StampApiGetStampImageRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetStampImageExecute(r)
 }
 
@@ -1210,12 +1214,12 @@ GetStampImage スタンプ画像を取得
 
 指定したIDのスタンプ画像を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiGetStampImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiGetStampImageRequest
 */
-func (a *StampApiService) GetStampImage(ctx context.Context, stampId string) StampApiApiGetStampImageRequest {
-	return StampApiApiGetStampImageRequest{
+func (a *StampApiService) GetStampImage(ctx context.Context, stampId string) StampApiGetStampImageRequest {
+	return StampApiGetStampImageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -1223,13 +1227,14 @@ func (a *StampApiService) GetStampImage(ctx context.Context, stampId string) Sta
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *StampApiService) GetStampImageExecute(r StampApiApiGetStampImageRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *StampApiService) GetStampImageExecute(r StampApiGetStampImageRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StampApiService.GetStampImage")
@@ -1238,7 +1243,7 @@ func (a *StampApiService) GetStampImageExecute(r StampApiApiGetStampImageRequest
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}/image"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1271,9 +1276,9 @@ func (a *StampApiService) GetStampImageExecute(r StampApiApiGetStampImageRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1298,13 +1303,13 @@ func (a *StampApiService) GetStampImageExecute(r StampApiApiGetStampImageRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampPaletteRequest struct {
+type StampApiGetStampPaletteRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	paletteId  string
 }
 
-func (r StampApiApiGetStampPaletteRequest) Execute() (*StampPalette, *http.Response, error) {
+func (r StampApiGetStampPaletteRequest) Execute() (*StampPalette, *http.Response, error) {
 	return r.ApiService.GetStampPaletteExecute(r)
 }
 
@@ -1313,12 +1318,12 @@ GetStampPalette スタンプパレットを取得
 
 指定したスタンプパレットの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param paletteId スタンプパレットUUID
- @return StampApiApiGetStampPaletteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param paletteId スタンプパレットUUID
+	@return StampApiGetStampPaletteRequest
 */
-func (a *StampApiService) GetStampPalette(ctx context.Context, paletteId string) StampApiApiGetStampPaletteRequest {
-	return StampApiApiGetStampPaletteRequest{
+func (a *StampApiService) GetStampPalette(ctx context.Context, paletteId string) StampApiGetStampPaletteRequest {
+	return StampApiGetStampPaletteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paletteId:  paletteId,
@@ -1326,8 +1331,9 @@ func (a *StampApiService) GetStampPalette(ctx context.Context, paletteId string)
 }
 
 // Execute executes the request
-//  @return StampPalette
-func (a *StampApiService) GetStampPaletteExecute(r StampApiApiGetStampPaletteRequest) (*StampPalette, *http.Response, error) {
+//
+//	@return StampPalette
+func (a *StampApiService) GetStampPaletteExecute(r StampApiGetStampPaletteRequest) (*StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1341,7 +1347,7 @@ func (a *StampApiService) GetStampPaletteExecute(r StampApiApiGetStampPaletteReq
 	}
 
 	localVarPath := localBasePath + "/stamp-palettes/{paletteId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterToString(r.paletteId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paletteId"+"}", url.PathEscape(parameterValueToString(r.paletteId, "paletteId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1374,9 +1380,9 @@ func (a *StampApiService) GetStampPaletteExecute(r StampApiApiGetStampPaletteReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1401,12 +1407,12 @@ func (a *StampApiService) GetStampPaletteExecute(r StampApiApiGetStampPaletteReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampPalettesRequest struct {
+type StampApiGetStampPalettesRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 }
 
-func (r StampApiApiGetStampPalettesRequest) Execute() ([]StampPalette, *http.Response, error) {
+func (r StampApiGetStampPalettesRequest) Execute() ([]StampPalette, *http.Response, error) {
 	return r.ApiService.GetStampPalettesExecute(r)
 }
 
@@ -1415,19 +1421,20 @@ GetStampPalettes スタンプパレットのリストを取得
 
 自身が所有しているスタンプパレットのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StampApiApiGetStampPalettesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StampApiGetStampPalettesRequest
 */
-func (a *StampApiService) GetStampPalettes(ctx context.Context) StampApiApiGetStampPalettesRequest {
-	return StampApiApiGetStampPalettesRequest{
+func (a *StampApiService) GetStampPalettes(ctx context.Context) StampApiGetStampPalettesRequest {
+	return StampApiGetStampPalettesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []StampPalette
-func (a *StampApiService) GetStampPalettesExecute(r StampApiApiGetStampPalettesRequest) ([]StampPalette, *http.Response, error) {
+//
+//	@return []StampPalette
+func (a *StampApiService) GetStampPalettesExecute(r StampApiGetStampPalettesRequest) ([]StampPalette, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1473,9 +1480,9 @@ func (a *StampApiService) GetStampPalettesExecute(r StampApiApiGetStampPalettesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1500,13 +1507,13 @@ func (a *StampApiService) GetStampPalettesExecute(r StampApiApiGetStampPalettesR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampStatsRequest struct {
+type StampApiGetStampStatsRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	stampId    string
 }
 
-func (r StampApiApiGetStampStatsRequest) Execute() (*StampStats, *http.Response, error) {
+func (r StampApiGetStampStatsRequest) Execute() (*StampStats, *http.Response, error) {
 	return r.ApiService.GetStampStatsExecute(r)
 }
 
@@ -1515,12 +1522,12 @@ GetStampStats スタンプ統計情報を取得
 
 指定したスタンプの統計情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stampId スタンプUUID
- @return StampApiApiGetStampStatsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stampId スタンプUUID
+	@return StampApiGetStampStatsRequest
 */
-func (a *StampApiService) GetStampStats(ctx context.Context, stampId string) StampApiApiGetStampStatsRequest {
-	return StampApiApiGetStampStatsRequest{
+func (a *StampApiService) GetStampStats(ctx context.Context, stampId string) StampApiGetStampStatsRequest {
+	return StampApiGetStampStatsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stampId:    stampId,
@@ -1528,8 +1535,9 @@ func (a *StampApiService) GetStampStats(ctx context.Context, stampId string) Sta
 }
 
 // Execute executes the request
-//  @return StampStats
-func (a *StampApiService) GetStampStatsExecute(r StampApiApiGetStampStatsRequest) (*StampStats, *http.Response, error) {
+//
+//	@return StampStats
+func (a *StampApiService) GetStampStatsExecute(r StampApiGetStampStatsRequest) (*StampStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1543,7 +1551,7 @@ func (a *StampApiService) GetStampStatsExecute(r StampApiApiGetStampStatsRequest
 	}
 
 	localVarPath := localBasePath + "/stamps/{stampId}/stats"
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1576,9 +1584,9 @@ func (a *StampApiService) GetStampStatsExecute(r StampApiApiGetStampStatsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1603,7 +1611,7 @@ func (a *StampApiService) GetStampStatsExecute(r StampApiApiGetStampStatsRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiGetStampsRequest struct {
+type StampApiGetStampsRequest struct {
 	ctx            context.Context
 	ApiService     *StampApiService
 	includeUnicode *bool
@@ -1612,18 +1620,18 @@ type StampApiApiGetStampsRequest struct {
 
 // Unicode絵文字を含ませるかどうか Deprecated: typeクエリを指定しなければ全てのスタンプを取得できるため、そちらを利用してください
 // Deprecated
-func (r StampApiApiGetStampsRequest) IncludeUnicode(includeUnicode bool) StampApiApiGetStampsRequest {
+func (r StampApiGetStampsRequest) IncludeUnicode(includeUnicode bool) StampApiGetStampsRequest {
 	r.includeUnicode = &includeUnicode
 	return r
 }
 
 // 取得するスタンプの種類
-func (r StampApiApiGetStampsRequest) Type_(type_ string) StampApiApiGetStampsRequest {
+func (r StampApiGetStampsRequest) Type_(type_ string) StampApiGetStampsRequest {
 	r.type_ = &type_
 	return r
 }
 
-func (r StampApiApiGetStampsRequest) Execute() ([]Stamp, *http.Response, error) {
+func (r StampApiGetStampsRequest) Execute() ([]Stamp, *http.Response, error) {
 	return r.ApiService.GetStampsExecute(r)
 }
 
@@ -1632,19 +1640,20 @@ GetStamps スタンプリストを取得
 
 スタンプのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StampApiApiGetStampsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StampApiGetStampsRequest
 */
-func (a *StampApiService) GetStamps(ctx context.Context) StampApiApiGetStampsRequest {
-	return StampApiApiGetStampsRequest{
+func (a *StampApiService) GetStamps(ctx context.Context) StampApiGetStampsRequest {
+	return StampApiGetStampsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Stamp
-func (a *StampApiService) GetStampsExecute(r StampApiApiGetStampsRequest) ([]Stamp, *http.Response, error) {
+//
+//	@return []Stamp
+func (a *StampApiService) GetStampsExecute(r StampApiGetStampsRequest) ([]Stamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1664,10 +1673,10 @@ func (a *StampApiService) GetStampsExecute(r StampApiApiGetStampsRequest) ([]Sta
 	localVarFormParams := url.Values{}
 
 	if r.includeUnicode != nil {
-		localVarQueryParams.Add("include-unicode", parameterToString(*r.includeUnicode, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include-unicode", r.includeUnicode, "")
 	}
 	if r.type_ != nil {
-		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1696,9 +1705,9 @@ func (a *StampApiService) GetStampsExecute(r StampApiApiGetStampsRequest) ([]Sta
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1723,14 +1732,14 @@ func (a *StampApiService) GetStampsExecute(r StampApiApiGetStampsRequest) ([]Sta
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StampApiApiRemoveMessageStampRequest struct {
+type StampApiRemoveMessageStampRequest struct {
 	ctx        context.Context
 	ApiService *StampApiService
 	messageId  string
 	stampId    string
 }
 
-func (r StampApiApiRemoveMessageStampRequest) Execute() (*http.Response, error) {
+func (r StampApiRemoveMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMessageStampExecute(r)
 }
 
@@ -1739,13 +1748,13 @@ RemoveMessageStamp スタンプを消す
 
 指定したメッセージから指定した自身が押したスタンプを削除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param messageId メッセージUUID
- @param stampId スタンプUUID
- @return StampApiApiRemoveMessageStampRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param messageId メッセージUUID
+	@param stampId スタンプUUID
+	@return StampApiRemoveMessageStampRequest
 */
-func (a *StampApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) StampApiApiRemoveMessageStampRequest {
-	return StampApiApiRemoveMessageStampRequest{
+func (a *StampApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) StampApiRemoveMessageStampRequest {
+	return StampApiRemoveMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1754,7 +1763,7 @@ func (a *StampApiService) RemoveMessageStamp(ctx context.Context, messageId stri
 }
 
 // Execute executes the request
-func (a *StampApiService) RemoveMessageStampExecute(r StampApiApiRemoveMessageStampRequest) (*http.Response, error) {
+func (a *StampApiService) RemoveMessageStampExecute(r StampApiRemoveMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1767,8 +1776,8 @@ func (a *StampApiService) RemoveMessageStampExecute(r StampApiApiRemoveMessageSt
 	}
 
 	localVarPath := localBasePath + "/messages/{messageId}/stamps/{stampId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterToString(r.messageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterToString(r.stampId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stampId"+"}", url.PathEscape(parameterValueToString(r.stampId, "stampId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1801,9 +1810,9 @@ func (a *StampApiService) RemoveMessageStampExecute(r StampApiApiRemoveMessageSt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

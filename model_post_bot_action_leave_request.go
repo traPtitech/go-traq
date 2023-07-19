@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostBotActionLeaveRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostBotActionLeaveRequest{}
+
 // PostBotActionLeaveRequest BOTチャンネル退出リクエスト
 type PostBotActionLeaveRequest struct {
 	// チャンネルUUID
@@ -63,11 +66,17 @@ func (o *PostBotActionLeaveRequest) SetChannelId(v string) {
 }
 
 func (o PostBotActionLeaveRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostBotActionLeaveRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["channelId"] = o.ChannelId
+	return toSerialize, nil
 }
 
 type NullablePostBotActionLeaveRequest struct {

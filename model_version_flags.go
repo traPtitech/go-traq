@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VersionFlags type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VersionFlags{}
+
 // VersionFlags struct for VersionFlags
 type VersionFlags struct {
 	// 有効な外部ログインプロバイダ
@@ -90,14 +93,18 @@ func (o *VersionFlags) SetSignUpAllowed(v bool) {
 }
 
 func (o VersionFlags) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["externalLogin"] = o.ExternalLogin
-	}
-	if true {
-		toSerialize["signUpAllowed"] = o.SignUpAllowed
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VersionFlags) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["externalLogin"] = o.ExternalLogin
+	toSerialize["signUpAllowed"] = o.SignUpAllowed
+	return toSerialize, nil
 }
 
 type NullableVersionFlags struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BotTokens type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BotTokens{}
+
 // BotTokens BOTのトークン情報
 type BotTokens struct {
 	// Verification Token
@@ -90,14 +93,18 @@ func (o *BotTokens) SetAccessToken(v string) {
 }
 
 func (o BotTokens) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["verificationToken"] = o.VerificationToken
-	}
-	if true {
-		toSerialize["accessToken"] = o.AccessToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BotTokens) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["verificationToken"] = o.VerificationToken
+	toSerialize["accessToken"] = o.AccessToken
+	return toSerialize, nil
 }
 
 type NullableBotTokens struct {

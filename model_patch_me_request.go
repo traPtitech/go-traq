@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchMeRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchMeRequest{}
+
 // PatchMeRequest 自分のユーザー情報変更リクエスト
 type PatchMeRequest struct {
 	// 新しい表示名
@@ -45,7 +48,7 @@ func NewPatchMeRequestWithDefaults() *PatchMeRequest {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *PatchMeRequest) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *PatchMeRequest) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchMeRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -63,7 +66,7 @@ func (o *PatchMeRequest) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *PatchMeRequest) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *PatchMeRequest) SetDisplayName(v string) {
 
 // GetTwitterId returns the TwitterId field value if set, zero value otherwise.
 func (o *PatchMeRequest) GetTwitterId() string {
-	if o == nil || o.TwitterId == nil {
+	if o == nil || IsNil(o.TwitterId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PatchMeRequest) GetTwitterId() string {
 // GetTwitterIdOk returns a tuple with the TwitterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchMeRequest) GetTwitterIdOk() (*string, bool) {
-	if o == nil || o.TwitterId == nil {
+	if o == nil || IsNil(o.TwitterId) {
 		return nil, false
 	}
 	return o.TwitterId, true
@@ -95,7 +98,7 @@ func (o *PatchMeRequest) GetTwitterIdOk() (*string, bool) {
 
 // HasTwitterId returns a boolean if a field has been set.
 func (o *PatchMeRequest) HasTwitterId() bool {
-	if o != nil && o.TwitterId != nil {
+	if o != nil && !IsNil(o.TwitterId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PatchMeRequest) SetTwitterId(v string) {
 
 // GetBio returns the Bio field value if set, zero value otherwise.
 func (o *PatchMeRequest) GetBio() string {
-	if o == nil || o.Bio == nil {
+	if o == nil || IsNil(o.Bio) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PatchMeRequest) GetBio() string {
 // GetBioOk returns a tuple with the Bio field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchMeRequest) GetBioOk() (*string, bool) {
-	if o == nil || o.Bio == nil {
+	if o == nil || IsNil(o.Bio) {
 		return nil, false
 	}
 	return o.Bio, true
@@ -127,7 +130,7 @@ func (o *PatchMeRequest) GetBioOk() (*string, bool) {
 
 // HasBio returns a boolean if a field has been set.
 func (o *PatchMeRequest) HasBio() bool {
-	if o != nil && o.Bio != nil {
+	if o != nil && !IsNil(o.Bio) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PatchMeRequest) SetBio(v string) {
 
 // GetHomeChannel returns the HomeChannel field value if set, zero value otherwise.
 func (o *PatchMeRequest) GetHomeChannel() string {
-	if o == nil || o.HomeChannel == nil {
+	if o == nil || IsNil(o.HomeChannel) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PatchMeRequest) GetHomeChannel() string {
 // GetHomeChannelOk returns a tuple with the HomeChannel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchMeRequest) GetHomeChannelOk() (*string, bool) {
-	if o == nil || o.HomeChannel == nil {
+	if o == nil || IsNil(o.HomeChannel) {
 		return nil, false
 	}
 	return o.HomeChannel, true
@@ -159,7 +162,7 @@ func (o *PatchMeRequest) GetHomeChannelOk() (*string, bool) {
 
 // HasHomeChannel returns a boolean if a field has been set.
 func (o *PatchMeRequest) HasHomeChannel() bool {
-	if o != nil && o.HomeChannel != nil {
+	if o != nil && !IsNil(o.HomeChannel) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *PatchMeRequest) SetHomeChannel(v string) {
 }
 
 func (o PatchMeRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DisplayName != nil {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if o.TwitterId != nil {
-		toSerialize["twitterId"] = o.TwitterId
-	}
-	if o.Bio != nil {
-		toSerialize["bio"] = o.Bio
-	}
-	if o.HomeChannel != nil {
-		toSerialize["homeChannel"] = o.HomeChannel
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchMeRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.TwitterId) {
+		toSerialize["twitterId"] = o.TwitterId
+	}
+	if !IsNil(o.Bio) {
+		toSerialize["bio"] = o.Bio
+	}
+	if !IsNil(o.HomeChannel) {
+		toSerialize["homeChannel"] = o.HomeChannel
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchMeRequest struct {

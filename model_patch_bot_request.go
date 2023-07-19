@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchBotRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchBotRequest{}
+
 // PatchBotRequest BOT情報変更リクエスト
 type PatchBotRequest struct {
 	// BOTユーザー表示名
@@ -50,7 +53,7 @@ func NewPatchBotRequestWithDefaults() *PatchBotRequest {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *PatchBotRequest) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -68,7 +71,7 @@ func (o *PatchBotRequest) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *PatchBotRequest) SetDisplayName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *PatchBotRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -100,7 +103,7 @@ func (o *PatchBotRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *PatchBotRequest) SetDescription(v string) {
 
 // GetPrivileged returns the Privileged field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetPrivileged() bool {
-	if o == nil || o.Privileged == nil {
+	if o == nil || IsNil(o.Privileged) {
 		var ret bool
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *PatchBotRequest) GetPrivileged() bool {
 // GetPrivilegedOk returns a tuple with the Privileged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetPrivilegedOk() (*bool, bool) {
-	if o == nil || o.Privileged == nil {
+	if o == nil || IsNil(o.Privileged) {
 		return nil, false
 	}
 	return o.Privileged, true
@@ -132,7 +135,7 @@ func (o *PatchBotRequest) GetPrivilegedOk() (*bool, bool) {
 
 // HasPrivileged returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasPrivileged() bool {
-	if o != nil && o.Privileged != nil {
+	if o != nil && !IsNil(o.Privileged) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *PatchBotRequest) SetPrivileged(v bool) {
 
 // GetMode returns the Mode field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetMode() BotMode {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		var ret BotMode
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *PatchBotRequest) GetMode() BotMode {
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetModeOk() (*BotMode, bool) {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
 	return o.Mode, true
@@ -164,7 +167,7 @@ func (o *PatchBotRequest) GetModeOk() (*BotMode, bool) {
 
 // HasMode returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasMode() bool {
-	if o != nil && o.Mode != nil {
+	if o != nil && !IsNil(o.Mode) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *PatchBotRequest) SetMode(v BotMode) {
 
 // GetEndpoint returns the Endpoint field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetEndpoint() string {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		var ret string
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *PatchBotRequest) GetEndpoint() string {
 // GetEndpointOk returns a tuple with the Endpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetEndpointOk() (*string, bool) {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		return nil, false
 	}
 	return o.Endpoint, true
@@ -196,7 +199,7 @@ func (o *PatchBotRequest) GetEndpointOk() (*string, bool) {
 
 // HasEndpoint returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasEndpoint() bool {
-	if o != nil && o.Endpoint != nil {
+	if o != nil && !IsNil(o.Endpoint) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *PatchBotRequest) SetEndpoint(v string) {
 
 // GetDeveloperId returns the DeveloperId field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetDeveloperId() string {
-	if o == nil || o.DeveloperId == nil {
+	if o == nil || IsNil(o.DeveloperId) {
 		var ret string
 		return ret
 	}
@@ -220,7 +223,7 @@ func (o *PatchBotRequest) GetDeveloperId() string {
 // GetDeveloperIdOk returns a tuple with the DeveloperId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetDeveloperIdOk() (*string, bool) {
-	if o == nil || o.DeveloperId == nil {
+	if o == nil || IsNil(o.DeveloperId) {
 		return nil, false
 	}
 	return o.DeveloperId, true
@@ -228,7 +231,7 @@ func (o *PatchBotRequest) GetDeveloperIdOk() (*string, bool) {
 
 // HasDeveloperId returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasDeveloperId() bool {
-	if o != nil && o.DeveloperId != nil {
+	if o != nil && !IsNil(o.DeveloperId) {
 		return true
 	}
 
@@ -242,7 +245,7 @@ func (o *PatchBotRequest) SetDeveloperId(v string) {
 
 // GetSubscribeEvents returns the SubscribeEvents field value if set, zero value otherwise.
 func (o *PatchBotRequest) GetSubscribeEvents() []string {
-	if o == nil || o.SubscribeEvents == nil {
+	if o == nil || IsNil(o.SubscribeEvents) {
 		var ret []string
 		return ret
 	}
@@ -252,7 +255,7 @@ func (o *PatchBotRequest) GetSubscribeEvents() []string {
 // GetSubscribeEventsOk returns a tuple with the SubscribeEvents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchBotRequest) GetSubscribeEventsOk() ([]string, bool) {
-	if o == nil || o.SubscribeEvents == nil {
+	if o == nil || IsNil(o.SubscribeEvents) {
 		return nil, false
 	}
 	return o.SubscribeEvents, true
@@ -260,7 +263,7 @@ func (o *PatchBotRequest) GetSubscribeEventsOk() ([]string, bool) {
 
 // HasSubscribeEvents returns a boolean if a field has been set.
 func (o *PatchBotRequest) HasSubscribeEvents() bool {
-	if o != nil && o.SubscribeEvents != nil {
+	if o != nil && !IsNil(o.SubscribeEvents) {
 		return true
 	}
 
@@ -273,29 +276,37 @@ func (o *PatchBotRequest) SetSubscribeEvents(v []string) {
 }
 
 func (o PatchBotRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DisplayName != nil {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Privileged != nil {
-		toSerialize["privileged"] = o.Privileged
-	}
-	if o.Mode != nil {
-		toSerialize["mode"] = o.Mode
-	}
-	if o.Endpoint != nil {
-		toSerialize["endpoint"] = o.Endpoint
-	}
-	if o.DeveloperId != nil {
-		toSerialize["developerId"] = o.DeveloperId
-	}
-	if o.SubscribeEvents != nil {
-		toSerialize["subscribeEvents"] = o.SubscribeEvents
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchBotRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Privileged) {
+		toSerialize["privileged"] = o.Privileged
+	}
+	if !IsNil(o.Mode) {
+		toSerialize["mode"] = o.Mode
+	}
+	if !IsNil(o.Endpoint) {
+		toSerialize["endpoint"] = o.Endpoint
+	}
+	if !IsNil(o.DeveloperId) {
+		toSerialize["developerId"] = o.DeveloperId
+	}
+	if !IsNil(o.SubscribeEvents) {
+		toSerialize["subscribeEvents"] = o.SubscribeEvents
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchBotRequest struct {

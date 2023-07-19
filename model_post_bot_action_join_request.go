@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostBotActionJoinRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostBotActionJoinRequest{}
+
 // PostBotActionJoinRequest BOTチャンネル参加リクエスト
 type PostBotActionJoinRequest struct {
 	// チャンネルUUID
@@ -63,11 +66,17 @@ func (o *PostBotActionJoinRequest) SetChannelId(v string) {
 }
 
 func (o PostBotActionJoinRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostBotActionJoinRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["channelId"] = o.ChannelId
+	return toSerialize, nil
 }
 
 type NullablePostBotActionJoinRequest struct {

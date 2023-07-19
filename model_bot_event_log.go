@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the BotEventLog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BotEventLog{}
+
 // BotEventLog BOTイベントログ
 type BotEventLog struct {
 	// BOT UUID
@@ -126,7 +129,7 @@ func (o *BotEventLog) SetEvent(v string) {
 
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *BotEventLog) GetResult() BotEventResult {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret BotEventResult
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *BotEventLog) GetResult() BotEventResult {
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BotEventLog) GetResultOk() (*BotEventResult, bool) {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
 	return o.Result, true
@@ -144,7 +147,7 @@ func (o *BotEventLog) GetResultOk() (*BotEventResult, bool) {
 
 // HasResult returns a boolean if a field has been set.
 func (o *BotEventLog) HasResult() bool {
-	if o != nil && o.Result != nil {
+	if o != nil && !IsNil(o.Result) {
 		return true
 	}
 
@@ -205,26 +208,24 @@ func (o *BotEventLog) SetDatetime(v time.Time) {
 }
 
 func (o BotEventLog) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["botId"] = o.BotId
-	}
-	if true {
-		toSerialize["requestId"] = o.RequestId
-	}
-	if true {
-		toSerialize["event"] = o.Event
-	}
-	if o.Result != nil {
-		toSerialize["result"] = o.Result
-	}
-	if true {
-		toSerialize["code"] = o.Code
-	}
-	if true {
-		toSerialize["datetime"] = o.Datetime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BotEventLog) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["botId"] = o.BotId
+	toSerialize["requestId"] = o.RequestId
+	toSerialize["event"] = o.Event
+	if !IsNil(o.Result) {
+		toSerialize["result"] = o.Result
+	}
+	toSerialize["code"] = o.Code
+	toSerialize["datetime"] = o.Datetime
+	return toSerialize, nil
 }
 
 type NullableBotEventLog struct {

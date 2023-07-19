@@ -13,32 +13,27 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-)
-
-// Linger please
-var (
-	_ context.Context
 )
 
 // OgpApiService OgpApi service
 type OgpApiService service
 
-type OgpApiApiDeleteOgpCacheRequest struct {
+type OgpApiDeleteOgpCacheRequest struct {
 	ctx        context.Context
 	ApiService *OgpApiService
 	url        *string
 }
 
 // OGPのキャッシュを削除したいURL
-func (r OgpApiApiDeleteOgpCacheRequest) Url(url string) OgpApiApiDeleteOgpCacheRequest {
+func (r OgpApiDeleteOgpCacheRequest) Url(url string) OgpApiDeleteOgpCacheRequest {
 	r.url = &url
 	return r
 }
 
-func (r OgpApiApiDeleteOgpCacheRequest) Execute() (*http.Response, error) {
+func (r OgpApiDeleteOgpCacheRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteOgpCacheExecute(r)
 }
 
@@ -47,18 +42,18 @@ DeleteOgpCache OGP情報のキャッシュを削除
 
 指定されたURLのOGP情報のキャッシュを削除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return OgpApiApiDeleteOgpCacheRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return OgpApiDeleteOgpCacheRequest
 */
-func (a *OgpApiService) DeleteOgpCache(ctx context.Context) OgpApiApiDeleteOgpCacheRequest {
-	return OgpApiApiDeleteOgpCacheRequest{
+func (a *OgpApiService) DeleteOgpCache(ctx context.Context) OgpApiDeleteOgpCacheRequest {
+	return OgpApiDeleteOgpCacheRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiApiDeleteOgpCacheRequest) (*http.Response, error) {
+func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiDeleteOgpCacheRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -79,7 +74,7 @@ func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiApiDeleteOgpCacheRequest) 
 		return nil, reportError("url is required and must be specified")
 	}
 
-	localVarQueryParams.Add("url", parameterToString(*r.url, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "url", r.url, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -107,9 +102,9 @@ func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiApiDeleteOgpCacheRequest) 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -125,19 +120,19 @@ func (a *OgpApiService) DeleteOgpCacheExecute(r OgpApiApiDeleteOgpCacheRequest) 
 	return localVarHTTPResponse, nil
 }
 
-type OgpApiApiGetOgpRequest struct {
+type OgpApiGetOgpRequest struct {
 	ctx        context.Context
 	ApiService *OgpApiService
 	url        *string
 }
 
 // OGPを取得したいURL
-func (r OgpApiApiGetOgpRequest) Url(url string) OgpApiApiGetOgpRequest {
+func (r OgpApiGetOgpRequest) Url(url string) OgpApiGetOgpRequest {
 	r.url = &url
 	return r
 }
 
-func (r OgpApiApiGetOgpRequest) Execute() (*Ogp, *http.Response, error) {
+func (r OgpApiGetOgpRequest) Execute() (*Ogp, *http.Response, error) {
 	return r.ApiService.GetOgpExecute(r)
 }
 
@@ -147,20 +142,20 @@ GetOgp OGP情報を取得
 指定されたURLのOGP情報を取得します。
 指定されたURLに対するOGP情報が見つからなかった場合、typeがemptyに設定された空のOGP情報を返します。
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return OgpApiApiGetOgpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return OgpApiGetOgpRequest
 */
-func (a *OgpApiService) GetOgp(ctx context.Context) OgpApiApiGetOgpRequest {
-	return OgpApiApiGetOgpRequest{
+func (a *OgpApiService) GetOgp(ctx context.Context) OgpApiGetOgpRequest {
+	return OgpApiGetOgpRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Ogp
-func (a *OgpApiService) GetOgpExecute(r OgpApiApiGetOgpRequest) (*Ogp, *http.Response, error) {
+//
+//	@return Ogp
+func (a *OgpApiService) GetOgpExecute(r OgpApiGetOgpRequest) (*Ogp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -182,7 +177,7 @@ func (a *OgpApiService) GetOgpExecute(r OgpApiApiGetOgpRequest) (*Ogp, *http.Res
 		return localVarReturnValue, nil, reportError("url is required and must be specified")
 	}
 
-	localVarQueryParams.Add("url", parameterToString(*r.url, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "url", r.url, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -210,9 +205,9 @@ func (a *OgpApiService) GetOgpExecute(r OgpApiApiGetOgpRequest) (*Ogp, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

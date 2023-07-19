@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the UnreadChannel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UnreadChannel{}
+
 // UnreadChannel 未読チャンネル情報
 type UnreadChannel struct {
 	// チャンネルUUID
@@ -199,26 +202,22 @@ func (o *UnreadChannel) SetOldestMessageId(v string) {
 }
 
 func (o UnreadChannel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["noticeable"] = o.Noticeable
-	}
-	if true {
-		toSerialize["since"] = o.Since
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["oldestMessageId"] = o.OldestMessageId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UnreadChannel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["count"] = o.Count
+	toSerialize["noticeable"] = o.Noticeable
+	toSerialize["since"] = o.Since
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["oldestMessageId"] = o.OldestMessageId
+	return toSerialize, nil
 }
 
 type NullableUnreadChannel struct {

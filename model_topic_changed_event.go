@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TopicChangedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TopicChangedEvent{}
+
 // TopicChangedEvent トピック変更イベント
 type TopicChangedEvent struct {
 	// 変更者UUID
@@ -117,17 +120,19 @@ func (o *TopicChangedEvent) SetAfter(v string) {
 }
 
 func (o TopicChangedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["before"] = o.Before
-	}
-	if true {
-		toSerialize["after"] = o.After
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TopicChangedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["before"] = o.Before
+	toSerialize["after"] = o.After
+	return toSerialize, nil
 }
 
 type NullableTopicChangedEvent struct {

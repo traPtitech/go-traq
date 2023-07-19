@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ClipFolder type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClipFolder{}
+
 // ClipFolder クリップフォルダ情報
 type ClipFolder struct {
 	// フォルダUUID
@@ -172,23 +175,21 @@ func (o *ClipFolder) SetDescription(v string) {
 }
 
 func (o ClipFolder) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["ownerId"] = o.OwnerId
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ClipFolder) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["ownerId"] = o.OwnerId
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
 }
 
 type NullableClipFolder struct {

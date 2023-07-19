@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the UserStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserStats{}
+
 // UserStats ユーザー統計情報
 type UserStats struct {
 	// ユーザーの総投稿メッセージ数(削除されたものも含む)
@@ -118,17 +121,19 @@ func (o *UserStats) SetDatetime(v time.Time) {
 }
 
 func (o UserStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["totalMessageCount"] = o.TotalMessageCount
-	}
-	if true {
-		toSerialize["stamps"] = o.Stamps
-	}
-	if true {
-		toSerialize["datetime"] = o.Datetime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["totalMessageCount"] = o.TotalMessageCount
+	toSerialize["stamps"] = o.Stamps
+	toSerialize["datetime"] = o.Datetime
+	return toSerialize, nil
 }
 
 type NullableUserStats struct {

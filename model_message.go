@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the Message type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Message{}
+
 // Message メッセージ
 type Message struct {
 	// メッセージUUID
@@ -282,35 +285,25 @@ func (o *Message) SetThreadId(v string) {
 }
 
 func (o Message) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["content"] = o.Content
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["pinned"] = o.Pinned
-	}
-	if true {
-		toSerialize["stamps"] = o.Stamps
-	}
-	if true {
-		toSerialize["threadId"] = o.ThreadId.Get()
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Message) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["userId"] = o.UserId
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["content"] = o.Content
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["pinned"] = o.Pinned
+	toSerialize["stamps"] = o.Stamps
+	toSerialize["threadId"] = o.ThreadId.Get()
+	return toSerialize, nil
 }
 
 type NullableMessage struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ChildCreatedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChildCreatedEvent{}
+
 // ChildCreatedEvent 子チャンネル作成イベント
 type ChildCreatedEvent struct {
 	// 作成者UUID
@@ -90,14 +93,18 @@ func (o *ChildCreatedEvent) SetChannelId(v string) {
 }
 
 func (o ChildCreatedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChildCreatedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["channelId"] = o.ChannelId
+	return toSerialize, nil
 }
 
 type NullableChildCreatedEvent struct {

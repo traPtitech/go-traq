@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ChannelStatsUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelStatsUser{}
+
 // ChannelStatsUser チャンネル上の特定ユーザー統計情報
 type ChannelStatsUser struct {
 	// ユーザーID
@@ -90,14 +93,18 @@ func (o *ChannelStatsUser) SetMessageCount(v int64) {
 }
 
 func (o ChannelStatsUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["messageCount"] = o.MessageCount
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChannelStatsUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["messageCount"] = o.MessageCount
+	return toSerialize, nil
 }
 
 type NullableChannelStatsUser struct {

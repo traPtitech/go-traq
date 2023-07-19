@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OgpMedia type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OgpMedia{}
+
 // OgpMedia OGPに含まれる画像の情報
 type OgpMedia struct {
 	Url       string         `json:"url"`
@@ -174,23 +177,21 @@ func (o *OgpMedia) SetHeight(v int32) {
 }
 
 func (o OgpMedia) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["secureUrl"] = o.SecureUrl.Get()
-	}
-	if true {
-		toSerialize["type"] = o.Type.Get()
-	}
-	if true {
-		toSerialize["width"] = o.Width.Get()
-	}
-	if true {
-		toSerialize["height"] = o.Height.Get()
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OgpMedia) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["url"] = o.Url
+	toSerialize["secureUrl"] = o.SecureUrl.Get()
+	toSerialize["type"] = o.Type.Get()
+	toSerialize["width"] = o.Width.Get()
+	toSerialize["height"] = o.Height.Get()
+	return toSerialize, nil
 }
 
 type NullableOgpMedia struct {

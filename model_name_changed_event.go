@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NameChangedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NameChangedEvent{}
+
 // NameChangedEvent チャンネル名変更イベント
 type NameChangedEvent struct {
 	// 変更者UUID
@@ -117,17 +120,19 @@ func (o *NameChangedEvent) SetAfter(v string) {
 }
 
 func (o NameChangedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["before"] = o.Before
-	}
-	if true {
-		toSerialize["after"] = o.After
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NameChangedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["before"] = o.Before
+	toSerialize["after"] = o.After
+	return toSerialize, nil
 }
 
 type NullableNameChangedEvent struct {

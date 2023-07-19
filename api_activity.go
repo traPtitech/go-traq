@@ -13,20 +13,15 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-)
-
-// Linger please
-var (
-	_ context.Context
 )
 
 // ActivityApiService ActivityApi service
 type ActivityApiService service
 
-type ActivityApiApiGetActivityTimelineRequest struct {
+type ActivityApiGetActivityTimelineRequest struct {
 	ctx        context.Context
 	ApiService *ActivityApiService
 	limit      *int32
@@ -35,24 +30,24 @@ type ActivityApiApiGetActivityTimelineRequest struct {
 }
 
 // 取得する件数
-func (r ActivityApiApiGetActivityTimelineRequest) Limit(limit int32) ActivityApiApiGetActivityTimelineRequest {
+func (r ActivityApiGetActivityTimelineRequest) Limit(limit int32) ActivityApiGetActivityTimelineRequest {
 	r.limit = &limit
 	return r
 }
 
 // 全てのチャンネルのタイムラインを取得する
-func (r ActivityApiApiGetActivityTimelineRequest) All(all bool) ActivityApiApiGetActivityTimelineRequest {
+func (r ActivityApiGetActivityTimelineRequest) All(all bool) ActivityApiGetActivityTimelineRequest {
 	r.all = &all
 	return r
 }
 
 // 同じチャンネルのメッセージは最新のもののみ取得するか
-func (r ActivityApiApiGetActivityTimelineRequest) PerChannel(perChannel bool) ActivityApiApiGetActivityTimelineRequest {
+func (r ActivityApiGetActivityTimelineRequest) PerChannel(perChannel bool) ActivityApiGetActivityTimelineRequest {
 	r.perChannel = &perChannel
 	return r
 }
 
-func (r ActivityApiApiGetActivityTimelineRequest) Execute() ([]ActivityTimelineMessage, *http.Response, error) {
+func (r ActivityApiGetActivityTimelineRequest) Execute() ([]ActivityTimelineMessage, *http.Response, error) {
 	return r.ApiService.GetActivityTimelineExecute(r)
 }
 
@@ -62,19 +57,20 @@ GetActivityTimeline アクテビティタイムラインを取得
 パブリックチャンネルの直近の投稿メッセージを作成日時の降順で取得します。
 `all`が`true`でない場合、購読チャンネルのみのタイムラインを取得します
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ActivityApiApiGetActivityTimelineRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ActivityApiGetActivityTimelineRequest
 */
-func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityApiApiGetActivityTimelineRequest {
-	return ActivityApiApiGetActivityTimelineRequest{
+func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityApiGetActivityTimelineRequest {
+	return ActivityApiGetActivityTimelineRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ActivityTimelineMessage
-func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiApiGetActivityTimelineRequest) ([]ActivityTimelineMessage, *http.Response, error) {
+//
+//	@return []ActivityTimelineMessage
+func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivityTimelineRequest) ([]ActivityTimelineMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -94,13 +90,13 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiApiGetActiv
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.all != nil {
-		localVarQueryParams.Add("all", parameterToString(*r.all, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
 	}
 	if r.perChannel != nil {
-		localVarQueryParams.Add("per_channel", parameterToString(*r.perChannel, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_channel", r.perChannel, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -129,9 +125,9 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiApiGetActiv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -156,12 +152,12 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiApiGetActiv
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ActivityApiApiGetOnlineUsersRequest struct {
+type ActivityApiGetOnlineUsersRequest struct {
 	ctx        context.Context
 	ApiService *ActivityApiService
 }
 
-func (r ActivityApiApiGetOnlineUsersRequest) Execute() ([]string, *http.Response, error) {
+func (r ActivityApiGetOnlineUsersRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetOnlineUsersExecute(r)
 }
 
@@ -170,19 +166,20 @@ GetOnlineUsers オンラインユーザーリストを取得
 
 現在オンラインな(SSEまたはWSが接続中)ユーザーのUUIDのリストを返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ActivityApiApiGetOnlineUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ActivityApiGetOnlineUsersRequest
 */
-func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiApiGetOnlineUsersRequest {
-	return ActivityApiApiGetOnlineUsersRequest{
+func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiGetOnlineUsersRequest {
+	return ActivityApiGetOnlineUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
-func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiApiGetOnlineUsersRequest) ([]string, *http.Response, error) {
+//
+//	@return []string
+func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiGetOnlineUsersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -228,9 +225,9 @@ func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiApiGetOnlineUser
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

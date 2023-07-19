@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutChannelTopicRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutChannelTopicRequest{}
+
 // PutChannelTopicRequest チャンネルトピック編集リクエスト
 type PutChannelTopicRequest struct {
 	// トピック
@@ -63,11 +66,17 @@ func (o *PutChannelTopicRequest) SetTopic(v string) {
 }
 
 func (o PutChannelTopicRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["topic"] = o.Topic
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PutChannelTopicRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["topic"] = o.Topic
+	return toSerialize, nil
 }
 
 type NullablePutChannelTopicRequest struct {

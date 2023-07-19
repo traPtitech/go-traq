@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostLinkExternalAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostLinkExternalAccount{}
+
 // PostLinkExternalAccount POST /users/me/ex-accounts/link 用リクエストボディ
 type PostLinkExternalAccount struct {
 	// 外部サービス名
@@ -63,11 +66,17 @@ func (o *PostLinkExternalAccount) SetProviderName(v string) {
 }
 
 func (o PostLinkExternalAccount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["providerName"] = o.ProviderName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostLinkExternalAccount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["providerName"] = o.ProviderName
+	return toSerialize, nil
 }
 
 type NullablePostLinkExternalAccount struct {

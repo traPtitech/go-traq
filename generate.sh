@@ -2,7 +2,7 @@
 
 set -eux
 
-OPENAPI_GENERATOR_VERSION='5.4.0'
+OPENAPI_GENERATOR_VERSION='6.6.0'
 
 # clean
 FILES=$(find . -maxdepth 1 -type f ! -name "*.md" ! -name ".*" ! -name "*.sh" ! -name "config.yaml" ! -name "go.mod" ! -name "go.sum" ! -name "*.jar" ! -name "LICENSE")
@@ -28,6 +28,6 @@ go run internal/main.go
 
 go fmt ./...
 
-rm -rf ./docs
+rm -rf ./docs ./test
 
 go mod tidy

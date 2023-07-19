@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutNotifyCitationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutNotifyCitationRequest{}
+
 // PutNotifyCitationRequest メッセージ引用通知設定リクエスト
 type PutNotifyCitationRequest struct {
 	// メッセージ引用通知の設定情報
@@ -63,11 +66,17 @@ func (o *PutNotifyCitationRequest) SetNotifyCitation(v bool) {
 }
 
 func (o PutNotifyCitationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["notifyCitation"] = o.NotifyCitation
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PutNotifyCitationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["notifyCitation"] = o.NotifyCitation
+	return toSerialize, nil
 }
 
 type NullablePutNotifyCitationRequest struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostMessageStampRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostMessageStampRequest{}
+
 // PostMessageStampRequest スタンプを押すリクエスト
 type PostMessageStampRequest struct {
 	// 押す数
@@ -63,11 +66,17 @@ func (o *PostMessageStampRequest) SetCount(v int32) {
 }
 
 func (o PostMessageStampRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["count"] = o.Count
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostMessageStampRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["count"] = o.Count
+	return toSerialize, nil
 }
 
 type NullablePostMessageStampRequest struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchClientRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchClientRequest{}
+
 // PatchClientRequest OAuth2クライアント情報変更リクエスト
 type PatchClientRequest struct {
 	// クライアント名
@@ -45,7 +48,7 @@ func NewPatchClientRequestWithDefaults() *PatchClientRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PatchClientRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *PatchClientRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchClientRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -63,7 +66,7 @@ func (o *PatchClientRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PatchClientRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *PatchClientRequest) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PatchClientRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PatchClientRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchClientRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -95,7 +98,7 @@ func (o *PatchClientRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PatchClientRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PatchClientRequest) SetDescription(v string) {
 
 // GetCallbackUrl returns the CallbackUrl field value if set, zero value otherwise.
 func (o *PatchClientRequest) GetCallbackUrl() string {
-	if o == nil || o.CallbackUrl == nil {
+	if o == nil || IsNil(o.CallbackUrl) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PatchClientRequest) GetCallbackUrl() string {
 // GetCallbackUrlOk returns a tuple with the CallbackUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchClientRequest) GetCallbackUrlOk() (*string, bool) {
-	if o == nil || o.CallbackUrl == nil {
+	if o == nil || IsNil(o.CallbackUrl) {
 		return nil, false
 	}
 	return o.CallbackUrl, true
@@ -127,7 +130,7 @@ func (o *PatchClientRequest) GetCallbackUrlOk() (*string, bool) {
 
 // HasCallbackUrl returns a boolean if a field has been set.
 func (o *PatchClientRequest) HasCallbackUrl() bool {
-	if o != nil && o.CallbackUrl != nil {
+	if o != nil && !IsNil(o.CallbackUrl) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PatchClientRequest) SetCallbackUrl(v string) {
 
 // GetDeveloperId returns the DeveloperId field value if set, zero value otherwise.
 func (o *PatchClientRequest) GetDeveloperId() string {
-	if o == nil || o.DeveloperId == nil {
+	if o == nil || IsNil(o.DeveloperId) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PatchClientRequest) GetDeveloperId() string {
 // GetDeveloperIdOk returns a tuple with the DeveloperId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchClientRequest) GetDeveloperIdOk() (*string, bool) {
-	if o == nil || o.DeveloperId == nil {
+	if o == nil || IsNil(o.DeveloperId) {
 		return nil, false
 	}
 	return o.DeveloperId, true
@@ -159,7 +162,7 @@ func (o *PatchClientRequest) GetDeveloperIdOk() (*string, bool) {
 
 // HasDeveloperId returns a boolean if a field has been set.
 func (o *PatchClientRequest) HasDeveloperId() bool {
-	if o != nil && o.DeveloperId != nil {
+	if o != nil && !IsNil(o.DeveloperId) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *PatchClientRequest) SetDeveloperId(v string) {
 }
 
 func (o PatchClientRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.CallbackUrl != nil {
-		toSerialize["callbackUrl"] = o.CallbackUrl
-	}
-	if o.DeveloperId != nil {
-		toSerialize["developerId"] = o.DeveloperId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchClientRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.CallbackUrl) {
+		toSerialize["callbackUrl"] = o.CallbackUrl
+	}
+	if !IsNil(o.DeveloperId) {
+		toSerialize["developerId"] = o.DeveloperId
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchClientRequest struct {

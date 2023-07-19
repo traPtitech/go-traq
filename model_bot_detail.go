@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the BotDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BotDetail{}
+
 // BotDetail BOT詳細情報
 type BotDetail struct {
 	// BOT UUID
@@ -385,47 +388,29 @@ func (o *BotDetail) SetChannels(v []string) {
 }
 
 func (o BotDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["mode"] = o.Mode
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["subscribeEvents"] = o.SubscribeEvents
-	}
-	if true {
-		toSerialize["developerId"] = o.DeveloperId
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["botUserId"] = o.BotUserId
-	}
-	if true {
-		toSerialize["tokens"] = o.Tokens
-	}
-	if true {
-		toSerialize["endpoint"] = o.Endpoint
-	}
-	if true {
-		toSerialize["privileged"] = o.Privileged
-	}
-	if true {
-		toSerialize["channels"] = o.Channels
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BotDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["mode"] = o.Mode
+	toSerialize["state"] = o.State
+	toSerialize["subscribeEvents"] = o.SubscribeEvents
+	toSerialize["developerId"] = o.DeveloperId
+	toSerialize["description"] = o.Description
+	toSerialize["botUserId"] = o.BotUserId
+	toSerialize["tokens"] = o.Tokens
+	toSerialize["endpoint"] = o.Endpoint
+	toSerialize["privileged"] = o.Privileged
+	toSerialize["channels"] = o.Channels
+	return toSerialize, nil
 }
 
 type NullableBotDetail struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserStatsStamp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserStatsStamp{}
+
 // UserStatsStamp ユーザーの特定スタンプ統計情報
 type UserStatsStamp struct {
 	// スタンプID
@@ -117,17 +120,19 @@ func (o *UserStatsStamp) SetTotal(v int64) {
 }
 
 func (o UserStatsStamp) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["total"] = o.Total
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserStatsStamp) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["count"] = o.Count
+	toSerialize["total"] = o.Total
+	return toSerialize, nil
 }
 
 type NullableUserStatsStamp struct {

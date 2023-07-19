@@ -13,7 +13,7 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -21,21 +21,16 @@ import (
 	"time"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // FileApiService FileApi service
 type FileApiService service
 
-type FileApiApiDeleteFileRequest struct {
+type FileApiDeleteFileRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
 	fileId     string
 }
 
-func (r FileApiApiDeleteFileRequest) Execute() (*http.Response, error) {
+func (r FileApiDeleteFileRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteFileExecute(r)
 }
 
@@ -45,12 +40,12 @@ DeleteFile ファイルを削除
 指定したファイルを削除します。
 指定したファイルの削除権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiApiDeleteFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiDeleteFileRequest
 */
-func (a *FileApiService) DeleteFile(ctx context.Context, fileId string) FileApiApiDeleteFileRequest {
-	return FileApiApiDeleteFileRequest{
+func (a *FileApiService) DeleteFile(ctx context.Context, fileId string) FileApiDeleteFileRequest {
+	return FileApiDeleteFileRequest{
 		ApiService: a,
 		ctx:        ctx,
 		fileId:     fileId,
@@ -58,7 +53,7 @@ func (a *FileApiService) DeleteFile(ctx context.Context, fileId string) FileApiA
 }
 
 // Execute executes the request
-func (a *FileApiService) DeleteFileExecute(r FileApiApiDeleteFileRequest) (*http.Response, error) {
+func (a *FileApiService) DeleteFileExecute(r FileApiDeleteFileRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -71,7 +66,7 @@ func (a *FileApiService) DeleteFileExecute(r FileApiApiDeleteFileRequest) (*http
 	}
 
 	localVarPath := localBasePath + "/files/{fileId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterToString(r.fileId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterValueToString(r.fileId, "fileId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -104,9 +99,9 @@ func (a *FileApiService) DeleteFileExecute(r FileApiApiDeleteFileRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -122,7 +117,7 @@ func (a *FileApiService) DeleteFileExecute(r FileApiApiDeleteFileRequest) (*http
 	return localVarHTTPResponse, nil
 }
 
-type FileApiApiGetFileRequest struct {
+type FileApiGetFileRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
 	fileId     string
@@ -130,12 +125,12 @@ type FileApiApiGetFileRequest struct {
 }
 
 // 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます
-func (r FileApiApiGetFileRequest) Dl(dl int32) FileApiApiGetFileRequest {
+func (r FileApiGetFileRequest) Dl(dl int32) FileApiGetFileRequest {
 	r.dl = &dl
 	return r
 }
 
-func (r FileApiApiGetFileRequest) Execute() (**os.File, *http.Response, error) {
+func (r FileApiGetFileRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetFileExecute(r)
 }
 
@@ -145,12 +140,12 @@ GetFile ファイルをダウンロード
 指定したファイル本体を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiApiGetFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetFileRequest
 */
-func (a *FileApiService) GetFile(ctx context.Context, fileId string) FileApiApiGetFileRequest {
-	return FileApiApiGetFileRequest{
+func (a *FileApiService) GetFile(ctx context.Context, fileId string) FileApiGetFileRequest {
+	return FileApiGetFileRequest{
 		ApiService: a,
 		ctx:        ctx,
 		fileId:     fileId,
@@ -158,13 +153,14 @@ func (a *FileApiService) GetFile(ctx context.Context, fileId string) FileApiApiG
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *FileApiService) GetFileExecute(r FileApiApiGetFileRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *FileApiService) GetFileExecute(r FileApiGetFileRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FileApiService.GetFile")
@@ -173,14 +169,14 @@ func (a *FileApiService) GetFileExecute(r FileApiApiGetFileRequest) (**os.File, 
 	}
 
 	localVarPath := localBasePath + "/files/{fileId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterToString(r.fileId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterValueToString(r.fileId, "fileId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.dl != nil {
-		localVarQueryParams.Add("dl", parameterToString(*r.dl, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dl", r.dl, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -209,9 +205,9 @@ func (a *FileApiService) GetFileExecute(r FileApiApiGetFileRequest) (**os.File, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -236,13 +232,13 @@ func (a *FileApiService) GetFileExecute(r FileApiApiGetFileRequest) (**os.File, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FileApiApiGetFileMetaRequest struct {
+type FileApiGetFileMetaRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
 	fileId     string
 }
 
-func (r FileApiApiGetFileMetaRequest) Execute() (*FileInfo, *http.Response, error) {
+func (r FileApiGetFileMetaRequest) Execute() (*FileInfo, *http.Response, error) {
 	return r.ApiService.GetFileMetaExecute(r)
 }
 
@@ -252,12 +248,12 @@ GetFileMeta ファイルメタを取得
 指定したファイルのメタ情報を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiApiGetFileMetaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetFileMetaRequest
 */
-func (a *FileApiService) GetFileMeta(ctx context.Context, fileId string) FileApiApiGetFileMetaRequest {
-	return FileApiApiGetFileMetaRequest{
+func (a *FileApiService) GetFileMeta(ctx context.Context, fileId string) FileApiGetFileMetaRequest {
+	return FileApiGetFileMetaRequest{
 		ApiService: a,
 		ctx:        ctx,
 		fileId:     fileId,
@@ -265,8 +261,9 @@ func (a *FileApiService) GetFileMeta(ctx context.Context, fileId string) FileApi
 }
 
 // Execute executes the request
-//  @return FileInfo
-func (a *FileApiService) GetFileMetaExecute(r FileApiApiGetFileMetaRequest) (*FileInfo, *http.Response, error) {
+//
+//	@return FileInfo
+func (a *FileApiService) GetFileMetaExecute(r FileApiGetFileMetaRequest) (*FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -280,7 +277,7 @@ func (a *FileApiService) GetFileMetaExecute(r FileApiApiGetFileMetaRequest) (*Fi
 	}
 
 	localVarPath := localBasePath + "/files/{fileId}/meta"
-	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterToString(r.fileId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterValueToString(r.fileId, "fileId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -313,9 +310,9 @@ func (a *FileApiService) GetFileMetaExecute(r FileApiApiGetFileMetaRequest) (*Fi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -340,7 +337,7 @@ func (a *FileApiService) GetFileMetaExecute(r FileApiApiGetFileMetaRequest) (*Fi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FileApiApiGetFilesRequest struct {
+type FileApiGetFilesRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
 	channelId  *string
@@ -354,54 +351,54 @@ type FileApiApiGetFilesRequest struct {
 }
 
 // アップロード先チャンネルUUID
-func (r FileApiApiGetFilesRequest) ChannelId(channelId string) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) ChannelId(channelId string) FileApiGetFilesRequest {
 	r.channelId = &channelId
 	return r
 }
 
 // 取得する件数
-func (r FileApiApiGetFilesRequest) Limit(limit int32) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Limit(limit int32) FileApiGetFilesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r FileApiApiGetFilesRequest) Offset(offset int32) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Offset(offset int32) FileApiGetFilesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r FileApiApiGetFilesRequest) Since(since time.Time) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Since(since time.Time) FileApiGetFilesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r FileApiApiGetFilesRequest) Until(until time.Time) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Until(until time.Time) FileApiGetFilesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r FileApiApiGetFilesRequest) Inclusive(inclusive bool) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Inclusive(inclusive bool) FileApiGetFilesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r FileApiApiGetFilesRequest) Order(order string) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Order(order string) FileApiGetFilesRequest {
 	r.order = &order
 	return r
 }
 
 // アップロード者が自分のファイルのみを取得するか
-func (r FileApiApiGetFilesRequest) Mine(mine bool) FileApiApiGetFilesRequest {
+func (r FileApiGetFilesRequest) Mine(mine bool) FileApiGetFilesRequest {
 	r.mine = &mine
 	return r
 }
 
-func (r FileApiApiGetFilesRequest) Execute() ([]FileInfo, *http.Response, error) {
+func (r FileApiGetFilesRequest) Execute() ([]FileInfo, *http.Response, error) {
 	return r.ApiService.GetFilesExecute(r)
 }
 
@@ -411,19 +408,20 @@ GetFiles ファイルメタのリストを取得
 指定したクエリでファイルメタのリストを取得します。
 クエリパラメータ`channelId`, `mine`の少なくともいずれかが必須です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return FileApiApiGetFilesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FileApiGetFilesRequest
 */
-func (a *FileApiService) GetFiles(ctx context.Context) FileApiApiGetFilesRequest {
-	return FileApiApiGetFilesRequest{
+func (a *FileApiService) GetFiles(ctx context.Context) FileApiGetFilesRequest {
+	return FileApiGetFilesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []FileInfo
-func (a *FileApiService) GetFilesExecute(r FileApiApiGetFilesRequest) ([]FileInfo, *http.Response, error) {
+//
+//	@return []FileInfo
+func (a *FileApiService) GetFilesExecute(r FileApiGetFilesRequest) ([]FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -443,28 +441,28 @@ func (a *FileApiService) GetFilesExecute(r FileApiApiGetFilesRequest) ([]FileInf
 	localVarFormParams := url.Values{}
 
 	if r.channelId != nil {
-		localVarQueryParams.Add("channelId", parameterToString(*r.channelId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channelId", r.channelId, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
 	}
 	if r.until != nil {
-		localVarQueryParams.Add("until", parameterToString(*r.until, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
 	}
 	if r.inclusive != nil {
-		localVarQueryParams.Add("inclusive", parameterToString(*r.inclusive, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
 	}
 	if r.order != nil {
-		localVarQueryParams.Add("order", parameterToString(*r.order, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
 	}
 	if r.mine != nil {
-		localVarQueryParams.Add("mine", parameterToString(*r.mine, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mine", r.mine, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -493,9 +491,9 @@ func (a *FileApiService) GetFilesExecute(r FileApiApiGetFilesRequest) ([]FileInf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -520,7 +518,7 @@ func (a *FileApiService) GetFilesExecute(r FileApiApiGetFilesRequest) ([]FileInf
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FileApiApiGetThumbnailImageRequest struct {
+type FileApiGetThumbnailImageRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
 	fileId     string
@@ -528,12 +526,12 @@ type FileApiApiGetThumbnailImageRequest struct {
 }
 
 // 取得するサムネイルのタイプ
-func (r FileApiApiGetThumbnailImageRequest) Type_(type_ ThumbnailType) FileApiApiGetThumbnailImageRequest {
+func (r FileApiGetThumbnailImageRequest) Type_(type_ ThumbnailType) FileApiGetThumbnailImageRequest {
 	r.type_ = &type_
 	return r
 }
 
-func (r FileApiApiGetThumbnailImageRequest) Execute() (**os.File, *http.Response, error) {
+func (r FileApiGetThumbnailImageRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetThumbnailImageExecute(r)
 }
 
@@ -543,12 +541,12 @@ GetThumbnailImage サムネイル画像を取得
 指定したファイルのサムネイル画像を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiApiGetThumbnailImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetThumbnailImageRequest
 */
-func (a *FileApiService) GetThumbnailImage(ctx context.Context, fileId string) FileApiApiGetThumbnailImageRequest {
-	return FileApiApiGetThumbnailImageRequest{
+func (a *FileApiService) GetThumbnailImage(ctx context.Context, fileId string) FileApiGetThumbnailImageRequest {
+	return FileApiGetThumbnailImageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		fileId:     fileId,
@@ -556,13 +554,14 @@ func (a *FileApiService) GetThumbnailImage(ctx context.Context, fileId string) F
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *FileApiService) GetThumbnailImageExecute(r FileApiApiGetThumbnailImageRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *FileApiService) GetThumbnailImageExecute(r FileApiGetThumbnailImageRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FileApiService.GetThumbnailImage")
@@ -571,14 +570,14 @@ func (a *FileApiService) GetThumbnailImageExecute(r FileApiApiGetThumbnailImageR
 	}
 
 	localVarPath := localBasePath + "/files/{fileId}/thumbnail"
-	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterToString(r.fileId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fileId"+"}", url.PathEscape(parameterValueToString(r.fileId, "fileId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.type_ != nil {
-		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -607,9 +606,9 @@ func (a *FileApiService) GetThumbnailImageExecute(r FileApiApiGetThumbnailImageR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -634,26 +633,26 @@ func (a *FileApiService) GetThumbnailImageExecute(r FileApiApiGetThumbnailImageR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FileApiApiPostFileRequest struct {
+type FileApiPostFileRequest struct {
 	ctx        context.Context
 	ApiService *FileApiService
-	file       **os.File
+	file       *os.File
 	channelId  *string
 }
 
 // ファイル本体
-func (r FileApiApiPostFileRequest) File(file *os.File) FileApiApiPostFileRequest {
-	r.file = &file
+func (r FileApiPostFileRequest) File(file *os.File) FileApiPostFileRequest {
+	r.file = file
 	return r
 }
 
 // アップロード先チャンネルUUID
-func (r FileApiApiPostFileRequest) ChannelId(channelId string) FileApiApiPostFileRequest {
+func (r FileApiPostFileRequest) ChannelId(channelId string) FileApiPostFileRequest {
 	r.channelId = &channelId
 	return r
 }
 
-func (r FileApiApiPostFileRequest) Execute() (*FileInfo, *http.Response, error) {
+func (r FileApiPostFileRequest) Execute() (*FileInfo, *http.Response, error) {
 	return r.ApiService.PostFileExecute(r)
 }
 
@@ -663,19 +662,20 @@ PostFile ファイルをアップロード
 指定したチャンネルにファイルをアップロードします。
 アーカイブされているチャンネルにはアップロード出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return FileApiApiPostFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FileApiPostFileRequest
 */
-func (a *FileApiService) PostFile(ctx context.Context) FileApiApiPostFileRequest {
-	return FileApiApiPostFileRequest{
+func (a *FileApiService) PostFile(ctx context.Context) FileApiPostFileRequest {
+	return FileApiPostFileRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return FileInfo
-func (a *FileApiService) PostFileExecute(r FileApiApiPostFileRequest) (*FileInfo, *http.Response, error) {
+//
+//	@return FileInfo
+func (a *FileApiService) PostFileExecute(r FileApiPostFileRequest) (*FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -723,15 +723,17 @@ func (a *FileApiService) PostFileExecute(r FileApiApiPostFileRequest) (*FileInfo
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-	localVarFormParams.Add("channelId", parameterToString(*r.channelId, ""))
+	parameterAddToHeaderOrQuery(localVarFormParams, "channelId", r.channelId, "")
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -742,9 +744,9 @@ func (a *FileApiService) PostFileExecute(r FileApiApiPostFileRequest) (*FileInfo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

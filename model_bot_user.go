@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BotUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BotUser{}
+
 // BotUser BOTユーザー対
 type BotUser struct {
 	// BOT UUID
@@ -90,14 +93,18 @@ func (o *BotUser) SetBotUserId(v string) {
 }
 
 func (o BotUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["botUserId"] = o.BotUserId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BotUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["botUserId"] = o.BotUserId
+	return toSerialize, nil
 }
 
 type NullableBotUser struct {

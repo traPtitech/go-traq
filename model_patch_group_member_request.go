@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchGroupMemberRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchGroupMemberRequest{}
+
 // PatchGroupMemberRequest ユーザーグループメンバー編集リクエスト
 type PatchGroupMemberRequest struct {
 	// ユーザーの役割
@@ -63,11 +66,17 @@ func (o *PatchGroupMemberRequest) SetRole(v string) {
 }
 
 func (o PatchGroupMemberRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["role"] = o.Role
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchGroupMemberRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["role"] = o.Role
+	return toSerialize, nil
 }
 
 type NullablePatchGroupMemberRequest struct {

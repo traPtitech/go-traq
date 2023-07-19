@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the MyUserDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MyUserDetail{}
+
 // MyUserDetail 自分のユーザー詳細情報
 type MyUserDetail struct {
 	// ユーザーUUID
@@ -418,50 +421,30 @@ func (o *MyUserDetail) SetHomeChannel(v string) {
 }
 
 func (o MyUserDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["bio"] = o.Bio
-	}
-	if true {
-		toSerialize["groups"] = o.Groups
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["lastOnline"] = o.LastOnline.Get()
-	}
-	if true {
-		toSerialize["twitterId"] = o.TwitterId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if true {
-		toSerialize["iconFileId"] = o.IconFileId
-	}
-	if true {
-		toSerialize["bot"] = o.Bot
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["permissions"] = o.Permissions
-	}
-	if true {
-		toSerialize["homeChannel"] = o.HomeChannel.Get()
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MyUserDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["bio"] = o.Bio
+	toSerialize["groups"] = o.Groups
+	toSerialize["tags"] = o.Tags
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["lastOnline"] = o.LastOnline.Get()
+	toSerialize["twitterId"] = o.TwitterId
+	toSerialize["name"] = o.Name
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["iconFileId"] = o.IconFileId
+	toSerialize["bot"] = o.Bot
+	toSerialize["state"] = o.State
+	toSerialize["permissions"] = o.Permissions
+	toSerialize["homeChannel"] = o.HomeChannel.Get()
+	return toSerialize, nil
 }
 
 type NullableMyUserDetail struct {

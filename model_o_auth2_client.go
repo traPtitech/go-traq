@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2Client type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Client{}
+
 // OAuth2Client OAuth2クライアント情報
 type OAuth2Client struct {
 	// クライアントUUID
@@ -171,23 +174,21 @@ func (o *OAuth2Client) SetScopes(v []OAuth2Scope) {
 }
 
 func (o OAuth2Client) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["developerId"] = o.DeveloperId
-	}
-	if true {
-		toSerialize["scopes"] = o.Scopes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Client) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["developerId"] = o.DeveloperId
+	toSerialize["scopes"] = o.Scopes
+	return toSerialize, nil
 }
 
 type NullableOAuth2Client struct {

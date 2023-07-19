@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchStampPaletteRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchStampPaletteRequest{}
+
 // PatchStampPaletteRequest スタンプパレット情報変更リクエスト
 type PatchStampPaletteRequest struct {
 	// パレット名
@@ -43,7 +46,7 @@ func NewPatchStampPaletteRequestWithDefaults() *PatchStampPaletteRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PatchStampPaletteRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *PatchStampPaletteRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchStampPaletteRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -61,7 +64,7 @@ func (o *PatchStampPaletteRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PatchStampPaletteRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *PatchStampPaletteRequest) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PatchStampPaletteRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PatchStampPaletteRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchStampPaletteRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -93,7 +96,7 @@ func (o *PatchStampPaletteRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PatchStampPaletteRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PatchStampPaletteRequest) SetDescription(v string) {
 
 // GetStamps returns the Stamps field value if set, zero value otherwise.
 func (o *PatchStampPaletteRequest) GetStamps() []string {
-	if o == nil || o.Stamps == nil {
+	if o == nil || IsNil(o.Stamps) {
 		var ret []string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PatchStampPaletteRequest) GetStamps() []string {
 // GetStampsOk returns a tuple with the Stamps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchStampPaletteRequest) GetStampsOk() ([]string, bool) {
-	if o == nil || o.Stamps == nil {
+	if o == nil || IsNil(o.Stamps) {
 		return nil, false
 	}
 	return o.Stamps, true
@@ -125,7 +128,7 @@ func (o *PatchStampPaletteRequest) GetStampsOk() ([]string, bool) {
 
 // HasStamps returns a boolean if a field has been set.
 func (o *PatchStampPaletteRequest) HasStamps() bool {
-	if o != nil && o.Stamps != nil {
+	if o != nil && !IsNil(o.Stamps) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *PatchStampPaletteRequest) SetStamps(v []string) {
 }
 
 func (o PatchStampPaletteRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Stamps != nil {
-		toSerialize["stamps"] = o.Stamps
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchStampPaletteRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Stamps) {
+		toSerialize["stamps"] = o.Stamps
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchStampPaletteRequest struct {

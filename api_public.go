@@ -13,28 +13,23 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // PublicApiService PublicApi service
 type PublicApiService service
 
-type PublicApiApiGetPublicUserIconRequest struct {
+type PublicApiGetPublicUserIconRequest struct {
 	ctx        context.Context
 	ApiService *PublicApiService
 	username   string
 }
 
-func (r PublicApiApiGetPublicUserIconRequest) Execute() (**os.File, *http.Response, error) {
+func (r PublicApiGetPublicUserIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetPublicUserIconExecute(r)
 }
 
@@ -43,12 +38,12 @@ GetPublicUserIcon ユーザーのアイコン画像を取得
 
 ユーザーのアイコン画像を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username ユーザー名
- @return PublicApiApiGetPublicUserIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username ユーザー名
+	@return PublicApiGetPublicUserIconRequest
 */
-func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username string) PublicApiApiGetPublicUserIconRequest {
-	return PublicApiApiGetPublicUserIconRequest{
+func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username string) PublicApiGetPublicUserIconRequest {
+	return PublicApiGetPublicUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		username:   username,
@@ -56,13 +51,14 @@ func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username strin
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiApiGetPublicUserIconRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiGetPublicUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetPublicUserIcon")
@@ -71,7 +67,7 @@ func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiApiGetPublicUserI
 	}
 
 	localVarPath := localBasePath + "/public/icon/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -104,9 +100,9 @@ func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiApiGetPublicUserI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -131,12 +127,12 @@ func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiApiGetPublicUserI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PublicApiApiGetServerVersionRequest struct {
+type PublicApiGetServerVersionRequest struct {
 	ctx        context.Context
 	ApiService *PublicApiService
 }
 
-func (r PublicApiApiGetServerVersionRequest) Execute() (*Version, *http.Response, error) {
+func (r PublicApiGetServerVersionRequest) Execute() (*Version, *http.Response, error) {
 	return r.ApiService.GetServerVersionExecute(r)
 }
 
@@ -145,19 +141,20 @@ GetServerVersion バージョンを取得
 
 サーバーバージョン及びサーバーフラグ情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PublicApiApiGetServerVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PublicApiGetServerVersionRequest
 */
-func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiApiGetServerVersionRequest {
-	return PublicApiApiGetServerVersionRequest{
+func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiGetServerVersionRequest {
+	return PublicApiGetServerVersionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Version
-func (a *PublicApiService) GetServerVersionExecute(r PublicApiApiGetServerVersionRequest) (*Version, *http.Response, error) {
+//
+//	@return Version
+func (a *PublicApiService) GetServerVersionExecute(r PublicApiGetServerVersionRequest) (*Version, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -203,9 +200,9 @@ func (a *PublicApiService) GetServerVersionExecute(r PublicApiApiGetServerVersio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StampStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StampStats{}
+
 // StampStats スタンプ統計情報
 type StampStats struct {
 	// スタンプ使用総数(同じユーザによって同じメッセージに貼られたものは複数カウントしない)
@@ -90,14 +93,18 @@ func (o *StampStats) SetTotalCount(v int64) {
 }
 
 func (o StampStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["totalCount"] = o.TotalCount
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StampStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["count"] = o.Count
+	toSerialize["totalCount"] = o.TotalCount
+	return toSerialize, nil
 }
 
 type NullableStampStats struct {

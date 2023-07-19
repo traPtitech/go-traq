@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebRTCAuthenticateResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebRTCAuthenticateResult{}
+
 // WebRTCAuthenticateResult skyway用認証リクエストリザルト
 type WebRTCAuthenticateResult struct {
 	// ピアID
@@ -144,20 +147,20 @@ func (o *WebRTCAuthenticateResult) SetAuthToken(v string) {
 }
 
 func (o WebRTCAuthenticateResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["peerId"] = o.PeerId
-	}
-	if true {
-		toSerialize["ttl"] = o.Ttl
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["authToken"] = o.AuthToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o WebRTCAuthenticateResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["peerId"] = o.PeerId
+	toSerialize["ttl"] = o.Ttl
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["authToken"] = o.AuthToken
+	return toSerialize, nil
 }
 
 type NullableWebRTCAuthenticateResult struct {

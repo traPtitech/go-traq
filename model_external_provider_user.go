@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ExternalProviderUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalProviderUser{}
+
 // ExternalProviderUser 外部認証アカウントユーザー
 type ExternalProviderUser struct {
 	// 外部サービス名
@@ -117,17 +120,19 @@ func (o *ExternalProviderUser) SetExternalName(v string) {
 }
 
 func (o ExternalProviderUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["providerName"] = o.ProviderName
-	}
-	if true {
-		toSerialize["linkedAt"] = o.LinkedAt
-	}
-	if true {
-		toSerialize["externalName"] = o.ExternalName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ExternalProviderUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["providerName"] = o.ProviderName
+	toSerialize["linkedAt"] = o.LinkedAt
+	toSerialize["externalName"] = o.ExternalName
+	return toSerialize, nil
 }
 
 type NullableExternalProviderUser struct {

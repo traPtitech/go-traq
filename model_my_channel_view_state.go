@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MyChannelViewState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MyChannelViewState{}
+
 // MyChannelViewState 自身のチャンネル閲覧状態
 type MyChannelViewState struct {
 	// WSセッションの識別子
@@ -116,17 +119,19 @@ func (o *MyChannelViewState) SetState(v ChannelViewState) {
 }
 
 func (o MyChannelViewState) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["state"] = o.State
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MyChannelViewState) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["key"] = o.Key
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["state"] = o.State
+	return toSerialize, nil
 }
 
 type NullableMyChannelViewState struct {

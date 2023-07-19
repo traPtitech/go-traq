@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ChannelStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelStats{}
+
 // ChannelStats チャンネル統計情報
 type ChannelStats struct {
 	// チャンネルの総投稿メッセージ数(削除されたものも含む)
@@ -145,20 +148,20 @@ func (o *ChannelStats) SetDatetime(v time.Time) {
 }
 
 func (o ChannelStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["totalMessageCount"] = o.TotalMessageCount
-	}
-	if true {
-		toSerialize["stamps"] = o.Stamps
-	}
-	if true {
-		toSerialize["users"] = o.Users
-	}
-	if true {
-		toSerialize["datetime"] = o.Datetime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ChannelStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["totalMessageCount"] = o.TotalMessageCount
+	toSerialize["stamps"] = o.Stamps
+	toSerialize["users"] = o.Users
+	toSerialize["datetime"] = o.Datetime
+	return toSerialize, nil
 }
 
 type NullableChannelStats struct {

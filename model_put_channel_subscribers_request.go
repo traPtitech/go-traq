@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutChannelSubscribersRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutChannelSubscribersRequest{}
+
 // PutChannelSubscribersRequest 通知をオンにするユーザーのUUID配列
 type PutChannelSubscribersRequest struct {
 	// 通知をオンにするユーザーのUUID配列
@@ -63,11 +66,17 @@ func (o *PutChannelSubscribersRequest) SetOn(v []string) {
 }
 
 func (o PutChannelSubscribersRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["on"] = o.On
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PutChannelSubscribersRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["on"] = o.On
+	return toSerialize, nil
 }
 
 type NullablePutChannelSubscribersRequest struct {

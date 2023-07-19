@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2Token type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Token{}
+
 // OAuth2Token struct for OAuth2Token
 type OAuth2Token struct {
 	AccessToken  string  `json:"access_token"`
@@ -93,7 +96,7 @@ func (o *OAuth2Token) SetTokenType(v string) {
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
 func (o *OAuth2Token) GetExpiresIn() int32 {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		var ret int32
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *OAuth2Token) GetExpiresIn() int32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Token) GetExpiresInOk() (*int32, bool) {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
 	return o.ExpiresIn, true
@@ -111,7 +114,7 @@ func (o *OAuth2Token) GetExpiresInOk() (*int32, bool) {
 
 // HasExpiresIn returns a boolean if a field has been set.
 func (o *OAuth2Token) HasExpiresIn() bool {
-	if o != nil && o.ExpiresIn != nil {
+	if o != nil && !IsNil(o.ExpiresIn) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *OAuth2Token) SetExpiresIn(v int32) {
 
 // GetRefreshToken returns the RefreshToken field value if set, zero value otherwise.
 func (o *OAuth2Token) GetRefreshToken() string {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *OAuth2Token) GetRefreshToken() string {
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Token) GetRefreshTokenOk() (*string, bool) {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		return nil, false
 	}
 	return o.RefreshToken, true
@@ -143,7 +146,7 @@ func (o *OAuth2Token) GetRefreshTokenOk() (*string, bool) {
 
 // HasRefreshToken returns a boolean if a field has been set.
 func (o *OAuth2Token) HasRefreshToken() bool {
-	if o != nil && o.RefreshToken != nil {
+	if o != nil && !IsNil(o.RefreshToken) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *OAuth2Token) SetRefreshToken(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *OAuth2Token) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *OAuth2Token) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Token) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -175,7 +178,7 @@ func (o *OAuth2Token) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *OAuth2Token) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *OAuth2Token) SetScope(v string) {
 
 // GetIdToken returns the IdToken field value if set, zero value otherwise.
 func (o *OAuth2Token) GetIdToken() string {
-	if o == nil || o.IdToken == nil {
+	if o == nil || IsNil(o.IdToken) {
 		var ret string
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *OAuth2Token) GetIdToken() string {
 // GetIdTokenOk returns a tuple with the IdToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Token) GetIdTokenOk() (*string, bool) {
-	if o == nil || o.IdToken == nil {
+	if o == nil || IsNil(o.IdToken) {
 		return nil, false
 	}
 	return o.IdToken, true
@@ -207,7 +210,7 @@ func (o *OAuth2Token) GetIdTokenOk() (*string, bool) {
 
 // HasIdToken returns a boolean if a field has been set.
 func (o *OAuth2Token) HasIdToken() bool {
-	if o != nil && o.IdToken != nil {
+	if o != nil && !IsNil(o.IdToken) {
 		return true
 	}
 
@@ -220,26 +223,30 @@ func (o *OAuth2Token) SetIdToken(v string) {
 }
 
 func (o OAuth2Token) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["access_token"] = o.AccessToken
-	}
-	if true {
-		toSerialize["token_type"] = o.TokenType
-	}
-	if o.ExpiresIn != nil {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if o.RefreshToken != nil {
-		toSerialize["refresh_token"] = o.RefreshToken
-	}
-	if o.Scope != nil {
-		toSerialize["scope"] = o.Scope
-	}
-	if o.IdToken != nil {
-		toSerialize["id_token"] = o.IdToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Token) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["access_token"] = o.AccessToken
+	toSerialize["token_type"] = o.TokenType
+	if !IsNil(o.ExpiresIn) {
+		toSerialize["expires_in"] = o.ExpiresIn
+	}
+	if !IsNil(o.RefreshToken) {
+		toSerialize["refresh_token"] = o.RefreshToken
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.IdToken) {
+		toSerialize["id_token"] = o.IdToken
+	}
+	return toSerialize, nil
 }
 
 type NullableOAuth2Token struct {

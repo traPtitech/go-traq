@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostUserGroupRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostUserGroupRequest{}
+
 // PostUserGroupRequest ユーザーグループ作成リクエスト
 type PostUserGroupRequest struct {
 	// グループ名
@@ -117,17 +120,19 @@ func (o *PostUserGroupRequest) SetType(v string) {
 }
 
 func (o PostUserGroupRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostUserGroupRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
 }
 
 type NullablePostUserGroupRequest struct {

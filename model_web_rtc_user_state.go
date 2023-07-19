@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebRTCUserState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebRTCUserState{}
+
 // WebRTCUserState WebRTC状態
 type WebRTCUserState struct {
 	// ユーザーUUID
@@ -21,14 +24,14 @@ type WebRTCUserState struct {
 	// チャンネルUUID
 	ChannelId string `json:"channelId"`
 	// セッションの配列
-	Sessions []WebRTCUserStateSessions `json:"sessions"`
+	Sessions []WebRTCUserStateSessionsInner `json:"sessions"`
 }
 
 // NewWebRTCUserState instantiates a new WebRTCUserState object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebRTCUserState(userId string, channelId string, sessions []WebRTCUserStateSessions) *WebRTCUserState {
+func NewWebRTCUserState(userId string, channelId string, sessions []WebRTCUserStateSessionsInner) *WebRTCUserState {
 	this := WebRTCUserState{}
 	this.UserId = userId
 	this.ChannelId = channelId
@@ -93,9 +96,9 @@ func (o *WebRTCUserState) SetChannelId(v string) {
 }
 
 // GetSessions returns the Sessions field value
-func (o *WebRTCUserState) GetSessions() []WebRTCUserStateSessions {
+func (o *WebRTCUserState) GetSessions() []WebRTCUserStateSessionsInner {
 	if o == nil {
-		var ret []WebRTCUserStateSessions
+		var ret []WebRTCUserStateSessionsInner
 		return ret
 	}
 
@@ -104,7 +107,7 @@ func (o *WebRTCUserState) GetSessions() []WebRTCUserStateSessions {
 
 // GetSessionsOk returns a tuple with the Sessions field value
 // and a boolean to check if the value has been set.
-func (o *WebRTCUserState) GetSessionsOk() ([]WebRTCUserStateSessions, bool) {
+func (o *WebRTCUserState) GetSessionsOk() ([]WebRTCUserStateSessionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,22 +115,24 @@ func (o *WebRTCUserState) GetSessionsOk() ([]WebRTCUserStateSessions, bool) {
 }
 
 // SetSessions sets field value
-func (o *WebRTCUserState) SetSessions(v []WebRTCUserStateSessions) {
+func (o *WebRTCUserState) SetSessions(v []WebRTCUserStateSessionsInner) {
 	o.Sessions = v
 }
 
 func (o WebRTCUserState) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["sessions"] = o.Sessions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o WebRTCUserState) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["userId"] = o.UserId
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["sessions"] = o.Sessions
+	return toSerialize, nil
 }
 
 type NullableWebRTCUserState struct {

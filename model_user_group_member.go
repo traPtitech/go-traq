@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupMember type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupMember{}
+
 // UserGroupMember ユーザーグループメンバー
 type UserGroupMember struct {
 	// ユーザーUUID
@@ -90,14 +93,18 @@ func (o *UserGroupMember) SetRole(v string) {
 }
 
 func (o UserGroupMember) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["role"] = o.Role
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupMember) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["role"] = o.Role
+	return toSerialize, nil
 }
 
 type NullableUserGroupMember struct {

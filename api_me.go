@@ -13,33 +13,28 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // MeApiService MeApi service
 type MeApiService service
 
-type MeApiApiAddMyStarRequest struct {
+type MeApiAddMyStarRequest struct {
 	ctx             context.Context
 	ApiService      *MeApiService
 	postStarRequest *PostStarRequest
 }
 
-func (r MeApiApiAddMyStarRequest) PostStarRequest(postStarRequest PostStarRequest) MeApiApiAddMyStarRequest {
+func (r MeApiAddMyStarRequest) PostStarRequest(postStarRequest PostStarRequest) MeApiAddMyStarRequest {
 	r.postStarRequest = &postStarRequest
 	return r
 }
 
-func (r MeApiApiAddMyStarRequest) Execute() (*http.Response, error) {
+func (r MeApiAddMyStarRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddMyStarExecute(r)
 }
 
@@ -50,18 +45,18 @@ AddMyStar チャンネルをスターに追加
 スター済みのチャンネルIDを指定した場合、204を返します。
 不正なチャンネルIDを指定した場合、400を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiAddMyStarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiAddMyStarRequest
 */
-func (a *MeApiService) AddMyStar(ctx context.Context) MeApiApiAddMyStarRequest {
-	return MeApiApiAddMyStarRequest{
+func (a *MeApiService) AddMyStar(ctx context.Context) MeApiAddMyStarRequest {
+	return MeApiAddMyStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) AddMyStarExecute(r MeApiApiAddMyStarRequest) (*http.Response, error) {
+func (a *MeApiService) AddMyStarExecute(r MeApiAddMyStarRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -108,9 +103,9 @@ func (a *MeApiService) AddMyStarExecute(r MeApiApiAddMyStarRequest) (*http.Respo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -126,18 +121,18 @@ func (a *MeApiService) AddMyStarExecute(r MeApiApiAddMyStarRequest) (*http.Respo
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiAddMyUserTagRequest struct {
+type MeApiAddMyUserTagRequest struct {
 	ctx                context.Context
 	ApiService         *MeApiService
 	postUserTagRequest *PostUserTagRequest
 }
 
-func (r MeApiApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) MeApiApiAddMyUserTagRequest {
+func (r MeApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) MeApiAddMyUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
 }
 
-func (r MeApiApiAddMyUserTagRequest) Execute() (*UserTag, *http.Response, error) {
+func (r MeApiAddMyUserTagRequest) Execute() (*UserTag, *http.Response, error) {
 	return r.ApiService.AddMyUserTagExecute(r)
 }
 
@@ -146,19 +141,20 @@ AddMyUserTag 自分にタグを追加
 
 自分に新しくタグを追加します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiAddMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiAddMyUserTagRequest
 */
-func (a *MeApiService) AddMyUserTag(ctx context.Context) MeApiApiAddMyUserTagRequest {
-	return MeApiApiAddMyUserTagRequest{
+func (a *MeApiService) AddMyUserTag(ctx context.Context) MeApiAddMyUserTagRequest {
+	return MeApiAddMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserTag
-func (a *MeApiService) AddMyUserTagExecute(r MeApiApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
+//
+//	@return UserTag
+func (a *MeApiService) AddMyUserTagExecute(r MeApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -206,9 +202,9 @@ func (a *MeApiService) AddMyUserTagExecute(r MeApiApiAddMyUserTagRequest) (*User
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -233,19 +229,19 @@ func (a *MeApiService) AddMyUserTagExecute(r MeApiApiAddMyUserTagRequest) (*User
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiChangeMyIconRequest struct {
+type MeApiChangeMyIconRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
-	file       **os.File
+	file       *os.File
 }
 
 // アイコン画像(1MBまでのpng, jpeg, gif)
-func (r MeApiApiChangeMyIconRequest) File(file *os.File) MeApiApiChangeMyIconRequest {
-	r.file = &file
+func (r MeApiChangeMyIconRequest) File(file *os.File) MeApiChangeMyIconRequest {
+	r.file = file
 	return r
 }
 
-func (r MeApiApiChangeMyIconRequest) Execute() (*http.Response, error) {
+func (r MeApiChangeMyIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeMyIconExecute(r)
 }
 
@@ -254,18 +250,18 @@ ChangeMyIcon 自分のアイコン画像を変更
 
 自分のアイコン画像を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiChangeMyIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiChangeMyIconRequest
 */
-func (a *MeApiService) ChangeMyIcon(ctx context.Context) MeApiApiChangeMyIconRequest {
-	return MeApiApiChangeMyIconRequest{
+func (a *MeApiService) ChangeMyIcon(ctx context.Context) MeApiChangeMyIconRequest {
+	return MeApiChangeMyIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) ChangeMyIconExecute(r MeApiApiChangeMyIconRequest) (*http.Response, error) {
+func (a *MeApiService) ChangeMyIconExecute(r MeApiChangeMyIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -309,14 +305,16 @@ func (a *MeApiService) ChangeMyIconExecute(r MeApiApiChangeMyIconRequest) (*http
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -327,9 +325,9 @@ func (a *MeApiService) ChangeMyIconExecute(r MeApiApiChangeMyIconRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -345,18 +343,18 @@ func (a *MeApiService) ChangeMyIconExecute(r MeApiApiChangeMyIconRequest) (*http
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiChangeMyNotifyCitationRequest struct {
+type MeApiChangeMyNotifyCitationRequest struct {
 	ctx                      context.Context
 	ApiService               *MeApiService
 	putNotifyCitationRequest *PutNotifyCitationRequest
 }
 
-func (r MeApiApiChangeMyNotifyCitationRequest) PutNotifyCitationRequest(putNotifyCitationRequest PutNotifyCitationRequest) MeApiApiChangeMyNotifyCitationRequest {
+func (r MeApiChangeMyNotifyCitationRequest) PutNotifyCitationRequest(putNotifyCitationRequest PutNotifyCitationRequest) MeApiChangeMyNotifyCitationRequest {
 	r.putNotifyCitationRequest = &putNotifyCitationRequest
 	return r
 }
 
-func (r MeApiApiChangeMyNotifyCitationRequest) Execute() (*http.Response, error) {
+func (r MeApiChangeMyNotifyCitationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeMyNotifyCitationExecute(r)
 }
 
@@ -365,18 +363,18 @@ ChangeMyNotifyCitation メッセージ引用通知の設定情報を変更
 
 メッセージ引用通知の設定情報を変更します
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiChangeMyNotifyCitationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiChangeMyNotifyCitationRequest
 */
-func (a *MeApiService) ChangeMyNotifyCitation(ctx context.Context) MeApiApiChangeMyNotifyCitationRequest {
-	return MeApiApiChangeMyNotifyCitationRequest{
+func (a *MeApiService) ChangeMyNotifyCitation(ctx context.Context) MeApiChangeMyNotifyCitationRequest {
+	return MeApiChangeMyNotifyCitationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) ChangeMyNotifyCitationExecute(r MeApiApiChangeMyNotifyCitationRequest) (*http.Response, error) {
+func (a *MeApiService) ChangeMyNotifyCitationExecute(r MeApiChangeMyNotifyCitationRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -423,9 +421,9 @@ func (a *MeApiService) ChangeMyNotifyCitationExecute(r MeApiApiChangeMyNotifyCit
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -441,18 +439,18 @@ func (a *MeApiService) ChangeMyNotifyCitationExecute(r MeApiApiChangeMyNotifyCit
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiChangeMyPasswordRequest struct {
+type MeApiChangeMyPasswordRequest struct {
 	ctx                  context.Context
 	ApiService           *MeApiService
 	putMyPasswordRequest *PutMyPasswordRequest
 }
 
-func (r MeApiApiChangeMyPasswordRequest) PutMyPasswordRequest(putMyPasswordRequest PutMyPasswordRequest) MeApiApiChangeMyPasswordRequest {
+func (r MeApiChangeMyPasswordRequest) PutMyPasswordRequest(putMyPasswordRequest PutMyPasswordRequest) MeApiChangeMyPasswordRequest {
 	r.putMyPasswordRequest = &putMyPasswordRequest
 	return r
 }
 
-func (r MeApiApiChangeMyPasswordRequest) Execute() (*http.Response, error) {
+func (r MeApiChangeMyPasswordRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeMyPasswordExecute(r)
 }
 
@@ -461,18 +459,18 @@ ChangeMyPassword 自分のパスワードを変更
 
 自身のパスワードを変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiChangeMyPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiChangeMyPasswordRequest
 */
-func (a *MeApiService) ChangeMyPassword(ctx context.Context) MeApiApiChangeMyPasswordRequest {
-	return MeApiApiChangeMyPasswordRequest{
+func (a *MeApiService) ChangeMyPassword(ctx context.Context) MeApiChangeMyPasswordRequest {
+	return MeApiChangeMyPasswordRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) ChangeMyPasswordExecute(r MeApiApiChangeMyPasswordRequest) (*http.Response, error) {
+func (a *MeApiService) ChangeMyPasswordExecute(r MeApiChangeMyPasswordRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -519,9 +517,9 @@ func (a *MeApiService) ChangeMyPasswordExecute(r MeApiApiChangeMyPasswordRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -537,18 +535,18 @@ func (a *MeApiService) ChangeMyPasswordExecute(r MeApiApiChangeMyPasswordRequest
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiEditMeRequest struct {
+type MeApiEditMeRequest struct {
 	ctx            context.Context
 	ApiService     *MeApiService
 	patchMeRequest *PatchMeRequest
 }
 
-func (r MeApiApiEditMeRequest) PatchMeRequest(patchMeRequest PatchMeRequest) MeApiApiEditMeRequest {
+func (r MeApiEditMeRequest) PatchMeRequest(patchMeRequest PatchMeRequest) MeApiEditMeRequest {
 	r.patchMeRequest = &patchMeRequest
 	return r
 }
 
-func (r MeApiApiEditMeRequest) Execute() (*http.Response, error) {
+func (r MeApiEditMeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditMeExecute(r)
 }
 
@@ -557,18 +555,18 @@ EditMe 自分のユーザー情報を変更
 
 自身のユーザー情報を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiEditMeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiEditMeRequest
 */
-func (a *MeApiService) EditMe(ctx context.Context) MeApiApiEditMeRequest {
-	return MeApiApiEditMeRequest{
+func (a *MeApiService) EditMe(ctx context.Context) MeApiEditMeRequest {
+	return MeApiEditMeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) EditMeExecute(r MeApiApiEditMeRequest) (*http.Response, error) {
+func (a *MeApiService) EditMeExecute(r MeApiEditMeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -615,9 +613,9 @@ func (a *MeApiService) EditMeExecute(r MeApiApiEditMeRequest) (*http.Response, e
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -633,19 +631,19 @@ func (a *MeApiService) EditMeExecute(r MeApiApiEditMeRequest) (*http.Response, e
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiEditMyUserTagRequest struct {
+type MeApiEditMyUserTagRequest struct {
 	ctx                 context.Context
 	ApiService          *MeApiService
 	tagId               string
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-func (r MeApiApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) MeApiApiEditMyUserTagRequest {
+func (r MeApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) MeApiEditMyUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
 }
 
-func (r MeApiApiEditMyUserTagRequest) Execute() (*http.Response, error) {
+func (r MeApiEditMyUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditMyUserTagExecute(r)
 }
 
@@ -654,12 +652,12 @@ EditMyUserTag 自分のタグを編集
 
 自分の指定したタグの状態を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return MeApiApiEditMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return MeApiEditMyUserTagRequest
 */
-func (a *MeApiService) EditMyUserTag(ctx context.Context, tagId string) MeApiApiEditMyUserTagRequest {
-	return MeApiApiEditMyUserTagRequest{
+func (a *MeApiService) EditMyUserTag(ctx context.Context, tagId string) MeApiEditMyUserTagRequest {
+	return MeApiEditMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tagId:      tagId,
@@ -667,7 +665,7 @@ func (a *MeApiService) EditMyUserTag(ctx context.Context, tagId string) MeApiApi
 }
 
 // Execute executes the request
-func (a *MeApiService) EditMyUserTagExecute(r MeApiApiEditMyUserTagRequest) (*http.Response, error) {
+func (a *MeApiService) EditMyUserTagExecute(r MeApiEditMyUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -680,7 +678,7 @@ func (a *MeApiService) EditMyUserTagExecute(r MeApiApiEditMyUserTagRequest) (*ht
 	}
 
 	localVarPath := localBasePath + "/users/me/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -715,9 +713,9 @@ func (a *MeApiService) EditMyUserTagExecute(r MeApiApiEditMyUserTagRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -733,12 +731,12 @@ func (a *MeApiService) EditMyUserTagExecute(r MeApiApiEditMyUserTagRequest) (*ht
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMeRequest struct {
+type MeApiGetMeRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMeRequest) Execute() (*MyUserDetail, *http.Response, error) {
+func (r MeApiGetMeRequest) Execute() (*MyUserDetail, *http.Response, error) {
 	return r.ApiService.GetMeExecute(r)
 }
 
@@ -747,19 +745,20 @@ GetMe 自分のユーザー詳細を取得
 
 自身のユーザー詳細情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMeRequest
 */
-func (a *MeApiService) GetMe(ctx context.Context) MeApiApiGetMeRequest {
-	return MeApiApiGetMeRequest{
+func (a *MeApiService) GetMe(ctx context.Context) MeApiGetMeRequest {
+	return MeApiGetMeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return MyUserDetail
-func (a *MeApiService) GetMeExecute(r MeApiApiGetMeRequest) (*MyUserDetail, *http.Response, error) {
+//
+//	@return MyUserDetail
+func (a *MeApiService) GetMeExecute(r MeApiGetMeRequest) (*MyUserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -805,9 +804,9 @@ func (a *MeApiService) GetMeExecute(r MeApiApiGetMeRequest) (*MyUserDetail, *htt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -832,12 +831,12 @@ func (a *MeApiService) GetMeExecute(r MeApiApiGetMeRequest) (*MyUserDetail, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyChannelSubscriptionsRequest struct {
+type MeApiGetMyChannelSubscriptionsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
+func (r MeApiGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
 	return r.ApiService.GetMyChannelSubscriptionsExecute(r)
 }
 
@@ -846,19 +845,20 @@ GetMyChannelSubscriptions 自分のチャンネル購読状態を取得
 
 自身のチャンネル購読状態を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyChannelSubscriptionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyChannelSubscriptionsRequest
 */
-func (a *MeApiService) GetMyChannelSubscriptions(ctx context.Context) MeApiApiGetMyChannelSubscriptionsRequest {
-	return MeApiApiGetMyChannelSubscriptionsRequest{
+func (a *MeApiService) GetMyChannelSubscriptions(ctx context.Context) MeApiGetMyChannelSubscriptionsRequest {
+	return MeApiGetMyChannelSubscriptionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserSubscribeState
-func (a *MeApiService) GetMyChannelSubscriptionsExecute(r MeApiApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
+//
+//	@return []UserSubscribeState
+func (a *MeApiService) GetMyChannelSubscriptionsExecute(r MeApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -904,9 +904,9 @@ func (a *MeApiService) GetMyChannelSubscriptionsExecute(r MeApiApiGetMyChannelSu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -931,12 +931,12 @@ func (a *MeApiService) GetMyChannelSubscriptionsExecute(r MeApiApiGetMyChannelSu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyExternalAccountsRequest struct {
+type MeApiGetMyExternalAccountsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyExternalAccountsRequest) Execute() ([]ExternalProviderUser, *http.Response, error) {
+func (r MeApiGetMyExternalAccountsRequest) Execute() ([]ExternalProviderUser, *http.Response, error) {
 	return r.ApiService.GetMyExternalAccountsExecute(r)
 }
 
@@ -945,19 +945,20 @@ GetMyExternalAccounts 外部ログインアカウント一覧を取得
 
 自分に紐付けられている外部ログインアカウント一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyExternalAccountsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyExternalAccountsRequest
 */
-func (a *MeApiService) GetMyExternalAccounts(ctx context.Context) MeApiApiGetMyExternalAccountsRequest {
-	return MeApiApiGetMyExternalAccountsRequest{
+func (a *MeApiService) GetMyExternalAccounts(ctx context.Context) MeApiGetMyExternalAccountsRequest {
+	return MeApiGetMyExternalAccountsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ExternalProviderUser
-func (a *MeApiService) GetMyExternalAccountsExecute(r MeApiApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
+//
+//	@return []ExternalProviderUser
+func (a *MeApiService) GetMyExternalAccountsExecute(r MeApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1003,9 +1004,9 @@ func (a *MeApiService) GetMyExternalAccountsExecute(r MeApiApiGetMyExternalAccou
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1030,12 +1031,12 @@ func (a *MeApiService) GetMyExternalAccountsExecute(r MeApiApiGetMyExternalAccou
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyIconRequest struct {
+type MeApiGetMyIconRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyIconRequest) Execute() (**os.File, *http.Response, error) {
+func (r MeApiGetMyIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetMyIconExecute(r)
 }
 
@@ -1044,24 +1045,25 @@ GetMyIcon 自分のアイコン画像を取得
 
 自分のアイコン画像を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyIconRequest
 */
-func (a *MeApiService) GetMyIcon(ctx context.Context) MeApiApiGetMyIconRequest {
-	return MeApiApiGetMyIconRequest{
+func (a *MeApiService) GetMyIcon(ctx context.Context) MeApiGetMyIconRequest {
+	return MeApiGetMyIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *MeApiService) GetMyIconExecute(r MeApiApiGetMyIconRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *MeApiService) GetMyIconExecute(r MeApiGetMyIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeApiService.GetMyIcon")
@@ -1102,9 +1104,9 @@ func (a *MeApiService) GetMyIconExecute(r MeApiApiGetMyIconRequest) (**os.File, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1129,12 +1131,12 @@ func (a *MeApiService) GetMyIconExecute(r MeApiApiGetMyIconRequest) (**os.File, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyNotifyCitationRequest struct {
+type MeApiGetMyNotifyCitationRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyNotifyCitationRequest) Execute() (*GetNotifyCitation, *http.Response, error) {
+func (r MeApiGetMyNotifyCitationRequest) Execute() (*GetNotifyCitation, *http.Response, error) {
 	return r.ApiService.GetMyNotifyCitationExecute(r)
 }
 
@@ -1143,19 +1145,20 @@ GetMyNotifyCitation メッセージ引用通知の設定情報を取得
 
 メッセージ引用通知の設定情報を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyNotifyCitationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyNotifyCitationRequest
 */
-func (a *MeApiService) GetMyNotifyCitation(ctx context.Context) MeApiApiGetMyNotifyCitationRequest {
-	return MeApiApiGetMyNotifyCitationRequest{
+func (a *MeApiService) GetMyNotifyCitation(ctx context.Context) MeApiGetMyNotifyCitationRequest {
+	return MeApiGetMyNotifyCitationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return GetNotifyCitation
-func (a *MeApiService) GetMyNotifyCitationExecute(r MeApiApiGetMyNotifyCitationRequest) (*GetNotifyCitation, *http.Response, error) {
+//
+//	@return GetNotifyCitation
+func (a *MeApiService) GetMyNotifyCitationExecute(r MeApiGetMyNotifyCitationRequest) (*GetNotifyCitation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1201,9 +1204,9 @@ func (a *MeApiService) GetMyNotifyCitationExecute(r MeApiApiGetMyNotifyCitationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1228,19 +1231,19 @@ func (a *MeApiService) GetMyNotifyCitationExecute(r MeApiApiGetMyNotifyCitationR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyQRCodeRequest struct {
+type MeApiGetMyQRCodeRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	token      *bool
 }
 
 // 画像でなくトークン文字列で返すかどうか
-func (r MeApiApiGetMyQRCodeRequest) Token(token bool) MeApiApiGetMyQRCodeRequest {
+func (r MeApiGetMyQRCodeRequest) Token(token bool) MeApiGetMyQRCodeRequest {
 	r.token = &token
 	return r
 }
 
-func (r MeApiApiGetMyQRCodeRequest) Execute() (**os.File, *http.Response, error) {
+func (r MeApiGetMyQRCodeRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetMyQRCodeExecute(r)
 }
 
@@ -1250,24 +1253,25 @@ GetMyQRCode QRコードを取得
 自身のQRコードを取得します。
 返されたQRコードまたはトークンは、発行後の5分間のみ有効です
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyQRCodeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyQRCodeRequest
 */
-func (a *MeApiService) GetMyQRCode(ctx context.Context) MeApiApiGetMyQRCodeRequest {
-	return MeApiApiGetMyQRCodeRequest{
+func (a *MeApiService) GetMyQRCode(ctx context.Context) MeApiGetMyQRCodeRequest {
+	return MeApiGetMyQRCodeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *MeApiService) GetMyQRCodeExecute(r MeApiApiGetMyQRCodeRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *MeApiService) GetMyQRCodeExecute(r MeApiGetMyQRCodeRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeApiService.GetMyQRCode")
@@ -1282,7 +1286,7 @@ func (a *MeApiService) GetMyQRCodeExecute(r MeApiApiGetMyQRCodeRequest) (**os.Fi
 	localVarFormParams := url.Values{}
 
 	if r.token != nil {
-		localVarQueryParams.Add("token", parameterToString(*r.token, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "token", r.token, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1311,9 +1315,9 @@ func (a *MeApiService) GetMyQRCodeExecute(r MeApiApiGetMyQRCodeRequest) (**os.Fi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1338,12 +1342,12 @@ func (a *MeApiService) GetMyQRCodeExecute(r MeApiApiGetMyQRCodeRequest) (**os.Fi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMySessionsRequest struct {
+type MeApiGetMySessionsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMySessionsRequest) Execute() ([]LoginSession, *http.Response, error) {
+func (r MeApiGetMySessionsRequest) Execute() ([]LoginSession, *http.Response, error) {
 	return r.ApiService.GetMySessionsExecute(r)
 }
 
@@ -1352,19 +1356,20 @@ GetMySessions 自分のログインセッションリストを取得
 
 自分のログインセッションのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMySessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMySessionsRequest
 */
-func (a *MeApiService) GetMySessions(ctx context.Context) MeApiApiGetMySessionsRequest {
-	return MeApiApiGetMySessionsRequest{
+func (a *MeApiService) GetMySessions(ctx context.Context) MeApiGetMySessionsRequest {
+	return MeApiGetMySessionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []LoginSession
-func (a *MeApiService) GetMySessionsExecute(r MeApiApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
+//
+//	@return []LoginSession
+func (a *MeApiService) GetMySessionsExecute(r MeApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1410,9 +1415,9 @@ func (a *MeApiService) GetMySessionsExecute(r MeApiApiGetMySessionsRequest) ([]L
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1437,19 +1442,19 @@ func (a *MeApiService) GetMySessionsExecute(r MeApiApiGetMySessionsRequest) ([]L
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyStampHistoryRequest struct {
+type MeApiGetMyStampHistoryRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	limit      *int32
 }
 
 // 件数
-func (r MeApiApiGetMyStampHistoryRequest) Limit(limit int32) MeApiApiGetMyStampHistoryRequest {
+func (r MeApiGetMyStampHistoryRequest) Limit(limit int32) MeApiGetMyStampHistoryRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r MeApiApiGetMyStampHistoryRequest) Execute() ([]StampHistoryEntry, *http.Response, error) {
+func (r MeApiGetMyStampHistoryRequest) Execute() ([]StampHistoryEntry, *http.Response, error) {
 	return r.ApiService.GetMyStampHistoryExecute(r)
 }
 
@@ -1461,19 +1466,20 @@ GetMyStampHistory スタンプ履歴を取得
 
 このAPIが返すスタンプ履歴は厳密な履歴ではありません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyStampHistoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyStampHistoryRequest
 */
-func (a *MeApiService) GetMyStampHistory(ctx context.Context) MeApiApiGetMyStampHistoryRequest {
-	return MeApiApiGetMyStampHistoryRequest{
+func (a *MeApiService) GetMyStampHistory(ctx context.Context) MeApiGetMyStampHistoryRequest {
+	return MeApiGetMyStampHistoryRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []StampHistoryEntry
-func (a *MeApiService) GetMyStampHistoryExecute(r MeApiApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
+//
+//	@return []StampHistoryEntry
+func (a *MeApiService) GetMyStampHistoryExecute(r MeApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1493,7 +1499,7 @@ func (a *MeApiService) GetMyStampHistoryExecute(r MeApiApiGetMyStampHistoryReque
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1522,9 +1528,9 @@ func (a *MeApiService) GetMyStampHistoryExecute(r MeApiApiGetMyStampHistoryReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1549,12 +1555,12 @@ func (a *MeApiService) GetMyStampHistoryExecute(r MeApiApiGetMyStampHistoryReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyStarsRequest struct {
+type MeApiGetMyStarsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyStarsRequest) Execute() ([]string, *http.Response, error) {
+func (r MeApiGetMyStarsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetMyStarsExecute(r)
 }
 
@@ -1563,19 +1569,20 @@ GetMyStars スターチャンネルリストを取得
 
 自分がスターしているチャンネルのUUIDの配列を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyStarsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyStarsRequest
 */
-func (a *MeApiService) GetMyStars(ctx context.Context) MeApiApiGetMyStarsRequest {
-	return MeApiApiGetMyStarsRequest{
+func (a *MeApiService) GetMyStars(ctx context.Context) MeApiGetMyStarsRequest {
+	return MeApiGetMyStarsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
-func (a *MeApiService) GetMyStarsExecute(r MeApiApiGetMyStarsRequest) ([]string, *http.Response, error) {
+//
+//	@return []string
+func (a *MeApiService) GetMyStarsExecute(r MeApiGetMyStarsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1621,9 +1628,9 @@ func (a *MeApiService) GetMyStarsExecute(r MeApiApiGetMyStarsRequest) ([]string,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1648,12 +1655,12 @@ func (a *MeApiService) GetMyStarsExecute(r MeApiApiGetMyStarsRequest) ([]string,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyTokensRequest struct {
+type MeApiGetMyTokensRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyTokensRequest) Execute() ([]ActiveOAuth2Token, *http.Response, error) {
+func (r MeApiGetMyTokensRequest) Execute() ([]ActiveOAuth2Token, *http.Response, error) {
 	return r.ApiService.GetMyTokensExecute(r)
 }
 
@@ -1662,19 +1669,20 @@ GetMyTokens 有効トークンのリストを取得
 
 有効な自分に発行されたOAuth2トークンのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyTokensRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyTokensRequest
 */
-func (a *MeApiService) GetMyTokens(ctx context.Context) MeApiApiGetMyTokensRequest {
-	return MeApiApiGetMyTokensRequest{
+func (a *MeApiService) GetMyTokens(ctx context.Context) MeApiGetMyTokensRequest {
+	return MeApiGetMyTokensRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ActiveOAuth2Token
-func (a *MeApiService) GetMyTokensExecute(r MeApiApiGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
+//
+//	@return []ActiveOAuth2Token
+func (a *MeApiService) GetMyTokensExecute(r MeApiGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1720,9 +1728,9 @@ func (a *MeApiService) GetMyTokensExecute(r MeApiApiGetMyTokensRequest) ([]Activ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1747,12 +1755,12 @@ func (a *MeApiService) GetMyTokensExecute(r MeApiApiGetMyTokensRequest) ([]Activ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyUnreadChannelsRequest struct {
+type MeApiGetMyUnreadChannelsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
+func (r MeApiGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
 	return r.ApiService.GetMyUnreadChannelsExecute(r)
 }
 
@@ -1761,19 +1769,20 @@ GetMyUnreadChannels 未読チャンネルを取得
 
 自分が現在未読のチャンネルの未読情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyUnreadChannelsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyUnreadChannelsRequest
 */
-func (a *MeApiService) GetMyUnreadChannels(ctx context.Context) MeApiApiGetMyUnreadChannelsRequest {
-	return MeApiApiGetMyUnreadChannelsRequest{
+func (a *MeApiService) GetMyUnreadChannels(ctx context.Context) MeApiGetMyUnreadChannelsRequest {
+	return MeApiGetMyUnreadChannelsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UnreadChannel
-func (a *MeApiService) GetMyUnreadChannelsExecute(r MeApiApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
+//
+//	@return []UnreadChannel
+func (a *MeApiService) GetMyUnreadChannelsExecute(r MeApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1819,9 +1828,9 @@ func (a *MeApiService) GetMyUnreadChannelsExecute(r MeApiApiGetMyUnreadChannelsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1846,12 +1855,12 @@ func (a *MeApiService) GetMyUnreadChannelsExecute(r MeApiApiGetMyUnreadChannelsR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyUserTagsRequest struct {
+type MeApiGetMyUserTagsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
+func (r MeApiGetMyUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
 	return r.ApiService.GetMyUserTagsExecute(r)
 }
 
@@ -1860,19 +1869,20 @@ GetMyUserTags 自分のタグリストを取得
 
 自分に付けられているタグの配列を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyUserTagsRequest
 */
-func (a *MeApiService) GetMyUserTags(ctx context.Context) MeApiApiGetMyUserTagsRequest {
-	return MeApiApiGetMyUserTagsRequest{
+func (a *MeApiService) GetMyUserTags(ctx context.Context) MeApiGetMyUserTagsRequest {
+	return MeApiGetMyUserTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserTag
-func (a *MeApiService) GetMyUserTagsExecute(r MeApiApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
+//
+//	@return []UserTag
+func (a *MeApiService) GetMyUserTagsExecute(r MeApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1918,9 +1928,9 @@ func (a *MeApiService) GetMyUserTagsExecute(r MeApiApiGetMyUserTagsRequest) ([]U
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1945,12 +1955,12 @@ func (a *MeApiService) GetMyUserTagsExecute(r MeApiApiGetMyUserTagsRequest) ([]U
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetMyViewStatesRequest struct {
+type MeApiGetMyViewStatesRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
+func (r MeApiGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
 	return r.ApiService.GetMyViewStatesExecute(r)
 }
 
@@ -1959,19 +1969,20 @@ GetMyViewStates 自身のチャンネル閲覧状態一覧を取得
 
 自身のチャンネル閲覧状態一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetMyViewStatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetMyViewStatesRequest
 */
-func (a *MeApiService) GetMyViewStates(ctx context.Context) MeApiApiGetMyViewStatesRequest {
-	return MeApiApiGetMyViewStatesRequest{
+func (a *MeApiService) GetMyViewStates(ctx context.Context) MeApiGetMyViewStatesRequest {
+	return MeApiGetMyViewStatesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []MyChannelViewState
-func (a *MeApiService) GetMyViewStatesExecute(r MeApiApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
+//
+//	@return []MyChannelViewState
+func (a *MeApiService) GetMyViewStatesExecute(r MeApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2017,9 +2028,9 @@ func (a *MeApiService) GetMyViewStatesExecute(r MeApiApiGetMyViewStatesRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2044,12 +2055,12 @@ func (a *MeApiService) GetMyViewStatesExecute(r MeApiApiGetMyViewStatesRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiGetUserSettingsRequest struct {
+type MeApiGetUserSettingsRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 }
 
-func (r MeApiApiGetUserSettingsRequest) Execute() (*UserSettings, *http.Response, error) {
+func (r MeApiGetUserSettingsRequest) Execute() (*UserSettings, *http.Response, error) {
 	return r.ApiService.GetUserSettingsExecute(r)
 }
 
@@ -2058,19 +2069,20 @@ GetUserSettings ユーザー設定を取得
 
 ユーザー設定を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiGetUserSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiGetUserSettingsRequest
 */
-func (a *MeApiService) GetUserSettings(ctx context.Context) MeApiApiGetUserSettingsRequest {
-	return MeApiApiGetUserSettingsRequest{
+func (a *MeApiService) GetUserSettings(ctx context.Context) MeApiGetUserSettingsRequest {
+	return MeApiGetUserSettingsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserSettings
-func (a *MeApiService) GetUserSettingsExecute(r MeApiApiGetUserSettingsRequest) (*UserSettings, *http.Response, error) {
+//
+//	@return UserSettings
+func (a *MeApiService) GetUserSettingsExecute(r MeApiGetUserSettingsRequest) (*UserSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2116,9 +2128,9 @@ func (a *MeApiService) GetUserSettingsExecute(r MeApiApiGetUserSettingsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2143,18 +2155,18 @@ func (a *MeApiService) GetUserSettingsExecute(r MeApiApiGetUserSettingsRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MeApiApiLinkExternalAccountRequest struct {
+type MeApiLinkExternalAccountRequest struct {
 	ctx                     context.Context
 	ApiService              *MeApiService
 	postLinkExternalAccount *PostLinkExternalAccount
 }
 
-func (r MeApiApiLinkExternalAccountRequest) PostLinkExternalAccount(postLinkExternalAccount PostLinkExternalAccount) MeApiApiLinkExternalAccountRequest {
+func (r MeApiLinkExternalAccountRequest) PostLinkExternalAccount(postLinkExternalAccount PostLinkExternalAccount) MeApiLinkExternalAccountRequest {
 	r.postLinkExternalAccount = &postLinkExternalAccount
 	return r
 }
 
-func (r MeApiApiLinkExternalAccountRequest) Execute() (*http.Response, error) {
+func (r MeApiLinkExternalAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LinkExternalAccountExecute(r)
 }
 
@@ -2165,18 +2177,18 @@ LinkExternalAccount 外部ログインアカウントを紐付ける
 指定した`providerName`がサーバー側で有効である必要があります。
 リクエストが受理された場合、外部サービスの認証画面にリダイレクトされ、認証される必要があります。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiLinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiLinkExternalAccountRequest
 */
-func (a *MeApiService) LinkExternalAccount(ctx context.Context) MeApiApiLinkExternalAccountRequest {
-	return MeApiApiLinkExternalAccountRequest{
+func (a *MeApiService) LinkExternalAccount(ctx context.Context) MeApiLinkExternalAccountRequest {
+	return MeApiLinkExternalAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) LinkExternalAccountExecute(r MeApiApiLinkExternalAccountRequest) (*http.Response, error) {
+func (a *MeApiService) LinkExternalAccountExecute(r MeApiLinkExternalAccountRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -2223,9 +2235,9 @@ func (a *MeApiService) LinkExternalAccountExecute(r MeApiApiLinkExternalAccountR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2241,13 +2253,13 @@ func (a *MeApiService) LinkExternalAccountExecute(r MeApiApiLinkExternalAccountR
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiReadChannelRequest struct {
+type MeApiReadChannelRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	channelId  string
 }
 
-func (r MeApiApiReadChannelRequest) Execute() (*http.Response, error) {
+func (r MeApiReadChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ReadChannelExecute(r)
 }
 
@@ -2256,12 +2268,12 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return MeApiApiReadChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return MeApiReadChannelRequest
 */
-func (a *MeApiService) ReadChannel(ctx context.Context, channelId string) MeApiApiReadChannelRequest {
-	return MeApiApiReadChannelRequest{
+func (a *MeApiService) ReadChannel(ctx context.Context, channelId string) MeApiReadChannelRequest {
+	return MeApiReadChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -2269,7 +2281,7 @@ func (a *MeApiService) ReadChannel(ctx context.Context, channelId string) MeApiA
 }
 
 // Execute executes the request
-func (a *MeApiService) ReadChannelExecute(r MeApiApiReadChannelRequest) (*http.Response, error) {
+func (a *MeApiService) ReadChannelExecute(r MeApiReadChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -2282,7 +2294,7 @@ func (a *MeApiService) ReadChannelExecute(r MeApiApiReadChannelRequest) (*http.R
 	}
 
 	localVarPath := localBasePath + "/users/me/unread/{channelId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2315,9 +2327,9 @@ func (a *MeApiService) ReadChannelExecute(r MeApiApiReadChannelRequest) (*http.R
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2333,18 +2345,18 @@ func (a *MeApiService) ReadChannelExecute(r MeApiApiReadChannelRequest) (*http.R
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiRegisterFCMDeviceRequest struct {
+type MeApiRegisterFCMDeviceRequest struct {
 	ctx                    context.Context
 	ApiService             *MeApiService
 	postMyFCMDeviceRequest *PostMyFCMDeviceRequest
 }
 
-func (r MeApiApiRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) MeApiApiRegisterFCMDeviceRequest {
+func (r MeApiRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) MeApiRegisterFCMDeviceRequest {
 	r.postMyFCMDeviceRequest = &postMyFCMDeviceRequest
 	return r
 }
 
-func (r MeApiApiRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
+func (r MeApiRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RegisterFCMDeviceExecute(r)
 }
 
@@ -2353,18 +2365,18 @@ RegisterFCMDevice FCMデバイスを登録
 
 自身のFCMデバイスを登録します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiRegisterFCMDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiRegisterFCMDeviceRequest
 */
-func (a *MeApiService) RegisterFCMDevice(ctx context.Context) MeApiApiRegisterFCMDeviceRequest {
-	return MeApiApiRegisterFCMDeviceRequest{
+func (a *MeApiService) RegisterFCMDevice(ctx context.Context) MeApiRegisterFCMDeviceRequest {
+	return MeApiRegisterFCMDeviceRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) RegisterFCMDeviceExecute(r MeApiApiRegisterFCMDeviceRequest) (*http.Response, error) {
+func (a *MeApiService) RegisterFCMDeviceExecute(r MeApiRegisterFCMDeviceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -2411,9 +2423,9 @@ func (a *MeApiService) RegisterFCMDeviceExecute(r MeApiApiRegisterFCMDeviceReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2429,13 +2441,13 @@ func (a *MeApiService) RegisterFCMDeviceExecute(r MeApiApiRegisterFCMDeviceReque
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiRemoveMyStarRequest struct {
+type MeApiRemoveMyStarRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	channelId  string
 }
 
-func (r MeApiApiRemoveMyStarRequest) Execute() (*http.Response, error) {
+func (r MeApiRemoveMyStarRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMyStarExecute(r)
 }
 
@@ -2444,12 +2456,12 @@ RemoveMyStar チャンネルをスターから削除します
 
 既にスターから削除されているチャンネルを指定した場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return MeApiApiRemoveMyStarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return MeApiRemoveMyStarRequest
 */
-func (a *MeApiService) RemoveMyStar(ctx context.Context, channelId string) MeApiApiRemoveMyStarRequest {
-	return MeApiApiRemoveMyStarRequest{
+func (a *MeApiService) RemoveMyStar(ctx context.Context, channelId string) MeApiRemoveMyStarRequest {
+	return MeApiRemoveMyStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -2457,7 +2469,7 @@ func (a *MeApiService) RemoveMyStar(ctx context.Context, channelId string) MeApi
 }
 
 // Execute executes the request
-func (a *MeApiService) RemoveMyStarExecute(r MeApiApiRemoveMyStarRequest) (*http.Response, error) {
+func (a *MeApiService) RemoveMyStarExecute(r MeApiRemoveMyStarRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -2470,7 +2482,7 @@ func (a *MeApiService) RemoveMyStarExecute(r MeApiApiRemoveMyStarRequest) (*http
 	}
 
 	localVarPath := localBasePath + "/users/me/stars/{channelId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2503,9 +2515,9 @@ func (a *MeApiService) RemoveMyStarExecute(r MeApiApiRemoveMyStarRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2521,13 +2533,13 @@ func (a *MeApiService) RemoveMyStarExecute(r MeApiApiRemoveMyStarRequest) (*http
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiRemoveMyUserTagRequest struct {
+type MeApiRemoveMyUserTagRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	tagId      string
 }
 
-func (r MeApiApiRemoveMyUserTagRequest) Execute() (*http.Response, error) {
+func (r MeApiRemoveMyUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMyUserTagExecute(r)
 }
 
@@ -2536,12 +2548,12 @@ RemoveMyUserTag 自分からタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return MeApiApiRemoveMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return MeApiRemoveMyUserTagRequest
 */
-func (a *MeApiService) RemoveMyUserTag(ctx context.Context, tagId string) MeApiApiRemoveMyUserTagRequest {
-	return MeApiApiRemoveMyUserTagRequest{
+func (a *MeApiService) RemoveMyUserTag(ctx context.Context, tagId string) MeApiRemoveMyUserTagRequest {
+	return MeApiRemoveMyUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tagId:      tagId,
@@ -2549,7 +2561,7 @@ func (a *MeApiService) RemoveMyUserTag(ctx context.Context, tagId string) MeApiA
 }
 
 // Execute executes the request
-func (a *MeApiService) RemoveMyUserTagExecute(r MeApiApiRemoveMyUserTagRequest) (*http.Response, error) {
+func (a *MeApiService) RemoveMyUserTagExecute(r MeApiRemoveMyUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -2562,7 +2574,7 @@ func (a *MeApiService) RemoveMyUserTagExecute(r MeApiApiRemoveMyUserTagRequest) 
 	}
 
 	localVarPath := localBasePath + "/users/me/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2595,9 +2607,9 @@ func (a *MeApiService) RemoveMyUserTagExecute(r MeApiApiRemoveMyUserTagRequest) 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2613,13 +2625,13 @@ func (a *MeApiService) RemoveMyUserTagExecute(r MeApiApiRemoveMyUserTagRequest) 
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiRevokeMySessionRequest struct {
+type MeApiRevokeMySessionRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	sessionId  string
 }
 
-func (r MeApiApiRevokeMySessionRequest) Execute() (*http.Response, error) {
+func (r MeApiRevokeMySessionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeMySessionExecute(r)
 }
 
@@ -2629,12 +2641,12 @@ RevokeMySession セッションを無効化
 指定した自分のセッションを無効化(ログアウト)します。
 既に存在しない・無効化されているセッションを指定した場合も`204`を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sessionId セッションUUID
- @return MeApiApiRevokeMySessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sessionId セッションUUID
+	@return MeApiRevokeMySessionRequest
 */
-func (a *MeApiService) RevokeMySession(ctx context.Context, sessionId string) MeApiApiRevokeMySessionRequest {
-	return MeApiApiRevokeMySessionRequest{
+func (a *MeApiService) RevokeMySession(ctx context.Context, sessionId string) MeApiRevokeMySessionRequest {
+	return MeApiRevokeMySessionRequest{
 		ApiService: a,
 		ctx:        ctx,
 		sessionId:  sessionId,
@@ -2642,7 +2654,7 @@ func (a *MeApiService) RevokeMySession(ctx context.Context, sessionId string) Me
 }
 
 // Execute executes the request
-func (a *MeApiService) RevokeMySessionExecute(r MeApiApiRevokeMySessionRequest) (*http.Response, error) {
+func (a *MeApiService) RevokeMySessionExecute(r MeApiRevokeMySessionRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -2655,7 +2667,7 @@ func (a *MeApiService) RevokeMySessionExecute(r MeApiApiRevokeMySessionRequest) 
 	}
 
 	localVarPath := localBasePath + "/users/me/sessions/{sessionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2688,9 +2700,9 @@ func (a *MeApiService) RevokeMySessionExecute(r MeApiApiRevokeMySessionRequest) 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2706,13 +2718,13 @@ func (a *MeApiService) RevokeMySessionExecute(r MeApiApiRevokeMySessionRequest) 
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiRevokeMyTokenRequest struct {
+type MeApiRevokeMyTokenRequest struct {
 	ctx        context.Context
 	ApiService *MeApiService
 	tokenId    string
 }
 
-func (r MeApiApiRevokeMyTokenRequest) Execute() (*http.Response, error) {
+func (r MeApiRevokeMyTokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeMyTokenExecute(r)
 }
 
@@ -2721,12 +2733,12 @@ RevokeMyToken トークンの認可を取り消す
 
 自分の指定したトークンの認可を取り消します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tokenId OAuth2トークンUUID
- @return MeApiApiRevokeMyTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tokenId OAuth2トークンUUID
+	@return MeApiRevokeMyTokenRequest
 */
-func (a *MeApiService) RevokeMyToken(ctx context.Context, tokenId string) MeApiApiRevokeMyTokenRequest {
-	return MeApiApiRevokeMyTokenRequest{
+func (a *MeApiService) RevokeMyToken(ctx context.Context, tokenId string) MeApiRevokeMyTokenRequest {
+	return MeApiRevokeMyTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tokenId:    tokenId,
@@ -2734,7 +2746,7 @@ func (a *MeApiService) RevokeMyToken(ctx context.Context, tokenId string) MeApiA
 }
 
 // Execute executes the request
-func (a *MeApiService) RevokeMyTokenExecute(r MeApiApiRevokeMyTokenRequest) (*http.Response, error) {
+func (a *MeApiService) RevokeMyTokenExecute(r MeApiRevokeMyTokenRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -2747,7 +2759,7 @@ func (a *MeApiService) RevokeMyTokenExecute(r MeApiApiRevokeMyTokenRequest) (*ht
 	}
 
 	localVarPath := localBasePath + "/users/me/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2780,9 +2792,9 @@ func (a *MeApiService) RevokeMyTokenExecute(r MeApiApiRevokeMyTokenRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2798,19 +2810,19 @@ func (a *MeApiService) RevokeMyTokenExecute(r MeApiApiRevokeMyTokenRequest) (*ht
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiSetChannelSubscribeLevelRequest struct {
+type MeApiSetChannelSubscribeLevelRequest struct {
 	ctx                             context.Context
 	ApiService                      *MeApiService
 	channelId                       string
 	putChannelSubscribeLevelRequest *PutChannelSubscribeLevelRequest
 }
 
-func (r MeApiApiSetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) MeApiApiSetChannelSubscribeLevelRequest {
+func (r MeApiSetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) MeApiSetChannelSubscribeLevelRequest {
 	r.putChannelSubscribeLevelRequest = &putChannelSubscribeLevelRequest
 	return r
 }
 
-func (r MeApiApiSetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
+func (r MeApiSetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribeLevelExecute(r)
 }
 
@@ -2819,12 +2831,12 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return MeApiApiSetChannelSubscribeLevelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return MeApiSetChannelSubscribeLevelRequest
 */
-func (a *MeApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) MeApiApiSetChannelSubscribeLevelRequest {
-	return MeApiApiSetChannelSubscribeLevelRequest{
+func (a *MeApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) MeApiSetChannelSubscribeLevelRequest {
+	return MeApiSetChannelSubscribeLevelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -2832,7 +2844,7 @@ func (a *MeApiService) SetChannelSubscribeLevel(ctx context.Context, channelId s
 }
 
 // Execute executes the request
-func (a *MeApiService) SetChannelSubscribeLevelExecute(r MeApiApiSetChannelSubscribeLevelRequest) (*http.Response, error) {
+func (a *MeApiService) SetChannelSubscribeLevelExecute(r MeApiSetChannelSubscribeLevelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -2845,7 +2857,7 @@ func (a *MeApiService) SetChannelSubscribeLevelExecute(r MeApiApiSetChannelSubsc
 	}
 
 	localVarPath := localBasePath + "/users/me/subscriptions/{channelId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2880,9 +2892,9 @@ func (a *MeApiService) SetChannelSubscribeLevelExecute(r MeApiApiSetChannelSubsc
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2898,18 +2910,18 @@ func (a *MeApiService) SetChannelSubscribeLevelExecute(r MeApiApiSetChannelSubsc
 	return localVarHTTPResponse, nil
 }
 
-type MeApiApiUnlinkExternalAccountRequest struct {
+type MeApiUnlinkExternalAccountRequest struct {
 	ctx                       context.Context
 	ApiService                *MeApiService
 	postUnlinkExternalAccount *PostUnlinkExternalAccount
 }
 
-func (r MeApiApiUnlinkExternalAccountRequest) PostUnlinkExternalAccount(postUnlinkExternalAccount PostUnlinkExternalAccount) MeApiApiUnlinkExternalAccountRequest {
+func (r MeApiUnlinkExternalAccountRequest) PostUnlinkExternalAccount(postUnlinkExternalAccount PostUnlinkExternalAccount) MeApiUnlinkExternalAccountRequest {
 	r.postUnlinkExternalAccount = &postUnlinkExternalAccount
 	return r
 }
 
-func (r MeApiApiUnlinkExternalAccountRequest) Execute() (*http.Response, error) {
+func (r MeApiUnlinkExternalAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UnlinkExternalAccountExecute(r)
 }
 
@@ -2918,18 +2930,18 @@ UnlinkExternalAccount 外部ログインアカウントの紐付けを解除
 
 自分に紐付けられている外部ログインアカウントの紐付けを解除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return MeApiApiUnlinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeApiUnlinkExternalAccountRequest
 */
-func (a *MeApiService) UnlinkExternalAccount(ctx context.Context) MeApiApiUnlinkExternalAccountRequest {
-	return MeApiApiUnlinkExternalAccountRequest{
+func (a *MeApiService) UnlinkExternalAccount(ctx context.Context) MeApiUnlinkExternalAccountRequest {
+	return MeApiUnlinkExternalAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *MeApiService) UnlinkExternalAccountExecute(r MeApiApiUnlinkExternalAccountRequest) (*http.Response, error) {
+func (a *MeApiService) UnlinkExternalAccountExecute(r MeApiUnlinkExternalAccountRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -2976,9 +2988,9 @@ func (a *MeApiService) UnlinkExternalAccountExecute(r MeApiApiUnlinkExternalAcco
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

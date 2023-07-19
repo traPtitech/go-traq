@@ -13,33 +13,28 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // NotificationApiService NotificationApi service
 type NotificationApiService service
 
-type NotificationApiApiEditChannelSubscribersRequest struct {
+type NotificationApiEditChannelSubscribersRequest struct {
 	ctx                            context.Context
 	ApiService                     *NotificationApiService
 	channelId                      string
 	patchChannelSubscribersRequest *PatchChannelSubscribersRequest
 }
 
-func (r NotificationApiApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) NotificationApiApiEditChannelSubscribersRequest {
+func (r NotificationApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) NotificationApiEditChannelSubscribersRequest {
 	r.patchChannelSubscribersRequest = &patchChannelSubscribersRequest
 	return r
 }
 
-func (r NotificationApiApiEditChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r NotificationApiEditChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditChannelSubscribersExecute(r)
 }
 
@@ -50,12 +45,12 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 リクエストに含めなかったユーザーの通知購読状態は変更しません。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiApiEditChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiEditChannelSubscribersRequest
 */
-func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, channelId string) NotificationApiApiEditChannelSubscribersRequest {
-	return NotificationApiApiEditChannelSubscribersRequest{
+func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, channelId string) NotificationApiEditChannelSubscribersRequest {
+	return NotificationApiEditChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -63,7 +58,7 @@ func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, cha
 }
 
 // Execute executes the request
-func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApiApiEditChannelSubscribersRequest) (*http.Response, error) {
+func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApiEditChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -76,7 +71,7 @@ func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApi
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/subscribers"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -111,9 +106,9 @@ func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -129,13 +124,13 @@ func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApi
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiApiGetChannelSubscribersRequest struct {
+type NotificationApiGetChannelSubscribersRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 	channelId  string
 }
 
-func (r NotificationApiApiGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
+func (r NotificationApiGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetChannelSubscribersExecute(r)
 }
 
@@ -144,12 +139,12 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiApiGetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiGetChannelSubscribersRequest
 */
-func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, channelId string) NotificationApiApiGetChannelSubscribersRequest {
-	return NotificationApiApiGetChannelSubscribersRequest{
+func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, channelId string) NotificationApiGetChannelSubscribersRequest {
+	return NotificationApiGetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -157,8 +152,9 @@ func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, chan
 }
 
 // Execute executes the request
-//  @return []string
-func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
+//
+//	@return []string
+func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -172,7 +168,7 @@ func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiA
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/subscribers"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -205,9 +201,9 @@ func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -232,12 +228,12 @@ func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiApiGetMyChannelSubscriptionsRequest struct {
+type NotificationApiGetMyChannelSubscriptionsRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 }
 
-func (r NotificationApiApiGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
+func (r NotificationApiGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
 	return r.ApiService.GetMyChannelSubscriptionsExecute(r)
 }
 
@@ -246,19 +242,20 @@ GetMyChannelSubscriptions 自分のチャンネル購読状態を取得
 
 自身のチャンネル購読状態を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiApiGetMyChannelSubscriptionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyChannelSubscriptionsRequest
 */
-func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) NotificationApiApiGetMyChannelSubscriptionsRequest {
-	return NotificationApiApiGetMyChannelSubscriptionsRequest{
+func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) NotificationApiGetMyChannelSubscriptionsRequest {
+	return NotificationApiGetMyChannelSubscriptionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserSubscribeState
-func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r NotificationApiApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
+//
+//	@return []UserSubscribeState
+func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r NotificationApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -304,9 +301,9 @@ func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r Notification
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -331,12 +328,12 @@ func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r Notification
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiApiGetMyUnreadChannelsRequest struct {
+type NotificationApiGetMyUnreadChannelsRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 }
 
-func (r NotificationApiApiGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
+func (r NotificationApiGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
 	return r.ApiService.GetMyUnreadChannelsExecute(r)
 }
 
@@ -345,19 +342,20 @@ GetMyUnreadChannels 未読チャンネルを取得
 
 自分が現在未読のチャンネルの未読情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiApiGetMyUnreadChannelsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyUnreadChannelsRequest
 */
-func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) NotificationApiApiGetMyUnreadChannelsRequest {
-	return NotificationApiApiGetMyUnreadChannelsRequest{
+func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) NotificationApiGetMyUnreadChannelsRequest {
+	return NotificationApiGetMyUnreadChannelsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UnreadChannel
-func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
+//
+//	@return []UnreadChannel
+func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -403,9 +401,9 @@ func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiApi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -430,12 +428,12 @@ func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiApi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiApiGetMyViewStatesRequest struct {
+type NotificationApiGetMyViewStatesRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 }
 
-func (r NotificationApiApiGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
+func (r NotificationApiGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
 	return r.ApiService.GetMyViewStatesExecute(r)
 }
 
@@ -444,19 +442,20 @@ GetMyViewStates 自身のチャンネル閲覧状態一覧を取得
 
 自身のチャンネル閲覧状態一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiApiGetMyViewStatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyViewStatesRequest
 */
-func (a *NotificationApiService) GetMyViewStates(ctx context.Context) NotificationApiApiGetMyViewStatesRequest {
-	return NotificationApiApiGetMyViewStatesRequest{
+func (a *NotificationApiService) GetMyViewStates(ctx context.Context) NotificationApiGetMyViewStatesRequest {
+	return NotificationApiGetMyViewStatesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []MyChannelViewState
-func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
+//
+//	@return []MyChannelViewState
+func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -502,9 +501,9 @@ func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiApiGetM
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -529,13 +528,13 @@ func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiApiGetM
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiApiReadChannelRequest struct {
+type NotificationApiReadChannelRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 	channelId  string
 }
 
-func (r NotificationApiApiReadChannelRequest) Execute() (*http.Response, error) {
+func (r NotificationApiReadChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ReadChannelExecute(r)
 }
 
@@ -544,12 +543,12 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiApiReadChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiReadChannelRequest
 */
-func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId string) NotificationApiApiReadChannelRequest {
-	return NotificationApiApiReadChannelRequest{
+func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId string) NotificationApiReadChannelRequest {
+	return NotificationApiReadChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -557,7 +556,7 @@ func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId stri
 }
 
 // Execute executes the request
-func (a *NotificationApiService) ReadChannelExecute(r NotificationApiApiReadChannelRequest) (*http.Response, error) {
+func (a *NotificationApiService) ReadChannelExecute(r NotificationApiReadChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -570,7 +569,7 @@ func (a *NotificationApiService) ReadChannelExecute(r NotificationApiApiReadChan
 	}
 
 	localVarPath := localBasePath + "/users/me/unread/{channelId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -603,9 +602,9 @@ func (a *NotificationApiService) ReadChannelExecute(r NotificationApiApiReadChan
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -621,18 +620,18 @@ func (a *NotificationApiService) ReadChannelExecute(r NotificationApiApiReadChan
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiApiRegisterFCMDeviceRequest struct {
+type NotificationApiRegisterFCMDeviceRequest struct {
 	ctx                    context.Context
 	ApiService             *NotificationApiService
 	postMyFCMDeviceRequest *PostMyFCMDeviceRequest
 }
 
-func (r NotificationApiApiRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) NotificationApiApiRegisterFCMDeviceRequest {
+func (r NotificationApiRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) NotificationApiRegisterFCMDeviceRequest {
 	r.postMyFCMDeviceRequest = &postMyFCMDeviceRequest
 	return r
 }
 
-func (r NotificationApiApiRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
+func (r NotificationApiRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RegisterFCMDeviceExecute(r)
 }
 
@@ -641,18 +640,18 @@ RegisterFCMDevice FCMデバイスを登録
 
 自身のFCMデバイスを登録します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiApiRegisterFCMDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiRegisterFCMDeviceRequest
 */
-func (a *NotificationApiService) RegisterFCMDevice(ctx context.Context) NotificationApiApiRegisterFCMDeviceRequest {
-	return NotificationApiApiRegisterFCMDeviceRequest{
+func (a *NotificationApiService) RegisterFCMDevice(ctx context.Context) NotificationApiRegisterFCMDeviceRequest {
+	return NotificationApiRegisterFCMDeviceRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiApiRegisterFCMDeviceRequest) (*http.Response, error) {
+func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiRegisterFCMDeviceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
@@ -699,9 +698,9 @@ func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiApiRe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -717,19 +716,19 @@ func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiApiRe
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiApiSetChannelSubscribeLevelRequest struct {
+type NotificationApiSetChannelSubscribeLevelRequest struct {
 	ctx                             context.Context
 	ApiService                      *NotificationApiService
 	channelId                       string
 	putChannelSubscribeLevelRequest *PutChannelSubscribeLevelRequest
 }
 
-func (r NotificationApiApiSetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) NotificationApiApiSetChannelSubscribeLevelRequest {
+func (r NotificationApiSetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) NotificationApiSetChannelSubscribeLevelRequest {
 	r.putChannelSubscribeLevelRequest = &putChannelSubscribeLevelRequest
 	return r
 }
 
-func (r NotificationApiApiSetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
+func (r NotificationApiSetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribeLevelExecute(r)
 }
 
@@ -738,12 +737,12 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiApiSetChannelSubscribeLevelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiSetChannelSubscribeLevelRequest
 */
-func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) NotificationApiApiSetChannelSubscribeLevelRequest {
-	return NotificationApiApiSetChannelSubscribeLevelRequest{
+func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) NotificationApiSetChannelSubscribeLevelRequest {
+	return NotificationApiSetChannelSubscribeLevelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -751,7 +750,7 @@ func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, c
 }
 
 // Execute executes the request
-func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationApiApiSetChannelSubscribeLevelRequest) (*http.Response, error) {
+func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationApiSetChannelSubscribeLevelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -764,7 +763,7 @@ func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationA
 	}
 
 	localVarPath := localBasePath + "/users/me/subscriptions/{channelId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -799,9 +798,9 @@ func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationA
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -817,19 +816,19 @@ func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationA
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiApiSetChannelSubscribersRequest struct {
+type NotificationApiSetChannelSubscribersRequest struct {
 	ctx                          context.Context
 	ApiService                   *NotificationApiService
 	channelId                    string
 	putChannelSubscribersRequest *PutChannelSubscribersRequest
 }
 
-func (r NotificationApiApiSetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) NotificationApiApiSetChannelSubscribersRequest {
+func (r NotificationApiSetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) NotificationApiSetChannelSubscribersRequest {
 	r.putChannelSubscribersRequest = &putChannelSubscribersRequest
 	return r
 }
 
-func (r NotificationApiApiSetChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r NotificationApiSetChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribersExecute(r)
 }
 
@@ -840,12 +839,12 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 リクエストに含めなかったユーザーの通知購読状態はオフになります。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiApiSetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiSetChannelSubscribersRequest
 */
-func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, channelId string) NotificationApiApiSetChannelSubscribersRequest {
-	return NotificationApiApiSetChannelSubscribersRequest{
+func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, channelId string) NotificationApiSetChannelSubscribersRequest {
+	return NotificationApiSetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -853,7 +852,7 @@ func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, chan
 }
 
 // Execute executes the request
-func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiApiSetChannelSubscribersRequest) (*http.Response, error) {
+func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiSetChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -866,7 +865,7 @@ func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiA
 	}
 
 	localVarPath := localBasePath + "/channels/{channelId}/subscribers"
-	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterToString(r.channelId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -901,9 +900,9 @@ func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiA
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -919,12 +918,12 @@ func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiA
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiApiWsRequest struct {
+type NotificationApiWsRequest struct {
 	ctx        context.Context
 	ApiService *NotificationApiService
 }
 
-func (r NotificationApiApiWsRequest) Execute() (*http.Response, error) {
+func (r NotificationApiWsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.WsExecute(r)
 }
 
@@ -1005,8 +1004,8 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `user_id`: 変更があったユーザーのId
 + `channel_id`: ユーザーの変更後の接続チャンネルのId
 + `sessions`: ユーザーの変更後の状態(配列)
-  + `state`: 状態
-  + `sessionId`: セッションID
+  - `state`: 状態
+  - `sessionId`: セッションID
 
 ### `USER_VIEWSTATE_CHANGED`
 ユーザーのチャンネルの閲覧状態が変化した
@@ -1014,9 +1013,9 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 対象: 変化したWSセッションを含めた、該当ユーザーのWSセッション全て
 
 + `view_states`: 変化したWSセッションを含めた、該当ユーザーの変更後の状態(配列)
-  + `key`: WSセッションの識別子
-  + `channel_id`: 閲覧しているチャンネルId
-  + `state`: 閲覧状態
+  - `key`: WSセッションの識別子
+  - `channel_id`: 閲覧しているチャンネルId
+  - `state`: 閲覧状態
 
 ### `USER_ONLINE`
 ユーザーがオンラインになった。
@@ -1098,9 +1097,9 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 
 + `id`: 変化したチャンネルのId
 + `viewers`: 変化後の閲覧者(配列)
-  + `userId`: ユーザーId
-  + `state`: 閲覧状態
-  + `updatedAt`: 閲覧状態の更新日時
+  - `userId`: ユーザーId
+  - `state`: 閲覧状態
+  - `updatedAt`: 閲覧状態の更新日時
 
 ### `CHANNEL_SUBSCRIBERS_CHANGED`
 チャンネルの購読者が変化した。
@@ -1253,18 +1252,18 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `folder_id`: メッセージが追加されたクリップフォルダーのId
 + `message_id`: クリップフォルダーに追加されたメッセージのId
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiApiWsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiWsRequest
 */
-func (a *NotificationApiService) Ws(ctx context.Context) NotificationApiApiWsRequest {
-	return NotificationApiApiWsRequest{
+func (a *NotificationApiService) Ws(ctx context.Context) NotificationApiWsRequest {
+	return NotificationApiWsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *NotificationApiService) WsExecute(r NotificationApiApiWsRequest) (*http.Response, error) {
+func (a *NotificationApiService) WsExecute(r NotificationApiWsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
@@ -1309,9 +1308,9 @@ func (a *NotificationApiService) WsExecute(r NotificationApiApiWsRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutChannelSubscribeLevelRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutChannelSubscribeLevelRequest{}
+
 // PutChannelSubscribeLevelRequest チャンネル購読レベル変更リクエスト
 type PutChannelSubscribeLevelRequest struct {
 	Level ChannelSubscribeLevel `json:"level"`
@@ -62,11 +65,17 @@ func (o *PutChannelSubscribeLevelRequest) SetLevel(v ChannelSubscribeLevel) {
 }
 
 func (o PutChannelSubscribeLevelRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["level"] = o.Level
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PutChannelSubscribeLevelRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["level"] = o.Level
+	return toSerialize, nil
 }
 
 type NullablePutChannelSubscribeLevelRequest struct {

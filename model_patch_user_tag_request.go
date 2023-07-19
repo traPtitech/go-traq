@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchUserTagRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchUserTagRequest{}
+
 // PatchUserTagRequest ユーザーのタグの編集リクエスト
 type PatchUserTagRequest struct {
 	// タグのロック状態
@@ -63,11 +66,17 @@ func (o *PatchUserTagRequest) SetIsLocked(v bool) {
 }
 
 func (o PatchUserTagRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["isLocked"] = o.IsLocked
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchUserTagRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["isLocked"] = o.IsLocked
+	return toSerialize, nil
 }
 
 type NullablePatchUserTagRequest struct {

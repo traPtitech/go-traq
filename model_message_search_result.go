@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MessageSearchResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MessageSearchResult{}
+
 // MessageSearchResult メッセージ検索結果
 type MessageSearchResult struct {
 	// 検索にヒットしたメッセージ件数
@@ -90,14 +93,18 @@ func (o *MessageSearchResult) SetHits(v []Message) {
 }
 
 func (o MessageSearchResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["totalHits"] = o.TotalHits
-	}
-	if true {
-		toSerialize["hits"] = o.Hits
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MessageSearchResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["totalHits"] = o.TotalHits
+	toSerialize["hits"] = o.Hits
+	return toSerialize, nil
 }
 
 type NullableMessageSearchResult struct {

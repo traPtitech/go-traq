@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the ClippedMessage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClippedMessage{}
+
 // ClippedMessage クリップされたメッセージ
 type ClippedMessage struct {
 	Message Message `json:"message"`
@@ -90,14 +93,18 @@ func (o *ClippedMessage) SetClippedAt(v time.Time) {
 }
 
 func (o ClippedMessage) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["clippedAt"] = o.ClippedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ClippedMessage) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["message"] = o.Message
+	toSerialize["clippedAt"] = o.ClippedAt
+	return toSerialize, nil
 }
 
 type NullableClippedMessage struct {

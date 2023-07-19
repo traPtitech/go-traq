@@ -13,7 +13,7 @@ package traq
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -21,27 +21,22 @@ import (
 	"time"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 // UserApiService UserApi service
 type UserApiService service
 
-type UserApiApiAddUserTagRequest struct {
+type UserApiAddUserTagRequest struct {
 	ctx                context.Context
 	ApiService         *UserApiService
 	userId             string
 	postUserTagRequest *PostUserTagRequest
 }
 
-func (r UserApiApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserApiApiAddUserTagRequest {
+func (r UserApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserApiAddUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
 }
 
-func (r UserApiApiAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
+func (r UserApiAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
 	return r.ApiService.AddUserTagExecute(r)
 }
 
@@ -51,12 +46,12 @@ AddUserTag ユーザーにタグを追加
 指定したユーザーに指定したタグを追加します。
 Webhookユーザーにタグを追加することは出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiAddUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiAddUserTagRequest
 */
-func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiApiAddUserTagRequest {
-	return UserApiApiAddUserTagRequest{
+func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiAddUserTagRequest {
+	return UserApiAddUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -64,8 +59,9 @@ func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiA
 }
 
 // Execute executes the request
-//  @return UserTag
-func (a *UserApiService) AddUserTagExecute(r UserApiApiAddUserTagRequest) (*UserTag, *http.Response, error) {
+//
+//	@return UserTag
+func (a *UserApiService) AddUserTagExecute(r UserApiAddUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -79,7 +75,7 @@ func (a *UserApiService) AddUserTagExecute(r UserApiApiAddUserTagRequest) (*User
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -114,9 +110,9 @@ func (a *UserApiService) AddUserTagExecute(r UserApiApiAddUserTagRequest) (*User
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -141,20 +137,20 @@ func (a *UserApiService) AddUserTagExecute(r UserApiApiAddUserTagRequest) (*User
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiChangeUserIconRequest struct {
+type UserApiChangeUserIconRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
-	file       **os.File
+	file       *os.File
 }
 
 // アイコン画像(1MBまでのpng, jpeg, gif)
-func (r UserApiApiChangeUserIconRequest) File(file *os.File) UserApiApiChangeUserIconRequest {
-	r.file = &file
+func (r UserApiChangeUserIconRequest) File(file *os.File) UserApiChangeUserIconRequest {
+	r.file = file
 	return r
 }
 
-func (r UserApiApiChangeUserIconRequest) Execute() (*http.Response, error) {
+func (r UserApiChangeUserIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserIconExecute(r)
 }
 
@@ -164,12 +160,12 @@ ChangeUserIcon ユーザーのアイコン画像を変更します
 指定したユーザーのアイコン画像を変更します。
 管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiChangeUserIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiChangeUserIconRequest
 */
-func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) UserApiApiChangeUserIconRequest {
-	return UserApiApiChangeUserIconRequest{
+func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) UserApiChangeUserIconRequest {
+	return UserApiChangeUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -177,7 +173,7 @@ func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) User
 }
 
 // Execute executes the request
-func (a *UserApiService) ChangeUserIconExecute(r UserApiApiChangeUserIconRequest) (*http.Response, error) {
+func (a *UserApiService) ChangeUserIconExecute(r UserApiChangeUserIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -190,7 +186,7 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiApiChangeUserIconRequest
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/icon"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -222,14 +218,16 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiApiChangeUserIconRequest
 
 	fileLocalVarFormFileName = "file"
 
-	fileLocalVarFile := *r.file
+	fileLocalVarFile := r.file
+
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -240,9 +238,9 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiApiChangeUserIconRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -258,19 +256,19 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiApiChangeUserIconRequest
 	return localVarHTTPResponse, nil
 }
 
-type UserApiApiChangeUserPasswordRequest struct {
+type UserApiChangeUserPasswordRequest struct {
 	ctx                    context.Context
 	ApiService             *UserApiService
 	userId                 string
 	putUserPasswordRequest *PutUserPasswordRequest
 }
 
-func (r UserApiApiChangeUserPasswordRequest) PutUserPasswordRequest(putUserPasswordRequest PutUserPasswordRequest) UserApiApiChangeUserPasswordRequest {
+func (r UserApiChangeUserPasswordRequest) PutUserPasswordRequest(putUserPasswordRequest PutUserPasswordRequest) UserApiChangeUserPasswordRequest {
 	r.putUserPasswordRequest = &putUserPasswordRequest
 	return r
 }
 
-func (r UserApiApiChangeUserPasswordRequest) Execute() (*http.Response, error) {
+func (r UserApiChangeUserPasswordRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserPasswordExecute(r)
 }
 
@@ -280,12 +278,12 @@ ChangeUserPassword ユーザーのパスワードを変更
 指定したユーザーのパスワードを変更します。
 管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiChangeUserPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiChangeUserPasswordRequest
 */
-func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) UserApiApiChangeUserPasswordRequest {
-	return UserApiApiChangeUserPasswordRequest{
+func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) UserApiChangeUserPasswordRequest {
+	return UserApiChangeUserPasswordRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -293,7 +291,7 @@ func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) 
 }
 
 // Execute executes the request
-func (a *UserApiService) ChangeUserPasswordExecute(r UserApiApiChangeUserPasswordRequest) (*http.Response, error) {
+func (a *UserApiService) ChangeUserPasswordExecute(r UserApiChangeUserPasswordRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
@@ -306,7 +304,7 @@ func (a *UserApiService) ChangeUserPasswordExecute(r UserApiApiChangeUserPasswor
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/password"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -341,9 +339,9 @@ func (a *UserApiService) ChangeUserPasswordExecute(r UserApiApiChangeUserPasswor
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -359,18 +357,18 @@ func (a *UserApiService) ChangeUserPasswordExecute(r UserApiApiChangeUserPasswor
 	return localVarHTTPResponse, nil
 }
 
-type UserApiApiCreateUserRequest struct {
+type UserApiCreateUserRequest struct {
 	ctx             context.Context
 	ApiService      *UserApiService
 	postUserRequest *PostUserRequest
 }
 
-func (r UserApiApiCreateUserRequest) PostUserRequest(postUserRequest PostUserRequest) UserApiApiCreateUserRequest {
+func (r UserApiCreateUserRequest) PostUserRequest(postUserRequest PostUserRequest) UserApiCreateUserRequest {
 	r.postUserRequest = &postUserRequest
 	return r
 }
 
-func (r UserApiApiCreateUserRequest) Execute() (*UserDetail, *http.Response, error) {
+func (r UserApiCreateUserRequest) Execute() (*UserDetail, *http.Response, error) {
 	return r.ApiService.CreateUserExecute(r)
 }
 
@@ -380,19 +378,20 @@ CreateUser ユーザーを登録
 ユーザーを登録します。
 管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserApiApiCreateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserApiCreateUserRequest
 */
-func (a *UserApiService) CreateUser(ctx context.Context) UserApiApiCreateUserRequest {
-	return UserApiApiCreateUserRequest{
+func (a *UserApiService) CreateUser(ctx context.Context) UserApiCreateUserRequest {
+	return UserApiCreateUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserDetail
-func (a *UserApiService) CreateUserExecute(r UserApiApiCreateUserRequest) (*UserDetail, *http.Response, error) {
+//
+//	@return UserDetail
+func (a *UserApiService) CreateUserExecute(r UserApiCreateUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -440,9 +439,9 @@ func (a *UserApiService) CreateUserExecute(r UserApiApiCreateUserRequest) (*User
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -467,19 +466,19 @@ func (a *UserApiService) CreateUserExecute(r UserApiApiCreateUserRequest) (*User
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiEditUserRequest struct {
+type UserApiEditUserRequest struct {
 	ctx              context.Context
 	ApiService       *UserApiService
 	userId           string
 	patchUserRequest *PatchUserRequest
 }
 
-func (r UserApiApiEditUserRequest) PatchUserRequest(patchUserRequest PatchUserRequest) UserApiApiEditUserRequest {
+func (r UserApiEditUserRequest) PatchUserRequest(patchUserRequest PatchUserRequest) UserApiEditUserRequest {
 	r.patchUserRequest = &patchUserRequest
 	return r
 }
 
-func (r UserApiApiEditUserRequest) Execute() (*http.Response, error) {
+func (r UserApiEditUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserExecute(r)
 }
 
@@ -489,12 +488,12 @@ EditUser ユーザー情報を変更
 指定したユーザーの情報を変更します。
 管理者権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiEditUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiEditUserRequest
 */
-func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiApiEditUserRequest {
-	return UserApiApiEditUserRequest{
+func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiEditUserRequest {
+	return UserApiEditUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -502,7 +501,7 @@ func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiApi
 }
 
 // Execute executes the request
-func (a *UserApiService) EditUserExecute(r UserApiApiEditUserRequest) (*http.Response, error) {
+func (a *UserApiService) EditUserExecute(r UserApiEditUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -515,7 +514,7 @@ func (a *UserApiService) EditUserExecute(r UserApiApiEditUserRequest) (*http.Res
 	}
 
 	localVarPath := localBasePath + "/users/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -550,9 +549,9 @@ func (a *UserApiService) EditUserExecute(r UserApiApiEditUserRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -568,7 +567,7 @@ func (a *UserApiService) EditUserExecute(r UserApiApiEditUserRequest) (*http.Res
 	return localVarHTTPResponse, nil
 }
 
-type UserApiApiEditUserTagRequest struct {
+type UserApiEditUserTagRequest struct {
 	ctx                 context.Context
 	ApiService          *UserApiService
 	userId              string
@@ -576,12 +575,12 @@ type UserApiApiEditUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-func (r UserApiApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserApiApiEditUserTagRequest {
+func (r UserApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserApiEditUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
 }
 
-func (r UserApiApiEditUserTagRequest) Execute() (*http.Response, error) {
+func (r UserApiEditUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserTagExecute(r)
 }
 
@@ -591,13 +590,13 @@ EditUserTag ユーザーのタグを編集
 指定したユーザーの指定したタグの状態を変更します。
 他人の状態は変更できません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserApiApiEditUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserApiEditUserTagRequest
 */
-func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserApiApiEditUserTagRequest {
-	return UserApiApiEditUserTagRequest{
+func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserApiEditUserTagRequest {
+	return UserApiEditUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -606,7 +605,7 @@ func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId s
 }
 
 // Execute executes the request
-func (a *UserApiService) EditUserTagExecute(r UserApiApiEditUserTagRequest) (*http.Response, error) {
+func (a *UserApiService) EditUserTagExecute(r UserApiEditUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
@@ -619,8 +618,8 @@ func (a *UserApiService) EditUserTagExecute(r UserApiApiEditUserTagRequest) (*ht
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -655,9 +654,9 @@ func (a *UserApiService) EditUserTagExecute(r UserApiApiEditUserTagRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -673,7 +672,7 @@ func (a *UserApiService) EditUserTagExecute(r UserApiApiEditUserTagRequest) (*ht
 	return localVarHTTPResponse, nil
 }
 
-type UserApiApiGetDirectMessagesRequest struct {
+type UserApiGetDirectMessagesRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
@@ -686,42 +685,42 @@ type UserApiApiGetDirectMessagesRequest struct {
 }
 
 // 取得する件数
-func (r UserApiApiGetDirectMessagesRequest) Limit(limit int32) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Limit(limit int32) UserApiGetDirectMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r UserApiApiGetDirectMessagesRequest) Offset(offset int32) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Offset(offset int32) UserApiGetDirectMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r UserApiApiGetDirectMessagesRequest) Since(since time.Time) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Since(since time.Time) UserApiGetDirectMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r UserApiApiGetDirectMessagesRequest) Until(until time.Time) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Until(until time.Time) UserApiGetDirectMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r UserApiApiGetDirectMessagesRequest) Inclusive(inclusive bool) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Inclusive(inclusive bool) UserApiGetDirectMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r UserApiApiGetDirectMessagesRequest) Order(order string) UserApiApiGetDirectMessagesRequest {
+func (r UserApiGetDirectMessagesRequest) Order(order string) UserApiGetDirectMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r UserApiApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r UserApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetDirectMessagesExecute(r)
 }
 
@@ -730,12 +729,12 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 指定したユーザーとのダイレクトメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiGetDirectMessagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiGetDirectMessagesRequest
 */
-func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) UserApiApiGetDirectMessagesRequest {
-	return UserApiApiGetDirectMessagesRequest{
+func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) UserApiGetDirectMessagesRequest {
+	return UserApiGetDirectMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -743,8 +742,9 @@ func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) U
 }
 
 // Execute executes the request
-//  @return []Message
-func (a *UserApiService) GetDirectMessagesExecute(r UserApiApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
+//
+//	@return []Message
+func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -758,29 +758,29 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiApiGetDirectMessagesR
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
 	}
 	if r.until != nil {
-		localVarQueryParams.Add("until", parameterToString(*r.until, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
 	}
 	if r.inclusive != nil {
-		localVarQueryParams.Add("inclusive", parameterToString(*r.inclusive, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
 	}
 	if r.order != nil {
-		localVarQueryParams.Add("order", parameterToString(*r.order, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -809,9 +809,9 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiApiGetDirectMessagesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -836,13 +836,13 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiApiGetDirectMessagesR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUserRequest struct {
+type UserApiGetUserRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 }
 
-func (r UserApiApiGetUserRequest) Execute() (*UserDetail, *http.Response, error) {
+func (r UserApiGetUserRequest) Execute() (*UserDetail, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -851,12 +851,12 @@ GetUser ユーザー詳細情報を取得
 
 指定したユーザーの詳細情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiGetUserRequest
 */
-func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiApiGetUserRequest {
-	return UserApiApiGetUserRequest{
+func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiGetUserRequest {
+	return UserApiGetUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -864,8 +864,9 @@ func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiApiG
 }
 
 // Execute executes the request
-//  @return UserDetail
-func (a *UserApiService) GetUserExecute(r UserApiApiGetUserRequest) (*UserDetail, *http.Response, error) {
+//
+//	@return UserDetail
+func (a *UserApiService) GetUserExecute(r UserApiGetUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -879,7 +880,7 @@ func (a *UserApiService) GetUserExecute(r UserApiApiGetUserRequest) (*UserDetail
 	}
 
 	localVarPath := localBasePath + "/users/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -912,9 +913,9 @@ func (a *UserApiService) GetUserExecute(r UserApiApiGetUserRequest) (*UserDetail
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -939,13 +940,13 @@ func (a *UserApiService) GetUserExecute(r UserApiApiGetUserRequest) (*UserDetail
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUserDMChannelRequest struct {
+type UserApiGetUserDMChannelRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 }
 
-func (r UserApiApiGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
+func (r UserApiGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
 	return r.ApiService.GetUserDMChannelExecute(r)
 }
 
@@ -955,12 +956,12 @@ GetUserDMChannel DMチャンネル情報を取得
 指定したユーザーとのダイレクトメッセージチャンネルの情報を返します。
 ダイレクトメッセージチャンネルが存在しなかった場合、自動的に作成されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId
- @return UserApiApiGetUserDMChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return UserApiGetUserDMChannelRequest
 */
-func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) UserApiApiGetUserDMChannelRequest {
-	return UserApiApiGetUserDMChannelRequest{
+func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) UserApiGetUserDMChannelRequest {
+	return UserApiGetUserDMChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -968,8 +969,9 @@ func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) Us
 }
 
 // Execute executes the request
-//  @return DMChannel
-func (a *UserApiService) GetUserDMChannelExecute(r UserApiApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
+//
+//	@return DMChannel
+func (a *UserApiService) GetUserDMChannelExecute(r UserApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -983,7 +985,7 @@ func (a *UserApiService) GetUserDMChannelExecute(r UserApiApiGetUserDMChannelReq
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/dm-channel"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1016,9 +1018,9 @@ func (a *UserApiService) GetUserDMChannelExecute(r UserApiApiGetUserDMChannelReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1043,13 +1045,13 @@ func (a *UserApiService) GetUserDMChannelExecute(r UserApiApiGetUserDMChannelReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUserIconRequest struct {
+type UserApiGetUserIconRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 }
 
-func (r UserApiApiGetUserIconRequest) Execute() (**os.File, *http.Response, error) {
+func (r UserApiGetUserIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetUserIconExecute(r)
 }
 
@@ -1058,12 +1060,12 @@ GetUserIcon ユーザーのアイコン画像を取得
 
 指定したユーザーのアイコン画像を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiGetUserIconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiGetUserIconRequest
 */
-func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApiApiGetUserIconRequest {
-	return UserApiApiGetUserIconRequest{
+func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApiGetUserIconRequest {
+	return UserApiGetUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1071,13 +1073,14 @@ func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApi
 }
 
 // Execute executes the request
-//  @return *os.File
-func (a *UserApiService) GetUserIconExecute(r UserApiApiGetUserIconRequest) (**os.File, *http.Response, error) {
+//
+//	@return *os.File
+func (a *UserApiService) GetUserIconExecute(r UserApiGetUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue **os.File
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUserIcon")
@@ -1086,7 +1089,7 @@ func (a *UserApiService) GetUserIconExecute(r UserApiApiGetUserIconRequest) (**o
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/icon"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1119,9 +1122,9 @@ func (a *UserApiService) GetUserIconExecute(r UserApiApiGetUserIconRequest) (**o
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1146,13 +1149,13 @@ func (a *UserApiService) GetUserIconExecute(r UserApiApiGetUserIconRequest) (**o
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUserStatsRequest struct {
+type UserApiGetUserStatsRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 }
 
-func (r UserApiApiGetUserStatsRequest) Execute() (*UserStats, *http.Response, error) {
+func (r UserApiGetUserStatsRequest) Execute() (*UserStats, *http.Response, error) {
 	return r.ApiService.GetUserStatsExecute(r)
 }
 
@@ -1161,12 +1164,12 @@ GetUserStats ユーザー統計情報を取得
 
 指定したユーザーの統計情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiGetUserStatsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiGetUserStatsRequest
 */
-func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserApiApiGetUserStatsRequest {
-	return UserApiApiGetUserStatsRequest{
+func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserApiGetUserStatsRequest {
+	return UserApiGetUserStatsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1174,8 +1177,9 @@ func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserAp
 }
 
 // Execute executes the request
-//  @return UserStats
-func (a *UserApiService) GetUserStatsExecute(r UserApiApiGetUserStatsRequest) (*UserStats, *http.Response, error) {
+//
+//	@return UserStats
+func (a *UserApiService) GetUserStatsExecute(r UserApiGetUserStatsRequest) (*UserStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1189,7 +1193,7 @@ func (a *UserApiService) GetUserStatsExecute(r UserApiApiGetUserStatsRequest) (*
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/stats"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1222,9 +1226,9 @@ func (a *UserApiService) GetUserStatsExecute(r UserApiApiGetUserStatsRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1249,13 +1253,13 @@ func (a *UserApiService) GetUserStatsExecute(r UserApiApiGetUserStatsRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUserTagsRequest struct {
+type UserApiGetUserTagsRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 }
 
-func (r UserApiApiGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
+func (r UserApiGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
 	return r.ApiService.GetUserTagsExecute(r)
 }
 
@@ -1264,12 +1268,12 @@ GetUserTags ユーザーのタグリストを取得
 
 指定したユーザーのタグリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiGetUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiGetUserTagsRequest
 */
-func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApiApiGetUserTagsRequest {
-	return UserApiApiGetUserTagsRequest{
+func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApiGetUserTagsRequest {
+	return UserApiGetUserTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1277,8 +1281,9 @@ func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApi
 }
 
 // Execute executes the request
-//  @return []UserTag
-func (a *UserApiService) GetUserTagsExecute(r UserApiApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
+//
+//	@return []UserTag
+func (a *UserApiService) GetUserTagsExecute(r UserApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1292,7 +1297,7 @@ func (a *UserApiService) GetUserTagsExecute(r UserApiApiGetUserTagsRequest) ([]U
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1325,9 +1330,9 @@ func (a *UserApiService) GetUserTagsExecute(r UserApiApiGetUserTagsRequest) ([]U
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1352,7 +1357,7 @@ func (a *UserApiService) GetUserTagsExecute(r UserApiApiGetUserTagsRequest) ([]U
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiGetUsersRequest struct {
+type UserApiGetUsersRequest struct {
 	ctx              context.Context
 	ApiService       *UserApiService
 	includeSuspended *bool
@@ -1360,18 +1365,18 @@ type UserApiApiGetUsersRequest struct {
 }
 
 // アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか
-func (r UserApiApiGetUsersRequest) IncludeSuspended(includeSuspended bool) UserApiApiGetUsersRequest {
+func (r UserApiGetUsersRequest) IncludeSuspended(includeSuspended bool) UserApiGetUsersRequest {
 	r.includeSuspended = &includeSuspended
 	return r
 }
 
 // 名前が一致するアカウントのみを取得する
-func (r UserApiApiGetUsersRequest) Name(name string) UserApiApiGetUsersRequest {
+func (r UserApiGetUsersRequest) Name(name string) UserApiGetUsersRequest {
 	r.name = &name
 	return r
 }
 
-func (r UserApiApiGetUsersRequest) Execute() ([]User, *http.Response, error) {
+func (r UserApiGetUsersRequest) Execute() ([]User, *http.Response, error) {
 	return r.ApiService.GetUsersExecute(r)
 }
 
@@ -1382,19 +1387,20 @@ GetUsers ユーザーのリストを取得
 `include-suspended`を指定しない場合、レスポンスにはユーザーアカウント状態が"1: 有効"であるユーザーのみが含まれます。
 `include-suspended`と`name`を同時に指定することはできません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserApiApiGetUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserApiGetUsersRequest
 */
-func (a *UserApiService) GetUsers(ctx context.Context) UserApiApiGetUsersRequest {
-	return UserApiApiGetUsersRequest{
+func (a *UserApiService) GetUsers(ctx context.Context) UserApiGetUsersRequest {
+	return UserApiGetUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []User
-func (a *UserApiService) GetUsersExecute(r UserApiApiGetUsersRequest) ([]User, *http.Response, error) {
+//
+//	@return []User
+func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1414,10 +1420,10 @@ func (a *UserApiService) GetUsersExecute(r UserApiApiGetUsersRequest) ([]User, *
 	localVarFormParams := url.Values{}
 
 	if r.includeSuspended != nil {
-		localVarQueryParams.Add("include-suspended", parameterToString(*r.includeSuspended, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include-suspended", r.includeSuspended, "")
 	}
 	if r.name != nil {
-		localVarQueryParams.Add("name", parameterToString(*r.name, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1446,9 +1452,9 @@ func (a *UserApiService) GetUsersExecute(r UserApiApiGetUsersRequest) ([]User, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1473,19 +1479,19 @@ func (a *UserApiService) GetUsersExecute(r UserApiApiGetUsersRequest) ([]User, *
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiPostDirectMessageRequest struct {
+type UserApiPostDirectMessageRequest struct {
 	ctx                context.Context
 	ApiService         *UserApiService
 	userId             string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r UserApiApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) UserApiApiPostDirectMessageRequest {
+func (r UserApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) UserApiPostDirectMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r UserApiApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r UserApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostDirectMessageExecute(r)
 }
 
@@ -1494,12 +1500,12 @@ PostDirectMessage ダイレクトメッセージを送信
 
 指定したユーザーにダイレクトメッセージを送信します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserApiApiPostDirectMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserApiPostDirectMessageRequest
 */
-func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) UserApiApiPostDirectMessageRequest {
-	return UserApiApiPostDirectMessageRequest{
+func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) UserApiPostDirectMessageRequest {
+	return UserApiPostDirectMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1507,8 +1513,9 @@ func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) U
 }
 
 // Execute executes the request
-//  @return Message
-func (a *UserApiService) PostDirectMessageExecute(r UserApiApiPostDirectMessageRequest) (*Message, *http.Response, error) {
+//
+//	@return Message
+func (a *UserApiService) PostDirectMessageExecute(r UserApiPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1522,7 +1529,7 @@ func (a *UserApiService) PostDirectMessageExecute(r UserApiApiPostDirectMessageR
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/messages"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1557,9 +1564,9 @@ func (a *UserApiService) PostDirectMessageExecute(r UserApiApiPostDirectMessageR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1584,14 +1591,14 @@ func (a *UserApiService) PostDirectMessageExecute(r UserApiApiPostDirectMessageR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiApiRemoveUserTagRequest struct {
+type UserApiRemoveUserTagRequest struct {
 	ctx        context.Context
 	ApiService *UserApiService
 	userId     string
 	tagId      string
 }
 
-func (r UserApiApiRemoveUserTagRequest) Execute() (*http.Response, error) {
+func (r UserApiRemoveUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserTagExecute(r)
 }
 
@@ -1600,13 +1607,13 @@ RemoveUserTag ユーザーからタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserApiApiRemoveUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserApiRemoveUserTagRequest
 */
-func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserApiApiRemoveUserTagRequest {
-	return UserApiApiRemoveUserTagRequest{
+func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserApiRemoveUserTagRequest {
+	return UserApiRemoveUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1615,7 +1622,7 @@ func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId
 }
 
 // Execute executes the request
-func (a *UserApiService) RemoveUserTagExecute(r UserApiApiRemoveUserTagRequest) (*http.Response, error) {
+func (a *UserApiService) RemoveUserTagExecute(r UserApiRemoveUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
@@ -1628,8 +1635,8 @@ func (a *UserApiService) RemoveUserTagExecute(r UserApiApiRemoveUserTagRequest) 
 	}
 
 	localVarPath := localBasePath + "/users/{userId}/tags/{tagId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterToString(r.tagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tagId"+"}", url.PathEscape(parameterValueToString(r.tagId, "tagId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1662,9 +1669,9 @@ func (a *UserApiService) RemoveUserTagExecute(r UserApiApiRemoveUserTagRequest) 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

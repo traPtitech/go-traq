@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the Stamp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Stamp{}
+
 // Stamp スタンプ情報
 type Stamp struct {
 	// スタンプUUID
@@ -226,29 +229,23 @@ func (o *Stamp) SetIsUnicode(v bool) {
 }
 
 func (o Stamp) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["creatorId"] = o.CreatorId
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["fileId"] = o.FileId
-	}
-	if true {
-		toSerialize["isUnicode"] = o.IsUnicode
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Stamp) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["creatorId"] = o.CreatorId
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["fileId"] = o.FileId
+	toSerialize["isUnicode"] = o.IsUnicode
+	return toSerialize, nil
 }
 
 type NullableStamp struct {

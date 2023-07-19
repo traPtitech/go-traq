@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostWebhookRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostWebhookRequest{}
+
 // PostWebhookRequest Webhook作成リクエスト
 type PostWebhookRequest struct {
 	// Webhookユーザーの表示名
@@ -144,20 +147,20 @@ func (o *PostWebhookRequest) SetSecret(v string) {
 }
 
 func (o PostWebhookRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["channelId"] = o.ChannelId
-	}
-	if true {
-		toSerialize["secret"] = o.Secret
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostWebhookRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["channelId"] = o.ChannelId
+	toSerialize["secret"] = o.Secret
+	return toSerialize, nil
 }
 
 type NullablePostWebhookRequest struct {

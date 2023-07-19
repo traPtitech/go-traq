@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Ogp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Ogp{}
+
 // Ogp OGPの情報
 type Ogp struct {
 	Type        string     `json:"type"`
@@ -192,26 +195,22 @@ func (o *Ogp) SetVideos(v []OgpMedia) {
 }
 
 func (o Ogp) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["title"] = o.Title
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["images"] = o.Images
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["videos"] = o.Videos
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Ogp) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["title"] = o.Title
+	toSerialize["url"] = o.Url
+	toSerialize["images"] = o.Images
+	toSerialize["description"] = o.Description
+	toSerialize["videos"] = o.Videos
+	return toSerialize, nil
 }
 
 type NullableOgp struct {

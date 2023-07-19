@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutMyPasswordRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutMyPasswordRequest{}
+
 // PutMyPasswordRequest パスワード変更リクエスト
 type PutMyPasswordRequest struct {
 	// 現在のパスワード
@@ -90,14 +93,18 @@ func (o *PutMyPasswordRequest) SetNewPassword(v string) {
 }
 
 func (o PutMyPasswordRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if true {
-		toSerialize["newPassword"] = o.NewPassword
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PutMyPasswordRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["password"] = o.Password
+	toSerialize["newPassword"] = o.NewPassword
+	return toSerialize, nil
 }
 
 type NullablePutMyPasswordRequest struct {

@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the StampPalette type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StampPalette{}
+
 // StampPalette スタンプパレット情報
 type StampPalette struct {
 	// スタンプパレットUUID
@@ -226,29 +229,23 @@ func (o *StampPalette) SetDescription(v string) {
 }
 
 func (o StampPalette) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["stamps"] = o.Stamps
-	}
-	if true {
-		toSerialize["creatorId"] = o.CreatorId
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StampPalette) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["stamps"] = o.Stamps
+	toSerialize["creatorId"] = o.CreatorId
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
 }
 
 type NullableStampPalette struct {

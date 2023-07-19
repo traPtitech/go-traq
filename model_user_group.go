@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// checks if the UserGroup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroup{}
+
 // UserGroup ユーザーグループ
 type UserGroup struct {
 	// グループUUID
@@ -280,35 +283,25 @@ func (o *UserGroup) SetAdmins(v []string) {
 }
 
 func (o UserGroup) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["icon"] = o.Icon
-	}
-	if true {
-		toSerialize["members"] = o.Members
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["admins"] = o.Admins
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroup) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["type"] = o.Type
+	toSerialize["icon"] = o.Icon
+	toSerialize["members"] = o.Members
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["admins"] = o.Admins
+	return toSerialize, nil
 }
 
 type NullableUserGroup struct {
