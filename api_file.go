@@ -40,9 +40,9 @@ DeleteFile ファイルを削除
 指定したファイルを削除します。
 指定したファイルの削除権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiDeleteFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiDeleteFileRequest
 */
 func (a *FileApiService) DeleteFile(ctx context.Context, fileId string) FileApiDeleteFileRequest {
 	return FileApiDeleteFileRequest{
@@ -140,9 +140,9 @@ GetFile ファイルをダウンロード
 指定したファイル本体を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiGetFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetFileRequest
 */
 func (a *FileApiService) GetFile(ctx context.Context, fileId string) FileApiGetFileRequest {
 	return FileApiGetFileRequest{
@@ -153,7 +153,8 @@ func (a *FileApiService) GetFile(ctx context.Context, fileId string) FileApiGetF
 }
 
 // Execute executes the request
-//  @return *os.File
+//
+//	@return *os.File
 func (a *FileApiService) GetFileExecute(r FileApiGetFileRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -247,9 +248,9 @@ GetFileMeta ファイルメタを取得
 指定したファイルのメタ情報を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiGetFileMetaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetFileMetaRequest
 */
 func (a *FileApiService) GetFileMeta(ctx context.Context, fileId string) FileApiGetFileMetaRequest {
 	return FileApiGetFileMetaRequest{
@@ -260,7 +261,8 @@ func (a *FileApiService) GetFileMeta(ctx context.Context, fileId string) FileApi
 }
 
 // Execute executes the request
-//  @return FileInfo
+//
+//	@return FileInfo
 func (a *FileApiService) GetFileMetaExecute(r FileApiGetFileMetaRequest) (*FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -406,8 +408,8 @@ GetFiles ファイルメタのリストを取得
 指定したクエリでファイルメタのリストを取得します。
 クエリパラメータ`channelId`, `mine`の少なくともいずれかが必須です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return FileApiGetFilesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FileApiGetFilesRequest
 */
 func (a *FileApiService) GetFiles(ctx context.Context) FileApiGetFilesRequest {
 	return FileApiGetFilesRequest{
@@ -417,7 +419,8 @@ func (a *FileApiService) GetFiles(ctx context.Context) FileApiGetFilesRequest {
 }
 
 // Execute executes the request
-//  @return []FileInfo
+//
+//	@return []FileInfo
 func (a *FileApiService) GetFilesExecute(r FileApiGetFilesRequest) ([]FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -538,9 +541,9 @@ GetThumbnailImage サムネイル画像を取得
 指定したファイルのサムネイル画像を取得します。
 指定したファイルへのアクセス権限が必要です。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param fileId ファイルUUID
- @return FileApiGetThumbnailImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId ファイルUUID
+	@return FileApiGetThumbnailImageRequest
 */
 func (a *FileApiService) GetThumbnailImage(ctx context.Context, fileId string) FileApiGetThumbnailImageRequest {
 	return FileApiGetThumbnailImageRequest{
@@ -551,7 +554,8 @@ func (a *FileApiService) GetThumbnailImage(ctx context.Context, fileId string) F
 }
 
 // Execute executes the request
-//  @return *os.File
+//
+//	@return *os.File
 func (a *FileApiService) GetThumbnailImageExecute(r FileApiGetThumbnailImageRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -658,8 +662,8 @@ PostFile ファイルをアップロード
 指定したチャンネルにファイルをアップロードします。
 アーカイブされているチャンネルにはアップロード出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return FileApiPostFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return FileApiPostFileRequest
 */
 func (a *FileApiService) PostFile(ctx context.Context) FileApiPostFileRequest {
 	return FileApiPostFileRequest{
@@ -669,7 +673,8 @@ func (a *FileApiService) PostFile(ctx context.Context) FileApiPostFileRequest {
 }
 
 // Execute executes the request
-//  @return FileInfo
+//
+//	@return FileInfo
 func (a *FileApiService) PostFileExecute(r FileApiPostFileRequest) (*FileInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost

@@ -35,8 +35,8 @@ GetWebRTCState WebRTC状態を取得
 
 現在のWebRTC状態を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return WebrtcApiGetWebRTCStateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return WebrtcApiGetWebRTCStateRequest
 */
 func (a *WebrtcApiService) GetWebRTCState(ctx context.Context) WebrtcApiGetWebRTCStateRequest {
 	return WebrtcApiGetWebRTCStateRequest{
@@ -46,7 +46,8 @@ func (a *WebrtcApiService) GetWebRTCState(ctx context.Context) WebrtcApiGetWebRT
 }
 
 // Execute executes the request
-//  @return []WebRTCUserState
+//
+//	@return []WebRTCUserState
 func (a *WebrtcApiService) GetWebRTCStateExecute(r WebrtcApiGetWebRTCStateRequest) ([]WebRTCUserState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -140,8 +141,8 @@ PostWebRTCAuthenticate Skyway用認証API
 
 Skyway WebRTC用の認証API
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return WebrtcApiPostWebRTCAuthenticateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return WebrtcApiPostWebRTCAuthenticateRequest
 */
 func (a *WebrtcApiService) PostWebRTCAuthenticate(ctx context.Context) WebrtcApiPostWebRTCAuthenticateRequest {
 	return WebrtcApiPostWebRTCAuthenticateRequest{
@@ -151,7 +152,8 @@ func (a *WebrtcApiService) PostWebRTCAuthenticate(ctx context.Context) WebrtcApi
 }
 
 // Execute executes the request
-//  @return WebRTCAuthenticateResult
+//
+//	@return WebRTCAuthenticateResult
 func (a *WebrtcApiService) PostWebRTCAuthenticateExecute(r WebrtcApiPostWebRTCAuthenticateRequest) (*WebRTCAuthenticateResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
