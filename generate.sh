@@ -2,11 +2,11 @@
 
 set -eux
 
-OPENAPI_GENERATOR_VERSION='6.6.0'
+OPENAPI_GENERATOR_VERSION=$(cat ./.openapi-generator/VERSION)
 
 # clean
-FILES=$(find . -maxdepth 1 -type f ! -name "*.md" ! -name ".*" ! -name "*.sh" ! -name "config.yaml" ! -name "go.mod" ! -name "go.sum" ! -name "*.jar" ! -name "LICENSE")
-echo $FILES | xargs --no-run-if-empty rm
+mv README.md README.md.bak
+cat ./.openapi-generator/FILES | xargs --no-run-if-empty rm -f
 
 # fetch openapi-generator
 NEEDS_FETCH='1'
@@ -19,17 +19,12 @@ if [ $NEEDS_FETCH = '1' ]; then
 fi
 
 # build
-mv README.md README.md.bak
 java -jar openapi-generator-cli.jar generate \
   -i https://raw.githubusercontent.com/traPtitech/traQ/master/docs/v3-api.yaml \
   -g go \
   -c config.yaml
 mv README.md client.md
 mv README.md.bak README.md
-
-# add files to gitignore
-echo '/api/' >> .gitignore
-echo '/*.jar' >> .gitignore
 
 # setup go
 go fmt ./...
