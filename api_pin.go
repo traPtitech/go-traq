@@ -38,9 +38,9 @@ CreatePin ピン留めする
 指定したメッセージをピン留めします。
 アーカイブされているチャンネルのメッセージ・存在しないメッセージ・チャンネル当たりの上限数を超えたメッセージのピン留めはできません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return PinApiCreatePinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return PinApiCreatePinRequest
 */
 func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiCreatePinRequest {
 	return PinApiCreatePinRequest{
@@ -51,8 +51,7 @@ func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiC
 }
 
 // Execute executes the request
-//
-//	@return MessagePin
+//  @return MessagePin
 func (a *PinApiService) CreatePinExecute(r PinApiCreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -142,9 +141,9 @@ GetChannelPins チャンネルピンのリストを取得
 
 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return PinApiGetChannelPinsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return PinApiGetChannelPinsRequest
 */
 func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) PinApiGetChannelPinsRequest {
 	return PinApiGetChannelPinsRequest{
@@ -155,8 +154,7 @@ func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) Pi
 }
 
 // Execute executes the request
-//
-//	@return []Pin
+//  @return []Pin
 func (a *PinApiService) GetChannelPinsExecute(r PinApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -246,9 +244,9 @@ GetPin ピン留めを取得
 
 指定したメッセージのピン留め情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return PinApiGetPinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return PinApiGetPinRequest
 */
 func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiGetPinRequest {
 	return PinApiGetPinRequest{
@@ -259,8 +257,7 @@ func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiGetP
 }
 
 // Execute executes the request
-//
-//	@return MessagePin
+//  @return MessagePin
 func (a *PinApiService) GetPinExecute(r PinApiGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -350,9 +347,9 @@ RemovePin ピン留めを外す
 
 指定したメッセージのピン留めを外します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return PinApiRemovePinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return PinApiRemovePinRequest
 */
 func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiRemovePinRequest {
 	return PinApiRemovePinRequest{

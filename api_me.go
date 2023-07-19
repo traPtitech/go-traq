@@ -45,8 +45,8 @@ AddMyStar チャンネルをスターに追加
 スター済みのチャンネルIDを指定した場合、204を返します。
 不正なチャンネルIDを指定した場合、400を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiAddMyStarRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiAddMyStarRequest
 */
 func (a *MeApiService) AddMyStar(ctx context.Context) MeApiAddMyStarRequest {
 	return MeApiAddMyStarRequest{
@@ -127,6 +127,7 @@ type MeApiAddMyUserTagRequest struct {
 	postUserTagRequest *PostUserTagRequest
 }
 
+//
 func (r MeApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) MeApiAddMyUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
@@ -141,8 +142,8 @@ AddMyUserTag 自分にタグを追加
 
 自分に新しくタグを追加します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiAddMyUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiAddMyUserTagRequest
 */
 func (a *MeApiService) AddMyUserTag(ctx context.Context) MeApiAddMyUserTagRequest {
 	return MeApiAddMyUserTagRequest{
@@ -152,8 +153,7 @@ func (a *MeApiService) AddMyUserTag(ctx context.Context) MeApiAddMyUserTagReques
 }
 
 // Execute executes the request
-//
-//	@return UserTag
+//  @return UserTag
 func (a *MeApiService) AddMyUserTagExecute(r MeApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -250,8 +250,8 @@ ChangeMyIcon 自分のアイコン画像を変更
 
 自分のアイコン画像を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiChangeMyIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiChangeMyIconRequest
 */
 func (a *MeApiService) ChangeMyIcon(ctx context.Context) MeApiChangeMyIconRequest {
 	return MeApiChangeMyIconRequest{
@@ -349,6 +349,7 @@ type MeApiChangeMyNotifyCitationRequest struct {
 	putNotifyCitationRequest *PutNotifyCitationRequest
 }
 
+//
 func (r MeApiChangeMyNotifyCitationRequest) PutNotifyCitationRequest(putNotifyCitationRequest PutNotifyCitationRequest) MeApiChangeMyNotifyCitationRequest {
 	r.putNotifyCitationRequest = &putNotifyCitationRequest
 	return r
@@ -363,8 +364,8 @@ ChangeMyNotifyCitation メッセージ引用通知の設定情報を変更
 
 メッセージ引用通知の設定情報を変更します
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiChangeMyNotifyCitationRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiChangeMyNotifyCitationRequest
 */
 func (a *MeApiService) ChangeMyNotifyCitation(ctx context.Context) MeApiChangeMyNotifyCitationRequest {
 	return MeApiChangeMyNotifyCitationRequest{
@@ -445,6 +446,7 @@ type MeApiChangeMyPasswordRequest struct {
 	putMyPasswordRequest *PutMyPasswordRequest
 }
 
+//
 func (r MeApiChangeMyPasswordRequest) PutMyPasswordRequest(putMyPasswordRequest PutMyPasswordRequest) MeApiChangeMyPasswordRequest {
 	r.putMyPasswordRequest = &putMyPasswordRequest
 	return r
@@ -459,8 +461,8 @@ ChangeMyPassword 自分のパスワードを変更
 
 自身のパスワードを変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiChangeMyPasswordRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiChangeMyPasswordRequest
 */
 func (a *MeApiService) ChangeMyPassword(ctx context.Context) MeApiChangeMyPasswordRequest {
 	return MeApiChangeMyPasswordRequest{
@@ -555,8 +557,8 @@ EditMe 自分のユーザー情報を変更
 
 自身のユーザー情報を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiEditMeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiEditMeRequest
 */
 func (a *MeApiService) EditMe(ctx context.Context) MeApiEditMeRequest {
 	return MeApiEditMeRequest{
@@ -638,6 +640,7 @@ type MeApiEditMyUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
+//
 func (r MeApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) MeApiEditMyUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
@@ -652,9 +655,9 @@ EditMyUserTag 自分のタグを編集
 
 自分の指定したタグの状態を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tagId タグUUID
-	@return MeApiEditMyUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId タグUUID
+ @return MeApiEditMyUserTagRequest
 */
 func (a *MeApiService) EditMyUserTag(ctx context.Context, tagId string) MeApiEditMyUserTagRequest {
 	return MeApiEditMyUserTagRequest{
@@ -745,8 +748,8 @@ GetMe 自分のユーザー詳細を取得
 
 自身のユーザー詳細情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMeRequest
 */
 func (a *MeApiService) GetMe(ctx context.Context) MeApiGetMeRequest {
 	return MeApiGetMeRequest{
@@ -756,8 +759,7 @@ func (a *MeApiService) GetMe(ctx context.Context) MeApiGetMeRequest {
 }
 
 // Execute executes the request
-//
-//	@return MyUserDetail
+//  @return MyUserDetail
 func (a *MeApiService) GetMeExecute(r MeApiGetMeRequest) (*MyUserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -845,8 +847,8 @@ GetMyChannelSubscriptions 自分のチャンネル購読状態を取得
 
 自身のチャンネル購読状態を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyChannelSubscriptionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyChannelSubscriptionsRequest
 */
 func (a *MeApiService) GetMyChannelSubscriptions(ctx context.Context) MeApiGetMyChannelSubscriptionsRequest {
 	return MeApiGetMyChannelSubscriptionsRequest{
@@ -856,8 +858,7 @@ func (a *MeApiService) GetMyChannelSubscriptions(ctx context.Context) MeApiGetMy
 }
 
 // Execute executes the request
-//
-//	@return []UserSubscribeState
+//  @return []UserSubscribeState
 func (a *MeApiService) GetMyChannelSubscriptionsExecute(r MeApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -945,8 +946,8 @@ GetMyExternalAccounts 外部ログインアカウント一覧を取得
 
 自分に紐付けられている外部ログインアカウント一覧を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyExternalAccountsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyExternalAccountsRequest
 */
 func (a *MeApiService) GetMyExternalAccounts(ctx context.Context) MeApiGetMyExternalAccountsRequest {
 	return MeApiGetMyExternalAccountsRequest{
@@ -956,8 +957,7 @@ func (a *MeApiService) GetMyExternalAccounts(ctx context.Context) MeApiGetMyExte
 }
 
 // Execute executes the request
-//
-//	@return []ExternalProviderUser
+//  @return []ExternalProviderUser
 func (a *MeApiService) GetMyExternalAccountsExecute(r MeApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1045,8 +1045,8 @@ GetMyIcon 自分のアイコン画像を取得
 
 自分のアイコン画像を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyIconRequest
 */
 func (a *MeApiService) GetMyIcon(ctx context.Context) MeApiGetMyIconRequest {
 	return MeApiGetMyIconRequest{
@@ -1056,8 +1056,7 @@ func (a *MeApiService) GetMyIcon(ctx context.Context) MeApiGetMyIconRequest {
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *MeApiService) GetMyIconExecute(r MeApiGetMyIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1145,8 +1144,8 @@ GetMyNotifyCitation メッセージ引用通知の設定情報を取得
 
 メッセージ引用通知の設定情報を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyNotifyCitationRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyNotifyCitationRequest
 */
 func (a *MeApiService) GetMyNotifyCitation(ctx context.Context) MeApiGetMyNotifyCitationRequest {
 	return MeApiGetMyNotifyCitationRequest{
@@ -1156,8 +1155,7 @@ func (a *MeApiService) GetMyNotifyCitation(ctx context.Context) MeApiGetMyNotify
 }
 
 // Execute executes the request
-//
-//	@return GetNotifyCitation
+//  @return GetNotifyCitation
 func (a *MeApiService) GetMyNotifyCitationExecute(r MeApiGetMyNotifyCitationRequest) (*GetNotifyCitation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1253,8 +1251,8 @@ GetMyQRCode QRコードを取得
 自身のQRコードを取得します。
 返されたQRコードまたはトークンは、発行後の5分間のみ有効です
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyQRCodeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyQRCodeRequest
 */
 func (a *MeApiService) GetMyQRCode(ctx context.Context) MeApiGetMyQRCodeRequest {
 	return MeApiGetMyQRCodeRequest{
@@ -1264,8 +1262,7 @@ func (a *MeApiService) GetMyQRCode(ctx context.Context) MeApiGetMyQRCodeRequest 
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *MeApiService) GetMyQRCodeExecute(r MeApiGetMyQRCodeRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1356,8 +1353,8 @@ GetMySessions 自分のログインセッションリストを取得
 
 自分のログインセッションのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMySessionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMySessionsRequest
 */
 func (a *MeApiService) GetMySessions(ctx context.Context) MeApiGetMySessionsRequest {
 	return MeApiGetMySessionsRequest{
@@ -1367,8 +1364,7 @@ func (a *MeApiService) GetMySessions(ctx context.Context) MeApiGetMySessionsRequ
 }
 
 // Execute executes the request
-//
-//	@return []LoginSession
+//  @return []LoginSession
 func (a *MeApiService) GetMySessionsExecute(r MeApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1466,8 +1462,8 @@ GetMyStampHistory スタンプ履歴を取得
 
 このAPIが返すスタンプ履歴は厳密な履歴ではありません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyStampHistoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyStampHistoryRequest
 */
 func (a *MeApiService) GetMyStampHistory(ctx context.Context) MeApiGetMyStampHistoryRequest {
 	return MeApiGetMyStampHistoryRequest{
@@ -1477,8 +1473,7 @@ func (a *MeApiService) GetMyStampHistory(ctx context.Context) MeApiGetMyStampHis
 }
 
 // Execute executes the request
-//
-//	@return []StampHistoryEntry
+//  @return []StampHistoryEntry
 func (a *MeApiService) GetMyStampHistoryExecute(r MeApiGetMyStampHistoryRequest) ([]StampHistoryEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1569,8 +1564,8 @@ GetMyStars スターチャンネルリストを取得
 
 自分がスターしているチャンネルのUUIDの配列を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyStarsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyStarsRequest
 */
 func (a *MeApiService) GetMyStars(ctx context.Context) MeApiGetMyStarsRequest {
 	return MeApiGetMyStarsRequest{
@@ -1580,8 +1575,7 @@ func (a *MeApiService) GetMyStars(ctx context.Context) MeApiGetMyStarsRequest {
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *MeApiService) GetMyStarsExecute(r MeApiGetMyStarsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1669,8 +1663,8 @@ GetMyTokens 有効トークンのリストを取得
 
 有効な自分に発行されたOAuth2トークンのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyTokensRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyTokensRequest
 */
 func (a *MeApiService) GetMyTokens(ctx context.Context) MeApiGetMyTokensRequest {
 	return MeApiGetMyTokensRequest{
@@ -1680,8 +1674,7 @@ func (a *MeApiService) GetMyTokens(ctx context.Context) MeApiGetMyTokensRequest 
 }
 
 // Execute executes the request
-//
-//	@return []ActiveOAuth2Token
+//  @return []ActiveOAuth2Token
 func (a *MeApiService) GetMyTokensExecute(r MeApiGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1769,8 +1762,8 @@ GetMyUnreadChannels 未読チャンネルを取得
 
 自分が現在未読のチャンネルの未読情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyUnreadChannelsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyUnreadChannelsRequest
 */
 func (a *MeApiService) GetMyUnreadChannels(ctx context.Context) MeApiGetMyUnreadChannelsRequest {
 	return MeApiGetMyUnreadChannelsRequest{
@@ -1780,8 +1773,7 @@ func (a *MeApiService) GetMyUnreadChannels(ctx context.Context) MeApiGetMyUnread
 }
 
 // Execute executes the request
-//
-//	@return []UnreadChannel
+//  @return []UnreadChannel
 func (a *MeApiService) GetMyUnreadChannelsExecute(r MeApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1869,8 +1861,8 @@ GetMyUserTags 自分のタグリストを取得
 
 自分に付けられているタグの配列を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyUserTagsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyUserTagsRequest
 */
 func (a *MeApiService) GetMyUserTags(ctx context.Context) MeApiGetMyUserTagsRequest {
 	return MeApiGetMyUserTagsRequest{
@@ -1880,8 +1872,7 @@ func (a *MeApiService) GetMyUserTags(ctx context.Context) MeApiGetMyUserTagsRequ
 }
 
 // Execute executes the request
-//
-//	@return []UserTag
+//  @return []UserTag
 func (a *MeApiService) GetMyUserTagsExecute(r MeApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1969,8 +1960,8 @@ GetMyViewStates 自身のチャンネル閲覧状態一覧を取得
 
 自身のチャンネル閲覧状態一覧を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetMyViewStatesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetMyViewStatesRequest
 */
 func (a *MeApiService) GetMyViewStates(ctx context.Context) MeApiGetMyViewStatesRequest {
 	return MeApiGetMyViewStatesRequest{
@@ -1980,8 +1971,7 @@ func (a *MeApiService) GetMyViewStates(ctx context.Context) MeApiGetMyViewStates
 }
 
 // Execute executes the request
-//
-//	@return []MyChannelViewState
+//  @return []MyChannelViewState
 func (a *MeApiService) GetMyViewStatesExecute(r MeApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -2069,8 +2059,8 @@ GetUserSettings ユーザー設定を取得
 
 ユーザー設定を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiGetUserSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiGetUserSettingsRequest
 */
 func (a *MeApiService) GetUserSettings(ctx context.Context) MeApiGetUserSettingsRequest {
 	return MeApiGetUserSettingsRequest{
@@ -2080,8 +2070,7 @@ func (a *MeApiService) GetUserSettings(ctx context.Context) MeApiGetUserSettings
 }
 
 // Execute executes the request
-//
-//	@return UserSettings
+//  @return UserSettings
 func (a *MeApiService) GetUserSettingsExecute(r MeApiGetUserSettingsRequest) (*UserSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -2177,8 +2166,8 @@ LinkExternalAccount 外部ログインアカウントを紐付ける
 指定した`providerName`がサーバー側で有効である必要があります。
 リクエストが受理された場合、外部サービスの認証画面にリダイレクトされ、認証される必要があります。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiLinkExternalAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiLinkExternalAccountRequest
 */
 func (a *MeApiService) LinkExternalAccount(ctx context.Context) MeApiLinkExternalAccountRequest {
 	return MeApiLinkExternalAccountRequest{
@@ -2268,9 +2257,9 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return MeApiReadChannelRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return MeApiReadChannelRequest
 */
 func (a *MeApiService) ReadChannel(ctx context.Context, channelId string) MeApiReadChannelRequest {
 	return MeApiReadChannelRequest{
@@ -2365,8 +2354,8 @@ RegisterFCMDevice FCMデバイスを登録
 
 自身のFCMデバイスを登録します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiRegisterFCMDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiRegisterFCMDeviceRequest
 */
 func (a *MeApiService) RegisterFCMDevice(ctx context.Context) MeApiRegisterFCMDeviceRequest {
 	return MeApiRegisterFCMDeviceRequest{
@@ -2456,9 +2445,9 @@ RemoveMyStar チャンネルをスターから削除します
 
 既にスターから削除されているチャンネルを指定した場合は204を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return MeApiRemoveMyStarRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return MeApiRemoveMyStarRequest
 */
 func (a *MeApiService) RemoveMyStar(ctx context.Context, channelId string) MeApiRemoveMyStarRequest {
 	return MeApiRemoveMyStarRequest{
@@ -2548,9 +2537,9 @@ RemoveMyUserTag 自分からタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tagId タグUUID
-	@return MeApiRemoveMyUserTagRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tagId タグUUID
+ @return MeApiRemoveMyUserTagRequest
 */
 func (a *MeApiService) RemoveMyUserTag(ctx context.Context, tagId string) MeApiRemoveMyUserTagRequest {
 	return MeApiRemoveMyUserTagRequest{
@@ -2641,9 +2630,9 @@ RevokeMySession セッションを無効化
 指定した自分のセッションを無効化(ログアウト)します。
 既に存在しない・無効化されているセッションを指定した場合も`204`を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId セッションUUID
-	@return MeApiRevokeMySessionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param sessionId セッションUUID
+ @return MeApiRevokeMySessionRequest
 */
 func (a *MeApiService) RevokeMySession(ctx context.Context, sessionId string) MeApiRevokeMySessionRequest {
 	return MeApiRevokeMySessionRequest{
@@ -2733,9 +2722,9 @@ RevokeMyToken トークンの認可を取り消す
 
 自分の指定したトークンの認可を取り消します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tokenId OAuth2トークンUUID
-	@return MeApiRevokeMyTokenRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tokenId OAuth2トークンUUID
+ @return MeApiRevokeMyTokenRequest
 */
 func (a *MeApiService) RevokeMyToken(ctx context.Context, tokenId string) MeApiRevokeMyTokenRequest {
 	return MeApiRevokeMyTokenRequest{
@@ -2831,9 +2820,9 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return MeApiSetChannelSubscribeLevelRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return MeApiSetChannelSubscribeLevelRequest
 */
 func (a *MeApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) MeApiSetChannelSubscribeLevelRequest {
 	return MeApiSetChannelSubscribeLevelRequest{
@@ -2930,8 +2919,8 @@ UnlinkExternalAccount 外部ログインアカウントの紐付けを解除
 
 自分に紐付けられている外部ログインアカウントの紐付けを解除します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MeApiUnlinkExternalAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MeApiUnlinkExternalAccountRequest
 */
 func (a *MeApiService) UnlinkExternalAccount(ctx context.Context) MeApiUnlinkExternalAccountRequest {
 	return MeApiUnlinkExternalAccountRequest{

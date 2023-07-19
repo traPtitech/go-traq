@@ -43,9 +43,9 @@ ClipMessage メッセージをクリップフォルダに追加
 
 指定したメッセージを指定したクリップフォルダに追加します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@return ClipApiClipMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @return ClipApiClipMessageRequest
 */
 func (a *ClipApiService) ClipMessage(ctx context.Context, folderId string) ClipApiClipMessageRequest {
 	return ClipApiClipMessageRequest{
@@ -56,8 +56,7 @@ func (a *ClipApiService) ClipMessage(ctx context.Context, folderId string) ClipA
 }
 
 // Execute executes the request
-//
-//	@return ClippedMessage
+//  @return ClippedMessage
 func (a *ClipApiService) ClipMessageExecute(r ClipApiClipMessageRequest) (*ClippedMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -155,8 +154,8 @@ CreateClipFolder クリップフォルダを作成
 クリップフォルダを作成します。
 既にあるフォルダと同名のフォルダを作成することは可能です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ClipApiCreateClipFolderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ClipApiCreateClipFolderRequest
 */
 func (a *ClipApiService) CreateClipFolder(ctx context.Context) ClipApiCreateClipFolderRequest {
 	return ClipApiCreateClipFolderRequest{
@@ -166,8 +165,7 @@ func (a *ClipApiService) CreateClipFolder(ctx context.Context) ClipApiCreateClip
 }
 
 // Execute executes the request
-//
-//	@return ClipFolder
+//  @return ClipFolder
 func (a *ClipApiService) CreateClipFolderExecute(r ClipApiCreateClipFolderRequest) (*ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -258,9 +256,9 @@ DeleteClipFolder クリップフォルダを削除
 
 指定したクリップフォルダを削除します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@return ClipApiDeleteClipFolderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @return ClipApiDeleteClipFolderRequest
 */
 func (a *ClipApiService) DeleteClipFolder(ctx context.Context, folderId string) ClipApiDeleteClipFolderRequest {
 	return ClipApiDeleteClipFolderRequest{
@@ -356,9 +354,9 @@ EditClipFolder クリップフォルダ情報を編集
 
 指定したクリップフォルダの情報を編集します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@return ClipApiEditClipFolderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @return ClipApiEditClipFolderRequest
 */
 func (a *ClipApiService) EditClipFolder(ctx context.Context, folderId string) ClipApiEditClipFolderRequest {
 	return ClipApiEditClipFolderRequest{
@@ -450,9 +448,9 @@ GetClipFolder クリップフォルダ情報を取得
 
 指定したクリップフォルダの情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@return ClipApiGetClipFolderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @return ClipApiGetClipFolderRequest
 */
 func (a *ClipApiService) GetClipFolder(ctx context.Context, folderId string) ClipApiGetClipFolderRequest {
 	return ClipApiGetClipFolderRequest{
@@ -463,8 +461,7 @@ func (a *ClipApiService) GetClipFolder(ctx context.Context, folderId string) Cli
 }
 
 // Execute executes the request
-//
-//	@return ClipFolder
+//  @return ClipFolder
 func (a *ClipApiService) GetClipFolderExecute(r ClipApiGetClipFolderRequest) (*ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -553,8 +550,8 @@ GetClipFolders クリップフォルダのリストを取得
 
 自身が所有するクリップフォルダのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ClipApiGetClipFoldersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ClipApiGetClipFoldersRequest
 */
 func (a *ClipApiService) GetClipFolders(ctx context.Context) ClipApiGetClipFoldersRequest {
 	return ClipApiGetClipFoldersRequest{
@@ -564,8 +561,7 @@ func (a *ClipApiService) GetClipFolders(ctx context.Context) ClipApiGetClipFolde
 }
 
 // Execute executes the request
-//
-//	@return []ClipFolder
+//  @return []ClipFolder
 func (a *ClipApiService) GetClipFoldersExecute(r ClipApiGetClipFoldersRequest) ([]ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -676,9 +672,9 @@ GetClips フォルダ内のクリップのリストを取得
 指定したフォルダ内のクリップのリストを取得します。
 `order`を指定しない場合、クリップした日時の新しい順で返されます。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@return ClipApiGetClipsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @return ClipApiGetClipsRequest
 */
 func (a *ClipApiService) GetClips(ctx context.Context, folderId string) ClipApiGetClipsRequest {
 	return ClipApiGetClipsRequest{
@@ -689,8 +685,7 @@ func (a *ClipApiService) GetClips(ctx context.Context, folderId string) ClipApiG
 }
 
 // Execute executes the request
-//
-//	@return []ClippedMessage
+//  @return []ClippedMessage
 func (a *ClipApiService) GetClipsExecute(r ClipApiGetClipsRequest) ([]ClippedMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -789,9 +784,9 @@ GetMessageClips 自分のクリップを取得
 
 対象のメッセージの自分のクリップの一覧を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return ClipApiGetMessageClipsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return ClipApiGetMessageClipsRequest
 */
 func (a *ClipApiService) GetMessageClips(ctx context.Context, messageId string) ClipApiGetMessageClipsRequest {
 	return ClipApiGetMessageClipsRequest{
@@ -802,8 +797,7 @@ func (a *ClipApiService) GetMessageClips(ctx context.Context, messageId string) 
 }
 
 // Execute executes the request
-//
-//	@return []MessageClip
+//  @return []MessageClip
 func (a *ClipApiService) GetMessageClipsExecute(r ClipApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -895,10 +889,10 @@ UnclipMessage メッセージをクリップフォルダから除外
 指定したフォルダから指定したメッセージのクリップを除外します。
 既に外されているメッセージを指定した場合は204を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param folderId クリップフォルダUUID
-	@param messageId メッセージUUID
-	@return ClipApiUnclipMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param folderId クリップフォルダUUID
+ @param messageId メッセージUUID
+ @return ClipApiUnclipMessageRequest
 */
 func (a *ClipApiService) UnclipMessage(ctx context.Context, folderId string, messageId string) ClipApiUnclipMessageRequest {
 	return ClipApiUnclipMessageRequest{

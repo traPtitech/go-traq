@@ -57,8 +57,8 @@ GetActivityTimeline アクテビティタイムラインを取得
 パブリックチャンネルの直近の投稿メッセージを作成日時の降順で取得します。
 `all`が`true`でない場合、購読チャンネルのみのタイムラインを取得します
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ActivityApiGetActivityTimelineRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ActivityApiGetActivityTimelineRequest
 */
 func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityApiGetActivityTimelineRequest {
 	return ActivityApiGetActivityTimelineRequest{
@@ -68,8 +68,7 @@ func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityAp
 }
 
 // Execute executes the request
-//
-//	@return []ActivityTimelineMessage
+//  @return []ActivityTimelineMessage
 func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivityTimelineRequest) ([]ActivityTimelineMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -166,8 +165,8 @@ GetOnlineUsers オンラインユーザーリストを取得
 
 現在オンラインな(SSEまたはWSが接続中)ユーザーのUUIDのリストを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ActivityApiGetOnlineUsersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ActivityApiGetOnlineUsersRequest
 */
 func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiGetOnlineUsersRequest {
 	return ActivityApiGetOnlineUsersRequest{
@@ -177,8 +176,7 @@ func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiGetO
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiGetOnlineUsersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

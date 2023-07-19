@@ -30,6 +30,7 @@ type GroupApiAddUserGroupAdminRequest struct {
 	postUserGroupAdminRequest *PostUserGroupAdminRequest
 }
 
+//
 func (r GroupApiAddUserGroupAdminRequest) PostUserGroupAdminRequest(postUserGroupAdminRequest PostUserGroupAdminRequest) GroupApiAddUserGroupAdminRequest {
 	r.postUserGroupAdminRequest = &postUserGroupAdminRequest
 	return r
@@ -45,9 +46,9 @@ AddUserGroupAdmin グループ管理者を追加
 指定したグループに管理者を追加します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiAddUserGroupAdminRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiAddUserGroupAdminRequest
 */
 func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string) GroupApiAddUserGroupAdminRequest {
 	return GroupApiAddUserGroupAdminRequest{
@@ -131,6 +132,7 @@ type GroupApiAddUserGroupMemberRequest struct {
 	userGroupMember *UserGroupMember
 }
 
+//
 func (r GroupApiAddUserGroupMemberRequest) UserGroupMember(userGroupMember UserGroupMember) GroupApiAddUserGroupMemberRequest {
 	r.userGroupMember = &userGroupMember
 	return r
@@ -146,9 +148,9 @@ AddUserGroupMember グループメンバーを追加
 指定したグループにメンバーを追加します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiAddUserGroupMemberRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiAddUserGroupMemberRequest
 */
 func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string) GroupApiAddUserGroupMemberRequest {
 	return GroupApiAddUserGroupMemberRequest{
@@ -248,9 +250,9 @@ ChangeUserGroupIcon ユーザーグループのアイコンを変更
 ユーザーグループのアイコンを変更します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiChangeUserGroupIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiChangeUserGroupIconRequest
 */
 func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId string) GroupApiChangeUserGroupIconRequest {
 	return GroupApiChangeUserGroupIconRequest{
@@ -365,8 +367,8 @@ CreateUserGroup ユーザーグループを作成
 ユーザーグループを作成します。
 作成者は自動的にグループ管理者になります。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GroupApiCreateUserGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return GroupApiCreateUserGroupRequest
 */
 func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiCreateUserGroupRequest {
 	return GroupApiCreateUserGroupRequest{
@@ -376,8 +378,7 @@ func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiCreateUse
 }
 
 // Execute executes the request
-//
-//	@return UserGroup
+//  @return UserGroup
 func (a *GroupApiService) CreateUserGroupExecute(r GroupApiCreateUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -469,9 +470,9 @@ DeleteUserGroup ユーザーグループを削除
 指定したユーザーグループを削除します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiDeleteUserGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiDeleteUserGroupRequest
 */
 func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) GroupApiDeleteUserGroupRequest {
 	return GroupApiDeleteUserGroupRequest{
@@ -553,6 +554,7 @@ type GroupApiEditUserGroupRequest struct {
 	patchUserGroupRequest *PatchUserGroupRequest
 }
 
+//
 func (r GroupApiEditUserGroupRequest) PatchUserGroupRequest(patchUserGroupRequest PatchUserGroupRequest) GroupApiEditUserGroupRequest {
 	r.patchUserGroupRequest = &patchUserGroupRequest
 	return r
@@ -568,9 +570,9 @@ EditUserGroup ユーザーグループを編集
 指定したユーザーグループの情報を編集します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiEditUserGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiEditUserGroupRequest
 */
 func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) GroupApiEditUserGroupRequest {
 	return GroupApiEditUserGroupRequest{
@@ -670,10 +672,10 @@ EditUserGroupMember グループメンバーを編集
 指定したユーザーグループ内の指定したユーザーの属性を編集します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@param userId ユーザーUUID
-	@return GroupApiEditUserGroupMemberRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @param userId ユーザーUUID
+ @return GroupApiEditUserGroupMemberRequest
 */
 func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiEditUserGroupMemberRequest {
 	return GroupApiEditUserGroupMemberRequest{
@@ -767,9 +769,9 @@ GetUserGroup ユーザーグループを取得
 
 指定したユーザーグループの情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiGetUserGroupRequest
 */
 func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) GroupApiGetUserGroupRequest {
 	return GroupApiGetUserGroupRequest{
@@ -780,8 +782,7 @@ func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) Grou
 }
 
 // Execute executes the request
-//
-//	@return UserGroup
+//  @return UserGroup
 func (a *GroupApiService) GetUserGroupExecute(r GroupApiGetUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -871,9 +872,9 @@ GetUserGroupAdmins グループ管理者を取得
 
 指定したグループの管理者のリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupAdminsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiGetUserGroupAdminsRequest
 */
 func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string) GroupApiGetUserGroupAdminsRequest {
 	return GroupApiGetUserGroupAdminsRequest{
@@ -884,8 +885,7 @@ func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiGetUserGroupAdminsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -975,9 +975,9 @@ GetUserGroupMembers グループメンバーを取得
 
 指定したグループのメンバーのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupMembersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @return GroupApiGetUserGroupMembersRequest
 */
 func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId string) GroupApiGetUserGroupMembersRequest {
 	return GroupApiGetUserGroupMembersRequest{
@@ -988,8 +988,7 @@ func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-//
-//	@return []UserGroupMember
+//  @return []UserGroupMember
 func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiGetUserGroupMembersRequest) ([]UserGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1078,8 +1077,8 @@ GetUserGroups ユーザーグループのリストを取得
 
 ユーザーグループのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GroupApiGetUserGroupsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return GroupApiGetUserGroupsRequest
 */
 func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiGetUserGroupsRequest {
 	return GroupApiGetUserGroupsRequest{
@@ -1089,8 +1088,7 @@ func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiGetUserGrou
 }
 
 // Execute executes the request
-//
-//	@return []UserGroup
+//  @return []UserGroup
 func (a *GroupApiService) GetUserGroupsExecute(r GroupApiGetUserGroupsRequest) ([]UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1182,10 +1180,10 @@ RemoveUserGroupAdmin グループ管理者を削除
 対象のユーザーグループの管理者権限が必要です。
 グループから管理者が存在しなくなる場合は400エラーを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@param userId ユーザーUUID
-	@return GroupApiRemoveUserGroupAdminRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @param userId ユーザーUUID
+ @return GroupApiRemoveUserGroupAdminRequest
 */
 func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupAdminRequest {
 	return GroupApiRemoveUserGroupAdminRequest{
@@ -1280,10 +1278,10 @@ RemoveUserGroupMember グループメンバーを削除
 既にグループから削除されているメンバーを指定した場合は204を返します。
 対象のユーザーグループの管理者権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId ユーザーグループUUID
-	@param userId ユーザーUUID
-	@return GroupApiRemoveUserGroupMemberRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId ユーザーグループUUID
+ @param userId ユーザーUUID
+ @return GroupApiRemoveUserGroupMemberRequest
 */
 func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupMemberRequest {
 	return GroupApiRemoveUserGroupMemberRequest{

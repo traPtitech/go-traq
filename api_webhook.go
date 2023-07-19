@@ -46,9 +46,9 @@ ChangeWebhookIcon Webhookのアイコンを変更
 
 指定したWebhookのアイコン画像を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiChangeWebhookIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiChangeWebhookIconRequest
 */
 func (a *WebhookApiService) ChangeWebhookIcon(ctx context.Context, webhookId string) WebhookApiChangeWebhookIconRequest {
 	return WebhookApiChangeWebhookIconRequest{
@@ -163,8 +163,8 @@ CreateWebhook Webhookを新規作成
 Webhookを新規作成します。
 `secret`が空文字の場合、insecureウェブフックが作成されます。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebhookApiCreateWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return WebhookApiCreateWebhookRequest
 */
 func (a *WebhookApiService) CreateWebhook(ctx context.Context) WebhookApiCreateWebhookRequest {
 	return WebhookApiCreateWebhookRequest{
@@ -174,8 +174,7 @@ func (a *WebhookApiService) CreateWebhook(ctx context.Context) WebhookApiCreateW
 }
 
 // Execute executes the request
-//
-//	@return Webhook
+//  @return Webhook
 func (a *WebhookApiService) CreateWebhookExecute(r WebhookApiCreateWebhookRequest) (*Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -267,9 +266,9 @@ DeleteWebhook Webhookを削除
 指定したWebhookを削除します。
 Webhookによって投稿されたメッセージは削除されません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiDeleteWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiDeleteWebhookRequest
 */
 func (a *WebhookApiService) DeleteWebhook(ctx context.Context, webhookId string) WebhookApiDeleteWebhookRequest {
 	return WebhookApiDeleteWebhookRequest{
@@ -365,9 +364,9 @@ EditWebhook Webhook情報を変更
 
 指定したWebhookの情報を変更します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiEditWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiEditWebhookRequest
 */
 func (a *WebhookApiService) EditWebhook(ctx context.Context, webhookId string) WebhookApiEditWebhookRequest {
 	return WebhookApiEditWebhookRequest{
@@ -459,9 +458,9 @@ GetWebhook Webhook情報を取得
 
 指定したWebhookの詳細を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiGetWebhookRequest
 */
 func (a *WebhookApiService) GetWebhook(ctx context.Context, webhookId string) WebhookApiGetWebhookRequest {
 	return WebhookApiGetWebhookRequest{
@@ -472,8 +471,7 @@ func (a *WebhookApiService) GetWebhook(ctx context.Context, webhookId string) We
 }
 
 // Execute executes the request
-//
-//	@return Webhook
+//  @return Webhook
 func (a *WebhookApiService) GetWebhookExecute(r WebhookApiGetWebhookRequest) (*Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -563,9 +561,9 @@ GetWebhookIcon Webhookのアイコンを取得
 
 指定したWebhookのアイコン画像を取得します
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiGetWebhookIconRequest
 */
 func (a *WebhookApiService) GetWebhookIcon(ctx context.Context, webhookId string) WebhookApiGetWebhookIconRequest {
 	return WebhookApiGetWebhookIconRequest{
@@ -576,8 +574,7 @@ func (a *WebhookApiService) GetWebhookIcon(ctx context.Context, webhookId string
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *WebhookApiService) GetWebhookIconExecute(r WebhookApiGetWebhookIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -709,9 +706,9 @@ GetWebhookMessages Webhookの投稿メッセージのリストを取得
 
 指定されたWebhookが投稿したメッセージのリストを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookMessagesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiGetWebhookMessagesRequest
 */
 func (a *WebhookApiService) GetWebhookMessages(ctx context.Context, webhookId string) WebhookApiGetWebhookMessagesRequest {
 	return WebhookApiGetWebhookMessagesRequest{
@@ -722,8 +719,7 @@ func (a *WebhookApiService) GetWebhookMessages(ctx context.Context, webhookId st
 }
 
 // Execute executes the request
-//
-//	@return []Message
+//  @return []Message
 func (a *WebhookApiService) GetWebhookMessagesExecute(r WebhookApiGetWebhookMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -838,8 +834,8 @@ GetWebhooks Webhook情報のリストを取得します
 Webhookのリストを取得します。
 allがtrueで無い場合は、自分がオーナーのWebhookのリストを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebhookApiGetWebhooksRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return WebhookApiGetWebhooksRequest
 */
 func (a *WebhookApiService) GetWebhooks(ctx context.Context) WebhookApiGetWebhooksRequest {
 	return WebhookApiGetWebhooksRequest{
@@ -849,8 +845,7 @@ func (a *WebhookApiService) GetWebhooks(ctx context.Context) WebhookApiGetWebhoo
 }
 
 // Execute executes the request
-//
-//	@return []Webhook
+//  @return []Webhook
 func (a *WebhookApiService) GetWebhooksExecute(r WebhookApiGetWebhooksRequest) ([]Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -955,6 +950,7 @@ func (r WebhookApiPostWebhookRequest) Embed(embed int32) WebhookApiPostWebhookRe
 	return r
 }
 
+//
 func (r WebhookApiPostWebhookRequest) Body(body string) WebhookApiPostWebhookRequest {
 	r.body = &body
 	return r
@@ -971,9 +967,9 @@ Webhookにメッセージを投稿します。
 secureなウェブフックに対しては`X-TRAQ-Signature`ヘッダーが必須です。
 アーカイブされているチャンネルには投稿できません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookId WebhookUUID
-	@return WebhookApiPostWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param webhookId WebhookUUID
+ @return WebhookApiPostWebhookRequest
 */
 func (a *WebhookApiService) PostWebhook(ctx context.Context, webhookId string) WebhookApiPostWebhookRequest {
 	return WebhookApiPostWebhookRequest{
