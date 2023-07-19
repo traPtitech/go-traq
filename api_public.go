@@ -38,9 +38,9 @@ GetPublicUserIcon ユーザーのアイコン画像を取得
 
 ユーザーのアイコン画像を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param username ユーザー名
-	@return PublicApiGetPublicUserIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param username ユーザー名
+ @return PublicApiGetPublicUserIconRequest
 */
 func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username string) PublicApiGetPublicUserIconRequest {
 	return PublicApiGetPublicUserIconRequest{
@@ -51,8 +51,7 @@ func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username strin
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiGetPublicUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -141,8 +140,8 @@ GetServerVersion バージョンを取得
 
 サーバーバージョン及びサーバーフラグ情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PublicApiGetServerVersionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PublicApiGetServerVersionRequest
 */
 func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiGetServerVersionRequest {
 	return PublicApiGetServerVersionRequest{
@@ -152,8 +151,7 @@ func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiGetSer
 }
 
 // Execute executes the request
-//
-//	@return Version
+//  @return Version
 func (a *PublicApiService) GetServerVersionExecute(r PublicApiGetServerVersionRequest) (*Version, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

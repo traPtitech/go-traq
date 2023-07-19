@@ -42,8 +42,8 @@ CreateClient OAuth2クライアントを作成
 
 OAuth2クライアントを作成します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiCreateClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiCreateClientRequest
 */
 func (a *Oauth2ApiService) CreateClient(ctx context.Context) Oauth2ApiCreateClientRequest {
 	return Oauth2ApiCreateClientRequest{
@@ -53,8 +53,7 @@ func (a *Oauth2ApiService) CreateClient(ctx context.Context) Oauth2ApiCreateClie
 }
 
 // Execute executes the request
-//
-//	@return OAuth2ClientDetail
+//  @return OAuth2ClientDetail
 func (a *Oauth2ApiService) CreateClientExecute(r Oauth2ApiCreateClientRequest) (*OAuth2ClientDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -146,9 +145,9 @@ DeleteClient OAuth2クライアントを削除
 指定したOAuth2クライアントを削除します。
 対象のクライアントの管理権限が必要です。正常に削除された場合、このクライアントに対する認可は全て取り消されます。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiDeleteClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId OAuth2クライアントUUID
+ @return Oauth2ApiDeleteClientRequest
 */
 func (a *Oauth2ApiService) DeleteClient(ctx context.Context, clientId string) Oauth2ApiDeleteClientRequest {
 	return Oauth2ApiDeleteClientRequest{
@@ -230,6 +229,7 @@ type Oauth2ApiEditClientRequest struct {
 	patchClientRequest *PatchClientRequest
 }
 
+//
 func (r Oauth2ApiEditClientRequest) PatchClientRequest(patchClientRequest PatchClientRequest) Oauth2ApiEditClientRequest {
 	r.patchClientRequest = &patchClientRequest
 	return r
@@ -246,9 +246,9 @@ EditClient OAuth2クライアント情報を変更
 対象のクライアントの管理権限が必要です。
 クライアント開発者UUIDを変更した場合は、変更先ユーザーにクライアント管理権限が移譲され、自分自身は権限を失います。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiEditClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId OAuth2クライアントUUID
+ @return Oauth2ApiEditClientRequest
 */
 func (a *Oauth2ApiService) EditClient(ctx context.Context, clientId string) Oauth2ApiEditClientRequest {
 	return Oauth2ApiEditClientRequest{
@@ -348,9 +348,9 @@ GetClient OAuth2クライアント情報を取得
 指定したOAuth2クライアントの情報を取得します。
 詳細情報の取得には対象のクライアントの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiGetClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId OAuth2クライアントUUID
+ @return Oauth2ApiGetClientRequest
 */
 func (a *Oauth2ApiService) GetClient(ctx context.Context, clientId string) Oauth2ApiGetClientRequest {
 	return Oauth2ApiGetClientRequest{
@@ -361,8 +361,7 @@ func (a *Oauth2ApiService) GetClient(ctx context.Context, clientId string) Oauth
 }
 
 // Execute executes the request
-//
-//	@return GetClient200Response
+//  @return GetClient200Response
 func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiGetClientRequest) (*GetClient200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -462,8 +461,8 @@ GetClients OAuth2クライアントのリストを取得
 自身が開発者のOAuth2クライアントのリストを取得します。
 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetClientsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiGetClientsRequest
 */
 func (a *Oauth2ApiService) GetClients(ctx context.Context) Oauth2ApiGetClientsRequest {
 	return Oauth2ApiGetClientsRequest{
@@ -473,8 +472,7 @@ func (a *Oauth2ApiService) GetClients(ctx context.Context) Oauth2ApiGetClientsRe
 }
 
 // Execute executes the request
-//
-//	@return []OAuth2Client
+//  @return []OAuth2Client
 func (a *Oauth2ApiService) GetClientsExecute(r Oauth2ApiGetClientsRequest) ([]OAuth2Client, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -565,8 +563,8 @@ GetMyTokens 有効トークンのリストを取得
 
 有効な自分に発行されたOAuth2トークンのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetMyTokensRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiGetMyTokensRequest
 */
 func (a *Oauth2ApiService) GetMyTokens(ctx context.Context) Oauth2ApiGetMyTokensRequest {
 	return Oauth2ApiGetMyTokensRequest{
@@ -576,8 +574,7 @@ func (a *Oauth2ApiService) GetMyTokens(ctx context.Context) Oauth2ApiGetMyTokens
 }
 
 // Execute executes the request
-//
-//	@return []ActiveOAuth2Token
+//  @return []ActiveOAuth2Token
 func (a *Oauth2ApiService) GetMyTokensExecute(r Oauth2ApiGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -719,8 +716,8 @@ GetOAuth2Authorize OAuth2 認可エンドポイント
 
 OAuth2 認可エンドポイント
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetOAuth2AuthorizeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiGetOAuth2AuthorizeRequest
 */
 func (a *Oauth2ApiService) GetOAuth2Authorize(ctx context.Context) Oauth2ApiGetOAuth2AuthorizeRequest {
 	return Oauth2ApiGetOAuth2AuthorizeRequest{
@@ -889,8 +886,8 @@ PostOAuth2Authorize OAuth2 認可エンドポイント
 
 OAuth2 認可エンドポイント
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2AuthorizeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiPostOAuth2AuthorizeRequest
 */
 func (a *Oauth2ApiService) PostOAuth2Authorize(ctx context.Context) Oauth2ApiPostOAuth2AuthorizeRequest {
 	return Oauth2ApiPostOAuth2AuthorizeRequest{
@@ -1012,8 +1009,8 @@ PostOAuth2AuthorizeDecide OAuth2 認可承諾API
 
 OAuth2 認可承諾
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2AuthorizeDecideRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiPostOAuth2AuthorizeDecideRequest
 */
 func (a *Oauth2ApiService) PostOAuth2AuthorizeDecide(ctx context.Context) Oauth2ApiPostOAuth2AuthorizeDecideRequest {
 	return Oauth2ApiPostOAuth2AuthorizeDecideRequest{
@@ -1164,8 +1161,8 @@ PostOAuth2Token OAuth2 トークンエンドポイント
 
 OAuth2 トークンエンドポイント
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2TokenRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiPostOAuth2TokenRequest
 */
 func (a *Oauth2ApiService) PostOAuth2Token(ctx context.Context) Oauth2ApiPostOAuth2TokenRequest {
 	return Oauth2ApiPostOAuth2TokenRequest{
@@ -1175,8 +1172,7 @@ func (a *Oauth2ApiService) PostOAuth2Token(ctx context.Context) Oauth2ApiPostOAu
 }
 
 // Execute executes the request
-//
-//	@return OAuth2Token
+//  @return OAuth2Token
 func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequest) (*OAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1296,9 +1292,9 @@ RevokeMyToken トークンの認可を取り消す
 
 自分の指定したトークンの認可を取り消します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tokenId OAuth2トークンUUID
-	@return Oauth2ApiRevokeMyTokenRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tokenId OAuth2トークンUUID
+ @return Oauth2ApiRevokeMyTokenRequest
 */
 func (a *Oauth2ApiService) RevokeMyToken(ctx context.Context, tokenId string) Oauth2ApiRevokeMyTokenRequest {
 	return Oauth2ApiRevokeMyTokenRequest{
@@ -1394,8 +1390,8 @@ RevokeOAuth2Token OAuth2 トークン無効化エンドポイント
 
 OAuth2 トークン無効化エンドポイント
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiRevokeOAuth2TokenRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return Oauth2ApiRevokeOAuth2TokenRequest
 */
 func (a *Oauth2ApiService) RevokeOAuth2Token(ctx context.Context) Oauth2ApiRevokeOAuth2TokenRequest {
 	return Oauth2ApiRevokeOAuth2TokenRequest{

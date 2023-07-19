@@ -42,8 +42,8 @@ DeleteOgpCache OGP情報のキャッシュを削除
 
 指定されたURLのOGP情報のキャッシュを削除します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return OgpApiDeleteOgpCacheRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return OgpApiDeleteOgpCacheRequest
 */
 func (a *OgpApiService) DeleteOgpCache(ctx context.Context) OgpApiDeleteOgpCacheRequest {
 	return OgpApiDeleteOgpCacheRequest{
@@ -142,8 +142,9 @@ GetOgp OGP情報を取得
 指定されたURLのOGP情報を取得します。
 指定されたURLに対するOGP情報が見つからなかった場合、typeがemptyに設定された空のOGP情報を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return OgpApiGetOgpRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return OgpApiGetOgpRequest
 */
 func (a *OgpApiService) GetOgp(ctx context.Context) OgpApiGetOgpRequest {
 	return OgpApiGetOgpRequest{
@@ -153,8 +154,7 @@ func (a *OgpApiService) GetOgp(ctx context.Context) OgpApiGetOgpRequest {
 }
 
 // Execute executes the request
-//
-//	@return Ogp
+//  @return Ogp
 func (a *OgpApiService) GetOgpExecute(r OgpApiGetOgpRequest) (*Ogp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet

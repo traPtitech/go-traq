@@ -31,6 +31,7 @@ type MessageApiAddMessageStampRequest struct {
 	postMessageStampRequest *PostMessageStampRequest
 }
 
+//
 func (r MessageApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) MessageApiAddMessageStampRequest {
 	r.postMessageStampRequest = &postMessageStampRequest
 	return r
@@ -45,10 +46,10 @@ AddMessageStamp スタンプを押す
 
 指定したメッセージに指定したスタンプを押します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@param stampId スタンプUUID
-	@return MessageApiAddMessageStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @param stampId スタンプUUID
+ @return MessageApiAddMessageStampRequest
 */
 func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiAddMessageStampRequest {
 	return MessageApiAddMessageStampRequest{
@@ -143,9 +144,9 @@ CreatePin ピン留めする
 指定したメッセージをピン留めします。
 アーカイブされているチャンネルのメッセージ・存在しないメッセージ・チャンネル当たりの上限数を超えたメッセージのピン留めはできません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiCreatePinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiCreatePinRequest
 */
 func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) MessageApiCreatePinRequest {
 	return MessageApiCreatePinRequest{
@@ -156,8 +157,7 @@ func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) Mes
 }
 
 // Execute executes the request
-//
-//	@return MessagePin
+//  @return MessagePin
 func (a *MessageApiService) CreatePinExecute(r MessageApiCreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -249,9 +249,9 @@ DeleteMessage メッセージを削除
 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
 アーカイブされているチャンネルのメッセージを編集することは出来ません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiDeleteMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiDeleteMessageRequest
 */
 func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string) MessageApiDeleteMessageRequest {
 	return MessageApiDeleteMessageRequest{
@@ -349,9 +349,9 @@ EditMessage メッセージを編集
 自身が投稿したメッセージのみ編集することができます。
 アーカイブされているチャンネルのメッセージを編集することは出来ません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiEditMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiEditMessageRequest
 */
 func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) MessageApiEditMessageRequest {
 	return MessageApiEditMessageRequest{
@@ -485,9 +485,9 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 指定したユーザーとのダイレクトメッセージのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return MessageApiGetDirectMessagesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return MessageApiGetDirectMessagesRequest
 */
 func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string) MessageApiGetDirectMessagesRequest {
 	return MessageApiGetDirectMessagesRequest{
@@ -498,8 +498,7 @@ func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string
 }
 
 // Execute executes the request
-//
-//	@return []Message
+//  @return []Message
 func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -607,9 +606,9 @@ GetMessage メッセージを取得
 
 指定したメッセージを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiGetMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiGetMessageRequest
 */
 func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) MessageApiGetMessageRequest {
 	return MessageApiGetMessageRequest{
@@ -620,8 +619,7 @@ func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) Me
 }
 
 // Execute executes the request
-//
-//	@return Message
+//  @return Message
 func (a *MessageApiService) GetMessageExecute(r MessageApiGetMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -711,9 +709,9 @@ GetMessageClips 自分のクリップを取得
 
 対象のメッセージの自分のクリップの一覧を返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiGetMessageClipsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiGetMessageClipsRequest
 */
 func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId string) MessageApiGetMessageClipsRequest {
 	return MessageApiGetMessageClipsRequest{
@@ -724,8 +722,7 @@ func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId strin
 }
 
 // Execute executes the request
-//
-//	@return []MessageClip
+//  @return []MessageClip
 func (a *MessageApiService) GetMessageClipsExecute(r MessageApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -815,9 +812,9 @@ GetMessageStamps メッセージのスタンプリストを取得
 
 指定したメッセージに押されているスタンプのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiGetMessageStampsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiGetMessageStampsRequest
 */
 func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId string) MessageApiGetMessageStampsRequest {
 	return MessageApiGetMessageStampsRequest{
@@ -828,8 +825,7 @@ func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId stri
 }
 
 // Execute executes the request
-//
-//	@return []MessageStamp
+//  @return []MessageStamp
 func (a *MessageApiService) GetMessageStampsExecute(r MessageApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -961,9 +957,9 @@ GetMessages チャンネルメッセージのリストを取得
 
 指定したチャンネルのメッセージのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return MessageApiGetMessagesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return MessageApiGetMessagesRequest
 */
 func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) MessageApiGetMessagesRequest {
 	return MessageApiGetMessagesRequest{
@@ -974,8 +970,7 @@ func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) M
 }
 
 // Execute executes the request
-//
-//	@return []Message
+//  @return []Message
 func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1083,9 +1078,9 @@ GetPin ピン留めを取得
 
 指定したメッセージのピン留め情報を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiGetPinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiGetPinRequest
 */
 func (a *MessageApiService) GetPin(ctx context.Context, messageId string) MessageApiGetPinRequest {
 	return MessageApiGetPinRequest{
@@ -1096,8 +1091,7 @@ func (a *MessageApiService) GetPin(ctx context.Context, messageId string) Messag
 }
 
 // Execute executes the request
-//
-//	@return MessagePin
+//  @return MessagePin
 func (a *MessageApiService) GetPinExecute(r MessageApiGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1193,9 +1187,9 @@ PostDirectMessage ダイレクトメッセージを送信
 
 指定したユーザーにダイレクトメッセージを送信します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ユーザーUUID
-	@return MessageApiPostDirectMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ユーザーUUID
+ @return MessageApiPostDirectMessageRequest
 */
 func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string) MessageApiPostDirectMessageRequest {
 	return MessageApiPostDirectMessageRequest{
@@ -1206,8 +1200,7 @@ func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string
 }
 
 // Execute executes the request
-//
-//	@return Message
+//  @return Message
 func (a *MessageApiService) PostDirectMessageExecute(r MessageApiPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1291,6 +1284,7 @@ type MessageApiPostMessageRequest struct {
 	postMessageRequest *PostMessageRequest
 }
 
+//
 func (r MessageApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiPostMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
@@ -1307,9 +1301,9 @@ PostMessage チャンネルにメッセージを投稿
 embedをtrueに指定すると、メッセージ埋め込みが自動で行われます。
 アーカイブされているチャンネルに投稿することはできません。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return MessageApiPostMessageRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return MessageApiPostMessageRequest
 */
 func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) MessageApiPostMessageRequest {
 	return MessageApiPostMessageRequest{
@@ -1320,8 +1314,7 @@ func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) M
 }
 
 // Execute executes the request
-//
-//	@return Message
+//  @return Message
 func (a *MessageApiService) PostMessageExecute(r MessageApiPostMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1414,10 +1407,10 @@ RemoveMessageStamp スタンプを消す
 
 指定したメッセージから指定した自身が押したスタンプを削除します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@param stampId スタンプUUID
-	@return MessageApiRemoveMessageStampRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @param stampId スタンプUUID
+ @return MessageApiRemoveMessageStampRequest
 */
 func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiRemoveMessageStampRequest {
 	return MessageApiRemoveMessageStampRequest{
@@ -1509,9 +1502,9 @@ RemovePin ピン留めを外す
 
 指定したメッセージのピン留めを外します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param messageId メッセージUUID
-	@return MessageApiRemovePinRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param messageId メッセージUUID
+ @return MessageApiRemovePinRequest
 */
 func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) MessageApiRemovePinRequest {
 	return MessageApiRemovePinRequest{
@@ -1712,8 +1705,8 @@ SearchMessages メッセージを検索
 
 メッセージを検索します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MessageApiSearchMessagesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return MessageApiSearchMessagesRequest
 */
 func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiSearchMessagesRequest {
 	return MessageApiSearchMessagesRequest{
@@ -1723,8 +1716,7 @@ func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiSearch
 }
 
 // Execute executes the request
-//
-//	@return MessageSearchResult
+//  @return MessageSearchResult
 func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequest) (*MessageSearchResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
