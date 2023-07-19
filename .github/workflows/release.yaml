@@ -46,7 +46,7 @@ jobs:
           git config user.email "actions@github.com"
 
           git add .
-          git commit -m "CI: regenerate [ci skip]" --author="sapphi-red <49056869+sapphi-red@users.noreply.github.com>"
+          git commit -m "CI: regenerate [ci skip]" --author="ras0q <ras0q@users.noreply.github.com>"
       - name: git push
         if: env.HAS_DIFF == 'true'
         uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
