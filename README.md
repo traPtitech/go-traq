@@ -1,16 +1,23 @@
 # go-traq
-[![Go Reference](https://pkg.go.dev/badge/github.com/traPtitech/go-traq.svg)](https://pkg.go.dev/github.com/traPtitech/go-traq)
-[![CI](https://github.com/traPtitech/go-traq/actions/workflows/main.yaml/badge.svg)](https://github.com/traPtitech/go-traq/actions/workflows/main.yaml)
+
+[![Go Reference][godoc-badge]][godoc] [![CI][ci-badge]][ci]
+
+[godoc]: https://pkg.go.dev/github.com/traPtitech/go-traq
+[godoc-badge]: https://pkg.go.dev/badge/github.com/traPtitech/go-traq.svg
+[ci]: https://github.com/traPtitech/go-traq/actions/workflows/main.yaml
+[ci-badge]: https://github.com/traPtitech/go-traq/actions/workflows/main.yaml/badge.svg
 
 A client library for the traQ API.
 
 This package is updated automatically.
 
 ## How to use
+
 ```shell
-$ go get github.com/traPtitech/go-traq
+go get github.com/traPtitech/go-traq
 ```
 
+<!-- markdownlint-disable MD010 -->
 ```go
 package main
 
@@ -34,3 +41,5 @@ func main() {
 	fmt.Printf("%#v", v)
 }
 ```
+
+See [client.md](./client.md) AND [docs/](./docs/) for more information.

@@ -19,10 +19,13 @@ if [ $NEEDS_FETCH = '1' ]; then
 fi
 
 # build
+mv README.md README.md.bak
 java -jar openapi-generator-cli.jar generate \
   -i https://raw.githubusercontent.com/traPtitech/traQ/master/docs/v3-api.yaml \
   -g go \
   -c config.yaml
+mv README.md client.md
+mv README.md.bak README.md
 
 go fmt ./...
 
