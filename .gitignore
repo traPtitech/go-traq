@@ -22,11 +22,5 @@ _testmain.go
 *.exe
 *.test
 *.prof
-
-/.vscode
-/.idea
-/.openapi-generator
 /api/
-/.travis.yml
-/git_push.sh
 /*.jar

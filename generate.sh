@@ -26,7 +26,11 @@ java -jar openapi-generator-cli.jar generate \
   -c config.yaml
 mv README.md client.md
 mv README.md.bak README.md
-rm -rf ./test
 
+# add files to gitignore
+echo '/api/' >> .gitignore
+echo '/*.jar' >> .gitignore
+
+# setup go
 go fmt ./...
 go mod tidy
