@@ -13,6 +13,8 @@ This package is updated automatically.
 
 ## How to use
 
+See [client.md](./client.md) and [docs/](./docs/) for more information.
+
 ```shell
 go get github.com/traPtitech/go-traq
 ```
@@ -41,5 +43,3 @@ func main() {
 	fmt.Printf("%#v", v)
 }
 ```
-
-See [client.md](./client.md) AND [docs/](./docs/) for more information.
