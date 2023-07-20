@@ -163,8 +163,6 @@ docs/WebRTCUserStateSessionsInner.md
 docs/Webhook.md
 docs/WebhookApi.md
 docs/WebrtcApi.md
-go.mod
-go.sum
 model_active_o_auth2_token.go
 model_activity_timeline_message.go
 model_bot.go
