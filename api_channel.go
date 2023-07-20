@@ -44,8 +44,8 @@ CreateChannel チャンネルを作成
 チャンネルを作成します。
 階層が6以上になるチャンネルは作成できません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ChannelApiCreateChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelApiCreateChannelRequest
 */
 func (a *ChannelApiService) CreateChannel(ctx context.Context) ChannelApiCreateChannelRequest {
 	return ChannelApiCreateChannelRequest{
@@ -55,7 +55,8 @@ func (a *ChannelApiService) CreateChannel(ctx context.Context) ChannelApiCreateC
 }
 
 // Execute executes the request
-//  @return Channel
+//
+//	@return Channel
 func (a *ChannelApiService) CreateChannelExecute(r ChannelApiCreateChannelRequest) (*Channel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -154,9 +155,9 @@ EditChannel チャンネル情報を変更
 変更には権限が必要です。
 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiEditChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiEditChannelRequest
 */
 func (a *ChannelApiService) EditChannel(ctx context.Context, channelId string) ChannelApiEditChannelRequest {
 	return ChannelApiEditChannelRequest{
@@ -240,7 +241,6 @@ type ChannelApiEditChannelSubscribersRequest struct {
 	patchChannelSubscribersRequest *PatchChannelSubscribersRequest
 }
 
-//
 func (r ChannelApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) ChannelApiEditChannelSubscribersRequest {
 	r.patchChannelSubscribersRequest = &patchChannelSubscribersRequest
 	return r
@@ -257,9 +257,9 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 リクエストに含めなかったユーザーの通知購読状態は変更しません。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiEditChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiEditChannelSubscribersRequest
 */
 func (a *ChannelApiService) EditChannelSubscribers(ctx context.Context, channelId string) ChannelApiEditChannelSubscribersRequest {
 	return ChannelApiEditChannelSubscribersRequest{
@@ -358,9 +358,9 @@ EditChannelTopic チャンネルトピックを編集
 指定したチャンネルのトピックを編集します。
 アーカイブされているチャンネルのトピックは編集できません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiEditChannelTopicRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiEditChannelTopicRequest
 */
 func (a *ChannelApiService) EditChannelTopic(ctx context.Context, channelId string) ChannelApiEditChannelTopicRequest {
 	return ChannelApiEditChannelTopicRequest{
@@ -452,9 +452,9 @@ GetChannel チャンネル情報を取得
 
 指定したチャンネルの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelRequest
 */
 func (a *ChannelApiService) GetChannel(ctx context.Context, channelId string) ChannelApiGetChannelRequest {
 	return ChannelApiGetChannelRequest{
@@ -465,7 +465,8 @@ func (a *ChannelApiService) GetChannel(ctx context.Context, channelId string) Ch
 }
 
 // Execute executes the request
-//  @return Channel
+//
+//	@return Channel
 func (a *ChannelApiService) GetChannelExecute(r ChannelApiGetChannelRequest) (*Channel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -555,9 +556,9 @@ GetChannelBots チャンネル参加中のBOTのリストを取得
 
 指定したチャンネルに参加しているBOTのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelBotsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelBotsRequest
 */
 func (a *ChannelApiService) GetChannelBots(ctx context.Context, channelId string) ChannelApiGetChannelBotsRequest {
 	return ChannelApiGetChannelBotsRequest{
@@ -568,7 +569,8 @@ func (a *ChannelApiService) GetChannelBots(ctx context.Context, channelId string
 }
 
 // Execute executes the request
-//  @return []BotUser
+//
+//	@return []BotUser
 func (a *ChannelApiService) GetChannelBotsExecute(r ChannelApiGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -700,9 +702,9 @@ GetChannelEvents チャンネルイベントのリストを取得
 
 指定したチャンネルのイベントリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelEventsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelEventsRequest
 */
 func (a *ChannelApiService) GetChannelEvents(ctx context.Context, channelId string) ChannelApiGetChannelEventsRequest {
 	return ChannelApiGetChannelEventsRequest{
@@ -713,7 +715,8 @@ func (a *ChannelApiService) GetChannelEvents(ctx context.Context, channelId stri
 }
 
 // Execute executes the request
-//  @return []ChannelEvent
+//
+//	@return []ChannelEvent
 func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEventsRequest) ([]ChannelEvent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -821,9 +824,9 @@ GetChannelPins チャンネルピンのリストを取得
 
 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelPinsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelPinsRequest
 */
 func (a *ChannelApiService) GetChannelPins(ctx context.Context, channelId string) ChannelApiGetChannelPinsRequest {
 	return ChannelApiGetChannelPinsRequest{
@@ -834,7 +837,8 @@ func (a *ChannelApiService) GetChannelPins(ctx context.Context, channelId string
 }
 
 // Execute executes the request
-//  @return []Pin
+//
+//	@return []Pin
 func (a *ChannelApiService) GetChannelPinsExecute(r ChannelApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -924,9 +928,9 @@ GetChannelStats チャンネル統計情報を取得
 
 指定したチャンネルの統計情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelStatsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelStatsRequest
 */
 func (a *ChannelApiService) GetChannelStats(ctx context.Context, channelId string) ChannelApiGetChannelStatsRequest {
 	return ChannelApiGetChannelStatsRequest{
@@ -937,7 +941,8 @@ func (a *ChannelApiService) GetChannelStats(ctx context.Context, channelId strin
 }
 
 // Execute executes the request
-//  @return ChannelStats
+//
+//	@return ChannelStats
 func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRequest) (*ChannelStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1027,9 +1032,9 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelSubscribersRequest
 */
 func (a *ChannelApiService) GetChannelSubscribers(ctx context.Context, channelId string) ChannelApiGetChannelSubscribersRequest {
 	return ChannelApiGetChannelSubscribersRequest{
@@ -1040,7 +1045,8 @@ func (a *ChannelApiService) GetChannelSubscribers(ctx context.Context, channelId
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *ChannelApiService) GetChannelSubscribersExecute(r ChannelApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1130,9 +1136,9 @@ GetChannelTopic チャンネルトピックを取得
 
 指定したチャンネルのトピックを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelTopicRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelTopicRequest
 */
 func (a *ChannelApiService) GetChannelTopic(ctx context.Context, channelId string) ChannelApiGetChannelTopicRequest {
 	return ChannelApiGetChannelTopicRequest{
@@ -1143,7 +1149,8 @@ func (a *ChannelApiService) GetChannelTopic(ctx context.Context, channelId strin
 }
 
 // Execute executes the request
-//  @return ChannelTopic
+//
+//	@return ChannelTopic
 func (a *ChannelApiService) GetChannelTopicExecute(r ChannelApiGetChannelTopicRequest) (*ChannelTopic, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1233,9 +1240,9 @@ GetChannelViewers チャンネル閲覧者リストを取得
 
 指定したチャンネルの閲覧者のリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetChannelViewersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelViewersRequest
 */
 func (a *ChannelApiService) GetChannelViewers(ctx context.Context, channelId string) ChannelApiGetChannelViewersRequest {
 	return ChannelApiGetChannelViewersRequest{
@@ -1246,7 +1253,8 @@ func (a *ChannelApiService) GetChannelViewers(ctx context.Context, channelId str
 }
 
 // Execute executes the request
-//  @return []ChannelViewer
+//
+//	@return []ChannelViewer
 func (a *ChannelApiService) GetChannelViewersExecute(r ChannelApiGetChannelViewersRequest) ([]ChannelViewer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1342,8 +1350,8 @@ GetChannels チャンネルリストを取得
 
 チャンネルのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ChannelApiGetChannelsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelApiGetChannelsRequest
 */
 func (a *ChannelApiService) GetChannels(ctx context.Context) ChannelApiGetChannelsRequest {
 	return ChannelApiGetChannelsRequest{
@@ -1353,7 +1361,8 @@ func (a *ChannelApiService) GetChannels(ctx context.Context) ChannelApiGetChanne
 }
 
 // Execute executes the request
-//  @return ChannelList
+//
+//	@return ChannelList
 func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (*ChannelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1487,9 +1496,9 @@ GetMessages チャンネルメッセージのリストを取得
 
 指定したチャンネルのメッセージのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiGetMessagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetMessagesRequest
 */
 func (a *ChannelApiService) GetMessages(ctx context.Context, channelId string) ChannelApiGetMessagesRequest {
 	return ChannelApiGetMessagesRequest{
@@ -1500,7 +1509,8 @@ func (a *ChannelApiService) GetMessages(ctx context.Context, channelId string) C
 }
 
 // Execute executes the request
-//  @return []Message
+//
+//	@return []Message
 func (a *ChannelApiService) GetMessagesExecute(r ChannelApiGetMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1609,9 +1619,9 @@ GetUserDMChannel DMチャンネル情報を取得
 指定したユーザーとのダイレクトメッセージチャンネルの情報を返します。
 ダイレクトメッセージチャンネルが存在しなかった場合、自動的に作成されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId
- @return ChannelApiGetUserDMChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ChannelApiGetUserDMChannelRequest
 */
 func (a *ChannelApiService) GetUserDMChannel(ctx context.Context, userId string) ChannelApiGetUserDMChannelRequest {
 	return ChannelApiGetUserDMChannelRequest{
@@ -1622,7 +1632,8 @@ func (a *ChannelApiService) GetUserDMChannel(ctx context.Context, userId string)
 }
 
 // Execute executes the request
-//  @return DMChannel
+//
+//	@return DMChannel
 func (a *ChannelApiService) GetUserDMChannelExecute(r ChannelApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1704,7 +1715,6 @@ type ChannelApiPostMessageRequest struct {
 	postMessageRequest *PostMessageRequest
 }
 
-//
 func (r ChannelApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) ChannelApiPostMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
@@ -1721,9 +1731,9 @@ PostMessage チャンネルにメッセージを投稿
 embedをtrueに指定すると、メッセージ埋め込みが自動で行われます。
 アーカイブされているチャンネルに投稿することはできません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiPostMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiPostMessageRequest
 */
 func (a *ChannelApiService) PostMessage(ctx context.Context, channelId string) ChannelApiPostMessageRequest {
 	return ChannelApiPostMessageRequest{
@@ -1734,7 +1744,8 @@ func (a *ChannelApiService) PostMessage(ctx context.Context, channelId string) C
 }
 
 // Execute executes the request
-//  @return Message
+//
+//	@return Message
 func (a *ChannelApiService) PostMessageExecute(r ChannelApiPostMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -1834,9 +1845,9 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 リクエストに含めなかったユーザーの通知購読状態はオフになります。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return ChannelApiSetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiSetChannelSubscribersRequest
 */
 func (a *ChannelApiService) SetChannelSubscribers(ctx context.Context, channelId string) ChannelApiSetChannelSubscribersRequest {
 	return ChannelApiSetChannelSubscribersRequest{

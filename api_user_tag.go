@@ -28,7 +28,6 @@ type UserTagApiAddMyUserTagRequest struct {
 	postUserTagRequest *PostUserTagRequest
 }
 
-//
 func (r UserTagApiAddMyUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiAddMyUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
@@ -43,8 +42,8 @@ AddMyUserTag 自分にタグを追加
 
 自分に新しくタグを追加します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserTagApiAddMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserTagApiAddMyUserTagRequest
 */
 func (a *UserTagApiService) AddMyUserTag(ctx context.Context) UserTagApiAddMyUserTagRequest {
 	return UserTagApiAddMyUserTagRequest{
@@ -54,7 +53,8 @@ func (a *UserTagApiService) AddMyUserTag(ctx context.Context) UserTagApiAddMyUse
 }
 
 // Execute executes the request
-//  @return UserTag
+//
+//	@return UserTag
 func (a *UserTagApiService) AddMyUserTagExecute(r UserTagApiAddMyUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -137,7 +137,6 @@ type UserTagApiAddUserTagRequest struct {
 	postUserTagRequest *PostUserTagRequest
 }
 
-//
 func (r UserTagApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserTagApiAddUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
@@ -153,9 +152,9 @@ AddUserTag ユーザーにタグを追加
 指定したユーザーに指定したタグを追加します。
 Webhookユーザーにタグを追加することは出来ません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserTagApiAddUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserTagApiAddUserTagRequest
 */
 func (a *UserTagApiService) AddUserTag(ctx context.Context, userId string) UserTagApiAddUserTagRequest {
 	return UserTagApiAddUserTagRequest{
@@ -166,7 +165,8 @@ func (a *UserTagApiService) AddUserTag(ctx context.Context, userId string) UserT
 }
 
 // Execute executes the request
-//  @return UserTag
+//
+//	@return UserTag
 func (a *UserTagApiService) AddUserTagExecute(r UserTagApiAddUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -250,7 +250,6 @@ type UserTagApiEditMyUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-//
 func (r UserTagApiEditMyUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiEditMyUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
@@ -265,9 +264,9 @@ EditMyUserTag 自分のタグを編集
 
 自分の指定したタグの状態を変更します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiEditMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiEditMyUserTagRequest
 */
 func (a *UserTagApiService) EditMyUserTag(ctx context.Context, tagId string) UserTagApiEditMyUserTagRequest {
 	return UserTagApiEditMyUserTagRequest{
@@ -352,7 +351,6 @@ type UserTagApiEditUserTagRequest struct {
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-//
 func (r UserTagApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserTagApiEditUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
@@ -368,10 +366,10 @@ EditUserTag ユーザーのタグを編集
 指定したユーザーの指定したタグの状態を変更します。
 他人の状態は変更できません。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserTagApiEditUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserTagApiEditUserTagRequest
 */
 func (a *UserTagApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserTagApiEditUserTagRequest {
 	return UserTagApiEditUserTagRequest{
@@ -464,8 +462,8 @@ GetMyUserTags 自分のタグリストを取得
 
 自分に付けられているタグの配列を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return UserTagApiGetMyUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return UserTagApiGetMyUserTagsRequest
 */
 func (a *UserTagApiService) GetMyUserTags(ctx context.Context) UserTagApiGetMyUserTagsRequest {
 	return UserTagApiGetMyUserTagsRequest{
@@ -475,7 +473,8 @@ func (a *UserTagApiService) GetMyUserTags(ctx context.Context) UserTagApiGetMyUs
 }
 
 // Execute executes the request
-//  @return []UserTag
+//
+//	@return []UserTag
 func (a *UserTagApiService) GetMyUserTagsExecute(r UserTagApiGetMyUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -564,9 +563,9 @@ GetTag タグ情報を取得
 
 指定したタグの情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiGetTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiGetTagRequest
 */
 func (a *UserTagApiService) GetTag(ctx context.Context, tagId string) UserTagApiGetTagRequest {
 	return UserTagApiGetTagRequest{
@@ -577,7 +576,8 @@ func (a *UserTagApiService) GetTag(ctx context.Context, tagId string) UserTagApi
 }
 
 // Execute executes the request
-//  @return Tag
+//
+//	@return Tag
 func (a *UserTagApiService) GetTagExecute(r UserTagApiGetTagRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -667,9 +667,9 @@ GetUserTags ユーザーのタグリストを取得
 
 指定したユーザーのタグリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @return UserTagApiGetUserTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@return UserTagApiGetUserTagsRequest
 */
 func (a *UserTagApiService) GetUserTags(ctx context.Context, userId string) UserTagApiGetUserTagsRequest {
 	return UserTagApiGetUserTagsRequest{
@@ -680,7 +680,8 @@ func (a *UserTagApiService) GetUserTags(ctx context.Context, userId string) User
 }
 
 // Execute executes the request
-//  @return []UserTag
+//
+//	@return []UserTag
 func (a *UserTagApiService) GetUserTagsExecute(r UserTagApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -770,9 +771,9 @@ RemoveMyUserTag 自分からタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tagId タグUUID
- @return UserTagApiRemoveMyUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tagId タグUUID
+	@return UserTagApiRemoveMyUserTagRequest
 */
 func (a *UserTagApiService) RemoveMyUserTag(ctx context.Context, tagId string) UserTagApiRemoveMyUserTagRequest {
 	return UserTagApiRemoveMyUserTagRequest{
@@ -863,10 +864,10 @@ RemoveUserTag ユーザーからタグを削除します
 
 既に存在しないタグを削除しようとした場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ユーザーUUID
- @param tagId タグUUID
- @return UserTagApiRemoveUserTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ユーザーUUID
+	@param tagId タグUUID
+	@return UserTagApiRemoveUserTagRequest
 */
 func (a *UserTagApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserTagApiRemoveUserTagRequest {
 	return UserTagApiRemoveUserTagRequest{

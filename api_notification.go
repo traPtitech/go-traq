@@ -29,7 +29,6 @@ type NotificationApiEditChannelSubscribersRequest struct {
 	patchChannelSubscribersRequest *PatchChannelSubscribersRequest
 }
 
-//
 func (r NotificationApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) NotificationApiEditChannelSubscribersRequest {
 	r.patchChannelSubscribersRequest = &patchChannelSubscribersRequest
 	return r
@@ -46,9 +45,9 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 リクエストに含めなかったユーザーの通知購読状態は変更しません。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiEditChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiEditChannelSubscribersRequest
 */
 func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, channelId string) NotificationApiEditChannelSubscribersRequest {
 	return NotificationApiEditChannelSubscribersRequest{
@@ -140,9 +139,9 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiGetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiGetChannelSubscribersRequest
 */
 func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, channelId string) NotificationApiGetChannelSubscribersRequest {
 	return NotificationApiGetChannelSubscribersRequest{
@@ -153,7 +152,8 @@ func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, chan
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -242,8 +242,8 @@ GetMyChannelSubscriptions 自分のチャンネル購読状態を取得
 
 自身のチャンネル購読状態を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiGetMyChannelSubscriptionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyChannelSubscriptionsRequest
 */
 func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) NotificationApiGetMyChannelSubscriptionsRequest {
 	return NotificationApiGetMyChannelSubscriptionsRequest{
@@ -253,7 +253,8 @@ func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) 
 }
 
 // Execute executes the request
-//  @return []UserSubscribeState
+//
+//	@return []UserSubscribeState
 func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r NotificationApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -341,8 +342,8 @@ GetMyUnreadChannels 未読チャンネルを取得
 
 自分が現在未読のチャンネルの未読情報を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiGetMyUnreadChannelsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyUnreadChannelsRequest
 */
 func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) NotificationApiGetMyUnreadChannelsRequest {
 	return NotificationApiGetMyUnreadChannelsRequest{
@@ -352,7 +353,8 @@ func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) Notifi
 }
 
 // Execute executes the request
-//  @return []UnreadChannel
+//
+//	@return []UnreadChannel
 func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -440,8 +442,8 @@ GetMyViewStates 自身のチャンネル閲覧状態一覧を取得
 
 自身のチャンネル閲覧状態一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiGetMyViewStatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiGetMyViewStatesRequest
 */
 func (a *NotificationApiService) GetMyViewStates(ctx context.Context) NotificationApiGetMyViewStatesRequest {
 	return NotificationApiGetMyViewStatesRequest{
@@ -451,7 +453,8 @@ func (a *NotificationApiService) GetMyViewStates(ctx context.Context) Notificati
 }
 
 // Execute executes the request
-//  @return []MyChannelViewState
+//
+//	@return []MyChannelViewState
 func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -540,9 +543,9 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiReadChannelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiReadChannelRequest
 */
 func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId string) NotificationApiReadChannelRequest {
 	return NotificationApiReadChannelRequest{
@@ -637,8 +640,8 @@ RegisterFCMDevice FCMデバイスを登録
 
 自身のFCMデバイスを登録します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiRegisterFCMDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiRegisterFCMDeviceRequest
 */
 func (a *NotificationApiService) RegisterFCMDevice(ctx context.Context) NotificationApiRegisterFCMDeviceRequest {
 	return NotificationApiRegisterFCMDeviceRequest{
@@ -734,9 +737,9 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiSetChannelSubscribeLevelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiSetChannelSubscribeLevelRequest
 */
 func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) NotificationApiSetChannelSubscribeLevelRequest {
 	return NotificationApiSetChannelSubscribeLevelRequest{
@@ -836,9 +839,9 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 リクエストに含めなかったユーザーの通知購読状態はオフになります。
 また、存在しないユーザーを指定した場合は無視されます。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return NotificationApiSetChannelSubscribersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return NotificationApiSetChannelSubscribersRequest
 */
 func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, channelId string) NotificationApiSetChannelSubscribersRequest {
 	return NotificationApiSetChannelSubscribersRequest{
@@ -1001,8 +1004,8 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `user_id`: 変更があったユーザーのId
 + `channel_id`: ユーザーの変更後の接続チャンネルのId
 + `sessions`: ユーザーの変更後の状態(配列)
-  + `state`: 状態
-  + `sessionId`: セッションID
+  - `state`: 状態
+  - `sessionId`: セッションID
 
 ### `USER_VIEWSTATE_CHANGED`
 ユーザーのチャンネルの閲覧状態が変化した
@@ -1010,9 +1013,9 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 対象: 変化したWSセッションを含めた、該当ユーザーのWSセッション全て
 
 + `view_states`: 変化したWSセッションを含めた、該当ユーザーの変更後の状態(配列)
-  + `key`: WSセッションの識別子
-  + `channel_id`: 閲覧しているチャンネルId
-  + `state`: 閲覧状態
+  - `key`: WSセッションの識別子
+  - `channel_id`: 閲覧しているチャンネルId
+  - `state`: 閲覧状態
 
 ### `USER_ONLINE`
 ユーザーがオンラインになった。
@@ -1094,9 +1097,9 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 
 + `id`: 変化したチャンネルのId
 + `viewers`: 変化後の閲覧者(配列)
-  + `userId`: ユーザーId
-  + `state`: 閲覧状態
-  + `updatedAt`: 閲覧状態の更新日時
+  - `userId`: ユーザーId
+  - `state`: 閲覧状態
+  - `updatedAt`: 閲覧状態の更新日時
 
 ### `CHANNEL_SUBSCRIBERS_CHANGED`
 チャンネルの購読者が変化した。
@@ -1249,8 +1252,8 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `folder_id`: メッセージが追加されたクリップフォルダーのId
 + `message_id`: クリップフォルダーに追加されたメッセージのId
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return NotificationApiWsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NotificationApiWsRequest
 */
 func (a *NotificationApiService) Ws(ctx context.Context) NotificationApiWsRequest {
 	return NotificationApiWsRequest{
