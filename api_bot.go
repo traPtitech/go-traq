@@ -39,9 +39,9 @@ ActivateBot BOTをアクティベート
 指定したBOTを有効化します。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiActivateBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiActivateBotRequest
 */
 func (a *BotApiService) ActivateBot(ctx context.Context, botId string) BotApiActivateBotRequest {
 	return BotApiActivateBotRequest{
@@ -139,9 +139,9 @@ ChangeBotIcon BOTのアイコン画像を変更
 指定したBOTのアイコン画像を変更を変更します。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiChangeBotIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiChangeBotIconRequest
 */
 func (a *BotApiService) ChangeBotIcon(ctx context.Context, botId string) BotApiChangeBotIconRequest {
 	return BotApiChangeBotIconRequest{
@@ -282,8 +282,8 @@ TextMessageとして各種イベントが`type`、`reqId`、`body`を持つJSON�
 
 `{"type":"ERROR","body":"message"}`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BotApiConnectBotWSRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BotApiConnectBotWSRequest
 */
 func (a *BotApiService) ConnectBotWS(ctx context.Context) BotApiConnectBotWSRequest {
 	return BotApiConnectBotWSRequest{
@@ -378,8 +378,8 @@ BOTを作成します。
 作成後に購読イベントの設定を行う必要があります。
 さらにHTTP Modeの場合はアクティベーションを行う必要があります。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BotApiCreateBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BotApiCreateBotRequest
 */
 func (a *BotApiService) CreateBot(ctx context.Context) BotApiCreateBotRequest {
 	return BotApiCreateBotRequest{
@@ -389,8 +389,7 @@ func (a *BotApiService) CreateBot(ctx context.Context) BotApiCreateBotRequest {
 }
 
 // Execute executes the request
-//
-//	@return BotDetail
+//  @return BotDetail
 func (a *BotApiService) CreateBotExecute(r BotApiCreateBotRequest) (*BotDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
@@ -482,9 +481,9 @@ DeleteBot BOTを削除
 指定したBOTを削除します。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiDeleteBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiDeleteBotRequest
 */
 func (a *BotApiService) DeleteBot(ctx context.Context, botId string) BotApiDeleteBotRequest {
 	return BotApiDeleteBotRequest{
@@ -566,6 +565,7 @@ type BotApiEditBotRequest struct {
 	patchBotRequest *PatchBotRequest
 }
 
+//
 func (r BotApiEditBotRequest) PatchBotRequest(patchBotRequest PatchBotRequest) BotApiEditBotRequest {
 	r.patchBotRequest = &patchBotRequest
 	return r
@@ -582,9 +582,9 @@ EditBot BOT情報を変更
 対象のBOTの管理権限が必要です。
 BOT開発者UUIDを変更した場合は、変更先ユーザーにBOT管理権限が移譲され、自分自身は権限を失います。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiEditBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiEditBotRequest
 */
 func (a *BotApiService) EditBot(ctx context.Context, botId string) BotApiEditBotRequest {
 	return BotApiEditBotRequest{
@@ -684,9 +684,9 @@ GetBot BOT情報を取得
 指定したBOTのBOT情報を取得します。
 BOT詳細情報を取得する場合は、対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiGetBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiGetBotRequest
 */
 func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiGetBotRequest {
 	return BotApiGetBotRequest{
@@ -697,8 +697,7 @@ func (a *BotApiService) GetBot(ctx context.Context, botId string) BotApiGetBotRe
 }
 
 // Execute executes the request
-//
-//	@return GetBot200Response
+//  @return GetBot200Response
 func (a *BotApiService) GetBotExecute(r BotApiGetBotRequest) (*GetBot200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -791,9 +790,9 @@ GetBotIcon BOTのアイコン画像を取得
 
 指定したBOTのアイコン画像を取得を取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiGetBotIconRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiGetBotIconRequest
 */
 func (a *BotApiService) GetBotIcon(ctx context.Context, botId string) BotApiGetBotIconRequest {
 	return BotApiGetBotIconRequest{
@@ -804,8 +803,7 @@ func (a *BotApiService) GetBotIcon(ctx context.Context, botId string) BotApiGetB
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *BotApiService) GetBotIconExecute(r BotApiGetBotIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -910,9 +908,9 @@ GetBotLogs BOTのイベントログを取得
 指定したBOTのイベントログを取得します。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiGetBotLogsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiGetBotLogsRequest
 */
 func (a *BotApiService) GetBotLogs(ctx context.Context, botId string) BotApiGetBotLogsRequest {
 	return BotApiGetBotLogsRequest{
@@ -923,8 +921,7 @@ func (a *BotApiService) GetBotLogs(ctx context.Context, botId string) BotApiGetB
 }
 
 // Execute executes the request
-//
-//	@return []BotEventLog
+//  @return []BotEventLog
 func (a *BotApiService) GetBotLogsExecute(r BotApiGetBotLogsRequest) ([]BotEventLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1027,8 +1024,8 @@ GetBots BOTリストを取得
 BOT情報のリストを取得します。
 allを指定しない場合、自分が開発者のBOTのみを返します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BotApiGetBotsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BotApiGetBotsRequest
 */
 func (a *BotApiService) GetBots(ctx context.Context) BotApiGetBotsRequest {
 	return BotApiGetBotsRequest{
@@ -1038,8 +1035,7 @@ func (a *BotApiService) GetBots(ctx context.Context) BotApiGetBotsRequest {
 }
 
 // Execute executes the request
-//
-//	@return []Bot
+//  @return []Bot
 func (a *BotApiService) GetBotsExecute(r BotApiGetBotsRequest) ([]Bot, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1131,9 +1127,9 @@ GetChannelBots チャンネル参加中のBOTのリストを取得
 
 指定したチャンネルに参加しているBOTのリストを取得します。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param channelId チャンネルUUID
-	@return BotApiGetChannelBotsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param channelId チャンネルUUID
+ @return BotApiGetChannelBotsRequest
 */
 func (a *BotApiService) GetChannelBots(ctx context.Context, channelId string) BotApiGetChannelBotsRequest {
 	return BotApiGetChannelBotsRequest{
@@ -1144,8 +1140,7 @@ func (a *BotApiService) GetChannelBots(ctx context.Context, channelId string) Bo
 }
 
 // Execute executes the request
-//
-//	@return []BotUser
+//  @return []BotUser
 func (a *BotApiService) GetChannelBotsExecute(r BotApiGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -1235,9 +1230,9 @@ InactivateBot BOTをインアクティベート
 
 指定したBOTを無効化します。対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiInactivateBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiInactivateBotRequest
 */
 func (a *BotApiService) InactivateBot(ctx context.Context, botId string) BotApiInactivateBotRequest {
 	return BotApiInactivateBotRequest{
@@ -1335,9 +1330,9 @@ LetBotJoinChannel BOTをチャンネルに参加させる
 チャンネルに参加したBOTは、そのチャンネルの各種イベントを受け取るようになります。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiLetBotJoinChannelRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiLetBotJoinChannelRequest
 */
 func (a *BotApiService) LetBotJoinChannel(ctx context.Context, botId string) BotApiLetBotJoinChannelRequest {
 	return BotApiLetBotJoinChannelRequest{
@@ -1436,9 +1431,9 @@ LetBotLeaveChannel BOTをチャンネルから退出させる
 指定したBOTを指定したチャンネルから退出させます。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiLetBotLeaveChannelRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiLetBotLeaveChannelRequest
 */
 func (a *BotApiService) LetBotLeaveChannel(ctx context.Context, botId string) BotApiLetBotLeaveChannelRequest {
 	return BotApiLetBotLeaveChannelRequest{
@@ -1531,9 +1526,9 @@ ReissueBot BOTのトークンを再発行
 指定したBOTの現在の各種トークンを無効化し、再発行を行います。
 対象のBOTの管理権限が必要です。
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param botId BOTUUID
-	@return BotApiReissueBotRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param botId BOTUUID
+ @return BotApiReissueBotRequest
 */
 func (a *BotApiService) ReissueBot(ctx context.Context, botId string) BotApiReissueBotRequest {
 	return BotApiReissueBotRequest{
@@ -1544,8 +1539,7 @@ func (a *BotApiService) ReissueBot(ctx context.Context, botId string) BotApiReis
 }
 
 // Execute executes the request
-//
-//	@return BotTokens
+//  @return BotTokens
 func (a *BotApiService) ReissueBotExecute(r BotApiReissueBotRequest) (*BotTokens, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
