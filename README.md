@@ -1,11 +1,13 @@
 # go-traq
 
-[![Go Reference][godoc-badge]][godoc] [![CI][ci-badge]][ci]
+[![Go Reference][godoc-badge]][godoc] [![CI][ci-badge]][ci] [![Update][update-badge]][update]
 
 [godoc]: https://pkg.go.dev/github.com/traPtitech/go-traq
 [godoc-badge]: https://pkg.go.dev/badge/github.com/traPtitech/go-traq.svg
 [ci]: https://github.com/traPtitech/go-traq/actions/workflows/main.yaml
 [ci-badge]: https://github.com/traPtitech/go-traq/actions/workflows/main.yaml/badge.svg
+[update]: https://github.com/traPtitech/go-traq/actions/workflows/release.yaml
+[update-badge]: https://github.com/traPtitech/go-traq/actions/workflows/release.yaml/badge.svg
 
 A client library for the traQ API.
 
