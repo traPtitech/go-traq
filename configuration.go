@@ -103,7 +103,7 @@ func NewConfiguration() *Configuration {
 				Description: "production",
 			},
 			{
-				URL:         "https://traq-s-dev.tokyotech.org/api/v3",
+				URL:         "https://q-dev.trapti.tech/api/v3",
 				Description: "staging",
 			},
 			{
