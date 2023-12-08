@@ -1056,7 +1056,7 @@ Name | Type | Description  | Notes
 
 ## GetStamps
 
-> []Stamp GetStamps(ctx).IncludeUnicode(includeUnicode).Type_(type_).Execute()
+> []StampWithThumbnail GetStamps(ctx).IncludeUnicode(includeUnicode).Type_(type_).Execute()
 
 スタンプリストを取得
 
@@ -1085,7 +1085,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStamps``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetStamps`: []Stamp
+    // response from `GetStamps`: []StampWithThumbnail
     fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStamps`: %v\n", resp)
 }
 ```
@@ -1106,7 +1106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Stamp**](Stamp.md)
+[**[]StampWithThumbnail**](StampWithThumbnail.md)
 
 ### Authorization
 

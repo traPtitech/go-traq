@@ -134,6 +134,7 @@ docs/StampApi.md
 docs/StampHistoryEntry.md
 docs/StampPalette.md
 docs/StampStats.md
+docs/StampWithThumbnail.md
 docs/StarApi.md
 docs/SubscribersChangedEvent.md
 docs/Tag.md
@@ -260,6 +261,7 @@ model_stamp.go
 model_stamp_history_entry.go
 model_stamp_palette.go
 model_stamp_stats.go
+model_stamp_with_thumbnail.go
 model_subscribers_changed_event.go
 model_tag.go
 model_thumbnail_info.go

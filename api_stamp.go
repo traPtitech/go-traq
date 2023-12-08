@@ -1623,7 +1623,7 @@ func (r StampApiGetStampsRequest) Type_(type_ string) StampApiGetStampsRequest {
 	return r
 }
 
-func (r StampApiGetStampsRequest) Execute() ([]Stamp, *http.Response, error) {
+func (r StampApiGetStampsRequest) Execute() ([]StampWithThumbnail, *http.Response, error) {
 	return r.ApiService.GetStampsExecute(r)
 }
 
@@ -1643,13 +1643,13 @@ func (a *StampApiService) GetStamps(ctx context.Context) StampApiGetStampsReques
 }
 
 // Execute executes the request
-//  @return []Stamp
-func (a *StampApiService) GetStampsExecute(r StampApiGetStampsRequest) ([]Stamp, *http.Response, error) {
+//  @return []StampWithThumbnail
+func (a *StampApiService) GetStampsExecute(r StampApiGetStampsRequest) ([]StampWithThumbnail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Stamp
+		localVarReturnValue []StampWithThumbnail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StampApiService.GetStamps")
