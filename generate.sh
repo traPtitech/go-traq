@@ -18,7 +18,8 @@ mv README.md client.md
 mv README.md.bak README.md
 
 # improve time format
-sed -i .bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g client.go
+docker run --rm -it -v $(pwd):/work --workdir /work ubuntu:latest \
+  sed -i s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g client.go
 
 # setup go
 go fmt ./...
