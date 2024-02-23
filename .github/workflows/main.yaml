@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version-file: ./go.mod
-          cache: go
+          cache: true
       - run: go run ./replaceTimeFormat/replaceTimeFormat.go
   build:
     runs-on: ubuntu-latest
