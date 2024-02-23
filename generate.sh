@@ -6,7 +6,7 @@ OPENAPI_GENERATOR_VERSION=$(cat ./.openapi-generator/VERSION)
 
 # clean
 mv README.md README.md.bak
-cat ./.openapi-generator/FILES | xargs --no-run-if-empty rm -f
+cat ./.openapi-generator/FILES | xargs -r rm -f
 
 # build
 docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cli:v$OPENAPI_GENERATOR_VERSION generate \
