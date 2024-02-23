@@ -17,6 +17,9 @@ docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cl
 mv README.md client.md
 mv README.md.bak README.md
 
+# improve time format
+sed -i .bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g client.go
+
 # setup go
 go fmt ./...
 go mod tidy

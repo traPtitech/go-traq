@@ -7,15 +7,6 @@ on:
   pull_request:
 
 jobs:
-  changeTimeFormat:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
-        with:
-          go-version-file: ./go.mod
-          cache: true
-      - run: go run ./replaceTimeFormat/replaceTimeFormat.go
   build:
     runs-on: ubuntu-latest
     steps:
