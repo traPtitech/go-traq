@@ -17,9 +17,9 @@ docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cl
 mv README.md client.md
 mv README.md.bak README.md
 
-# improve time format
-docker run --rm -it -v $(pwd):/work --workdir /work ubuntu:latest \
-  sed -i s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g client.go
+# improve time format from second to nanosec
+sed -i .bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
+rm ./client.go.bak
 
 # setup go
 go fmt ./...
