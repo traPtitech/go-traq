@@ -18,7 +18,7 @@ mv README.md client.md
 mv README.md.bak README.md
 
 # improve time format from second to nanosec
-sed -i .bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
+sed -i.bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
 rm ./client.go.bak
 
 # setup go
