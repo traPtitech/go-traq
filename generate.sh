@@ -17,7 +17,8 @@ docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cl
 mv README.md client.md
 mv README.md.bak README.md
 
-# improve time format from second to nanosec
+# improve time format from second to nanosec for traQgazer
+# https://github.com/traP-jp/traQ-gazer/issues/138
 sed -i.bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
 rm ./client.go.bak
 
