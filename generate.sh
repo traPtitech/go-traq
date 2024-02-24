@@ -19,6 +19,7 @@ mv README.md.bak README.md
 
 # improve time format from second to nanosec for traQgazer
 # https://github.com/traP-jp/traQ-gazer/issues/138
+# changed at https://github.com/traPtitech/go-traq/pull/8
 sed -i.bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
 rm ./client.go.bak
 
