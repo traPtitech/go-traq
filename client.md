@@ -168,6 +168,7 @@ Class | Method | HTTP request | Description
 *MeApi* | [**GetMyUnreadChannels**](docs/MeApi.md#getmyunreadchannels) | **Get** /users/me/unread | 未読チャンネルを取得
 *MeApi* | [**GetMyUserTags**](docs/MeApi.md#getmyusertags) | **Get** /users/me/tags | 自分のタグリストを取得
 *MeApi* | [**GetMyViewStates**](docs/MeApi.md#getmyviewstates) | **Get** /users/me/view-states | 自身のチャンネル閲覧状態一覧を取得
+*MeApi* | [**GetOIDCUserInfo**](docs/MeApi.md#getoidcuserinfo) | **Get** /users/me/oidc | 自分のユーザー詳細を取得 (OIDC UserInfo)
 *MeApi* | [**GetUserSettings**](docs/MeApi.md#getusersettings) | **Get** /users/me/settings | ユーザー設定を取得
 *MeApi* | [**LinkExternalAccount**](docs/MeApi.md#linkexternalaccount) | **Post** /users/me/ex-accounts/link | 外部ログインアカウントを紐付ける
 *MeApi* | [**ReadChannel**](docs/MeApi.md#readchannel) | **Delete** /users/me/unread/{channelId} | チャンネルを既読にする
@@ -329,6 +330,8 @@ Class | Method | HTTP request | Description
  - [OAuth2ResponseType](docs/OAuth2ResponseType.md)
  - [OAuth2Scope](docs/OAuth2Scope.md)
  - [OAuth2Token](docs/OAuth2Token.md)
+ - [OIDCTraqUserInfo](docs/OIDCTraqUserInfo.md)
+ - [OIDCUserInfo](docs/OIDCUserInfo.md)
  - [Ogp](docs/Ogp.md)
  - [OgpMedia](docs/OgpMedia.md)
  - [ParentChangedEvent](docs/ParentChangedEvent.md)

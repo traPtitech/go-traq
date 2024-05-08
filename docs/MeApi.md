@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**GetMyUnreadChannels**](MeApi.md#GetMyUnreadChannels) | **Get** /users/me/unread | 未読チャンネルを取得
 [**GetMyUserTags**](MeApi.md#GetMyUserTags) | **Get** /users/me/tags | 自分のタグリストを取得
 [**GetMyViewStates**](MeApi.md#GetMyViewStates) | **Get** /users/me/view-states | 自身のチャンネル閲覧状態一覧を取得
+[**GetOIDCUserInfo**](MeApi.md#GetOIDCUserInfo) | **Get** /users/me/oidc | 自分のユーザー詳細を取得 (OIDC UserInfo)
 [**GetUserSettings**](MeApi.md#GetUserSettings) | **Get** /users/me/settings | ユーザー設定を取得
 [**LinkExternalAccount**](MeApi.md#LinkExternalAccount) | **Post** /users/me/ex-accounts/link | 外部ログインアカウントを紐付ける
 [**ReadChannel**](MeApi.md#ReadChannel) | **Delete** /users/me/unread/{channelId} | チャンネルを既読にする
@@ -1281,6 +1282,67 @@ Other parameters are passed through a pointer to a apiGetMyViewStatesRequest str
 ### Return type
 
 [**[]MyChannelViewState**](MyChannelViewState.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOIDCUserInfo
+
+> OIDCUserInfo GetOIDCUserInfo(ctx).Execute()
+
+自分のユーザー詳細を取得 (OIDC UserInfo)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
+    resp, r, err := apiClient.MeApi.GetOIDCUserInfo(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `MeApi.GetOIDCUserInfo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOIDCUserInfo`: OIDCUserInfo
+    fmt.Fprintf(os.Stdout, "Response from `MeApi.GetOIDCUserInfo`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOIDCUserInfoRequest struct via the builder pattern
+
+
+### Return type
+
+[**OIDCUserInfo**](OIDCUserInfo.md)
 
 ### Authorization
 
