@@ -3,6 +3,10 @@
 ## Enum
 
 
+* `OPENID` (value: `"openid"`)
+
+* `PROFILE` (value: `"profile"`)
+
 * `READ` (value: `"read"`)
 
 * `WRITE` (value: `"write"`)

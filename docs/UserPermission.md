@@ -117,6 +117,8 @@
 
 * `GetMe` (value: `"get_me"`)
 
+* `GetOIDCUserInfo` (value: `"get_oidc_userinfo"`)
+
 * `EditMe` (value: `"edit_me"`)
 
 * `ChangeMyIcon` (value: `"change_my_icon"`)

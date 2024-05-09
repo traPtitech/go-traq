@@ -40,7 +40,7 @@ import (
 )
 
 func main() {
-    postClientRequest := *traq.NewPostClientRequest("Name_example", "CallbackUrl_example", []traq.OAuth2Scope{traq.OAuth2Scope("read")}, "Description_example") // PostClientRequest |  (optional)
+    postClientRequest := *traq.NewPostClientRequest("Name_example", "CallbackUrl_example", []traq.OAuth2Scope{traq.OAuth2Scope("openid")}, "Description_example") // PostClientRequest |  (optional)
 
     configuration := traq.NewConfiguration()
     apiClient := traq.NewAPIClient(configuration)

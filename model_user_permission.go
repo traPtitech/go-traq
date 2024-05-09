@@ -77,6 +77,7 @@ const (
 	USERPERMISSION_GetUser                   UserPermission = "get_user"
 	USERPERMISSION_RegisterUser              UserPermission = "register_user"
 	USERPERMISSION_GetMe                     UserPermission = "get_me"
+	USERPERMISSION_GetOIDCUserInfo           UserPermission = "get_oidc_userinfo"
 	USERPERMISSION_EditMe                    UserPermission = "edit_me"
 	USERPERMISSION_ChangeMyIcon              UserPermission = "change_my_icon"
 	USERPERMISSION_ChangeMyPassword          UserPermission = "change_my_password"
@@ -162,6 +163,7 @@ var AllowedUserPermissionEnumValues = []UserPermission{
 	"get_user",
 	"register_user",
 	"get_me",
+	"get_oidc_userinfo",
 	"edit_me",
 	"change_my_icon",
 	"change_my_password",

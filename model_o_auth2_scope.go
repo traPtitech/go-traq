@@ -20,6 +20,8 @@ type OAuth2Scope string
 
 // List of OAuth2Scope
 const (
+	OAUTH2SCOPE_OPENID     OAuth2Scope = "openid"
+	OAUTH2SCOPE_PROFILE    OAuth2Scope = "profile"
 	OAUTH2SCOPE_READ       OAuth2Scope = "read"
 	OAUTH2SCOPE_WRITE      OAuth2Scope = "write"
 	OAUTH2SCOPE_MANAGE_BOT OAuth2Scope = "manage_bot"
@@ -27,6 +29,8 @@ const (
 
 // All allowed values of OAuth2Scope enum
 var AllowedOAuth2ScopeEnumValues = []OAuth2Scope{
+	"openid",
+	"profile",
 	"read",
 	"write",
 	"manage_bot",
