@@ -36,8 +36,8 @@ GetMyExternalAccounts 外部ログインアカウント一覧を取得
 
 自分に紐付けられている外部ログインアカウント一覧を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiGetMyExternalAccountsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiGetMyExternalAccountsRequest
 */
 func (a *AuthenticationApiService) GetMyExternalAccounts(ctx context.Context) AuthenticationApiGetMyExternalAccountsRequest {
 	return AuthenticationApiGetMyExternalAccountsRequest{
@@ -47,7 +47,8 @@ func (a *AuthenticationApiService) GetMyExternalAccounts(ctx context.Context) Au
 }
 
 // Execute executes the request
-//  @return []ExternalProviderUser
+//
+//	@return []ExternalProviderUser
 func (a *AuthenticationApiService) GetMyExternalAccountsExecute(r AuthenticationApiGetMyExternalAccountsRequest) ([]ExternalProviderUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -135,8 +136,8 @@ GetMySessions 自分のログインセッションリストを取得
 
 自分のログインセッションのリストを取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiGetMySessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiGetMySessionsRequest
 */
 func (a *AuthenticationApiService) GetMySessions(ctx context.Context) AuthenticationApiGetMySessionsRequest {
 	return AuthenticationApiGetMySessionsRequest{
@@ -146,7 +147,8 @@ func (a *AuthenticationApiService) GetMySessions(ctx context.Context) Authentica
 }
 
 // Execute executes the request
-//  @return []LoginSession
+//
+//	@return []LoginSession
 func (a *AuthenticationApiService) GetMySessionsExecute(r AuthenticationApiGetMySessionsRequest) ([]LoginSession, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -242,8 +244,8 @@ LinkExternalAccount 外部ログインアカウントを紐付ける
 指定した`providerName`がサーバー側で有効である必要があります。
 リクエストが受理された場合、外部サービスの認証画面にリダイレクトされ、認証される必要があります。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiLinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLinkExternalAccountRequest
 */
 func (a *AuthenticationApiService) LinkExternalAccount(ctx context.Context) AuthenticationApiLinkExternalAccountRequest {
 	return AuthenticationApiLinkExternalAccountRequest{
@@ -345,8 +347,8 @@ Login ログイン
 
 ログインします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiLoginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLoginRequest
 */
 func (a *AuthenticationApiService) Login(ctx context.Context) AuthenticationApiLoginRequest {
 	return AuthenticationApiLoginRequest{
@@ -452,8 +454,8 @@ Logout ログアウト
 
 ログアウトします。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiLogoutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiLogoutRequest
 */
 func (a *AuthenticationApiService) Logout(ctx context.Context) AuthenticationApiLogoutRequest {
 	return AuthenticationApiLogoutRequest{
@@ -548,9 +550,9 @@ RevokeMySession セッションを無効化
 指定した自分のセッションを無効化(ログアウト)します。
 既に存在しない・無効化されているセッションを指定した場合も`204`を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sessionId セッションUUID
- @return AuthenticationApiRevokeMySessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sessionId セッションUUID
+	@return AuthenticationApiRevokeMySessionRequest
 */
 func (a *AuthenticationApiService) RevokeMySession(ctx context.Context, sessionId string) AuthenticationApiRevokeMySessionRequest {
 	return AuthenticationApiRevokeMySessionRequest{
@@ -645,8 +647,8 @@ UnlinkExternalAccount 外部ログインアカウントの紐付けを解除
 
 自分に紐付けられている外部ログインアカウントの紐付けを解除します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthenticationApiUnlinkExternalAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AuthenticationApiUnlinkExternalAccountRequest
 */
 func (a *AuthenticationApiService) UnlinkExternalAccount(ctx context.Context) AuthenticationApiUnlinkExternalAccountRequest {
 	return AuthenticationApiUnlinkExternalAccountRequest{

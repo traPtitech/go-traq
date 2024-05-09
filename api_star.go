@@ -44,8 +44,8 @@ AddMyStar チャンネルをスターに追加
 スター済みのチャンネルIDを指定した場合、204を返します。
 不正なチャンネルIDを指定した場合、400を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StarApiAddMyStarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StarApiAddMyStarRequest
 */
 func (a *StarApiService) AddMyStar(ctx context.Context) StarApiAddMyStarRequest {
 	return StarApiAddMyStarRequest{
@@ -134,8 +134,8 @@ GetMyStars スターチャンネルリストを取得
 
 自分がスターしているチャンネルのUUIDの配列を取得します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return StarApiGetMyStarsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return StarApiGetMyStarsRequest
 */
 func (a *StarApiService) GetMyStars(ctx context.Context) StarApiGetMyStarsRequest {
 	return StarApiGetMyStarsRequest{
@@ -145,7 +145,8 @@ func (a *StarApiService) GetMyStars(ctx context.Context) StarApiGetMyStarsReques
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *StarApiService) GetMyStarsExecute(r StarApiGetMyStarsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
@@ -234,9 +235,9 @@ RemoveMyStar チャンネルをスターから削除します
 
 既にスターから削除されているチャンネルを指定した場合は204を返します。
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param channelId チャンネルUUID
- @return StarApiRemoveMyStarRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return StarApiRemoveMyStarRequest
 */
 func (a *StarApiService) RemoveMyStar(ctx context.Context, channelId string) StarApiRemoveMyStarRequest {
 	return StarApiRemoveMyStarRequest{
