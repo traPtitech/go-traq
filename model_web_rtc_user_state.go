@@ -24,14 +24,14 @@ type WebRTCUserState struct {
 	// チャンネルUUID
 	ChannelId string `json:"channelId"`
 	// セッションの配列
-	Sessions []WebRTCUserStateSessionsInner `json:"sessions"`
+	Sessions []Session `json:"sessions"`
 }
 
 // NewWebRTCUserState instantiates a new WebRTCUserState object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebRTCUserState(userId string, channelId string, sessions []WebRTCUserStateSessionsInner) *WebRTCUserState {
+func NewWebRTCUserState(userId string, channelId string, sessions []Session) *WebRTCUserState {
 	this := WebRTCUserState{}
 	this.UserId = userId
 	this.ChannelId = channelId
@@ -96,9 +96,9 @@ func (o *WebRTCUserState) SetChannelId(v string) {
 }
 
 // GetSessions returns the Sessions field value
-func (o *WebRTCUserState) GetSessions() []WebRTCUserStateSessionsInner {
+func (o *WebRTCUserState) GetSessions() []Session {
 	if o == nil {
-		var ret []WebRTCUserStateSessionsInner
+		var ret []Session
 		return ret
 	}
 
@@ -107,7 +107,7 @@ func (o *WebRTCUserState) GetSessions() []WebRTCUserStateSessionsInner {
 
 // GetSessionsOk returns a tuple with the Sessions field value
 // and a boolean to check if the value has been set.
-func (o *WebRTCUserState) GetSessionsOk() ([]WebRTCUserStateSessionsInner, bool) {
+func (o *WebRTCUserState) GetSessionsOk() ([]Session, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -115,7 +115,7 @@ func (o *WebRTCUserState) GetSessionsOk() ([]WebRTCUserStateSessionsInner, bool)
 }
 
 // SetSessions sets field value
-func (o *WebRTCUserState) SetSessions(v []WebRTCUserStateSessionsInner) {
+func (o *WebRTCUserState) SetSessions(v []Session) {
 	o.Sessions = v
 }
 

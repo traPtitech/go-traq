@@ -378,6 +378,7 @@ Class | Method | HTTP request | Description
  - [PutMyPasswordRequest](docs/PutMyPasswordRequest.md)
  - [PutNotifyCitationRequest](docs/PutNotifyCitationRequest.md)
  - [PutUserPasswordRequest](docs/PutUserPasswordRequest.md)
+ - [Session](docs/Session.md)
  - [Stamp](docs/Stamp.md)
  - [StampHistoryEntry](docs/StampHistoryEntry.md)
  - [StampPalette](docs/StampPalette.md)
@@ -405,7 +406,6 @@ Class | Method | HTTP request | Description
  - [VisibilityChangedEvent](docs/VisibilityChangedEvent.md)
  - [WebRTCAuthenticateResult](docs/WebRTCAuthenticateResult.md)
  - [WebRTCUserState](docs/WebRTCUserState.md)
- - [WebRTCUserStateSessionsInner](docs/WebRTCUserStateSessionsInner.md)
  - [Webhook](docs/Webhook.md)
 
 

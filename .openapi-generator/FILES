@@ -131,6 +131,7 @@ docs/PutChannelTopicRequest.md
 docs/PutMyPasswordRequest.md
 docs/PutNotifyCitationRequest.md
 docs/PutUserPasswordRequest.md
+docs/Session.md
 docs/Stamp.md
 docs/StampApi.md
 docs/StampHistoryEntry.md
@@ -162,7 +163,6 @@ docs/VersionFlags.md
 docs/VisibilityChangedEvent.md
 docs/WebRTCAuthenticateResult.md
 docs/WebRTCUserState.md
-docs/WebRTCUserStateSessionsInner.md
 docs/Webhook.md
 docs/WebhookApi.md
 docs/WebrtcApi.md
@@ -261,6 +261,7 @@ model_put_channel_topic_request.go
 model_put_my_password_request.go
 model_put_notify_citation_request.go
 model_put_user_password_request.go
+model_session.go
 model_stamp.go
 model_stamp_history_entry.go
 model_stamp_palette.go
@@ -288,7 +289,6 @@ model_version_flags.go
 model_visibility_changed_event.go
 model_web_rtc_authenticate_result.go
 model_web_rtc_user_state.go
-model_web_rtc_user_state_sessions_inner.go
 model_webhook.go
 response.go
 utils.go
