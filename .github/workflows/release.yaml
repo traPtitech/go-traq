@@ -42,5 +42,5 @@ jobs:
           git config user.email "actions@github.com"
 
           git add .
-          git commit -m "CI: regenerate [ci skip]" --author="ras0q <ras0q@users.noreply.github.com>"
+          git commit -m "CI: regenerate [ci skip]" --author .
           git push origin master
