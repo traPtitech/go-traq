@@ -1281,6 +1281,98 @@ func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type Oauth2ApiRevokeClientTokensRequest struct {
+	ctx        context.Context
+	ApiService *Oauth2ApiService
+	clientId   string
+}
+
+func (r Oauth2ApiRevokeClientTokensRequest) Execute() (*http.Response, error) {
+	return r.ApiService.RevokeClientTokensExecute(r)
+}
+
+/*
+RevokeClientTokens OAuthクライアントのトークンを削除
+
+自分が許可している指定したOAuthクライアントのアクセストークンを全てRevokeします。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId OAuth2クライアントUUID
+	@return Oauth2ApiRevokeClientTokensRequest
+*/
+func (a *Oauth2ApiService) RevokeClientTokens(ctx context.Context, clientId string) Oauth2ApiRevokeClientTokensRequest {
+	return Oauth2ApiRevokeClientTokensRequest{
+		ApiService: a,
+		ctx:        ctx,
+		clientId:   clientId,
+	}
+}
+
+// Execute executes the request
+func (a *Oauth2ApiService) RevokeClientTokensExecute(r Oauth2ApiRevokeClientTokensRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.RevokeClientTokens")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/clients/{clientId}/tokens"
+	localVarPath = strings.Replace(localVarPath, "{"+"clientId"+"}", url.PathEscape(parameterValueToString(r.clientId, "clientId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type Oauth2ApiRevokeMyTokenRequest struct {
 	ctx        context.Context
 	ApiService *Oauth2ApiService

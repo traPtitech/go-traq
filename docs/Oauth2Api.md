@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**PostOAuth2Authorize**](Oauth2Api.md#PostOAuth2Authorize) | **Post** /oauth2/authorize | OAuth2 認可エンドポイント
 [**PostOAuth2AuthorizeDecide**](Oauth2Api.md#PostOAuth2AuthorizeDecide) | **Post** /oauth2/authorize/decide | OAuth2 認可承諾API
 [**PostOAuth2Token**](Oauth2Api.md#PostOAuth2Token) | **Post** /oauth2/token | OAuth2 トークンエンドポイント
+[**RevokeClientTokens**](Oauth2Api.md#RevokeClientTokens) | **Delete** /clients/{clientId}/tokens | OAuthクライアントのトークンを削除
 [**RevokeMyToken**](Oauth2Api.md#RevokeMyToken) | **Delete** /users/me/tokens/{tokenId} | トークンの認可を取り消す
 [**RevokeOAuth2Token**](Oauth2Api.md#RevokeOAuth2Token) | **Post** /oauth2/revoke | OAuth2 トークン無効化エンドポイント
 
@@ -724,6 +725,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RevokeClientTokens
+
+> RevokeClientTokens(ctx, clientId).Execute()
+
+OAuthクライアントのトークンを削除
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+    clientId := "clientId_example" // string | OAuth2クライアントUUID
+
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
+    r, err := apiClient.Oauth2Api.RevokeClientTokens(context.Background(), clientId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `Oauth2Api.RevokeClientTokens``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**clientId** | **string** | OAuth2クライアントUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRevokeClientTokensRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
