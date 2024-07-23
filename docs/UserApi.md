@@ -116,7 +116,7 @@ import (
 
 func main() {
     userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(1MBまでのpng, jpeg, gif)
+    file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
 
     configuration := traq.NewConfiguration()
     apiClient := traq.NewAPIClient(configuration)
@@ -144,7 +144,7 @@ Other parameters are passed through a pointer to a apiChangeUserIconRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **file** | ***os.File** | アイコン画像(1MBまでのpng, jpeg, gif) | 
+ **file** | ***os.File** | アイコン画像(2MBまでのpng, jpeg, gif) | 
 
 ### Return type
 

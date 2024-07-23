@@ -144,7 +144,7 @@ type UserApiChangeUserIconRequest struct {
 	file       *os.File
 }
 
-// アイコン画像(1MBまでのpng, jpeg, gif)
+// アイコン画像(2MBまでのpng, jpeg, gif)
 func (r UserApiChangeUserIconRequest) File(file *os.File) UserApiChangeUserIconRequest {
 	r.file = file
 	return r

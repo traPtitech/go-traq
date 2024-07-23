@@ -235,7 +235,7 @@ type MeApiChangeMyIconRequest struct {
 	file       *os.File
 }
 
-// アイコン画像(1MBまでのpng, jpeg, gif)
+// アイコン画像(2MBまでのpng, jpeg, gif)
 func (r MeApiChangeMyIconRequest) File(file *os.File) MeApiChangeMyIconRequest {
 	r.file = file
 	return r
