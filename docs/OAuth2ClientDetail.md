@@ -11,12 +11,13 @@ Name | Type | Description | Notes
 **Scopes** | [**[]OAuth2Scope**](OAuth2Scope.md) | 要求スコープの配列 | 
 **CallbackUrl** | **string** | コールバックURL | 
 **Secret** | **string** | クライアントシークレット | 
+**Confidential** | **bool** | confidential client なら true, public client なら false | 
 
 ## Methods
 
 ### NewOAuth2ClientDetail
 
-`func NewOAuth2ClientDetail(id string, developerId string, description string, name string, scopes []OAuth2Scope, callbackUrl string, secret string, ) *OAuth2ClientDetail`
+`func NewOAuth2ClientDetail(id string, developerId string, description string, name string, scopes []OAuth2Scope, callbackUrl string, secret string, confidential bool, ) *OAuth2ClientDetail`
 
 NewOAuth2ClientDetail instantiates a new OAuth2ClientDetail object
 This constructor will assign default values to properties that have it defined,
@@ -169,6 +170,26 @@ and a boolean to check if the value has been set.
 `func (o *OAuth2ClientDetail) SetSecret(v string)`
 
 SetSecret sets Secret field to given value.
+
+
+### GetConfidential
+
+`func (o *OAuth2ClientDetail) GetConfidential() bool`
+
+GetConfidential returns the Confidential field if non-nil, zero value otherwise.
+
+### GetConfidentialOk
+
+`func (o *OAuth2ClientDetail) GetConfidentialOk() (*bool, bool)`
+
+GetConfidentialOk returns a tuple with the Confidential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidential
+
+`func (o *OAuth2ClientDetail) SetConfidential(v bool)`
+
+SetConfidential sets Confidential field to given value.
 
 
 

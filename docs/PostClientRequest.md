@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **CallbackUrl** | **string** | コールバックURL | 
 **Scopes** | [**[]OAuth2Scope**](OAuth2Scope.md) | 要求スコープの配列 | 
 **Description** | **string** | 説明 | 
+**Confidential** | Pointer to **bool** | confidential client なら true, public cleint なら false | [optional] [default to false]
 
 ## Methods
 
@@ -107,6 +108,31 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+
+### GetConfidential
+
+`func (o *PostClientRequest) GetConfidential() bool`
+
+GetConfidential returns the Confidential field if non-nil, zero value otherwise.
+
+### GetConfidentialOk
+
+`func (o *PostClientRequest) GetConfidentialOk() (*bool, bool)`
+
+GetConfidentialOk returns a tuple with the Confidential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidential
+
+`func (o *PostClientRequest) SetConfidential(v bool)`
+
+SetConfidential sets Confidential field to given value.
+
+### HasConfidential
+
+`func (o *PostClientRequest) HasConfidential() bool`
+
+HasConfidential returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

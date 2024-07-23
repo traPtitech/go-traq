@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Description** | **string** | 説明 | 
 **DeveloperId** | **string** | クライアント開発者UUID | 
 **Scopes** | [**[]OAuth2Scope**](OAuth2Scope.md) | 要求スコープの配列 | 
+**Confidential** | **bool** | confidential client なら true, public client なら false | 
 **CallbackUrl** | **string** | コールバックURL | 
 **Secret** | **string** | クライアントシークレット | 
 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewGetClient200Response
 
-`func NewGetClient200Response(id string, name string, description string, developerId string, scopes []OAuth2Scope, callbackUrl string, secret string, ) *GetClient200Response`
+`func NewGetClient200Response(id string, name string, description string, developerId string, scopes []OAuth2Scope, confidential bool, callbackUrl string, secret string, ) *GetClient200Response`
 
 NewGetClient200Response instantiates a new GetClient200Response object
 This constructor will assign default values to properties that have it defined,
@@ -129,6 +130,26 @@ and a boolean to check if the value has been set.
 `func (o *GetClient200Response) SetScopes(v []OAuth2Scope)`
 
 SetScopes sets Scopes field to given value.
+
+
+### GetConfidential
+
+`func (o *GetClient200Response) GetConfidential() bool`
+
+GetConfidential returns the Confidential field if non-nil, zero value otherwise.
+
+### GetConfidentialOk
+
+`func (o *GetClient200Response) GetConfidentialOk() (*bool, bool)`
+
+GetConfidentialOk returns a tuple with the Confidential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidential
+
+`func (o *GetClient200Response) SetConfidential(v bool)`
+
+SetConfidential sets Confidential field to given value.
 
 
 ### GetCallbackUrl

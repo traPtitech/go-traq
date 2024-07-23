@@ -27,6 +27,8 @@ type PostClientRequest struct {
 	Scopes []OAuth2Scope `json:"scopes"`
 	// 説明
 	Description string `json:"description"`
+	// confidential client なら true, public cleint なら false
+	Confidential *bool `json:"confidential,omitempty"`
 }
 
 // NewPostClientRequest instantiates a new PostClientRequest object
@@ -39,6 +41,8 @@ func NewPostClientRequest(name string, callbackUrl string, scopes []OAuth2Scope,
 	this.CallbackUrl = callbackUrl
 	this.Scopes = scopes
 	this.Description = description
+	var confidential bool = false
+	this.Confidential = &confidential
 	return &this
 }
 
@@ -47,6 +51,8 @@ func NewPostClientRequest(name string, callbackUrl string, scopes []OAuth2Scope,
 // but it doesn't guarantee that properties required by API are set
 func NewPostClientRequestWithDefaults() *PostClientRequest {
 	this := PostClientRequest{}
+	var confidential bool = false
+	this.Confidential = &confidential
 	return &this
 }
 
@@ -146,6 +152,38 @@ func (o *PostClientRequest) SetDescription(v string) {
 	o.Description = v
 }
 
+// GetConfidential returns the Confidential field value if set, zero value otherwise.
+func (o *PostClientRequest) GetConfidential() bool {
+	if o == nil || IsNil(o.Confidential) {
+		var ret bool
+		return ret
+	}
+	return *o.Confidential
+}
+
+// GetConfidentialOk returns a tuple with the Confidential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PostClientRequest) GetConfidentialOk() (*bool, bool) {
+	if o == nil || IsNil(o.Confidential) {
+		return nil, false
+	}
+	return o.Confidential, true
+}
+
+// HasConfidential returns a boolean if a field has been set.
+func (o *PostClientRequest) HasConfidential() bool {
+	if o != nil && !IsNil(o.Confidential) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidential gets a reference to the given bool and assigns it to the Confidential field.
+func (o *PostClientRequest) SetConfidential(v bool) {
+	o.Confidential = &v
+}
+
 func (o PostClientRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -160,6 +198,9 @@ func (o PostClientRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["callbackUrl"] = o.CallbackUrl
 	toSerialize["scopes"] = o.Scopes
 	toSerialize["description"] = o.Description
+	if !IsNil(o.Confidential) {
+		toSerialize["confidential"] = o.Confidential
+	}
 	return toSerialize, nil
 }
 

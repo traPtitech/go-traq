@@ -29,19 +29,22 @@ type OAuth2Client struct {
 	DeveloperId string `json:"developerId"`
 	// 要求スコープの配列
 	Scopes []OAuth2Scope `json:"scopes"`
+	// confidential client なら true, public client なら false
+	Confidential bool `json:"confidential"`
 }
 
 // NewOAuth2Client instantiates a new OAuth2Client object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOAuth2Client(id string, name string, description string, developerId string, scopes []OAuth2Scope) *OAuth2Client {
+func NewOAuth2Client(id string, name string, description string, developerId string, scopes []OAuth2Scope, confidential bool) *OAuth2Client {
 	this := OAuth2Client{}
 	this.Id = id
 	this.Name = name
 	this.Description = description
 	this.DeveloperId = developerId
 	this.Scopes = scopes
+	this.Confidential = confidential
 	return &this
 }
 
@@ -173,6 +176,30 @@ func (o *OAuth2Client) SetScopes(v []OAuth2Scope) {
 	o.Scopes = v
 }
 
+// GetConfidential returns the Confidential field value
+func (o *OAuth2Client) GetConfidential() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Confidential
+}
+
+// GetConfidentialOk returns a tuple with the Confidential field value
+// and a boolean to check if the value has been set.
+func (o *OAuth2Client) GetConfidentialOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Confidential, true
+}
+
+// SetConfidential sets field value
+func (o *OAuth2Client) SetConfidential(v bool) {
+	o.Confidential = v
+}
+
 func (o OAuth2Client) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -188,6 +215,7 @@ func (o OAuth2Client) ToMap() (map[string]interface{}, error) {
 	toSerialize["description"] = o.Description
 	toSerialize["developerId"] = o.DeveloperId
 	toSerialize["scopes"] = o.Scopes
+	toSerialize["confidential"] = o.Confidential
 	return toSerialize, nil
 }
 

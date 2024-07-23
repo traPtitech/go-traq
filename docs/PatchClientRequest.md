@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | 説明 | [optional] 
 **CallbackUrl** | Pointer to **string** | コールバックURL | [optional] 
 **DeveloperId** | Pointer to **string** | クライアント開発者UUID | [optional] 
+**Confidential** | Pointer to **bool** | confidential client なら true, public client なら false | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetDeveloperId sets DeveloperId field to given value.
 `func (o *PatchClientRequest) HasDeveloperId() bool`
 
 HasDeveloperId returns a boolean if a field has been set.
+
+### GetConfidential
+
+`func (o *PatchClientRequest) GetConfidential() bool`
+
+GetConfidential returns the Confidential field if non-nil, zero value otherwise.
+
+### GetConfidentialOk
+
+`func (o *PatchClientRequest) GetConfidentialOk() (*bool, bool)`
+
+GetConfidentialOk returns a tuple with the Confidential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidential
+
+`func (o *PatchClientRequest) SetConfidential(v bool)`
+
+SetConfidential sets Confidential field to given value.
+
+### HasConfidential
+
+`func (o *PatchClientRequest) HasConfidential() bool`
+
+HasConfidential returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

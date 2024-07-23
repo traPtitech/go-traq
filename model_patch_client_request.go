@@ -27,6 +27,8 @@ type PatchClientRequest struct {
 	CallbackUrl *string `json:"callbackUrl,omitempty"`
 	// クライアント開発者UUID
 	DeveloperId *string `json:"developerId,omitempty"`
+	// confidential client なら true, public client なら false
+	Confidential *bool `json:"confidential,omitempty"`
 }
 
 // NewPatchClientRequest instantiates a new PatchClientRequest object
@@ -174,6 +176,38 @@ func (o *PatchClientRequest) SetDeveloperId(v string) {
 	o.DeveloperId = &v
 }
 
+// GetConfidential returns the Confidential field value if set, zero value otherwise.
+func (o *PatchClientRequest) GetConfidential() bool {
+	if o == nil || IsNil(o.Confidential) {
+		var ret bool
+		return ret
+	}
+	return *o.Confidential
+}
+
+// GetConfidentialOk returns a tuple with the Confidential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchClientRequest) GetConfidentialOk() (*bool, bool) {
+	if o == nil || IsNil(o.Confidential) {
+		return nil, false
+	}
+	return o.Confidential, true
+}
+
+// HasConfidential returns a boolean if a field has been set.
+func (o *PatchClientRequest) HasConfidential() bool {
+	if o != nil && !IsNil(o.Confidential) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidential gets a reference to the given bool and assigns it to the Confidential field.
+func (o *PatchClientRequest) SetConfidential(v bool) {
+	o.Confidential = &v
+}
+
 func (o PatchClientRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -195,6 +229,9 @@ func (o PatchClientRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DeveloperId) {
 		toSerialize["developerId"] = o.DeveloperId
+	}
+	if !IsNil(o.Confidential) {
+		toSerialize["confidential"] = o.Confidential
 	}
 	return toSerialize, nil
 }

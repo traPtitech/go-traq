@@ -33,13 +33,15 @@ type OAuth2ClientDetail struct {
 	CallbackUrl string `json:"callbackUrl"`
 	// クライアントシークレット
 	Secret string `json:"secret"`
+	// confidential client なら true, public client なら false
+	Confidential bool `json:"confidential"`
 }
 
 // NewOAuth2ClientDetail instantiates a new OAuth2ClientDetail object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOAuth2ClientDetail(id string, developerId string, description string, name string, scopes []OAuth2Scope, callbackUrl string, secret string) *OAuth2ClientDetail {
+func NewOAuth2ClientDetail(id string, developerId string, description string, name string, scopes []OAuth2Scope, callbackUrl string, secret string, confidential bool) *OAuth2ClientDetail {
 	this := OAuth2ClientDetail{}
 	this.Id = id
 	this.DeveloperId = developerId
@@ -48,6 +50,7 @@ func NewOAuth2ClientDetail(id string, developerId string, description string, na
 	this.Scopes = scopes
 	this.CallbackUrl = callbackUrl
 	this.Secret = secret
+	this.Confidential = confidential
 	return &this
 }
 
@@ -227,6 +230,30 @@ func (o *OAuth2ClientDetail) SetSecret(v string) {
 	o.Secret = v
 }
 
+// GetConfidential returns the Confidential field value
+func (o *OAuth2ClientDetail) GetConfidential() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Confidential
+}
+
+// GetConfidentialOk returns a tuple with the Confidential field value
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientDetail) GetConfidentialOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Confidential, true
+}
+
+// SetConfidential sets field value
+func (o *OAuth2ClientDetail) SetConfidential(v bool) {
+	o.Confidential = v
+}
+
 func (o OAuth2ClientDetail) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -244,6 +271,7 @@ func (o OAuth2ClientDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["scopes"] = o.Scopes
 	toSerialize["callbackUrl"] = o.CallbackUrl
 	toSerialize["secret"] = o.Secret
+	toSerialize["confidential"] = o.Confidential
 	return toSerialize, nil
 }
 
