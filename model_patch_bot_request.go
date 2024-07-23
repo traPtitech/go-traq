@@ -32,6 +32,8 @@ type PatchBotRequest struct {
 	DeveloperId *string `json:"developerId,omitempty"`
 	// 購読するイベント
 	SubscribeEvents []string `json:"subscribeEvents,omitempty"`
+	// 自己紹介(biography)
+	Bio *string `json:"bio,omitempty"`
 }
 
 // NewPatchBotRequest instantiates a new PatchBotRequest object
@@ -275,6 +277,38 @@ func (o *PatchBotRequest) SetSubscribeEvents(v []string) {
 	o.SubscribeEvents = v
 }
 
+// GetBio returns the Bio field value if set, zero value otherwise.
+func (o *PatchBotRequest) GetBio() string {
+	if o == nil || IsNil(o.Bio) {
+		var ret string
+		return ret
+	}
+	return *o.Bio
+}
+
+// GetBioOk returns a tuple with the Bio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchBotRequest) GetBioOk() (*string, bool) {
+	if o == nil || IsNil(o.Bio) {
+		return nil, false
+	}
+	return o.Bio, true
+}
+
+// HasBio returns a boolean if a field has been set.
+func (o *PatchBotRequest) HasBio() bool {
+	if o != nil && !IsNil(o.Bio) {
+		return true
+	}
+
+	return false
+}
+
+// SetBio gets a reference to the given string and assigns it to the Bio field.
+func (o *PatchBotRequest) SetBio(v string) {
+	o.Bio = &v
+}
+
 func (o PatchBotRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -305,6 +339,9 @@ func (o PatchBotRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SubscribeEvents) {
 		toSerialize["subscribeEvents"] = o.SubscribeEvents
+	}
+	if !IsNil(o.Bio) {
+		toSerialize["bio"] = o.Bio
 	}
 	return toSerialize, nil
 }

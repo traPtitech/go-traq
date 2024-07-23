@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Endpoint** | Pointer to **string** | BOTサーバーエンドポイント | [optional] 
 **DeveloperId** | Pointer to **string** | 移譲先の開発者UUID | [optional] 
 **SubscribeEvents** | Pointer to **[]string** | 購読するイベント | [optional] 
+**Bio** | Pointer to **string** | 自己紹介(biography) | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetSubscribeEvents sets SubscribeEvents field to given value.
 `func (o *PatchBotRequest) HasSubscribeEvents() bool`
 
 HasSubscribeEvents returns a boolean if a field has been set.
+
+### GetBio
+
+`func (o *PatchBotRequest) GetBio() string`
+
+GetBio returns the Bio field if non-nil, zero value otherwise.
+
+### GetBioOk
+
+`func (o *PatchBotRequest) GetBioOk() (*string, bool)`
+
+GetBioOk returns a tuple with the Bio field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBio
+
+`func (o *PatchBotRequest) SetBio(v string)`
+
+SetBio sets Bio field to given value.
+
+### HasBio
+
+`func (o *PatchBotRequest) HasBio() bool`
+
+HasBio returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
