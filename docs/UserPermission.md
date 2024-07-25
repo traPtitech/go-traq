@@ -97,6 +97,8 @@
 
 * `DeleteStamp` (value: `"delete_stamp"`)
 
+* `DeleteMyStamp` (value: `"delete_my_stamp"`)
+
 * `AddMessageStamp` (value: `"add_message_stamp"`)
 
 * `RemoveMessageStamp` (value: `"remove_message_stamp"`)
