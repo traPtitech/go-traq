@@ -809,6 +809,110 @@ func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEvents
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ChannelApiGetChannelPathRequest struct {
+	ctx        context.Context
+	ApiService *ChannelApiService
+	channelId  string
+}
+
+func (r ChannelApiGetChannelPathRequest) Execute() (*ChannelPath, *http.Response, error) {
+	return r.ApiService.GetChannelPathExecute(r)
+}
+
+/*
+GetChannelPath 指定したチャンネルパスを取得
+
+指定したチャンネルのパスを取得します。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelApiGetChannelPathRequest
+*/
+func (a *ChannelApiService) GetChannelPath(ctx context.Context, channelId string) ChannelApiGetChannelPathRequest {
+	return ChannelApiGetChannelPathRequest{
+		ApiService: a,
+		ctx:        ctx,
+		channelId:  channelId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ChannelPath
+func (a *ChannelApiService) GetChannelPathExecute(r ChannelApiGetChannelPathRequest) (*ChannelPath, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ChannelPath
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelPath")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/channels/{channelId}/path"
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ChannelApiGetChannelPinsRequest struct {
 	ctx        context.Context
 	ApiService *ChannelApiService
@@ -1333,11 +1437,18 @@ type ChannelApiGetChannelsRequest struct {
 	ctx        context.Context
 	ApiService *ChannelApiService
 	includeDm  *bool
+	path       *string
 }
 
 // ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
 func (r ChannelApiGetChannelsRequest) IncludeDm(includeDm bool) ChannelApiGetChannelsRequest {
 	r.includeDm = &includeDm
+	return r
+}
+
+// パスが一致するチャンネルのみを取得する
+func (r ChannelApiGetChannelsRequest) Path(path string) ChannelApiGetChannelsRequest {
+	r.path = &path
 	return r
 }
 
@@ -1384,6 +1495,9 @@ func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (
 
 	if r.includeDm != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "include-dm", r.includeDm, "")
+	}
+	if r.path != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

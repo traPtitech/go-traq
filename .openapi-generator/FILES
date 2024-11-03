@@ -40,6 +40,7 @@ docs/ChannelApi.md
 docs/ChannelEvent.md
 docs/ChannelEventDetail.md
 docs/ChannelList.md
+docs/ChannelPath.md
 docs/ChannelStats.md
 docs/ChannelStatsStamp.md
 docs/ChannelStatsUser.md
@@ -180,6 +181,7 @@ model_channel.go
 model_channel_event.go
 model_channel_event_detail.go
 model_channel_list.go
+model_channel_path.go
 model_channel_stats.go
 model_channel_stats_stamp.go
 model_channel_stats_user.go

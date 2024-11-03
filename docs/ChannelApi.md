@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetChannel**](ChannelApi.md#GetChannel) | **Get** /channels/{channelId} | チャンネル情報を取得
 [**GetChannelBots**](ChannelApi.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
 [**GetChannelEvents**](ChannelApi.md#GetChannelEvents) | **Get** /channels/{channelId}/events | チャンネルイベントのリストを取得
+[**GetChannelPath**](ChannelApi.md#GetChannelPath) | **Get** /channels/{channelId}/path | 指定したチャンネルパスを取得
 [**GetChannelPins**](ChannelApi.md#GetChannelPins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
 [**GetChannelStats**](ChannelApi.md#GetChannelStats) | **Get** /channels/{channelId}/stats | チャンネル統計情報を取得
 [**GetChannelSubscribers**](ChannelApi.md#GetChannelSubscribers) | **Get** /channels/{channelId}/subscribers | チャンネルの通知購読者のリストを取得
@@ -523,6 +524,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetChannelPath
+
+> ChannelPath GetChannelPath(ctx, channelId).Execute()
+
+指定したチャンネルパスを取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
+    resp, r, err := apiClient.ChannelApi.GetChannelPath(context.Background(), channelId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetChannelPath`: ChannelPath
+    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**channelId** | **string** | チャンネルUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetChannelPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ChannelPath**](ChannelPath.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetChannelPins
 
 > []Pin GetChannelPins(ctx, channelId).Execute()
@@ -875,7 +946,7 @@ Name | Type | Description  | Notes
 
 ## GetChannels
 
-> ChannelList GetChannels(ctx).IncludeDm(includeDm).Execute()
+> ChannelList GetChannels(ctx).IncludeDm(includeDm).Path(path).Execute()
 
 チャンネルリストを取得
 
@@ -895,10 +966,11 @@ import (
 
 func main() {
     includeDm := true // bool | ダイレクトメッセージチャンネルをレスポンスに含めるかどうか (optional) (default to false)
+    path := "path_example" // string | パスが一致するチャンネルのみを取得する (optional)
 
     configuration := traq.NewConfiguration()
     apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannels(context.Background()).IncludeDm(includeDm).Execute()
+    resp, r, err := apiClient.ChannelApi.GetChannels(context.Background()).IncludeDm(includeDm).Path(path).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannels``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -920,6 +992,7 @@ Other parameters are passed through a pointer to a apiGetChannelsRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **includeDm** | **bool** | ダイレクトメッセージチャンネルをレスポンスに含めるかどうか | [default to false]
+ **path** | **string** | パスが一致するチャンネルのみを取得する | 
 
 ### Return type
 
