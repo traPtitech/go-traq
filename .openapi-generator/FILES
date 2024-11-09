@@ -25,6 +25,7 @@ configuration.go
 docs/ActiveOAuth2Token.md
 docs/ActivityApi.md
 docs/ActivityTimelineMessage.md
+docs/AddUserGroupMemberRequest.md
 docs/AuthenticationApi.md
 docs/Bot.md
 docs/BotApi.md
@@ -169,6 +170,7 @@ docs/WebhookApi.md
 docs/WebrtcApi.md
 model_active_o_auth2_token.go
 model_activity_timeline_message.go
+model_add_user_group_member_request.go
 model_bot.go
 model_bot_detail.go
 model_bot_event_log.go

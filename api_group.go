@@ -125,14 +125,14 @@ func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiAddUserGroupAdminRe
 }
 
 type GroupApiAddUserGroupMemberRequest struct {
-	ctx             context.Context
-	ApiService      *GroupApiService
-	groupId         string
-	userGroupMember *UserGroupMember
+	ctx                       context.Context
+	ApiService                *GroupApiService
+	groupId                   string
+	addUserGroupMemberRequest *AddUserGroupMemberRequest
 }
 
-func (r GroupApiAddUserGroupMemberRequest) UserGroupMember(userGroupMember UserGroupMember) GroupApiAddUserGroupMemberRequest {
-	r.userGroupMember = &userGroupMember
+func (r GroupApiAddUserGroupMemberRequest) AddUserGroupMemberRequest(addUserGroupMemberRequest AddUserGroupMemberRequest) GroupApiAddUserGroupMemberRequest {
+	r.addUserGroupMemberRequest = &addUserGroupMemberRequest
 	return r
 }
 
@@ -196,7 +196,7 @@ func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiAddUserGroupMember
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.userGroupMember
+	localVarPostBody = r.addUserGroupMemberRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1310,6 +1310,99 @@ func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiRemoveUserGroup
 	localVarPath := localBasePath + "/groups/{groupId}/members/{userId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type GroupApiRemoveUserGroupMembersRequest struct {
+	ctx        context.Context
+	ApiService *GroupApiService
+	groupId    string
+}
+
+func (r GroupApiRemoveUserGroupMembersRequest) Execute() (*http.Response, error) {
+	return r.ApiService.RemoveUserGroupMembersExecute(r)
+}
+
+/*
+RemoveUserGroupMembers グループメンバーを一括削除
+
+指定したグループから全てのメンバーを削除します。
+対象のユーザーグループの管理者権限が必要です。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId ユーザーグループUUID
+	@return GroupApiRemoveUserGroupMembersRequest
+*/
+func (a *GroupApiService) RemoveUserGroupMembers(ctx context.Context, groupId string) GroupApiRemoveUserGroupMembersRequest {
+	return GroupApiRemoveUserGroupMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupId:    groupId,
+	}
+}
+
+// Execute executes the request
+func (a *GroupApiService) RemoveUserGroupMembersExecute(r GroupApiRemoveUserGroupMembersRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.RemoveUserGroupMembers")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/groups/{groupId}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

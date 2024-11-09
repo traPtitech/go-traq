@@ -149,6 +149,7 @@ Class | Method | HTTP request | Description
 *GroupApi* | [**GetUserGroups**](docs/GroupApi.md#getusergroups) | **Get** /groups | ユーザーグループのリストを取得
 *GroupApi* | [**RemoveUserGroupAdmin**](docs/GroupApi.md#removeusergroupadmin) | **Delete** /groups/{groupId}/admins/{userId} | グループ管理者を削除
 *GroupApi* | [**RemoveUserGroupMember**](docs/GroupApi.md#removeusergroupmember) | **Delete** /groups/{groupId}/members/{userId} | グループメンバーを削除
+*GroupApi* | [**RemoveUserGroupMembers**](docs/GroupApi.md#removeusergroupmembers) | **Delete** /groups/{groupId}/members | グループメンバーを一括削除
 *MeApi* | [**AddMyStar**](docs/MeApi.md#addmystar) | **Post** /users/me/stars | チャンネルをスターに追加
 *MeApi* | [**AddMyUserTag**](docs/MeApi.md#addmyusertag) | **Post** /users/me/tags | 自分にタグを追加
 *MeApi* | [**ChangeMyIcon**](docs/MeApi.md#changemyicon) | **Put** /users/me/icon | 自分のアイコン画像を変更
@@ -287,6 +288,7 @@ Class | Method | HTTP request | Description
 
  - [ActiveOAuth2Token](docs/ActiveOAuth2Token.md)
  - [ActivityTimelineMessage](docs/ActivityTimelineMessage.md)
+ - [AddUserGroupMemberRequest](docs/AddUserGroupMemberRequest.md)
  - [Bot](docs/Bot.md)
  - [BotDetail](docs/BotDetail.md)
  - [BotEventLog](docs/BotEventLog.md)

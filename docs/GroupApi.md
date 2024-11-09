@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**GetUserGroups**](GroupApi.md#GetUserGroups) | **Get** /groups | ユーザーグループのリストを取得
 [**RemoveUserGroupAdmin**](GroupApi.md#RemoveUserGroupAdmin) | **Delete** /groups/{groupId}/admins/{userId} | グループ管理者を削除
 [**RemoveUserGroupMember**](GroupApi.md#RemoveUserGroupMember) | **Delete** /groups/{groupId}/members/{userId} | グループメンバーを削除
+[**RemoveUserGroupMembers**](GroupApi.md#RemoveUserGroupMembers) | **Delete** /groups/{groupId}/members | グループメンバーを一括削除
 
 
 
@@ -92,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## AddUserGroupMember
 
-> AddUserGroupMember(ctx, groupId).UserGroupMember(userGroupMember).Execute()
+> AddUserGroupMember(ctx, groupId).AddUserGroupMemberRequest(addUserGroupMemberRequest).Execute()
 
 グループメンバーを追加
 
@@ -112,11 +113,11 @@ import (
 
 func main() {
     groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
-    userGroupMember := *traq.NewUserGroupMember("Id_example", "Role_example") // UserGroupMember |  (optional)
+    addUserGroupMemberRequest := traq.addUserGroupMember_request{UserGroupMember: traq.NewUserGroupMember("Id_example", "Role_example")} // AddUserGroupMemberRequest |  (optional)
 
     configuration := traq.NewConfiguration()
     apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.GroupApi.AddUserGroupMember(context.Background(), groupId).UserGroupMember(userGroupMember).Execute()
+    r, err := apiClient.GroupApi.AddUserGroupMember(context.Background(), groupId).AddUserGroupMemberRequest(addUserGroupMemberRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.AddUserGroupMember``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,7 +141,7 @@ Other parameters are passed through a pointer to a apiAddUserGroupMemberRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **userGroupMember** | [**UserGroupMember**](UserGroupMember.md) |  | 
+ **addUserGroupMemberRequest** | [**AddUserGroupMemberRequest**](AddUserGroupMemberRequest.md) |  | 
 
 ### Return type
 
@@ -900,6 +901,74 @@ Other parameters are passed through a pointer to a apiRemoveUserGroupMemberReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RemoveUserGroupMembers
+
+> RemoveUserGroupMembers(ctx, groupId).Execute()
+
+グループメンバーを一括削除
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+    groupId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーグループUUID
+
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
+    r, err := apiClient.GroupApi.RemoveUserGroupMembers(context.Background(), groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupApi.RemoveUserGroupMembers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**groupId** | **string** | ユーザーグループUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRemoveUserGroupMembersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
