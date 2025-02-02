@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"time"
 )
@@ -1593,8 +1594,8 @@ type MessageApiSearchMessagesRequest struct {
 	after          *time.Time
 	before         *time.Time
 	in             *string
-	to             *string
-	from           *string
+	to             *[]string
+	from           *[]string
 	citation       *string
 	bot            *bool
 	hasURL         *bool
@@ -1632,13 +1633,13 @@ func (r MessageApiSearchMessagesRequest) In(in string) MessageApiSearchMessagesR
 }
 
 // メンションされたユーザー
-func (r MessageApiSearchMessagesRequest) To(to string) MessageApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) To(to []string) MessageApiSearchMessagesRequest {
 	r.to = &to
 	return r
 }
 
 // メッセージを投稿したユーザー
-func (r MessageApiSearchMessagesRequest) From(from string) MessageApiSearchMessagesRequest {
+func (r MessageApiSearchMessagesRequest) From(from []string) MessageApiSearchMessagesRequest {
 	r.from = &from
 	return r
 }
@@ -1757,10 +1758,26 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "in", r.in, "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		t := *r.to
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "to", s.Index(i), "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "to", t, "multi")
+		}
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		t := *r.from
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "from", s.Index(i), "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "from", t, "multi")
+		}
 	}
 	if r.citation != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "citation", r.citation, "")

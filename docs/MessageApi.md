@@ -1058,8 +1058,8 @@ func main() {
     after := time.Now() // time.Time | 投稿日時が指定日時より後 (optional)
     before := time.Now() // time.Time | 投稿日時が指定日時より前 (optional)
     in := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージが投稿されたチャンネル (optional)
-    to := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メンションされたユーザー (optional)
-    from := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージを投稿したユーザー (optional)
+    to := []string{"Inner_example"} // []string | メンションされたユーザー (optional)
+    from := []string{"Inner_example"} // []string | メッセージを投稿したユーザー (optional)
     citation := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 引用しているメッセージ (optional)
     bot := true // bool | メッセージを投稿したユーザーがBotかどうか (optional)
     hasURL := true // bool | メッセージがURLを含むか (optional)
@@ -1098,8 +1098,8 @@ Name | Type | Description  | Notes
  **after** | **time.Time** | 投稿日時が指定日時より後 | 
  **before** | **time.Time** | 投稿日時が指定日時より前 | 
  **in** | **string** | メッセージが投稿されたチャンネル | 
- **to** | **string** | メンションされたユーザー | 
- **from** | **string** | メッセージを投稿したユーザー | 
+ **to** | **[]string** | メンションされたユーザー | 
+ **from** | **[]string** | メッセージを投稿したユーザー | 
  **citation** | **string** | 引用しているメッセージ | 
  **bot** | **bool** | メッセージを投稿したユーザーがBotかどうか | 
  **hasURL** | **bool** | メッセージがURLを含むか | 
