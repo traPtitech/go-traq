@@ -822,8 +822,6 @@ func (r ChannelApiGetChannelPathRequest) Execute() (*ChannelPath, *http.Response
 /*
 GetChannelPath 指定したチャンネルパスを取得
 
-指定したチャンネルのパスを取得します。
-
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelApiGetChannelPathRequest

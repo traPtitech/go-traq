@@ -530,8 +530,6 @@ Name | Type | Description  | Notes
 
 指定したチャンネルパスを取得
 
-
-
 ### Example
 
 ```go

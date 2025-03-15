@@ -227,6 +227,16 @@ Class | Method | HTTP request | Description
 *PinApi* | [**RemovePin**](docs/PinApi.md#removepin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
 *PublicApi* | [**GetPublicUserIcon**](docs/PublicApi.md#getpublicusericon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
 *PublicApi* | [**GetServerVersion**](docs/PublicApi.md#getserverversion) | **Get** /version | バージョンを取得
+*QallApi* | [**ChangeParticipantRole**](docs/QallApi.md#changeparticipantrole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
+*QallApi* | [**GetEndpoints**](docs/QallApi.md#getendpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
+*QallApi* | [**GetLiveKitToken**](docs/QallApi.md#getlivekittoken) | **Get** /qall/token | LiveKitトークンを取得
+*QallApi* | [**GetRoomMetadata**](docs/QallApi.md#getroommetadata) | **Get** /qall/rooms/{roomId}/metadata | ルームのメタデータを取得
+*QallApi* | [**GetRooms**](docs/QallApi.md#getrooms) | **Get** /qall/rooms | ルームと参加者の一覧を取得
+*QallApi* | [**GetSoundboardList**](docs/QallApi.md#getsoundboardlist) | **Get** /qall/soundboard | サウンドボード用の音声一覧を取得
+*QallApi* | [**LiveKitWebhook**](docs/QallApi.md#livekitwebhook) | **Post** /qall/webhook | LiveKit Webhook受信
+*QallApi* | [**PostSoundboard**](docs/QallApi.md#postsoundboard) | **Post** /qall/soundboard | サウンドボード用の短い音声ファイルをアップロード
+*QallApi* | [**PostSoundboardPlay**](docs/QallApi.md#postsoundboardplay) | **Post** /qall/soundboard/play | アップロード済み音声を LiveKit ルームで再生
+*QallApi* | [**UpdateRoomMetadata**](docs/QallApi.md#updateroommetadata) | **Patch** /qall/rooms/{roomId}/metadata | ルームのメタデータを更新
 *StampApi* | [**AddMessageStamp**](docs/StampApi.md#addmessagestamp) | **Post** /messages/{messageId}/stamps/{stampId} | スタンプを押す
 *StampApi* | [**ChangeStampImage**](docs/StampApi.md#changestampimage) | **Put** /stamps/{stampId}/image | スタンプ画像を変更
 *StampApi* | [**CreateStamp**](docs/StampApi.md#createstamp) | **Post** /stamps | スタンプを作成
@@ -383,7 +393,21 @@ Class | Method | HTTP request | Description
  - [PutMyPasswordRequest](docs/PutMyPasswordRequest.md)
  - [PutNotifyCitationRequest](docs/PutNotifyCitationRequest.md)
  - [PutUserPasswordRequest](docs/PutUserPasswordRequest.md)
+ - [QallEndpointResponse](docs/QallEndpointResponse.md)
+ - [QallMetadataRequest](docs/QallMetadataRequest.md)
+ - [QallMetadataResponse](docs/QallMetadataResponse.md)
+ - [QallParticipant](docs/QallParticipant.md)
+ - [QallParticipantRequest](docs/QallParticipantRequest.md)
+ - [QallParticipantRequestUsersInner](docs/QallParticipantRequestUsersInner.md)
+ - [QallParticipantResponse](docs/QallParticipantResponse.md)
+ - [QallParticipantResponseResultsInner](docs/QallParticipantResponseResultsInner.md)
+ - [QallRoomWithParticipants](docs/QallRoomWithParticipants.md)
+ - [QallTokenResponse](docs/QallTokenResponse.md)
  - [Session](docs/Session.md)
+ - [SoundboardItem](docs/SoundboardItem.md)
+ - [SoundboardPlayRequest](docs/SoundboardPlayRequest.md)
+ - [SoundboardPlayResponse](docs/SoundboardPlayResponse.md)
+ - [SoundboardUploadResponse](docs/SoundboardUploadResponse.md)
  - [Stamp](docs/Stamp.md)
  - [StampHistoryEntry](docs/StampHistoryEntry.md)
  - [StampPalette](docs/StampPalette.md)

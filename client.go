@@ -78,6 +78,8 @@ type APIClient struct {
 
 	PublicApi *PublicApiService
 
+	QallApi *QallApiService
+
 	StampApi *StampApiService
 
 	StarApi *StarApiService
@@ -121,6 +123,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.OgpApi = (*OgpApiService)(&c.common)
 	c.PinApi = (*PinApiService)(&c.common)
 	c.PublicApi = (*PublicApiService)(&c.common)
+	c.QallApi = (*QallApiService)(&c.common)
 	c.StampApi = (*StampApiService)(&c.common)
 	c.StarApi = (*StarApiService)(&c.common)
 	c.UserApi = (*UserApiService)(&c.common)
