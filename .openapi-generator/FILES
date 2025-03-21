@@ -143,7 +143,12 @@ docs/QallParticipantRequest.md
 docs/QallParticipantRequestUsersInner.md
 docs/QallParticipantResponse.md
 docs/QallParticipantResponseResultsInner.md
+docs/QallRoomStateChangedEvent.md
+docs/QallRoomStateChangedEventState.md
+docs/QallRoomStateChangedEventStateParticipantsInner.md
 docs/QallRoomWithParticipants.md
+docs/QallSoundboardItemCreatedEvent.md
+docs/QallSoundboardItemDeletedEvent.md
 docs/QallTokenResponse.md
 docs/Session.md
 docs/SoundboardItem.md
@@ -289,7 +294,12 @@ model_qall_participant_request.go
 model_qall_participant_request_users_inner.go
 model_qall_participant_response.go
 model_qall_participant_response_results_inner.go
+model_qall_room_state_changed_event.go
+model_qall_room_state_changed_event_state.go
+model_qall_room_state_changed_event_state_participants_inner.go
 model_qall_room_with_participants.go
+model_qall_soundboard_item_created_event.go
+model_qall_soundboard_item_deleted_event.go
 model_qall_token_response.go
 model_session.go
 model_soundboard_item.go

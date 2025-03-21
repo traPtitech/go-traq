@@ -5,8 +5,8 @@ All URIs are relative to *https://q.trap.jp/api/v3*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ChangeParticipantRole**](QallApi.md#ChangeParticipantRole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
-[**GetEndpoints**](QallApi.md#GetEndpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
 [**GetLiveKitToken**](QallApi.md#GetLiveKitToken) | **Get** /qall/token | LiveKitトークンを取得
+[**GetQallEndpoints**](QallApi.md#GetQallEndpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
 [**GetRoomMetadata**](QallApi.md#GetRoomMetadata) | **Get** /qall/rooms/{roomId}/metadata | ルームのメタデータを取得
 [**GetRooms**](QallApi.md#GetRooms) | **Get** /qall/rooms | ルームと参加者の一覧を取得
 [**GetSoundboardList**](QallApi.md#GetSoundboardList) | **Get** /qall/soundboard | サウンドボード用の音声一覧を取得
@@ -89,67 +89,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetEndpoints
-
-> QallEndpointResponse GetEndpoints(ctx).Execute()
-
-LiveKitエンドポイントを取得
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
-)
-
-func main() {
-
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetEndpoints(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetEndpoints``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEndpoints`: QallEndpointResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetEndpoints`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetEndpointsRequest struct via the builder pattern
-
-
-### Return type
-
-[**QallEndpointResponse**](QallEndpointResponse.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetLiveKitToken
 
 > QallTokenResponse GetLiveKitToken(ctx).RoomId(roomId).IsWebinar(isWebinar).Execute()
@@ -203,6 +142,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**QallTokenResponse**](QallTokenResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQallEndpoints
+
+> QallEndpointResponse GetQallEndpoints(ctx).Execute()
+
+LiveKitエンドポイントを取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+
+    configuration := traq.NewConfiguration()
+    apiClient := traq.NewAPIClient(configuration)
+    resp, r, err := apiClient.QallApi.GetQallEndpoints(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetQallEndpoints``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetQallEndpoints`: QallEndpointResponse
+    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetQallEndpoints`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQallEndpointsRequest struct via the builder pattern
+
+
+### Return type
+
+[**QallEndpointResponse**](QallEndpointResponse.md)
 
 ### Authorization
 

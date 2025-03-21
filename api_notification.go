@@ -1252,6 +1252,39 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `folder_id`: メッセージが追加されたクリップフォルダーのId
 + `message_id`: クリップフォルダーに追加されたメッセージのId
 
+### `QALL_ROOM_STATE_CHANGED`
+ルーム状態が変更された。
+
+対象: 全員
+
++ `room_id`: 変更されたルームのId
++ `state`: 変更後のルーム状態
+  - `roomId`: ルームのID
+  - `participants`: ルーム内の参加者(配列)
+  - `identity`: ユーザーID_RandomUUID
+  - `name`: 表示名
+  - `joinedAt`: 参加した時刻
+  - `attributes`: ユーザーに関連付けられたカスタム属性
+  - `canPublish`: 発言権限
+  - `isWebinar`: ウェビナールームかどうか
+  - `metadata`: ルームに関連付けられたカスタム属性
+
+### `QALL_SOUNDBOARD_ITEM_CREATED`
+サウンドボードアイテムが作成された。
+
+対象: 全員
+
++ `sound_id`: 作成されたサウンドのId
++ `name`: サウンド名
++ `creator_id`: 作成者のId
+
+### `QALL_SOUNDBOARD_ITEM_DELETED`
+サウンドボードアイテムが削除された。
+
+対象: 全員
+
++ `sound_id`: 削除されたサウンドのId
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return NotificationApiWsRequest
 */

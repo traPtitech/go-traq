@@ -228,8 +228,8 @@ Class | Method | HTTP request | Description
 *PublicApi* | [**GetPublicUserIcon**](docs/PublicApi.md#getpublicusericon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
 *PublicApi* | [**GetServerVersion**](docs/PublicApi.md#getserverversion) | **Get** /version | バージョンを取得
 *QallApi* | [**ChangeParticipantRole**](docs/QallApi.md#changeparticipantrole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
-*QallApi* | [**GetEndpoints**](docs/QallApi.md#getendpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
 *QallApi* | [**GetLiveKitToken**](docs/QallApi.md#getlivekittoken) | **Get** /qall/token | LiveKitトークンを取得
+*QallApi* | [**GetQallEndpoints**](docs/QallApi.md#getqallendpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
 *QallApi* | [**GetRoomMetadata**](docs/QallApi.md#getroommetadata) | **Get** /qall/rooms/{roomId}/metadata | ルームのメタデータを取得
 *QallApi* | [**GetRooms**](docs/QallApi.md#getrooms) | **Get** /qall/rooms | ルームと参加者の一覧を取得
 *QallApi* | [**GetSoundboardList**](docs/QallApi.md#getsoundboardlist) | **Get** /qall/soundboard | サウンドボード用の音声一覧を取得
@@ -401,7 +401,12 @@ Class | Method | HTTP request | Description
  - [QallParticipantRequestUsersInner](docs/QallParticipantRequestUsersInner.md)
  - [QallParticipantResponse](docs/QallParticipantResponse.md)
  - [QallParticipantResponseResultsInner](docs/QallParticipantResponseResultsInner.md)
+ - [QallRoomStateChangedEvent](docs/QallRoomStateChangedEvent.md)
+ - [QallRoomStateChangedEventState](docs/QallRoomStateChangedEventState.md)
+ - [QallRoomStateChangedEventStateParticipantsInner](docs/QallRoomStateChangedEventStateParticipantsInner.md)
  - [QallRoomWithParticipants](docs/QallRoomWithParticipants.md)
+ - [QallSoundboardItemCreatedEvent](docs/QallSoundboardItemCreatedEvent.md)
+ - [QallSoundboardItemDeletedEvent](docs/QallSoundboardItemDeletedEvent.md)
  - [QallTokenResponse](docs/QallTokenResponse.md)
  - [Session](docs/Session.md)
  - [SoundboardItem](docs/SoundboardItem.md)
