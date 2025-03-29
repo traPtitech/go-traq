@@ -20,19 +20,22 @@ var _ MappedNullable = &QallSoundboardItemCreatedEvent{}
 // QallSoundboardItemCreatedEvent Qallのサウンドボードアイテムが作成された
 type QallSoundboardItemCreatedEvent struct {
 	// 作成されたサウンドボードアイテムのId
-	SoundId *string `json:"soundId,omitempty"`
+	SoundId string `json:"soundId"`
 	// 作成されたサウンドボードアイテムの名前
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// 作成者のId
-	CreatorId *string `json:"creatorId,omitempty"`
+	CreatorId string `json:"creatorId"`
 }
 
 // NewQallSoundboardItemCreatedEvent instantiates a new QallSoundboardItemCreatedEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQallSoundboardItemCreatedEvent() *QallSoundboardItemCreatedEvent {
+func NewQallSoundboardItemCreatedEvent(soundId string, name string, creatorId string) *QallSoundboardItemCreatedEvent {
 	this := QallSoundboardItemCreatedEvent{}
+	this.SoundId = soundId
+	this.Name = name
+	this.CreatorId = creatorId
 	return &this
 }
 
@@ -44,100 +47,76 @@ func NewQallSoundboardItemCreatedEventWithDefaults() *QallSoundboardItemCreatedE
 	return &this
 }
 
-// GetSoundId returns the SoundId field value if set, zero value otherwise.
+// GetSoundId returns the SoundId field value
 func (o *QallSoundboardItemCreatedEvent) GetSoundId() string {
-	if o == nil || IsNil(o.SoundId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SoundId
+
+	return o.SoundId
 }
 
-// GetSoundIdOk returns a tuple with the SoundId field value if set, nil otherwise
+// GetSoundIdOk returns a tuple with the SoundId field value
 // and a boolean to check if the value has been set.
 func (o *QallSoundboardItemCreatedEvent) GetSoundIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SoundId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SoundId, true
+	return &o.SoundId, true
 }
 
-// HasSoundId returns a boolean if a field has been set.
-func (o *QallSoundboardItemCreatedEvent) HasSoundId() bool {
-	if o != nil && !IsNil(o.SoundId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSoundId gets a reference to the given string and assigns it to the SoundId field.
+// SetSoundId sets field value
 func (o *QallSoundboardItemCreatedEvent) SetSoundId(v string) {
-	o.SoundId = &v
+	o.SoundId = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *QallSoundboardItemCreatedEvent) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *QallSoundboardItemCreatedEvent) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *QallSoundboardItemCreatedEvent) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *QallSoundboardItemCreatedEvent) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetCreatorId returns the CreatorId field value if set, zero value otherwise.
+// GetCreatorId returns the CreatorId field value
 func (o *QallSoundboardItemCreatedEvent) GetCreatorId() string {
-	if o == nil || IsNil(o.CreatorId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CreatorId
+
+	return o.CreatorId
 }
 
-// GetCreatorIdOk returns a tuple with the CreatorId field value if set, nil otherwise
+// GetCreatorIdOk returns a tuple with the CreatorId field value
 // and a boolean to check if the value has been set.
 func (o *QallSoundboardItemCreatedEvent) GetCreatorIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatorId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatorId, true
+	return &o.CreatorId, true
 }
 
-// HasCreatorId returns a boolean if a field has been set.
-func (o *QallSoundboardItemCreatedEvent) HasCreatorId() bool {
-	if o != nil && !IsNil(o.CreatorId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatorId gets a reference to the given string and assigns it to the CreatorId field.
+// SetCreatorId sets field value
 func (o *QallSoundboardItemCreatedEvent) SetCreatorId(v string) {
-	o.CreatorId = &v
+	o.CreatorId = v
 }
 
 func (o QallSoundboardItemCreatedEvent) MarshalJSON() ([]byte, error) {
@@ -150,15 +129,9 @@ func (o QallSoundboardItemCreatedEvent) MarshalJSON() ([]byte, error) {
 
 func (o QallSoundboardItemCreatedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.SoundId) {
-		toSerialize["soundId"] = o.SoundId
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.CreatorId) {
-		toSerialize["creatorId"] = o.CreatorId
-	}
+	toSerialize["soundId"] = o.SoundId
+	toSerialize["name"] = o.Name
+	toSerialize["creatorId"] = o.CreatorId
 	return toSerialize, nil
 }
 

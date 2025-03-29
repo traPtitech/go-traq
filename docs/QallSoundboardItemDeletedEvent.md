@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SoundId** | Pointer to **string** | 削除されたサウンドボードアイテムのId | [optional] 
+**SoundId** | **string** | 削除されたサウンドボードアイテムのId | 
 
 ## Methods
 
 ### NewQallSoundboardItemDeletedEvent
 
-`func NewQallSoundboardItemDeletedEvent() *QallSoundboardItemDeletedEvent`
+`func NewQallSoundboardItemDeletedEvent(soundId string, ) *QallSoundboardItemDeletedEvent`
 
 NewQallSoundboardItemDeletedEvent instantiates a new QallSoundboardItemDeletedEvent object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetSoundId sets SoundId field to given value.
 
-### HasSoundId
-
-`func (o *QallSoundboardItemDeletedEvent) HasSoundId() bool`
-
-HasSoundId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -20,15 +20,16 @@ var _ MappedNullable = &QallSoundboardItemDeletedEvent{}
 // QallSoundboardItemDeletedEvent Qallのサウンドボードアイテムが削除された
 type QallSoundboardItemDeletedEvent struct {
 	// 削除されたサウンドボードアイテムのId
-	SoundId *string `json:"soundId,omitempty"`
+	SoundId string `json:"soundId"`
 }
 
 // NewQallSoundboardItemDeletedEvent instantiates a new QallSoundboardItemDeletedEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQallSoundboardItemDeletedEvent() *QallSoundboardItemDeletedEvent {
+func NewQallSoundboardItemDeletedEvent(soundId string) *QallSoundboardItemDeletedEvent {
 	this := QallSoundboardItemDeletedEvent{}
+	this.SoundId = soundId
 	return &this
 }
 
@@ -40,36 +41,28 @@ func NewQallSoundboardItemDeletedEventWithDefaults() *QallSoundboardItemDeletedE
 	return &this
 }
 
-// GetSoundId returns the SoundId field value if set, zero value otherwise.
+// GetSoundId returns the SoundId field value
 func (o *QallSoundboardItemDeletedEvent) GetSoundId() string {
-	if o == nil || IsNil(o.SoundId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SoundId
+
+	return o.SoundId
 }
 
-// GetSoundIdOk returns a tuple with the SoundId field value if set, nil otherwise
+// GetSoundIdOk returns a tuple with the SoundId field value
 // and a boolean to check if the value has been set.
 func (o *QallSoundboardItemDeletedEvent) GetSoundIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SoundId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SoundId, true
+	return &o.SoundId, true
 }
 
-// HasSoundId returns a boolean if a field has been set.
-func (o *QallSoundboardItemDeletedEvent) HasSoundId() bool {
-	if o != nil && !IsNil(o.SoundId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSoundId gets a reference to the given string and assigns it to the SoundId field.
+// SetSoundId sets field value
 func (o *QallSoundboardItemDeletedEvent) SetSoundId(v string) {
-	o.SoundId = &v
+	o.SoundId = v
 }
 
 func (o QallSoundboardItemDeletedEvent) MarshalJSON() ([]byte, error) {
@@ -82,9 +75,7 @@ func (o QallSoundboardItemDeletedEvent) MarshalJSON() ([]byte, error) {
 
 func (o QallSoundboardItemDeletedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.SoundId) {
-		toSerialize["soundId"] = o.SoundId
-	}
+	toSerialize["soundId"] = o.SoundId
 	return toSerialize, nil
 }
 
