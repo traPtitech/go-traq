@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RoomId** | **string** | 変更されたルームのId | 
-**State** | [**QallRoomStateChangedEventState**](QallRoomStateChangedEventState.md) |  | 
+**RoomStates** | [**[]QallRoomStateChangedEventRoomStatesInner**](QallRoomStateChangedEventRoomStatesInner.md) |  | 
 
 ## Methods
 
 ### NewQallRoomStateChangedEvent
 
-`func NewQallRoomStateChangedEvent(roomId string, state QallRoomStateChangedEventState, ) *QallRoomStateChangedEvent`
+`func NewQallRoomStateChangedEvent(roomStates []QallRoomStateChangedEventRoomStatesInner, ) *QallRoomStateChangedEvent`
 
 NewQallRoomStateChangedEvent instantiates a new QallRoomStateChangedEvent object
 This constructor will assign default values to properties that have it defined,
@@ -26,44 +25,24 @@ NewQallRoomStateChangedEventWithDefaults instantiates a new QallRoomStateChanged
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRoomId
+### GetRoomStates
 
-`func (o *QallRoomStateChangedEvent) GetRoomId() string`
+`func (o *QallRoomStateChangedEvent) GetRoomStates() []QallRoomStateChangedEventRoomStatesInner`
 
-GetRoomId returns the RoomId field if non-nil, zero value otherwise.
+GetRoomStates returns the RoomStates field if non-nil, zero value otherwise.
 
-### GetRoomIdOk
+### GetRoomStatesOk
 
-`func (o *QallRoomStateChangedEvent) GetRoomIdOk() (*string, bool)`
+`func (o *QallRoomStateChangedEvent) GetRoomStatesOk() (*[]QallRoomStateChangedEventRoomStatesInner, bool)`
 
-GetRoomIdOk returns a tuple with the RoomId field if it's non-nil, zero value otherwise
+GetRoomStatesOk returns a tuple with the RoomStates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRoomId
+### SetRoomStates
 
-`func (o *QallRoomStateChangedEvent) SetRoomId(v string)`
+`func (o *QallRoomStateChangedEvent) SetRoomStates(v []QallRoomStateChangedEventRoomStatesInner)`
 
-SetRoomId sets RoomId field to given value.
-
-
-### GetState
-
-`func (o *QallRoomStateChangedEvent) GetState() QallRoomStateChangedEventState`
-
-GetState returns the State field if non-nil, zero value otherwise.
-
-### GetStateOk
-
-`func (o *QallRoomStateChangedEvent) GetStateOk() (*QallRoomStateChangedEventState, bool)`
-
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetState
-
-`func (o *QallRoomStateChangedEvent) SetState(v QallRoomStateChangedEventState)`
-
-SetState sets State field to given value.
+SetRoomStates sets RoomStates field to given value.
 
 
 

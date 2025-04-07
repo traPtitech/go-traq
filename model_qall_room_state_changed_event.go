@@ -19,19 +19,16 @@ var _ MappedNullable = &QallRoomStateChangedEvent{}
 
 // QallRoomStateChangedEvent Qallのルーム状態が変更された
 type QallRoomStateChangedEvent struct {
-	// 変更されたルームのId
-	RoomId string                         `json:"room_id"`
-	State  QallRoomStateChangedEventState `json:"state"`
+	RoomStates []QallRoomStateChangedEventRoomStatesInner `json:"roomStates"`
 }
 
 // NewQallRoomStateChangedEvent instantiates a new QallRoomStateChangedEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQallRoomStateChangedEvent(roomId string, state QallRoomStateChangedEventState) *QallRoomStateChangedEvent {
+func NewQallRoomStateChangedEvent(roomStates []QallRoomStateChangedEventRoomStatesInner) *QallRoomStateChangedEvent {
 	this := QallRoomStateChangedEvent{}
-	this.RoomId = roomId
-	this.State = state
+	this.RoomStates = roomStates
 	return &this
 }
 
@@ -43,52 +40,28 @@ func NewQallRoomStateChangedEventWithDefaults() *QallRoomStateChangedEvent {
 	return &this
 }
 
-// GetRoomId returns the RoomId field value
-func (o *QallRoomStateChangedEvent) GetRoomId() string {
+// GetRoomStates returns the RoomStates field value
+func (o *QallRoomStateChangedEvent) GetRoomStates() []QallRoomStateChangedEventRoomStatesInner {
 	if o == nil {
-		var ret string
+		var ret []QallRoomStateChangedEventRoomStatesInner
 		return ret
 	}
 
-	return o.RoomId
+	return o.RoomStates
 }
 
-// GetRoomIdOk returns a tuple with the RoomId field value
+// GetRoomStatesOk returns a tuple with the RoomStates field value
 // and a boolean to check if the value has been set.
-func (o *QallRoomStateChangedEvent) GetRoomIdOk() (*string, bool) {
+func (o *QallRoomStateChangedEvent) GetRoomStatesOk() ([]QallRoomStateChangedEventRoomStatesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RoomId, true
+	return o.RoomStates, true
 }
 
-// SetRoomId sets field value
-func (o *QallRoomStateChangedEvent) SetRoomId(v string) {
-	o.RoomId = v
-}
-
-// GetState returns the State field value
-func (o *QallRoomStateChangedEvent) GetState() QallRoomStateChangedEventState {
-	if o == nil {
-		var ret QallRoomStateChangedEventState
-		return ret
-	}
-
-	return o.State
-}
-
-// GetStateOk returns a tuple with the State field value
-// and a boolean to check if the value has been set.
-func (o *QallRoomStateChangedEvent) GetStateOk() (*QallRoomStateChangedEventState, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.State, true
-}
-
-// SetState sets field value
-func (o *QallRoomStateChangedEvent) SetState(v QallRoomStateChangedEventState) {
-	o.State = v
+// SetRoomStates sets field value
+func (o *QallRoomStateChangedEvent) SetRoomStates(v []QallRoomStateChangedEventRoomStatesInner) {
+	o.RoomStates = v
 }
 
 func (o QallRoomStateChangedEvent) MarshalJSON() ([]byte, error) {
@@ -101,8 +74,7 @@ func (o QallRoomStateChangedEvent) MarshalJSON() ([]byte, error) {
 
 func (o QallRoomStateChangedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["room_id"] = o.RoomId
-	toSerialize["state"] = o.State
+	toSerialize["roomStates"] = o.RoomStates
 	return toSerialize, nil
 }
 
