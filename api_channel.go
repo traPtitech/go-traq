@@ -1016,9 +1016,16 @@ func (a *ChannelApiService) GetChannelPinsExecute(r ChannelApiGetChannelPinsRequ
 }
 
 type ChannelApiGetChannelStatsRequest struct {
-	ctx        context.Context
-	ApiService *ChannelApiService
-	channelId  string
+	ctx                    context.Context
+	ApiService             *ChannelApiService
+	channelId              string
+	excludeDeletedMessages *bool
+}
+
+// 削除されたメッセージを除外するかどうか(デフォルト false)
+func (r ChannelApiGetChannelStatsRequest) ExcludeDeletedMessages(excludeDeletedMessages bool) ChannelApiGetChannelStatsRequest {
+	r.excludeDeletedMessages = &excludeDeletedMessages
+	return r
 }
 
 func (r ChannelApiGetChannelStatsRequest) Execute() (*ChannelStats, *http.Response, error) {
@@ -1065,6 +1072,9 @@ func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.excludeDeletedMessages != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude-deleted-messages", r.excludeDeletedMessages, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

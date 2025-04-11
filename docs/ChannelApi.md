@@ -664,7 +664,7 @@ Name | Type | Description  | Notes
 
 ## GetChannelStats
 
-> ChannelStats GetChannelStats(ctx, channelId).Execute()
+> ChannelStats GetChannelStats(ctx, channelId).ExcludeDeletedMessages(excludeDeletedMessages).Execute()
 
 チャンネル統計情報を取得
 
@@ -684,10 +684,11 @@ import (
 
 func main() {
     channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+    excludeDeletedMessages := true // bool | 削除されたメッセージを除外するかどうか(デフォルト false) (optional)
 
     configuration := traq.NewConfiguration()
     apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelStats(context.Background(), channelId).Execute()
+    resp, r, err := apiClient.ChannelApi.GetChannelStats(context.Background(), channelId).ExcludeDeletedMessages(excludeDeletedMessages).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelStats``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -713,6 +714,7 @@ Other parameters are passed through a pointer to a apiGetChannelStatsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **excludeDeletedMessages** | **bool** | 削除されたメッセージを除外するかどうか(デフォルト false) | 
 
 ### Return type
 
