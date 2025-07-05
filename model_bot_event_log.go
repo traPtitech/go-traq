@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -32,6 +34,8 @@ type BotEventLog struct {
 	// イベント日時
 	Datetime time.Time `json:"datetime"`
 }
+
+type _BotEventLog BotEventLog
 
 // NewBotEventLog instantiates a new BotEventLog object
 // This constructor will assign default values to properties that have it defined,
@@ -226,6 +230,47 @@ func (o BotEventLog) ToMap() (map[string]interface{}, error) {
 	toSerialize["code"] = o.Code
 	toSerialize["datetime"] = o.Datetime
 	return toSerialize, nil
+}
+
+func (o *BotEventLog) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"botId",
+		"requestId",
+		"event",
+		"code",
+		"datetime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBotEventLog := _BotEventLog{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBotEventLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BotEventLog(varBotEventLog)
+
+	return err
 }
 
 type NullableBotEventLog struct {

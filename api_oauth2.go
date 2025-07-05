@@ -19,21 +19,21 @@ import (
 	"strings"
 )
 
-// Oauth2ApiService Oauth2Api service
-type Oauth2ApiService service
+// Oauth2APIService Oauth2API service
+type Oauth2APIService service
 
-type Oauth2ApiCreateClientRequest struct {
+type Oauth2APICreateClientRequest struct {
 	ctx               context.Context
-	ApiService        *Oauth2ApiService
+	ApiService        *Oauth2APIService
 	postClientRequest *PostClientRequest
 }
 
-func (r Oauth2ApiCreateClientRequest) PostClientRequest(postClientRequest PostClientRequest) Oauth2ApiCreateClientRequest {
+func (r Oauth2APICreateClientRequest) PostClientRequest(postClientRequest PostClientRequest) Oauth2APICreateClientRequest {
 	r.postClientRequest = &postClientRequest
 	return r
 }
 
-func (r Oauth2ApiCreateClientRequest) Execute() (*OAuth2ClientDetail, *http.Response, error) {
+func (r Oauth2APICreateClientRequest) Execute() (*OAuth2ClientDetail, *http.Response, error) {
 	return r.ApiService.CreateClientExecute(r)
 }
 
@@ -43,10 +43,10 @@ CreateClient OAuth2クライアントを作成
 OAuth2クライアントを作成します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiCreateClientRequest
+	@return Oauth2APICreateClientRequest
 */
-func (a *Oauth2ApiService) CreateClient(ctx context.Context) Oauth2ApiCreateClientRequest {
-	return Oauth2ApiCreateClientRequest{
+func (a *Oauth2APIService) CreateClient(ctx context.Context) Oauth2APICreateClientRequest {
+	return Oauth2APICreateClientRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -55,7 +55,7 @@ func (a *Oauth2ApiService) CreateClient(ctx context.Context) Oauth2ApiCreateClie
 // Execute executes the request
 //
 //	@return OAuth2ClientDetail
-func (a *Oauth2ApiService) CreateClientExecute(r Oauth2ApiCreateClientRequest) (*OAuth2ClientDetail, *http.Response, error) {
+func (a *Oauth2APIService) CreateClientExecute(r Oauth2APICreateClientRequest) (*OAuth2ClientDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -63,7 +63,7 @@ func (a *Oauth2ApiService) CreateClientExecute(r Oauth2ApiCreateClientRequest) (
 		localVarReturnValue *OAuth2ClientDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.CreateClient")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.CreateClient")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -130,13 +130,13 @@ func (a *Oauth2ApiService) CreateClientExecute(r Oauth2ApiCreateClientRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type Oauth2ApiDeleteClientRequest struct {
+type Oauth2APIDeleteClientRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	clientId   string
 }
 
-func (r Oauth2ApiDeleteClientRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIDeleteClientRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteClientExecute(r)
 }
 
@@ -148,10 +148,10 @@ DeleteClient OAuth2クライアントを削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiDeleteClientRequest
+	@return Oauth2APIDeleteClientRequest
 */
-func (a *Oauth2ApiService) DeleteClient(ctx context.Context, clientId string) Oauth2ApiDeleteClientRequest {
-	return Oauth2ApiDeleteClientRequest{
+func (a *Oauth2APIService) DeleteClient(ctx context.Context, clientId string) Oauth2APIDeleteClientRequest {
+	return Oauth2APIDeleteClientRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clientId:   clientId,
@@ -159,14 +159,14 @@ func (a *Oauth2ApiService) DeleteClient(ctx context.Context, clientId string) Oa
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) DeleteClientExecute(r Oauth2ApiDeleteClientRequest) (*http.Response, error) {
+func (a *Oauth2APIService) DeleteClientExecute(r Oauth2APIDeleteClientRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.DeleteClient")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.DeleteClient")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -223,19 +223,19 @@ func (a *Oauth2ApiService) DeleteClientExecute(r Oauth2ApiDeleteClientRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiEditClientRequest struct {
+type Oauth2APIEditClientRequest struct {
 	ctx                context.Context
-	ApiService         *Oauth2ApiService
+	ApiService         *Oauth2APIService
 	clientId           string
 	patchClientRequest *PatchClientRequest
 }
 
-func (r Oauth2ApiEditClientRequest) PatchClientRequest(patchClientRequest PatchClientRequest) Oauth2ApiEditClientRequest {
+func (r Oauth2APIEditClientRequest) PatchClientRequest(patchClientRequest PatchClientRequest) Oauth2APIEditClientRequest {
 	r.patchClientRequest = &patchClientRequest
 	return r
 }
 
-func (r Oauth2ApiEditClientRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIEditClientRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditClientExecute(r)
 }
 
@@ -248,10 +248,10 @@ EditClient OAuth2クライアント情報を変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiEditClientRequest
+	@return Oauth2APIEditClientRequest
 */
-func (a *Oauth2ApiService) EditClient(ctx context.Context, clientId string) Oauth2ApiEditClientRequest {
-	return Oauth2ApiEditClientRequest{
+func (a *Oauth2APIService) EditClient(ctx context.Context, clientId string) Oauth2APIEditClientRequest {
+	return Oauth2APIEditClientRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clientId:   clientId,
@@ -259,14 +259,14 @@ func (a *Oauth2ApiService) EditClient(ctx context.Context, clientId string) Oaut
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) EditClientExecute(r Oauth2ApiEditClientRequest) (*http.Response, error) {
+func (a *Oauth2APIService) EditClientExecute(r Oauth2APIEditClientRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.EditClient")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.EditClient")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -325,20 +325,20 @@ func (a *Oauth2ApiService) EditClientExecute(r Oauth2ApiEditClientRequest) (*htt
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiGetClientRequest struct {
+type Oauth2APIGetClientRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	clientId   string
 	detail     *bool
 }
 
 // 詳細情報を含めるかどうか
-func (r Oauth2ApiGetClientRequest) Detail(detail bool) Oauth2ApiGetClientRequest {
+func (r Oauth2APIGetClientRequest) Detail(detail bool) Oauth2APIGetClientRequest {
 	r.detail = &detail
 	return r
 }
 
-func (r Oauth2ApiGetClientRequest) Execute() (*GetClient200Response, *http.Response, error) {
+func (r Oauth2APIGetClientRequest) Execute() (*GetClient200Response, *http.Response, error) {
 	return r.ApiService.GetClientExecute(r)
 }
 
@@ -350,10 +350,10 @@ GetClient OAuth2クライアント情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiGetClientRequest
+	@return Oauth2APIGetClientRequest
 */
-func (a *Oauth2ApiService) GetClient(ctx context.Context, clientId string) Oauth2ApiGetClientRequest {
-	return Oauth2ApiGetClientRequest{
+func (a *Oauth2APIService) GetClient(ctx context.Context, clientId string) Oauth2APIGetClientRequest {
+	return Oauth2APIGetClientRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clientId:   clientId,
@@ -363,7 +363,7 @@ func (a *Oauth2ApiService) GetClient(ctx context.Context, clientId string) Oauth
 // Execute executes the request
 //
 //	@return GetClient200Response
-func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiGetClientRequest) (*GetClient200Response, *http.Response, error) {
+func (a *Oauth2APIService) GetClientExecute(r Oauth2APIGetClientRequest) (*GetClient200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -371,7 +371,7 @@ func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiGetClientRequest) (*GetCl
 		localVarReturnValue *GetClient200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.GetClient")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.GetClient")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -384,7 +384,10 @@ func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiGetClientRequest) (*GetCl
 	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.detail = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -440,19 +443,19 @@ func (a *Oauth2ApiService) GetClientExecute(r Oauth2ApiGetClientRequest) (*GetCl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type Oauth2ApiGetClientsRequest struct {
+type Oauth2APIGetClientsRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	all        *bool
 }
 
 // 全てのクライアントを取得するかどうか
-func (r Oauth2ApiGetClientsRequest) All(all bool) Oauth2ApiGetClientsRequest {
+func (r Oauth2APIGetClientsRequest) All(all bool) Oauth2APIGetClientsRequest {
 	r.all = &all
 	return r
 }
 
-func (r Oauth2ApiGetClientsRequest) Execute() ([]OAuth2Client, *http.Response, error) {
+func (r Oauth2APIGetClientsRequest) Execute() ([]OAuth2Client, *http.Response, error) {
 	return r.ApiService.GetClientsExecute(r)
 }
 
@@ -463,10 +466,10 @@ GetClients OAuth2クライアントのリストを取得
 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetClientsRequest
+	@return Oauth2APIGetClientsRequest
 */
-func (a *Oauth2ApiService) GetClients(ctx context.Context) Oauth2ApiGetClientsRequest {
-	return Oauth2ApiGetClientsRequest{
+func (a *Oauth2APIService) GetClients(ctx context.Context) Oauth2APIGetClientsRequest {
+	return Oauth2APIGetClientsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -475,7 +478,7 @@ func (a *Oauth2ApiService) GetClients(ctx context.Context) Oauth2ApiGetClientsRe
 // Execute executes the request
 //
 //	@return []OAuth2Client
-func (a *Oauth2ApiService) GetClientsExecute(r Oauth2ApiGetClientsRequest) ([]OAuth2Client, *http.Response, error) {
+func (a *Oauth2APIService) GetClientsExecute(r Oauth2APIGetClientsRequest) ([]OAuth2Client, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -483,7 +486,7 @@ func (a *Oauth2ApiService) GetClientsExecute(r Oauth2ApiGetClientsRequest) ([]OA
 		localVarReturnValue []OAuth2Client
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.GetClients")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.GetClients")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -495,7 +498,10 @@ func (a *Oauth2ApiService) GetClientsExecute(r Oauth2ApiGetClientsRequest) ([]OA
 	localVarFormParams := url.Values{}
 
 	if r.all != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.all = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -551,12 +557,12 @@ func (a *Oauth2ApiService) GetClientsExecute(r Oauth2ApiGetClientsRequest) ([]OA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type Oauth2ApiGetMyTokensRequest struct {
+type Oauth2APIGetMyTokensRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 }
 
-func (r Oauth2ApiGetMyTokensRequest) Execute() ([]ActiveOAuth2Token, *http.Response, error) {
+func (r Oauth2APIGetMyTokensRequest) Execute() ([]ActiveOAuth2Token, *http.Response, error) {
 	return r.ApiService.GetMyTokensExecute(r)
 }
 
@@ -566,10 +572,10 @@ GetMyTokens 有効トークンのリストを取得
 有効な自分に発行されたOAuth2トークンのリストを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetMyTokensRequest
+	@return Oauth2APIGetMyTokensRequest
 */
-func (a *Oauth2ApiService) GetMyTokens(ctx context.Context) Oauth2ApiGetMyTokensRequest {
-	return Oauth2ApiGetMyTokensRequest{
+func (a *Oauth2APIService) GetMyTokens(ctx context.Context) Oauth2APIGetMyTokensRequest {
+	return Oauth2APIGetMyTokensRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -578,7 +584,7 @@ func (a *Oauth2ApiService) GetMyTokens(ctx context.Context) Oauth2ApiGetMyTokens
 // Execute executes the request
 //
 //	@return []ActiveOAuth2Token
-func (a *Oauth2ApiService) GetMyTokensExecute(r Oauth2ApiGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
+func (a *Oauth2APIService) GetMyTokensExecute(r Oauth2APIGetMyTokensRequest) ([]ActiveOAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -586,7 +592,7 @@ func (a *Oauth2ApiService) GetMyTokensExecute(r Oauth2ApiGetMyTokensRequest) ([]
 		localVarReturnValue []ActiveOAuth2Token
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.GetMyTokens")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.GetMyTokens")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -651,9 +657,9 @@ func (a *Oauth2ApiService) GetMyTokensExecute(r Oauth2ApiGetMyTokensRequest) ([]
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type Oauth2ApiGetOAuth2AuthorizeRequest struct {
+type Oauth2APIGetOAuth2AuthorizeRequest struct {
 	ctx                 context.Context
-	ApiService          *Oauth2ApiService
+	ApiService          *Oauth2APIService
 	clientId            *string
 	responseType        *OAuth2ResponseType
 	redirectUri         *string
@@ -665,52 +671,52 @@ type Oauth2ApiGetOAuth2AuthorizeRequest struct {
 	prompt              *OAuth2Prompt
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) ClientId(clientId string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) ClientId(clientId string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.clientId = &clientId
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) ResponseType(responseType OAuth2ResponseType) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) ResponseType(responseType OAuth2ResponseType) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.responseType = &responseType
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) RedirectUri(redirectUri string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) RedirectUri(redirectUri string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) Scope(scope string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) Scope(scope string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.scope = &scope
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) State(state string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) State(state string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.state = &state
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) CodeChallenge(codeChallenge string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) CodeChallenge(codeChallenge string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.codeChallenge = &codeChallenge
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) CodeChallengeMethod(codeChallengeMethod string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) CodeChallengeMethod(codeChallengeMethod string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.codeChallengeMethod = &codeChallengeMethod
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) Nonce(nonce string) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) Nonce(nonce string) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.nonce = &nonce
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) Prompt(prompt OAuth2Prompt) Oauth2ApiGetOAuth2AuthorizeRequest {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) Prompt(prompt OAuth2Prompt) Oauth2APIGetOAuth2AuthorizeRequest {
 	r.prompt = &prompt
 	return r
 }
 
-func (r Oauth2ApiGetOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIGetOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetOAuth2AuthorizeExecute(r)
 }
 
@@ -720,24 +726,24 @@ GetOAuth2Authorize OAuth2 認可エンドポイント
 OAuth2 認可エンドポイント
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiGetOAuth2AuthorizeRequest
+	@return Oauth2APIGetOAuth2AuthorizeRequest
 */
-func (a *Oauth2ApiService) GetOAuth2Authorize(ctx context.Context) Oauth2ApiGetOAuth2AuthorizeRequest {
-	return Oauth2ApiGetOAuth2AuthorizeRequest{
+func (a *Oauth2APIService) GetOAuth2Authorize(ctx context.Context) Oauth2APIGetOAuth2AuthorizeRequest {
+	return Oauth2APIGetOAuth2AuthorizeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) GetOAuth2AuthorizeExecute(r Oauth2ApiGetOAuth2AuthorizeRequest) (*http.Response, error) {
+func (a *Oauth2APIService) GetOAuth2AuthorizeExecute(r Oauth2APIGetOAuth2AuthorizeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.GetOAuth2Authorize")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.GetOAuth2Authorize")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -752,29 +758,29 @@ func (a *Oauth2ApiService) GetOAuth2AuthorizeExecute(r Oauth2ApiGetOAuth2Authori
 	}
 
 	if r.responseType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "response_type", r.responseType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "response_type", r.responseType, "form", "")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "client_id", r.clientId, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "client_id", r.clientId, "form", "")
 	if r.redirectUri != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect_uri", r.redirectUri, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect_uri", r.redirectUri, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	}
 	if r.codeChallenge != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "code_challenge", r.codeChallenge, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "code_challenge", r.codeChallenge, "form", "")
 	}
 	if r.codeChallengeMethod != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "code_challenge_method", r.codeChallengeMethod, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "code_challenge_method", r.codeChallengeMethod, "form", "")
 	}
 	if r.nonce != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "nonce", r.nonce, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "nonce", r.nonce, "form", "")
 	}
 	if r.prompt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "prompt", r.prompt, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "prompt", r.prompt, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -821,9 +827,9 @@ func (a *Oauth2ApiService) GetOAuth2AuthorizeExecute(r Oauth2ApiGetOAuth2Authori
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiPostOAuth2AuthorizeRequest struct {
+type Oauth2APIPostOAuth2AuthorizeRequest struct {
 	ctx                 context.Context
-	ApiService          *Oauth2ApiService
+	ApiService          *Oauth2APIService
 	clientId            *string
 	responseType        *OAuth2ResponseType
 	redirectUri         *string
@@ -835,52 +841,52 @@ type Oauth2ApiPostOAuth2AuthorizeRequest struct {
 	prompt              *OAuth2Prompt
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) ClientId(clientId string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) ClientId(clientId string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.clientId = &clientId
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) ResponseType(responseType OAuth2ResponseType) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) ResponseType(responseType OAuth2ResponseType) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.responseType = &responseType
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) RedirectUri(redirectUri string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) RedirectUri(redirectUri string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) Scope(scope string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) Scope(scope string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.scope = &scope
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) State(state string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) State(state string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.state = &state
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) CodeChallenge(codeChallenge string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) CodeChallenge(codeChallenge string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.codeChallenge = &codeChallenge
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) CodeChallengeMethod(codeChallengeMethod string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) CodeChallengeMethod(codeChallengeMethod string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.codeChallengeMethod = &codeChallengeMethod
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) Nonce(nonce string) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) Nonce(nonce string) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.nonce = &nonce
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) Prompt(prompt OAuth2Prompt) Oauth2ApiPostOAuth2AuthorizeRequest {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) Prompt(prompt OAuth2Prompt) Oauth2APIPostOAuth2AuthorizeRequest {
 	r.prompt = &prompt
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIPostOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostOAuth2AuthorizeExecute(r)
 }
 
@@ -890,24 +896,24 @@ PostOAuth2Authorize OAuth2 認可エンドポイント
 OAuth2 認可エンドポイント
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2AuthorizeRequest
+	@return Oauth2APIPostOAuth2AuthorizeRequest
 */
-func (a *Oauth2ApiService) PostOAuth2Authorize(ctx context.Context) Oauth2ApiPostOAuth2AuthorizeRequest {
-	return Oauth2ApiPostOAuth2AuthorizeRequest{
+func (a *Oauth2APIService) PostOAuth2Authorize(ctx context.Context) Oauth2APIPostOAuth2AuthorizeRequest {
+	return Oauth2APIPostOAuth2AuthorizeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) PostOAuth2AuthorizeExecute(r Oauth2ApiPostOAuth2AuthorizeRequest) (*http.Response, error) {
+func (a *Oauth2APIService) PostOAuth2AuthorizeExecute(r Oauth2APIPostOAuth2AuthorizeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.PostOAuth2Authorize")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.PostOAuth2Authorize")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -939,29 +945,29 @@ func (a *Oauth2ApiService) PostOAuth2AuthorizeExecute(r Oauth2ApiPostOAuth2Autho
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.responseType != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "response_type", r.responseType, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "response_type", r.responseType, "", "")
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "", "")
 	if r.redirectUri != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "redirect_uri", r.redirectUri, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "redirect_uri", r.redirectUri, "", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "scope", r.scope, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "scope", r.scope, "", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "state", r.state, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "state", r.state, "", "")
 	}
 	if r.codeChallenge != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "code_challenge", r.codeChallenge, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "code_challenge", r.codeChallenge, "", "")
 	}
 	if r.codeChallengeMethod != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "code_challenge_method", r.codeChallengeMethod, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "code_challenge_method", r.codeChallengeMethod, "", "")
 	}
 	if r.nonce != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "nonce", r.nonce, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "nonce", r.nonce, "", "")
 	}
 	if r.prompt != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "prompt", r.prompt, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "prompt", r.prompt, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -991,19 +997,19 @@ func (a *Oauth2ApiService) PostOAuth2AuthorizeExecute(r Oauth2ApiPostOAuth2Autho
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiPostOAuth2AuthorizeDecideRequest struct {
+type Oauth2APIPostOAuth2AuthorizeDecideRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	submit     *string
 }
 
 // 承諾する場合は\\\&quot;approve\\\&quot;
-func (r Oauth2ApiPostOAuth2AuthorizeDecideRequest) Submit(submit string) Oauth2ApiPostOAuth2AuthorizeDecideRequest {
+func (r Oauth2APIPostOAuth2AuthorizeDecideRequest) Submit(submit string) Oauth2APIPostOAuth2AuthorizeDecideRequest {
 	r.submit = &submit
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2AuthorizeDecideRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIPostOAuth2AuthorizeDecideRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostOAuth2AuthorizeDecideExecute(r)
 }
 
@@ -1013,24 +1019,24 @@ PostOAuth2AuthorizeDecide OAuth2 認可承諾API
 OAuth2 認可承諾
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2AuthorizeDecideRequest
+	@return Oauth2APIPostOAuth2AuthorizeDecideRequest
 */
-func (a *Oauth2ApiService) PostOAuth2AuthorizeDecide(ctx context.Context) Oauth2ApiPostOAuth2AuthorizeDecideRequest {
-	return Oauth2ApiPostOAuth2AuthorizeDecideRequest{
+func (a *Oauth2APIService) PostOAuth2AuthorizeDecide(ctx context.Context) Oauth2APIPostOAuth2AuthorizeDecideRequest {
+	return Oauth2APIPostOAuth2AuthorizeDecideRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) PostOAuth2AuthorizeDecideExecute(r Oauth2ApiPostOAuth2AuthorizeDecideRequest) (*http.Response, error) {
+func (a *Oauth2APIService) PostOAuth2AuthorizeDecideExecute(r Oauth2APIPostOAuth2AuthorizeDecideRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.PostOAuth2AuthorizeDecide")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.PostOAuth2AuthorizeDecide")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1061,7 +1067,7 @@ func (a *Oauth2ApiService) PostOAuth2AuthorizeDecideExecute(r Oauth2ApiPostOAuth
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "submit", r.submit, "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "submit", r.submit, "", "")
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1090,9 +1096,9 @@ func (a *Oauth2ApiService) PostOAuth2AuthorizeDecideExecute(r Oauth2ApiPostOAuth
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiPostOAuth2TokenRequest struct {
+type Oauth2APIPostOAuth2TokenRequest struct {
 	ctx          context.Context
-	ApiService   *Oauth2ApiService
+	ApiService   *Oauth2APIService
 	grantType    *string
 	code         *string
 	redirectUri  *string
@@ -1105,57 +1111,57 @@ type Oauth2ApiPostOAuth2TokenRequest struct {
 	clientSecret *string
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) GrantType(grantType string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) GrantType(grantType string) Oauth2APIPostOAuth2TokenRequest {
 	r.grantType = &grantType
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) Code(code string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) Code(code string) Oauth2APIPostOAuth2TokenRequest {
 	r.code = &code
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) RedirectUri(redirectUri string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) RedirectUri(redirectUri string) Oauth2APIPostOAuth2TokenRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) ClientId(clientId string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) ClientId(clientId string) Oauth2APIPostOAuth2TokenRequest {
 	r.clientId = &clientId
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) CodeVerifier(codeVerifier string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) CodeVerifier(codeVerifier string) Oauth2APIPostOAuth2TokenRequest {
 	r.codeVerifier = &codeVerifier
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) Username(username string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) Username(username string) Oauth2APIPostOAuth2TokenRequest {
 	r.username = &username
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) Password(password string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) Password(password string) Oauth2APIPostOAuth2TokenRequest {
 	r.password = &password
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) Scope(scope string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) Scope(scope string) Oauth2APIPostOAuth2TokenRequest {
 	r.scope = &scope
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) RefreshToken(refreshToken string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) RefreshToken(refreshToken string) Oauth2APIPostOAuth2TokenRequest {
 	r.refreshToken = &refreshToken
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) ClientSecret(clientSecret string) Oauth2ApiPostOAuth2TokenRequest {
+func (r Oauth2APIPostOAuth2TokenRequest) ClientSecret(clientSecret string) Oauth2APIPostOAuth2TokenRequest {
 	r.clientSecret = &clientSecret
 	return r
 }
 
-func (r Oauth2ApiPostOAuth2TokenRequest) Execute() (*OAuth2Token, *http.Response, error) {
+func (r Oauth2APIPostOAuth2TokenRequest) Execute() (*OAuth2Token, *http.Response, error) {
 	return r.ApiService.PostOAuth2TokenExecute(r)
 }
 
@@ -1165,10 +1171,10 @@ PostOAuth2Token OAuth2 トークンエンドポイント
 OAuth2 トークンエンドポイント
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiPostOAuth2TokenRequest
+	@return Oauth2APIPostOAuth2TokenRequest
 */
-func (a *Oauth2ApiService) PostOAuth2Token(ctx context.Context) Oauth2ApiPostOAuth2TokenRequest {
-	return Oauth2ApiPostOAuth2TokenRequest{
+func (a *Oauth2APIService) PostOAuth2Token(ctx context.Context) Oauth2APIPostOAuth2TokenRequest {
+	return Oauth2APIPostOAuth2TokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1177,7 +1183,7 @@ func (a *Oauth2ApiService) PostOAuth2Token(ctx context.Context) Oauth2ApiPostOAu
 // Execute executes the request
 //
 //	@return OAuth2Token
-func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequest) (*OAuth2Token, *http.Response, error) {
+func (a *Oauth2APIService) PostOAuth2TokenExecute(r Oauth2APIPostOAuth2TokenRequest) (*OAuth2Token, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1185,7 +1191,7 @@ func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequ
 		localVarReturnValue *OAuth2Token
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.PostOAuth2Token")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.PostOAuth2Token")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1216,33 +1222,33 @@ func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "grant_type", r.grantType, "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "grant_type", r.grantType, "", "")
 	if r.code != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "code", r.code, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "code", r.code, "", "")
 	}
 	if r.redirectUri != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "redirect_uri", r.redirectUri, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "redirect_uri", r.redirectUri, "", "")
 	}
 	if r.clientId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "", "")
 	}
 	if r.codeVerifier != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "code_verifier", r.codeVerifier, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "code_verifier", r.codeVerifier, "", "")
 	}
 	if r.username != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "username", r.username, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "username", r.username, "", "")
 	}
 	if r.password != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "password", r.password, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "password", r.password, "", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "scope", r.scope, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "scope", r.scope, "", "")
 	}
 	if r.refreshToken != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "refresh_token", r.refreshToken, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "refresh_token", r.refreshToken, "", "")
 	}
 	if r.clientSecret != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "client_secret", r.clientSecret, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "client_secret", r.clientSecret, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1281,13 +1287,13 @@ func (a *Oauth2ApiService) PostOAuth2TokenExecute(r Oauth2ApiPostOAuth2TokenRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type Oauth2ApiRevokeClientTokensRequest struct {
+type Oauth2APIRevokeClientTokensRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	clientId   string
 }
 
-func (r Oauth2ApiRevokeClientTokensRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIRevokeClientTokensRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeClientTokensExecute(r)
 }
 
@@ -1298,10 +1304,10 @@ RevokeClientTokens OAuthクライアントのトークンを削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId OAuth2クライアントUUID
-	@return Oauth2ApiRevokeClientTokensRequest
+	@return Oauth2APIRevokeClientTokensRequest
 */
-func (a *Oauth2ApiService) RevokeClientTokens(ctx context.Context, clientId string) Oauth2ApiRevokeClientTokensRequest {
-	return Oauth2ApiRevokeClientTokensRequest{
+func (a *Oauth2APIService) RevokeClientTokens(ctx context.Context, clientId string) Oauth2APIRevokeClientTokensRequest {
+	return Oauth2APIRevokeClientTokensRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clientId:   clientId,
@@ -1309,14 +1315,14 @@ func (a *Oauth2ApiService) RevokeClientTokens(ctx context.Context, clientId stri
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) RevokeClientTokensExecute(r Oauth2ApiRevokeClientTokensRequest) (*http.Response, error) {
+func (a *Oauth2APIService) RevokeClientTokensExecute(r Oauth2APIRevokeClientTokensRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.RevokeClientTokens")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.RevokeClientTokens")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1373,13 +1379,13 @@ func (a *Oauth2ApiService) RevokeClientTokensExecute(r Oauth2ApiRevokeClientToke
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiRevokeMyTokenRequest struct {
+type Oauth2APIRevokeMyTokenRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	tokenId    string
 }
 
-func (r Oauth2ApiRevokeMyTokenRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIRevokeMyTokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeMyTokenExecute(r)
 }
 
@@ -1390,10 +1396,10 @@ RevokeMyToken トークンの認可を取り消す
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tokenId OAuth2トークンUUID
-	@return Oauth2ApiRevokeMyTokenRequest
+	@return Oauth2APIRevokeMyTokenRequest
 */
-func (a *Oauth2ApiService) RevokeMyToken(ctx context.Context, tokenId string) Oauth2ApiRevokeMyTokenRequest {
-	return Oauth2ApiRevokeMyTokenRequest{
+func (a *Oauth2APIService) RevokeMyToken(ctx context.Context, tokenId string) Oauth2APIRevokeMyTokenRequest {
+	return Oauth2APIRevokeMyTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tokenId:    tokenId,
@@ -1401,14 +1407,14 @@ func (a *Oauth2ApiService) RevokeMyToken(ctx context.Context, tokenId string) Oa
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) RevokeMyTokenExecute(r Oauth2ApiRevokeMyTokenRequest) (*http.Response, error) {
+func (a *Oauth2APIService) RevokeMyTokenExecute(r Oauth2APIRevokeMyTokenRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.RevokeMyToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.RevokeMyToken")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1465,19 +1471,19 @@ func (a *Oauth2ApiService) RevokeMyTokenExecute(r Oauth2ApiRevokeMyTokenRequest)
 	return localVarHTTPResponse, nil
 }
 
-type Oauth2ApiRevokeOAuth2TokenRequest struct {
+type Oauth2APIRevokeOAuth2TokenRequest struct {
 	ctx        context.Context
-	ApiService *Oauth2ApiService
+	ApiService *Oauth2APIService
 	token      *string
 }
 
 // 無効化するOAuth2トークンまたはOAuth2リフレッシュトークン
-func (r Oauth2ApiRevokeOAuth2TokenRequest) Token(token string) Oauth2ApiRevokeOAuth2TokenRequest {
+func (r Oauth2APIRevokeOAuth2TokenRequest) Token(token string) Oauth2APIRevokeOAuth2TokenRequest {
 	r.token = &token
 	return r
 }
 
-func (r Oauth2ApiRevokeOAuth2TokenRequest) Execute() (*http.Response, error) {
+func (r Oauth2APIRevokeOAuth2TokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeOAuth2TokenExecute(r)
 }
 
@@ -1487,24 +1493,24 @@ RevokeOAuth2Token OAuth2 トークン無効化エンドポイント
 OAuth2 トークン無効化エンドポイント
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return Oauth2ApiRevokeOAuth2TokenRequest
+	@return Oauth2APIRevokeOAuth2TokenRequest
 */
-func (a *Oauth2ApiService) RevokeOAuth2Token(ctx context.Context) Oauth2ApiRevokeOAuth2TokenRequest {
-	return Oauth2ApiRevokeOAuth2TokenRequest{
+func (a *Oauth2APIService) RevokeOAuth2Token(ctx context.Context) Oauth2APIRevokeOAuth2TokenRequest {
+	return Oauth2APIRevokeOAuth2TokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *Oauth2ApiService) RevokeOAuth2TokenExecute(r Oauth2ApiRevokeOAuth2TokenRequest) (*http.Response, error) {
+func (a *Oauth2APIService) RevokeOAuth2TokenExecute(r Oauth2APIRevokeOAuth2TokenRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2ApiService.RevokeOAuth2Token")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Oauth2APIService.RevokeOAuth2Token")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1535,7 +1541,7 @@ func (a *Oauth2ApiService) RevokeOAuth2TokenExecute(r Oauth2ApiRevokeOAuth2Token
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "token", r.token, "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "token", r.token, "", "")
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

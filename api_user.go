@@ -21,22 +21,22 @@ import (
 	"time"
 )
 
-// UserApiService UserApi service
-type UserApiService service
+// UserAPIService UserAPI service
+type UserAPIService service
 
-type UserApiAddUserTagRequest struct {
+type UserAPIAddUserTagRequest struct {
 	ctx                context.Context
-	ApiService         *UserApiService
+	ApiService         *UserAPIService
 	userId             string
 	postUserTagRequest *PostUserTagRequest
 }
 
-func (r UserApiAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserApiAddUserTagRequest {
+func (r UserAPIAddUserTagRequest) PostUserTagRequest(postUserTagRequest PostUserTagRequest) UserAPIAddUserTagRequest {
 	r.postUserTagRequest = &postUserTagRequest
 	return r
 }
 
-func (r UserApiAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
+func (r UserAPIAddUserTagRequest) Execute() (*UserTag, *http.Response, error) {
 	return r.ApiService.AddUserTagExecute(r)
 }
 
@@ -48,10 +48,10 @@ Webhookユーザーにタグを追加することは出来ません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiAddUserTagRequest
+	@return UserAPIAddUserTagRequest
 */
-func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiAddUserTagRequest {
-	return UserApiAddUserTagRequest{
+func (a *UserAPIService) AddUserTag(ctx context.Context, userId string) UserAPIAddUserTagRequest {
+	return UserAPIAddUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -61,7 +61,7 @@ func (a *UserApiService) AddUserTag(ctx context.Context, userId string) UserApiA
 // Execute executes the request
 //
 //	@return UserTag
-func (a *UserApiService) AddUserTagExecute(r UserApiAddUserTagRequest) (*UserTag, *http.Response, error) {
+func (a *UserAPIService) AddUserTagExecute(r UserAPIAddUserTagRequest) (*UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -69,7 +69,7 @@ func (a *UserApiService) AddUserTagExecute(r UserApiAddUserTagRequest) (*UserTag
 		localVarReturnValue *UserTag
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.AddUserTag")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.AddUserTag")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -137,20 +137,20 @@ func (a *UserApiService) AddUserTagExecute(r UserApiAddUserTagRequest) (*UserTag
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiChangeUserIconRequest struct {
+type UserAPIChangeUserIconRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 	file       *os.File
 }
 
 // アイコン画像(2MBまでのpng, jpeg, gif)
-func (r UserApiChangeUserIconRequest) File(file *os.File) UserApiChangeUserIconRequest {
+func (r UserAPIChangeUserIconRequest) File(file *os.File) UserAPIChangeUserIconRequest {
 	r.file = file
 	return r
 }
 
-func (r UserApiChangeUserIconRequest) Execute() (*http.Response, error) {
+func (r UserAPIChangeUserIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserIconExecute(r)
 }
 
@@ -162,10 +162,10 @@ ChangeUserIcon ユーザーのアイコン画像を変更します
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiChangeUserIconRequest
+	@return UserAPIChangeUserIconRequest
 */
-func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) UserApiChangeUserIconRequest {
-	return UserApiChangeUserIconRequest{
+func (a *UserAPIService) ChangeUserIcon(ctx context.Context, userId string) UserAPIChangeUserIconRequest {
+	return UserAPIChangeUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -173,14 +173,14 @@ func (a *UserApiService) ChangeUserIcon(ctx context.Context, userId string) User
 }
 
 // Execute executes the request
-func (a *UserApiService) ChangeUserIconExecute(r UserApiChangeUserIconRequest) (*http.Response, error) {
+func (a *UserAPIService) ChangeUserIconExecute(r UserAPIChangeUserIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.ChangeUserIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ChangeUserIcon")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -217,7 +217,6 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiChangeUserIconRequest) (
 	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
-
 	fileLocalVarFile := r.file
 
 	if fileLocalVarFile != nil {
@@ -256,19 +255,19 @@ func (a *UserApiService) ChangeUserIconExecute(r UserApiChangeUserIconRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type UserApiChangeUserPasswordRequest struct {
+type UserAPIChangeUserPasswordRequest struct {
 	ctx                    context.Context
-	ApiService             *UserApiService
+	ApiService             *UserAPIService
 	userId                 string
 	putUserPasswordRequest *PutUserPasswordRequest
 }
 
-func (r UserApiChangeUserPasswordRequest) PutUserPasswordRequest(putUserPasswordRequest PutUserPasswordRequest) UserApiChangeUserPasswordRequest {
+func (r UserAPIChangeUserPasswordRequest) PutUserPasswordRequest(putUserPasswordRequest PutUserPasswordRequest) UserAPIChangeUserPasswordRequest {
 	r.putUserPasswordRequest = &putUserPasswordRequest
 	return r
 }
 
-func (r UserApiChangeUserPasswordRequest) Execute() (*http.Response, error) {
+func (r UserAPIChangeUserPasswordRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserPasswordExecute(r)
 }
 
@@ -280,10 +279,10 @@ ChangeUserPassword ユーザーのパスワードを変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiChangeUserPasswordRequest
+	@return UserAPIChangeUserPasswordRequest
 */
-func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) UserApiChangeUserPasswordRequest {
-	return UserApiChangeUserPasswordRequest{
+func (a *UserAPIService) ChangeUserPassword(ctx context.Context, userId string) UserAPIChangeUserPasswordRequest {
+	return UserAPIChangeUserPasswordRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -291,14 +290,14 @@ func (a *UserApiService) ChangeUserPassword(ctx context.Context, userId string) 
 }
 
 // Execute executes the request
-func (a *UserApiService) ChangeUserPasswordExecute(r UserApiChangeUserPasswordRequest) (*http.Response, error) {
+func (a *UserAPIService) ChangeUserPasswordExecute(r UserAPIChangeUserPasswordRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.ChangeUserPassword")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ChangeUserPassword")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -357,18 +356,18 @@ func (a *UserApiService) ChangeUserPasswordExecute(r UserApiChangeUserPasswordRe
 	return localVarHTTPResponse, nil
 }
 
-type UserApiCreateUserRequest struct {
+type UserAPICreateUserRequest struct {
 	ctx             context.Context
-	ApiService      *UserApiService
+	ApiService      *UserAPIService
 	postUserRequest *PostUserRequest
 }
 
-func (r UserApiCreateUserRequest) PostUserRequest(postUserRequest PostUserRequest) UserApiCreateUserRequest {
+func (r UserAPICreateUserRequest) PostUserRequest(postUserRequest PostUserRequest) UserAPICreateUserRequest {
 	r.postUserRequest = &postUserRequest
 	return r
 }
 
-func (r UserApiCreateUserRequest) Execute() (*UserDetail, *http.Response, error) {
+func (r UserAPICreateUserRequest) Execute() (*UserDetail, *http.Response, error) {
 	return r.ApiService.CreateUserExecute(r)
 }
 
@@ -379,10 +378,10 @@ CreateUser ユーザーを登録
 管理者権限が必要です。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return UserApiCreateUserRequest
+	@return UserAPICreateUserRequest
 */
-func (a *UserApiService) CreateUser(ctx context.Context) UserApiCreateUserRequest {
-	return UserApiCreateUserRequest{
+func (a *UserAPIService) CreateUser(ctx context.Context) UserAPICreateUserRequest {
+	return UserAPICreateUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -391,7 +390,7 @@ func (a *UserApiService) CreateUser(ctx context.Context) UserApiCreateUserReques
 // Execute executes the request
 //
 //	@return UserDetail
-func (a *UserApiService) CreateUserExecute(r UserApiCreateUserRequest) (*UserDetail, *http.Response, error) {
+func (a *UserAPIService) CreateUserExecute(r UserAPICreateUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -399,7 +398,7 @@ func (a *UserApiService) CreateUserExecute(r UserApiCreateUserRequest) (*UserDet
 		localVarReturnValue *UserDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.CreateUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.CreateUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -466,19 +465,19 @@ func (a *UserApiService) CreateUserExecute(r UserApiCreateUserRequest) (*UserDet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiEditUserRequest struct {
+type UserAPIEditUserRequest struct {
 	ctx              context.Context
-	ApiService       *UserApiService
+	ApiService       *UserAPIService
 	userId           string
 	patchUserRequest *PatchUserRequest
 }
 
-func (r UserApiEditUserRequest) PatchUserRequest(patchUserRequest PatchUserRequest) UserApiEditUserRequest {
+func (r UserAPIEditUserRequest) PatchUserRequest(patchUserRequest PatchUserRequest) UserAPIEditUserRequest {
 	r.patchUserRequest = &patchUserRequest
 	return r
 }
 
-func (r UserApiEditUserRequest) Execute() (*http.Response, error) {
+func (r UserAPIEditUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserExecute(r)
 }
 
@@ -490,10 +489,10 @@ EditUser ユーザー情報を変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiEditUserRequest
+	@return UserAPIEditUserRequest
 */
-func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiEditUserRequest {
-	return UserApiEditUserRequest{
+func (a *UserAPIService) EditUser(ctx context.Context, userId string) UserAPIEditUserRequest {
+	return UserAPIEditUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -501,14 +500,14 @@ func (a *UserApiService) EditUser(ctx context.Context, userId string) UserApiEdi
 }
 
 // Execute executes the request
-func (a *UserApiService) EditUserExecute(r UserApiEditUserRequest) (*http.Response, error) {
+func (a *UserAPIService) EditUserExecute(r UserAPIEditUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.EditUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.EditUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -567,20 +566,20 @@ func (a *UserApiService) EditUserExecute(r UserApiEditUserRequest) (*http.Respon
 	return localVarHTTPResponse, nil
 }
 
-type UserApiEditUserTagRequest struct {
+type UserAPIEditUserTagRequest struct {
 	ctx                 context.Context
-	ApiService          *UserApiService
+	ApiService          *UserAPIService
 	userId              string
 	tagId               string
 	patchUserTagRequest *PatchUserTagRequest
 }
 
-func (r UserApiEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserApiEditUserTagRequest {
+func (r UserAPIEditUserTagRequest) PatchUserTagRequest(patchUserTagRequest PatchUserTagRequest) UserAPIEditUserTagRequest {
 	r.patchUserTagRequest = &patchUserTagRequest
 	return r
 }
 
-func (r UserApiEditUserTagRequest) Execute() (*http.Response, error) {
+func (r UserAPIEditUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserTagExecute(r)
 }
 
@@ -593,10 +592,10 @@ EditUserTag ユーザーのタグを編集
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
 	@param tagId タグUUID
-	@return UserApiEditUserTagRequest
+	@return UserAPIEditUserTagRequest
 */
-func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId string) UserApiEditUserTagRequest {
-	return UserApiEditUserTagRequest{
+func (a *UserAPIService) EditUserTag(ctx context.Context, userId string, tagId string) UserAPIEditUserTagRequest {
+	return UserAPIEditUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -605,14 +604,14 @@ func (a *UserApiService) EditUserTag(ctx context.Context, userId string, tagId s
 }
 
 // Execute executes the request
-func (a *UserApiService) EditUserTagExecute(r UserApiEditUserTagRequest) (*http.Response, error) {
+func (a *UserAPIService) EditUserTagExecute(r UserAPIEditUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.EditUserTag")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.EditUserTag")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -672,9 +671,9 @@ func (a *UserApiService) EditUserTagExecute(r UserApiEditUserTagRequest) (*http.
 	return localVarHTTPResponse, nil
 }
 
-type UserApiGetDirectMessagesRequest struct {
+type UserAPIGetDirectMessagesRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 	limit      *int32
 	offset     *int32
@@ -685,42 +684,42 @@ type UserApiGetDirectMessagesRequest struct {
 }
 
 // 取得する件数
-func (r UserApiGetDirectMessagesRequest) Limit(limit int32) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Limit(limit int32) UserAPIGetDirectMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r UserApiGetDirectMessagesRequest) Offset(offset int32) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Offset(offset int32) UserAPIGetDirectMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r UserApiGetDirectMessagesRequest) Since(since time.Time) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Since(since time.Time) UserAPIGetDirectMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r UserApiGetDirectMessagesRequest) Until(until time.Time) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Until(until time.Time) UserAPIGetDirectMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r UserApiGetDirectMessagesRequest) Inclusive(inclusive bool) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Inclusive(inclusive bool) UserAPIGetDirectMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r UserApiGetDirectMessagesRequest) Order(order string) UserApiGetDirectMessagesRequest {
+func (r UserAPIGetDirectMessagesRequest) Order(order string) UserAPIGetDirectMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r UserApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r UserAPIGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetDirectMessagesExecute(r)
 }
 
@@ -731,10 +730,10 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiGetDirectMessagesRequest
+	@return UserAPIGetDirectMessagesRequest
 */
-func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) UserApiGetDirectMessagesRequest {
-	return UserApiGetDirectMessagesRequest{
+func (a *UserAPIService) GetDirectMessages(ctx context.Context, userId string) UserAPIGetDirectMessagesRequest {
+	return UserAPIGetDirectMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -744,7 +743,7 @@ func (a *UserApiService) GetDirectMessages(ctx context.Context, userId string) U
 // Execute executes the request
 //
 //	@return []Message
-func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
+func (a *UserAPIService) GetDirectMessagesExecute(r UserAPIGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -752,7 +751,7 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequ
 		localVarReturnValue []Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetDirectMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetDirectMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -765,22 +764,34 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequ
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -836,13 +847,13 @@ func (a *UserApiService) GetDirectMessagesExecute(r UserApiGetDirectMessagesRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUserRequest struct {
+type UserAPIGetUserRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 }
 
-func (r UserApiGetUserRequest) Execute() (*UserDetail, *http.Response, error) {
+func (r UserAPIGetUserRequest) Execute() (*UserDetail, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -853,10 +864,10 @@ GetUser ユーザー詳細情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiGetUserRequest
+	@return UserAPIGetUserRequest
 */
-func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiGetUserRequest {
-	return UserApiGetUserRequest{
+func (a *UserAPIService) GetUser(ctx context.Context, userId string) UserAPIGetUserRequest {
+	return UserAPIGetUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -866,7 +877,7 @@ func (a *UserApiService) GetUser(ctx context.Context, userId string) UserApiGetU
 // Execute executes the request
 //
 //	@return UserDetail
-func (a *UserApiService) GetUserExecute(r UserApiGetUserRequest) (*UserDetail, *http.Response, error) {
+func (a *UserAPIService) GetUserExecute(r UserAPIGetUserRequest) (*UserDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -874,7 +885,7 @@ func (a *UserApiService) GetUserExecute(r UserApiGetUserRequest) (*UserDetail, *
 		localVarReturnValue *UserDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -940,13 +951,13 @@ func (a *UserApiService) GetUserExecute(r UserApiGetUserRequest) (*UserDetail, *
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUserDMChannelRequest struct {
+type UserAPIGetUserDMChannelRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 }
 
-func (r UserApiGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
+func (r UserAPIGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
 	return r.ApiService.GetUserDMChannelExecute(r)
 }
 
@@ -958,10 +969,10 @@ GetUserDMChannel DMチャンネル情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return UserApiGetUserDMChannelRequest
+	@return UserAPIGetUserDMChannelRequest
 */
-func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) UserApiGetUserDMChannelRequest {
-	return UserApiGetUserDMChannelRequest{
+func (a *UserAPIService) GetUserDMChannel(ctx context.Context, userId string) UserAPIGetUserDMChannelRequest {
+	return UserAPIGetUserDMChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -971,7 +982,7 @@ func (a *UserApiService) GetUserDMChannel(ctx context.Context, userId string) Us
 // Execute executes the request
 //
 //	@return DMChannel
-func (a *UserApiService) GetUserDMChannelExecute(r UserApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
+func (a *UserAPIService) GetUserDMChannelExecute(r UserAPIGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -979,7 +990,7 @@ func (a *UserApiService) GetUserDMChannelExecute(r UserApiGetUserDMChannelReques
 		localVarReturnValue *DMChannel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUserDMChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUserDMChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1045,13 +1056,13 @@ func (a *UserApiService) GetUserDMChannelExecute(r UserApiGetUserDMChannelReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUserIconRequest struct {
+type UserAPIGetUserIconRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 }
 
-func (r UserApiGetUserIconRequest) Execute() (*os.File, *http.Response, error) {
+func (r UserAPIGetUserIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetUserIconExecute(r)
 }
 
@@ -1062,10 +1073,10 @@ GetUserIcon ユーザーのアイコン画像を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiGetUserIconRequest
+	@return UserAPIGetUserIconRequest
 */
-func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApiGetUserIconRequest {
-	return UserApiGetUserIconRequest{
+func (a *UserAPIService) GetUserIcon(ctx context.Context, userId string) UserAPIGetUserIconRequest {
+	return UserAPIGetUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1075,7 +1086,7 @@ func (a *UserApiService) GetUserIcon(ctx context.Context, userId string) UserApi
 // Execute executes the request
 //
 //	@return *os.File
-func (a *UserApiService) GetUserIconExecute(r UserApiGetUserIconRequest) (*os.File, *http.Response, error) {
+func (a *UserAPIService) GetUserIconExecute(r UserAPIGetUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1083,7 +1094,7 @@ func (a *UserApiService) GetUserIconExecute(r UserApiGetUserIconRequest) (*os.Fi
 		localVarReturnValue *os.File
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUserIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUserIcon")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1149,13 +1160,13 @@ func (a *UserApiService) GetUserIconExecute(r UserApiGetUserIconRequest) (*os.Fi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUserStatsRequest struct {
+type UserAPIGetUserStatsRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 }
 
-func (r UserApiGetUserStatsRequest) Execute() (*UserStats, *http.Response, error) {
+func (r UserAPIGetUserStatsRequest) Execute() (*UserStats, *http.Response, error) {
 	return r.ApiService.GetUserStatsExecute(r)
 }
 
@@ -1166,10 +1177,10 @@ GetUserStats ユーザー統計情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiGetUserStatsRequest
+	@return UserAPIGetUserStatsRequest
 */
-func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserApiGetUserStatsRequest {
-	return UserApiGetUserStatsRequest{
+func (a *UserAPIService) GetUserStats(ctx context.Context, userId string) UserAPIGetUserStatsRequest {
+	return UserAPIGetUserStatsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1179,7 +1190,7 @@ func (a *UserApiService) GetUserStats(ctx context.Context, userId string) UserAp
 // Execute executes the request
 //
 //	@return UserStats
-func (a *UserApiService) GetUserStatsExecute(r UserApiGetUserStatsRequest) (*UserStats, *http.Response, error) {
+func (a *UserAPIService) GetUserStatsExecute(r UserAPIGetUserStatsRequest) (*UserStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1187,7 +1198,7 @@ func (a *UserApiService) GetUserStatsExecute(r UserApiGetUserStatsRequest) (*Use
 		localVarReturnValue *UserStats
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUserStats")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUserStats")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1253,13 +1264,13 @@ func (a *UserApiService) GetUserStatsExecute(r UserApiGetUserStatsRequest) (*Use
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUserTagsRequest struct {
+type UserAPIGetUserTagsRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 }
 
-func (r UserApiGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
+func (r UserAPIGetUserTagsRequest) Execute() ([]UserTag, *http.Response, error) {
 	return r.ApiService.GetUserTagsExecute(r)
 }
 
@@ -1270,10 +1281,10 @@ GetUserTags ユーザーのタグリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiGetUserTagsRequest
+	@return UserAPIGetUserTagsRequest
 */
-func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApiGetUserTagsRequest {
-	return UserApiGetUserTagsRequest{
+func (a *UserAPIService) GetUserTags(ctx context.Context, userId string) UserAPIGetUserTagsRequest {
+	return UserAPIGetUserTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1283,7 +1294,7 @@ func (a *UserApiService) GetUserTags(ctx context.Context, userId string) UserApi
 // Execute executes the request
 //
 //	@return []UserTag
-func (a *UserApiService) GetUserTagsExecute(r UserApiGetUserTagsRequest) ([]UserTag, *http.Response, error) {
+func (a *UserAPIService) GetUserTagsExecute(r UserAPIGetUserTagsRequest) ([]UserTag, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1291,7 +1302,7 @@ func (a *UserApiService) GetUserTagsExecute(r UserApiGetUserTagsRequest) ([]User
 		localVarReturnValue []UserTag
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUserTags")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUserTags")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1357,26 +1368,26 @@ func (a *UserApiService) GetUserTagsExecute(r UserApiGetUserTagsRequest) ([]User
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiGetUsersRequest struct {
+type UserAPIGetUsersRequest struct {
 	ctx              context.Context
-	ApiService       *UserApiService
+	ApiService       *UserAPIService
 	includeSuspended *bool
 	name             *string
 }
 
 // アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか
-func (r UserApiGetUsersRequest) IncludeSuspended(includeSuspended bool) UserApiGetUsersRequest {
+func (r UserAPIGetUsersRequest) IncludeSuspended(includeSuspended bool) UserAPIGetUsersRequest {
 	r.includeSuspended = &includeSuspended
 	return r
 }
 
 // 名前が一致するアカウントのみを取得する
-func (r UserApiGetUsersRequest) Name(name string) UserApiGetUsersRequest {
+func (r UserAPIGetUsersRequest) Name(name string) UserAPIGetUsersRequest {
 	r.name = &name
 	return r
 }
 
-func (r UserApiGetUsersRequest) Execute() ([]User, *http.Response, error) {
+func (r UserAPIGetUsersRequest) Execute() ([]User, *http.Response, error) {
 	return r.ApiService.GetUsersExecute(r)
 }
 
@@ -1388,10 +1399,10 @@ GetUsers ユーザーのリストを取得
 `include-suspended`と`name`を同時に指定することはできません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return UserApiGetUsersRequest
+	@return UserAPIGetUsersRequest
 */
-func (a *UserApiService) GetUsers(ctx context.Context) UserApiGetUsersRequest {
-	return UserApiGetUsersRequest{
+func (a *UserAPIService) GetUsers(ctx context.Context) UserAPIGetUsersRequest {
+	return UserAPIGetUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1400,7 +1411,7 @@ func (a *UserApiService) GetUsers(ctx context.Context) UserApiGetUsersRequest {
 // Execute executes the request
 //
 //	@return []User
-func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *http.Response, error) {
+func (a *UserAPIService) GetUsersExecute(r UserAPIGetUsersRequest) ([]User, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1408,7 +1419,7 @@ func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *htt
 		localVarReturnValue []User
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUsers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUsers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1420,10 +1431,13 @@ func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *htt
 	localVarFormParams := url.Values{}
 
 	if r.includeSuspended != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "include-suspended", r.includeSuspended, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include-suspended", r.includeSuspended, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeSuspended = &defaultValue
 	}
 	if r.name != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1479,19 +1493,19 @@ func (a *UserApiService) GetUsersExecute(r UserApiGetUsersRequest) ([]User, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiPostDirectMessageRequest struct {
+type UserAPIPostDirectMessageRequest struct {
 	ctx                context.Context
-	ApiService         *UserApiService
+	ApiService         *UserAPIService
 	userId             string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r UserApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) UserApiPostDirectMessageRequest {
+func (r UserAPIPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) UserAPIPostDirectMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r UserApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r UserAPIPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostDirectMessageExecute(r)
 }
 
@@ -1502,10 +1516,10 @@ PostDirectMessage ダイレクトメッセージを送信
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return UserApiPostDirectMessageRequest
+	@return UserAPIPostDirectMessageRequest
 */
-func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) UserApiPostDirectMessageRequest {
-	return UserApiPostDirectMessageRequest{
+func (a *UserAPIService) PostDirectMessage(ctx context.Context, userId string) UserAPIPostDirectMessageRequest {
+	return UserAPIPostDirectMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1515,7 +1529,7 @@ func (a *UserApiService) PostDirectMessage(ctx context.Context, userId string) U
 // Execute executes the request
 //
 //	@return Message
-func (a *UserApiService) PostDirectMessageExecute(r UserApiPostDirectMessageRequest) (*Message, *http.Response, error) {
+func (a *UserAPIService) PostDirectMessageExecute(r UserAPIPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1523,7 +1537,7 @@ func (a *UserApiService) PostDirectMessageExecute(r UserApiPostDirectMessageRequ
 		localVarReturnValue *Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.PostDirectMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.PostDirectMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1591,14 +1605,14 @@ func (a *UserApiService) PostDirectMessageExecute(r UserApiPostDirectMessageRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type UserApiRemoveUserTagRequest struct {
+type UserAPIRemoveUserTagRequest struct {
 	ctx        context.Context
-	ApiService *UserApiService
+	ApiService *UserAPIService
 	userId     string
 	tagId      string
 }
 
-func (r UserApiRemoveUserTagRequest) Execute() (*http.Response, error) {
+func (r UserAPIRemoveUserTagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserTagExecute(r)
 }
 
@@ -1610,10 +1624,10 @@ RemoveUserTag ユーザーからタグを削除します
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
 	@param tagId タグUUID
-	@return UserApiRemoveUserTagRequest
+	@return UserAPIRemoveUserTagRequest
 */
-func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserApiRemoveUserTagRequest {
-	return UserApiRemoveUserTagRequest{
+func (a *UserAPIService) RemoveUserTag(ctx context.Context, userId string, tagId string) UserAPIRemoveUserTagRequest {
+	return UserAPIRemoveUserTagRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1622,14 +1636,14 @@ func (a *UserApiService) RemoveUserTag(ctx context.Context, userId string, tagId
 }
 
 // Execute executes the request
-func (a *UserApiService) RemoveUserTagExecute(r UserApiRemoveUserTagRequest) (*http.Response, error) {
+func (a *UserAPIService) RemoveUserTagExecute(r UserAPIRemoveUserTagRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.RemoveUserTag")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RemoveUserTag")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

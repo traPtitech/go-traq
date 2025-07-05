@@ -1,19 +1,19 @@
-# \NotificationApi
+# \NotificationAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EditChannelSubscribers**](NotificationApi.md#EditChannelSubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
-[**GetChannelSubscribers**](NotificationApi.md#GetChannelSubscribers) | **Get** /channels/{channelId}/subscribers | チャンネルの通知購読者のリストを取得
-[**GetMyChannelSubscriptions**](NotificationApi.md#GetMyChannelSubscriptions) | **Get** /users/me/subscriptions | 自分のチャンネル購読状態を取得
-[**GetMyUnreadChannels**](NotificationApi.md#GetMyUnreadChannels) | **Get** /users/me/unread | 未読チャンネルを取得
-[**GetMyViewStates**](NotificationApi.md#GetMyViewStates) | **Get** /users/me/view-states | 自身のチャンネル閲覧状態一覧を取得
-[**ReadChannel**](NotificationApi.md#ReadChannel) | **Delete** /users/me/unread/{channelId} | チャンネルを既読にする
-[**RegisterFCMDevice**](NotificationApi.md#RegisterFCMDevice) | **Post** /users/me/fcm-device | FCMデバイスを登録
-[**SetChannelSubscribeLevel**](NotificationApi.md#SetChannelSubscribeLevel) | **Put** /users/me/subscriptions/{channelId} | チャンネル購読レベルを設定
-[**SetChannelSubscribers**](NotificationApi.md#SetChannelSubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
-[**Ws**](NotificationApi.md#Ws) | **Get** /ws | WebSocket通知ストリームに接続します
+[**EditChannelSubscribers**](NotificationAPI.md#EditChannelSubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
+[**GetChannelSubscribers**](NotificationAPI.md#GetChannelSubscribers) | **Get** /channels/{channelId}/subscribers | チャンネルの通知購読者のリストを取得
+[**GetMyChannelSubscriptions**](NotificationAPI.md#GetMyChannelSubscriptions) | **Get** /users/me/subscriptions | 自分のチャンネル購読状態を取得
+[**GetMyUnreadChannels**](NotificationAPI.md#GetMyUnreadChannels) | **Get** /users/me/unread | 未読チャンネルを取得
+[**GetMyViewStates**](NotificationAPI.md#GetMyViewStates) | **Get** /users/me/view-states | 自身のチャンネル閲覧状態一覧を取得
+[**ReadChannel**](NotificationAPI.md#ReadChannel) | **Delete** /users/me/unread/{channelId} | チャンネルを既読にする
+[**RegisterFCMDevice**](NotificationAPI.md#RegisterFCMDevice) | **Post** /users/me/fcm-device | FCMデバイスを登録
+[**SetChannelSubscribeLevel**](NotificationAPI.md#SetChannelSubscribeLevel) | **Put** /users/me/subscriptions/{channelId} | チャンネル購読レベルを設定
+[**SetChannelSubscribers**](NotificationAPI.md#SetChannelSubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
+[**Ws**](NotificationAPI.md#Ws) | **Get** /ws | WebSocket通知ストリームに接続します
 
 
 
@@ -31,23 +31,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    patchChannelSubscribersRequest := *traq.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	patchChannelSubscribersRequest := *traq.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.EditChannelSubscribers(context.Background(), channelId).PatchChannelSubscribersRequest(patchChannelSubscribersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.EditChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.EditChannelSubscribers(context.Background(), channelId).PatchChannelSubscribersRequest(patchChannelSubscribersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.EditChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -101,24 +101,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationApi.GetChannelSubscribers(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.GetChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelSubscribers`: []string
-    fmt.Fprintf(os.Stdout, "Response from `NotificationApi.GetChannelSubscribers`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationAPI.GetChannelSubscribers(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.GetChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelSubscribers`: []string
+	fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.GetChannelSubscribers`: %v\n", resp)
 }
 ```
 
@@ -171,23 +171,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationApi.GetMyChannelSubscriptions(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.GetMyChannelSubscriptions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyChannelSubscriptions`: []UserSubscribeState
-    fmt.Fprintf(os.Stdout, "Response from `NotificationApi.GetMyChannelSubscriptions`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationAPI.GetMyChannelSubscriptions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.GetMyChannelSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyChannelSubscriptions`: []UserSubscribeState
+	fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.GetMyChannelSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -232,23 +232,23 @@ Other parameters are passed through a pointer to a apiGetMyChannelSubscriptionsR
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationApi.GetMyUnreadChannels(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.GetMyUnreadChannels``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyUnreadChannels`: []UnreadChannel
-    fmt.Fprintf(os.Stdout, "Response from `NotificationApi.GetMyUnreadChannels`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationAPI.GetMyUnreadChannels(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.GetMyUnreadChannels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyUnreadChannels`: []UnreadChannel
+	fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.GetMyUnreadChannels`: %v\n", resp)
 }
 ```
 
@@ -293,23 +293,23 @@ Other parameters are passed through a pointer to a apiGetMyUnreadChannelsRequest
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationApi.GetMyViewStates(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.GetMyViewStates``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyViewStates`: []MyChannelViewState
-    fmt.Fprintf(os.Stdout, "Response from `NotificationApi.GetMyViewStates`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationAPI.GetMyViewStates(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.GetMyViewStates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyViewStates`: []MyChannelViewState
+	fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.GetMyViewStates`: %v\n", resp)
 }
 ```
 
@@ -354,22 +354,22 @@ Other parameters are passed through a pointer to a apiGetMyViewStatesRequest str
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.ReadChannel(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.ReadChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.ReadChannel(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.ReadChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -422,22 +422,22 @@ FCMデバイスを登録
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postMyFCMDeviceRequest := *traq.NewPostMyFCMDeviceRequest("bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1") // PostMyFCMDeviceRequest |  (optional)
+	postMyFCMDeviceRequest := *traq.NewPostMyFCMDeviceRequest("bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1") // PostMyFCMDeviceRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.RegisterFCMDevice(context.Background()).PostMyFCMDeviceRequest(postMyFCMDeviceRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.RegisterFCMDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.RegisterFCMDevice(context.Background()).PostMyFCMDeviceRequest(postMyFCMDeviceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.RegisterFCMDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -486,23 +486,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelSubscribeLevelRequest := *traq.NewPutChannelSubscribeLevelRequest(traq.ChannelSubscribeLevel(0)) // PutChannelSubscribeLevelRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	putChannelSubscribeLevelRequest := *traq.NewPutChannelSubscribeLevelRequest(traq.ChannelSubscribeLevel(0)) // PutChannelSubscribeLevelRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.SetChannelSubscribeLevel(context.Background(), channelId).PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.SetChannelSubscribeLevel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.SetChannelSubscribeLevel(context.Background(), channelId).PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.SetChannelSubscribeLevel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -556,23 +556,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelSubscribersRequest := *traq.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	putChannelSubscribersRequest := *traq.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.SetChannelSubscribers(context.Background(), channelId).PutChannelSubscribersRequest(putChannelSubscribersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.SetChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.SetChannelSubscribers(context.Background(), channelId).PutChannelSubscribersRequest(putChannelSubscribersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.SetChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -626,21 +626,21 @@ WebSocket通知ストリームに接続します
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.NotificationApi.Ws(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationApi.Ws``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.NotificationAPI.Ws(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.Ws``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

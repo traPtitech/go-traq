@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostClientRequest type satisfies the MappedNullable interface at compile time
@@ -30,6 +32,8 @@ type PostClientRequest struct {
 	// confidential client なら true, public cleint なら false
 	Confidential *bool `json:"confidential,omitempty"`
 }
+
+type _PostClientRequest PostClientRequest
 
 // NewPostClientRequest instantiates a new PostClientRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -202,6 +206,46 @@ func (o PostClientRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["confidential"] = o.Confidential
 	}
 	return toSerialize, nil
+}
+
+func (o *PostClientRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"callbackUrl",
+		"scopes",
+		"description",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostClientRequest := _PostClientRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostClientRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostClientRequest(varPostClientRequest)
+
+	return err
 }
 
 type NullablePostClientRequest struct {

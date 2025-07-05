@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BotUser type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type BotUser struct {
 	// BOTユーザーUUID
 	BotUserId string `json:"botUserId"`
 }
+
+type _BotUser BotUser
 
 // NewBotUser instantiates a new BotUser object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o BotUser) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["botUserId"] = o.BotUserId
 	return toSerialize, nil
+}
+
+func (o *BotUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"botUserId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBotUser := _BotUser{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBotUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BotUser(varBotUser)
+
+	return err
 }
 
 type NullableBotUser struct {

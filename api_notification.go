@@ -19,22 +19,22 @@ import (
 	"strings"
 )
 
-// NotificationApiService NotificationApi service
-type NotificationApiService service
+// NotificationAPIService NotificationAPI service
+type NotificationAPIService service
 
-type NotificationApiEditChannelSubscribersRequest struct {
+type NotificationAPIEditChannelSubscribersRequest struct {
 	ctx                            context.Context
-	ApiService                     *NotificationApiService
+	ApiService                     *NotificationAPIService
 	channelId                      string
 	patchChannelSubscribersRequest *PatchChannelSubscribersRequest
 }
 
-func (r NotificationApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) NotificationApiEditChannelSubscribersRequest {
+func (r NotificationAPIEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) NotificationAPIEditChannelSubscribersRequest {
 	r.patchChannelSubscribersRequest = &patchChannelSubscribersRequest
 	return r
 }
 
-func (r NotificationApiEditChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r NotificationAPIEditChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditChannelSubscribersExecute(r)
 }
 
@@ -47,10 +47,10 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return NotificationApiEditChannelSubscribersRequest
+	@return NotificationAPIEditChannelSubscribersRequest
 */
-func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, channelId string) NotificationApiEditChannelSubscribersRequest {
-	return NotificationApiEditChannelSubscribersRequest{
+func (a *NotificationAPIService) EditChannelSubscribers(ctx context.Context, channelId string) NotificationAPIEditChannelSubscribersRequest {
+	return NotificationAPIEditChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -58,14 +58,14 @@ func (a *NotificationApiService) EditChannelSubscribers(ctx context.Context, cha
 }
 
 // Execute executes the request
-func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApiEditChannelSubscribersRequest) (*http.Response, error) {
+func (a *NotificationAPIService) EditChannelSubscribersExecute(r NotificationAPIEditChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.EditChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.EditChannelSubscribers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -124,13 +124,13 @@ func (a *NotificationApiService) EditChannelSubscribersExecute(r NotificationApi
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiGetChannelSubscribersRequest struct {
+type NotificationAPIGetChannelSubscribersRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 	channelId  string
 }
 
-func (r NotificationApiGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
+func (r NotificationAPIGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetChannelSubscribersExecute(r)
 }
 
@@ -141,10 +141,10 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return NotificationApiGetChannelSubscribersRequest
+	@return NotificationAPIGetChannelSubscribersRequest
 */
-func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, channelId string) NotificationApiGetChannelSubscribersRequest {
-	return NotificationApiGetChannelSubscribersRequest{
+func (a *NotificationAPIService) GetChannelSubscribers(ctx context.Context, channelId string) NotificationAPIGetChannelSubscribersRequest {
+	return NotificationAPIGetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -154,7 +154,7 @@ func (a *NotificationApiService) GetChannelSubscribers(ctx context.Context, chan
 // Execute executes the request
 //
 //	@return []string
-func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
+func (a *NotificationAPIService) GetChannelSubscribersExecute(r NotificationAPIGetChannelSubscribersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -162,7 +162,7 @@ func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiG
 		localVarReturnValue []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.GetChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.GetChannelSubscribers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -228,12 +228,12 @@ func (a *NotificationApiService) GetChannelSubscribersExecute(r NotificationApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiGetMyChannelSubscriptionsRequest struct {
+type NotificationAPIGetMyChannelSubscriptionsRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 }
 
-func (r NotificationApiGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
+func (r NotificationAPIGetMyChannelSubscriptionsRequest) Execute() ([]UserSubscribeState, *http.Response, error) {
 	return r.ApiService.GetMyChannelSubscriptionsExecute(r)
 }
 
@@ -243,10 +243,10 @@ GetMyChannelSubscriptions 自分のチャンネル購読状態を取得
 自身のチャンネル購読状態を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return NotificationApiGetMyChannelSubscriptionsRequest
+	@return NotificationAPIGetMyChannelSubscriptionsRequest
 */
-func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) NotificationApiGetMyChannelSubscriptionsRequest {
-	return NotificationApiGetMyChannelSubscriptionsRequest{
+func (a *NotificationAPIService) GetMyChannelSubscriptions(ctx context.Context) NotificationAPIGetMyChannelSubscriptionsRequest {
+	return NotificationAPIGetMyChannelSubscriptionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -255,7 +255,7 @@ func (a *NotificationApiService) GetMyChannelSubscriptions(ctx context.Context) 
 // Execute executes the request
 //
 //	@return []UserSubscribeState
-func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r NotificationApiGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
+func (a *NotificationAPIService) GetMyChannelSubscriptionsExecute(r NotificationAPIGetMyChannelSubscriptionsRequest) ([]UserSubscribeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -263,7 +263,7 @@ func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r Notification
 		localVarReturnValue []UserSubscribeState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.GetMyChannelSubscriptions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.GetMyChannelSubscriptions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -328,12 +328,12 @@ func (a *NotificationApiService) GetMyChannelSubscriptionsExecute(r Notification
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiGetMyUnreadChannelsRequest struct {
+type NotificationAPIGetMyUnreadChannelsRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 }
 
-func (r NotificationApiGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
+func (r NotificationAPIGetMyUnreadChannelsRequest) Execute() ([]UnreadChannel, *http.Response, error) {
 	return r.ApiService.GetMyUnreadChannelsExecute(r)
 }
 
@@ -343,10 +343,10 @@ GetMyUnreadChannels 未読チャンネルを取得
 自分が現在未読のチャンネルの未読情報を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return NotificationApiGetMyUnreadChannelsRequest
+	@return NotificationAPIGetMyUnreadChannelsRequest
 */
-func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) NotificationApiGetMyUnreadChannelsRequest {
-	return NotificationApiGetMyUnreadChannelsRequest{
+func (a *NotificationAPIService) GetMyUnreadChannels(ctx context.Context) NotificationAPIGetMyUnreadChannelsRequest {
+	return NotificationAPIGetMyUnreadChannelsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -355,7 +355,7 @@ func (a *NotificationApiService) GetMyUnreadChannels(ctx context.Context) Notifi
 // Execute executes the request
 //
 //	@return []UnreadChannel
-func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
+func (a *NotificationAPIService) GetMyUnreadChannelsExecute(r NotificationAPIGetMyUnreadChannelsRequest) ([]UnreadChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -363,7 +363,7 @@ func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiGet
 		localVarReturnValue []UnreadChannel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.GetMyUnreadChannels")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.GetMyUnreadChannels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -428,12 +428,12 @@ func (a *NotificationApiService) GetMyUnreadChannelsExecute(r NotificationApiGet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiGetMyViewStatesRequest struct {
+type NotificationAPIGetMyViewStatesRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 }
 
-func (r NotificationApiGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
+func (r NotificationAPIGetMyViewStatesRequest) Execute() ([]MyChannelViewState, *http.Response, error) {
 	return r.ApiService.GetMyViewStatesExecute(r)
 }
 
@@ -443,10 +443,10 @@ GetMyViewStates 自身のチャンネル閲覧状態一覧を取得
 自身のチャンネル閲覧状態一覧を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return NotificationApiGetMyViewStatesRequest
+	@return NotificationAPIGetMyViewStatesRequest
 */
-func (a *NotificationApiService) GetMyViewStates(ctx context.Context) NotificationApiGetMyViewStatesRequest {
-	return NotificationApiGetMyViewStatesRequest{
+func (a *NotificationAPIService) GetMyViewStates(ctx context.Context) NotificationAPIGetMyViewStatesRequest {
+	return NotificationAPIGetMyViewStatesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -455,7 +455,7 @@ func (a *NotificationApiService) GetMyViewStates(ctx context.Context) Notificati
 // Execute executes the request
 //
 //	@return []MyChannelViewState
-func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
+func (a *NotificationAPIService) GetMyViewStatesExecute(r NotificationAPIGetMyViewStatesRequest) ([]MyChannelViewState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -463,7 +463,7 @@ func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiGetMyVi
 		localVarReturnValue []MyChannelViewState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.GetMyViewStates")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.GetMyViewStates")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -528,13 +528,13 @@ func (a *NotificationApiService) GetMyViewStatesExecute(r NotificationApiGetMyVi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type NotificationApiReadChannelRequest struct {
+type NotificationAPIReadChannelRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 	channelId  string
 }
 
-func (r NotificationApiReadChannelRequest) Execute() (*http.Response, error) {
+func (r NotificationAPIReadChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ReadChannelExecute(r)
 }
 
@@ -545,10 +545,10 @@ ReadChannel チャンネルを既読にする
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return NotificationApiReadChannelRequest
+	@return NotificationAPIReadChannelRequest
 */
-func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId string) NotificationApiReadChannelRequest {
-	return NotificationApiReadChannelRequest{
+func (a *NotificationAPIService) ReadChannel(ctx context.Context, channelId string) NotificationAPIReadChannelRequest {
+	return NotificationAPIReadChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -556,14 +556,14 @@ func (a *NotificationApiService) ReadChannel(ctx context.Context, channelId stri
 }
 
 // Execute executes the request
-func (a *NotificationApiService) ReadChannelExecute(r NotificationApiReadChannelRequest) (*http.Response, error) {
+func (a *NotificationAPIService) ReadChannelExecute(r NotificationAPIReadChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.ReadChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.ReadChannel")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -620,18 +620,18 @@ func (a *NotificationApiService) ReadChannelExecute(r NotificationApiReadChannel
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiRegisterFCMDeviceRequest struct {
+type NotificationAPIRegisterFCMDeviceRequest struct {
 	ctx                    context.Context
-	ApiService             *NotificationApiService
+	ApiService             *NotificationAPIService
 	postMyFCMDeviceRequest *PostMyFCMDeviceRequest
 }
 
-func (r NotificationApiRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) NotificationApiRegisterFCMDeviceRequest {
+func (r NotificationAPIRegisterFCMDeviceRequest) PostMyFCMDeviceRequest(postMyFCMDeviceRequest PostMyFCMDeviceRequest) NotificationAPIRegisterFCMDeviceRequest {
 	r.postMyFCMDeviceRequest = &postMyFCMDeviceRequest
 	return r
 }
 
-func (r NotificationApiRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
+func (r NotificationAPIRegisterFCMDeviceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RegisterFCMDeviceExecute(r)
 }
 
@@ -641,24 +641,24 @@ RegisterFCMDevice FCMデバイスを登録
 自身のFCMデバイスを登録します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return NotificationApiRegisterFCMDeviceRequest
+	@return NotificationAPIRegisterFCMDeviceRequest
 */
-func (a *NotificationApiService) RegisterFCMDevice(ctx context.Context) NotificationApiRegisterFCMDeviceRequest {
-	return NotificationApiRegisterFCMDeviceRequest{
+func (a *NotificationAPIService) RegisterFCMDevice(ctx context.Context) NotificationAPIRegisterFCMDeviceRequest {
+	return NotificationAPIRegisterFCMDeviceRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiRegisterFCMDeviceRequest) (*http.Response, error) {
+func (a *NotificationAPIService) RegisterFCMDeviceExecute(r NotificationAPIRegisterFCMDeviceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.RegisterFCMDevice")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.RegisterFCMDevice")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -716,19 +716,19 @@ func (a *NotificationApiService) RegisterFCMDeviceExecute(r NotificationApiRegis
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiSetChannelSubscribeLevelRequest struct {
+type NotificationAPISetChannelSubscribeLevelRequest struct {
 	ctx                             context.Context
-	ApiService                      *NotificationApiService
+	ApiService                      *NotificationAPIService
 	channelId                       string
 	putChannelSubscribeLevelRequest *PutChannelSubscribeLevelRequest
 }
 
-func (r NotificationApiSetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) NotificationApiSetChannelSubscribeLevelRequest {
+func (r NotificationAPISetChannelSubscribeLevelRequest) PutChannelSubscribeLevelRequest(putChannelSubscribeLevelRequest PutChannelSubscribeLevelRequest) NotificationAPISetChannelSubscribeLevelRequest {
 	r.putChannelSubscribeLevelRequest = &putChannelSubscribeLevelRequest
 	return r
 }
 
-func (r NotificationApiSetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
+func (r NotificationAPISetChannelSubscribeLevelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribeLevelExecute(r)
 }
 
@@ -739,10 +739,10 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return NotificationApiSetChannelSubscribeLevelRequest
+	@return NotificationAPISetChannelSubscribeLevelRequest
 */
-func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, channelId string) NotificationApiSetChannelSubscribeLevelRequest {
-	return NotificationApiSetChannelSubscribeLevelRequest{
+func (a *NotificationAPIService) SetChannelSubscribeLevel(ctx context.Context, channelId string) NotificationAPISetChannelSubscribeLevelRequest {
+	return NotificationAPISetChannelSubscribeLevelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -750,14 +750,14 @@ func (a *NotificationApiService) SetChannelSubscribeLevel(ctx context.Context, c
 }
 
 // Execute executes the request
-func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationApiSetChannelSubscribeLevelRequest) (*http.Response, error) {
+func (a *NotificationAPIService) SetChannelSubscribeLevelExecute(r NotificationAPISetChannelSubscribeLevelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.SetChannelSubscribeLevel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.SetChannelSubscribeLevel")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -816,19 +816,19 @@ func (a *NotificationApiService) SetChannelSubscribeLevelExecute(r NotificationA
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiSetChannelSubscribersRequest struct {
+type NotificationAPISetChannelSubscribersRequest struct {
 	ctx                          context.Context
-	ApiService                   *NotificationApiService
+	ApiService                   *NotificationAPIService
 	channelId                    string
 	putChannelSubscribersRequest *PutChannelSubscribersRequest
 }
 
-func (r NotificationApiSetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) NotificationApiSetChannelSubscribersRequest {
+func (r NotificationAPISetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) NotificationAPISetChannelSubscribersRequest {
 	r.putChannelSubscribersRequest = &putChannelSubscribersRequest
 	return r
 }
 
-func (r NotificationApiSetChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r NotificationAPISetChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribersExecute(r)
 }
 
@@ -841,10 +841,10 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return NotificationApiSetChannelSubscribersRequest
+	@return NotificationAPISetChannelSubscribersRequest
 */
-func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, channelId string) NotificationApiSetChannelSubscribersRequest {
-	return NotificationApiSetChannelSubscribersRequest{
+func (a *NotificationAPIService) SetChannelSubscribers(ctx context.Context, channelId string) NotificationAPISetChannelSubscribersRequest {
+	return NotificationAPISetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -852,14 +852,14 @@ func (a *NotificationApiService) SetChannelSubscribers(ctx context.Context, chan
 }
 
 // Execute executes the request
-func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiSetChannelSubscribersRequest) (*http.Response, error) {
+func (a *NotificationAPIService) SetChannelSubscribersExecute(r NotificationAPISetChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.SetChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.SetChannelSubscribers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -918,12 +918,12 @@ func (a *NotificationApiService) SetChannelSubscribersExecute(r NotificationApiS
 	return localVarHTTPResponse, nil
 }
 
-type NotificationApiWsRequest struct {
+type NotificationAPIWsRequest struct {
 	ctx        context.Context
-	ApiService *NotificationApiService
+	ApiService *NotificationAPIService
 }
 
-func (r NotificationApiWsRequest) Execute() (*http.Response, error) {
+func (r NotificationAPIWsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.WsExecute(r)
 }
 
@@ -1286,24 +1286,24 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 + `sound_id`: 削除されたサウンドのId
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return NotificationApiWsRequest
+	@return NotificationAPIWsRequest
 */
-func (a *NotificationApiService) Ws(ctx context.Context) NotificationApiWsRequest {
-	return NotificationApiWsRequest{
+func (a *NotificationAPIService) Ws(ctx context.Context) NotificationAPIWsRequest {
+	return NotificationAPIWsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *NotificationApiService) WsExecute(r NotificationApiWsRequest) (*http.Response, error) {
+func (a *NotificationAPIService) WsExecute(r NotificationAPIWsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationApiService.Ws")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationAPIService.Ws")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

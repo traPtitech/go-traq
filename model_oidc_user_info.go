@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the OIDCUserInfo type satisfies the MappedNullable interface at compile time
@@ -22,15 +24,17 @@ type OIDCUserInfo struct {
 	// ユーザーUUID
 	Sub string `json:"sub"`
 	// ユーザー名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// ユーザー名
-	PreferredUsername string `json:"preferred_username"`
+	PreferredUsername string `json:"preferred_username" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// アイコン画像URL
 	Picture string `json:"picture"`
 	// 更新日時
 	UpdatedAt *int64            `json:"updated_at,omitempty"`
 	Traq      *OIDCTraqUserInfo `json:"traq,omitempty"`
 }
+
+type _OIDCUserInfo OIDCUserInfo
 
 // NewOIDCUserInfo instantiates a new OIDCUserInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -234,6 +238,46 @@ func (o OIDCUserInfo) ToMap() (map[string]interface{}, error) {
 		toSerialize["traq"] = o.Traq
 	}
 	return toSerialize, nil
+}
+
+func (o *OIDCUserInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sub",
+		"name",
+		"preferred_username",
+		"picture",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOIDCUserInfo := _OIDCUserInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOIDCUserInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OIDCUserInfo(varOIDCUserInfo)
+
+	return err
 }
 
 type NullableOIDCUserInfo struct {

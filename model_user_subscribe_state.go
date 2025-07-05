@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the UserSubscribeState type satisfies the MappedNullable interface at compile time
@@ -23,6 +25,8 @@ type UserSubscribeState struct {
 	ChannelId string                `json:"channelId"`
 	Level     ChannelSubscribeLevel `json:"level"`
 }
+
+type _UserSubscribeState UserSubscribeState
 
 // NewUserSubscribeState instantiates a new UserSubscribeState object
 // This constructor will assign default values to properties that have it defined,
@@ -104,6 +108,44 @@ func (o UserSubscribeState) ToMap() (map[string]interface{}, error) {
 	toSerialize["channelId"] = o.ChannelId
 	toSerialize["level"] = o.Level
 	return toSerialize, nil
+}
+
+func (o *UserSubscribeState) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"channelId",
+		"level",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserSubscribeState := _UserSubscribeState{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserSubscribeState)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserSubscribeState(varUserSubscribeState)
+
+	return err
 }
 
 type NullableUserSubscribeState struct {

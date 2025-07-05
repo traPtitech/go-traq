@@ -1,24 +1,24 @@
-# \BotApi
+# \BotAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateBot**](BotApi.md#ActivateBot) | **Post** /bots/{botId}/actions/activate | BOTをアクティベート
-[**ChangeBotIcon**](BotApi.md#ChangeBotIcon) | **Put** /bots/{botId}/icon | BOTのアイコン画像を変更
-[**ConnectBotWS**](BotApi.md#ConnectBotWS) | **Get** /bots/ws | WebSocket Mode BOT用通知ストリームに接続します
-[**CreateBot**](BotApi.md#CreateBot) | **Post** /bots | BOTを作成
-[**DeleteBot**](BotApi.md#DeleteBot) | **Delete** /bots/{botId} | BOTを削除
-[**EditBot**](BotApi.md#EditBot) | **Patch** /bots/{botId} | BOT情報を変更
-[**GetBot**](BotApi.md#GetBot) | **Get** /bots/{botId} | BOT情報を取得
-[**GetBotIcon**](BotApi.md#GetBotIcon) | **Get** /bots/{botId}/icon | BOTのアイコン画像を取得
-[**GetBotLogs**](BotApi.md#GetBotLogs) | **Get** /bots/{botId}/logs | BOTのイベントログを取得
-[**GetBots**](BotApi.md#GetBots) | **Get** /bots | BOTリストを取得
-[**GetChannelBots**](BotApi.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
-[**InactivateBot**](BotApi.md#InactivateBot) | **Post** /bots/{botId}/actions/inactivate | BOTをインアクティベート
-[**LetBotJoinChannel**](BotApi.md#LetBotJoinChannel) | **Post** /bots/{botId}/actions/join | BOTをチャンネルに参加させる
-[**LetBotLeaveChannel**](BotApi.md#LetBotLeaveChannel) | **Post** /bots/{botId}/actions/leave | BOTをチャンネルから退出させる
-[**ReissueBot**](BotApi.md#ReissueBot) | **Post** /bots/{botId}/actions/reissue | BOTのトークンを再発行
+[**ActivateBot**](BotAPI.md#ActivateBot) | **Post** /bots/{botId}/actions/activate | BOTをアクティベート
+[**ChangeBotIcon**](BotAPI.md#ChangeBotIcon) | **Put** /bots/{botId}/icon | BOTのアイコン画像を変更
+[**ConnectBotWS**](BotAPI.md#ConnectBotWS) | **Get** /bots/ws | WebSocket Mode BOT用通知ストリームに接続します
+[**CreateBot**](BotAPI.md#CreateBot) | **Post** /bots | BOTを作成
+[**DeleteBot**](BotAPI.md#DeleteBot) | **Delete** /bots/{botId} | BOTを削除
+[**EditBot**](BotAPI.md#EditBot) | **Patch** /bots/{botId} | BOT情報を変更
+[**GetBot**](BotAPI.md#GetBot) | **Get** /bots/{botId} | BOT情報を取得
+[**GetBotIcon**](BotAPI.md#GetBotIcon) | **Get** /bots/{botId}/icon | BOTのアイコン画像を取得
+[**GetBotLogs**](BotAPI.md#GetBotLogs) | **Get** /bots/{botId}/logs | BOTのイベントログを取得
+[**GetBots**](BotAPI.md#GetBots) | **Get** /bots | BOTリストを取得
+[**GetChannelBots**](BotAPI.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
+[**InactivateBot**](BotAPI.md#InactivateBot) | **Post** /bots/{botId}/actions/inactivate | BOTをインアクティベート
+[**LetBotJoinChannel**](BotAPI.md#LetBotJoinChannel) | **Post** /bots/{botId}/actions/join | BOTをチャンネルに参加させる
+[**LetBotLeaveChannel**](BotAPI.md#LetBotLeaveChannel) | **Post** /bots/{botId}/actions/leave | BOTをチャンネルから退出させる
+[**ReissueBot**](BotAPI.md#ReissueBot) | **Post** /bots/{botId}/actions/reissue | BOTのトークンを再発行
 
 
 
@@ -36,22 +36,22 @@ BOTをアクティベート
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.ActivateBot(context.Background(), botId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ActivateBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.ActivateBot(context.Background(), botId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.ActivateBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -104,23 +104,23 @@ BOTのアイコン画像を変更
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.ChangeBotIcon(context.Background(), botId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ChangeBotIcon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.ChangeBotIcon(context.Background(), botId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.ChangeBotIcon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -174,21 +174,21 @@ WebSocket Mode BOT用通知ストリームに接続します
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.ConnectBotWS(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ConnectBotWS``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.ConnectBotWS(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.ConnectBotWS``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -233,24 +233,24 @@ BOTを作成
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postBotRequest := *traq.NewPostBotRequest("Name_example", "DisplayName_example", "Description_example", traq.BotMode("HTTP")) // PostBotRequest |  (optional)
+	postBotRequest := *traq.NewPostBotRequest("Name_example", "DisplayName_example", "Description_example", traq.BotMode("HTTP")) // PostBotRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.CreateBot(context.Background()).PostBotRequest(postBotRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.CreateBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateBot`: BotDetail
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.CreateBot`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.CreateBot(context.Background()).PostBotRequest(postBotRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CreateBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateBot`: BotDetail
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.CreateBot`: %v\n", resp)
 }
 ```
 
@@ -299,22 +299,22 @@ BOTを削除
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.DeleteBot(context.Background(), botId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.DeleteBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.DeleteBot(context.Background(), botId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.DeleteBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -367,23 +367,23 @@ BOT情報を変更
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    patchBotRequest := *traq.NewPatchBotRequest() // PatchBotRequest |  (optional)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	patchBotRequest := *traq.NewPatchBotRequest() // PatchBotRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.EditBot(context.Background(), botId).PatchBotRequest(patchBotRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.EditBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.EditBot(context.Background(), botId).PatchBotRequest(patchBotRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.EditBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -437,25 +437,25 @@ BOT情報を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    detail := true // bool | 詳細情報を含めるかどうか (optional) (default to false)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	detail := true // bool | 詳細情報を含めるかどうか (optional) (default to false)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.GetBot(context.Background(), botId).Detail(detail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBot`: GetBot200Response
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.GetBot`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetBot(context.Background(), botId).Detail(detail).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBot`: GetBot200Response
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBot`: %v\n", resp)
 }
 ```
 
@@ -509,24 +509,24 @@ BOTのアイコン画像を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.GetBotIcon(context.Background(), botId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBotIcon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBotIcon`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.GetBotIcon`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetBotIcon(context.Background(), botId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotIcon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBotIcon`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotIcon`: %v\n", resp)
 }
 ```
 
@@ -579,26 +579,26 @@ BOTのイベントログを取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.GetBotLogs(context.Background(), botId).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBotLogs``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBotLogs`: []BotEventLog
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.GetBotLogs`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetBotLogs(context.Background(), botId).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotLogs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBotLogs`: []BotEventLog
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotLogs`: %v\n", resp)
 }
 ```
 
@@ -653,24 +653,24 @@ BOTリストを取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    all := true // bool | 全てのBOTを取得するかどうか (optional) (default to false)
+	all := true // bool | 全てのBOTを取得するかどうか (optional) (default to false)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.GetBots(context.Background()).All(all).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetBots``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBots`: []Bot
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.GetBots`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetBots(context.Background()).All(all).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBots`: []Bot
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBots`: %v\n", resp)
 }
 ```
 
@@ -719,24 +719,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.GetChannelBots(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.GetChannelBots``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelBots`: []BotUser
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.GetChannelBots`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetChannelBots(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetChannelBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelBots`: []BotUser
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetChannelBots`: %v\n", resp)
 }
 ```
 
@@ -789,22 +789,22 @@ BOTをインアクティベート
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.InactivateBot(context.Background(), botId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.InactivateBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.InactivateBot(context.Background(), botId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.InactivateBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -857,23 +857,23 @@ BOTをチャンネルに参加させる
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    postBotActionJoinRequest := *traq.NewPostBotActionJoinRequest("ChannelId_example") // PostBotActionJoinRequest |  (optional)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	postBotActionJoinRequest := *traq.NewPostBotActionJoinRequest("ChannelId_example") // PostBotActionJoinRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.LetBotJoinChannel(context.Background(), botId).PostBotActionJoinRequest(postBotActionJoinRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.LetBotJoinChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.LetBotJoinChannel(context.Background(), botId).PostBotActionJoinRequest(postBotActionJoinRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.LetBotJoinChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -927,23 +927,23 @@ BOTをチャンネルから退出させる
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
-    postBotActionLeaveRequest := *traq.NewPostBotActionLeaveRequest("ChannelId_example") // PostBotActionLeaveRequest |  (optional)
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	postBotActionLeaveRequest := *traq.NewPostBotActionLeaveRequest("ChannelId_example") // PostBotActionLeaveRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.BotApi.LetBotLeaveChannel(context.Background(), botId).PostBotActionLeaveRequest(postBotActionLeaveRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.LetBotLeaveChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.LetBotLeaveChannel(context.Background(), botId).PostBotActionLeaveRequest(postBotActionLeaveRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.LetBotLeaveChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -997,24 +997,24 @@ BOTのトークンを再発行
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
+	botId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | BOTUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.BotApi.ReissueBot(context.Background(), botId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BotApi.ReissueBot``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReissueBot`: BotTokens
-    fmt.Fprintf(os.Stdout, "Response from `BotApi.ReissueBot`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.ReissueBot(context.Background(), botId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.ReissueBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReissueBot`: BotTokens
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.ReissueBot`: %v\n", resp)
 }
 ```
 

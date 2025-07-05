@@ -1,11 +1,11 @@
-# \WebrtcApi
+# \WebrtcAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetWebRTCState**](WebrtcApi.md#GetWebRTCState) | **Get** /webrtc/state | WebRTC状態を取得
-[**PostWebRTCAuthenticate**](WebrtcApi.md#PostWebRTCAuthenticate) | **Post** /webrtc/authenticate | Skyway用認証API
+[**GetWebRTCState**](WebrtcAPI.md#GetWebRTCState) | **Get** /webrtc/state | WebRTC状態を取得
+[**PostWebRTCAuthenticate**](WebrtcAPI.md#PostWebRTCAuthenticate) | **Post** /webrtc/authenticate | Skyway用認証API
 
 
 
@@ -23,23 +23,23 @@ WebRTC状態を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebrtcApi.GetWebRTCState(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebrtcApi.GetWebRTCState``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWebRTCState`: []WebRTCUserState
-    fmt.Fprintf(os.Stdout, "Response from `WebrtcApi.GetWebRTCState`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebrtcAPI.GetWebRTCState(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebrtcAPI.GetWebRTCState``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWebRTCState`: []WebRTCUserState
+	fmt.Fprintf(os.Stdout, "Response from `WebrtcAPI.GetWebRTCState`: %v\n", resp)
 }
 ```
 
@@ -84,24 +84,24 @@ Skyway用認証API
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postWebRTCAuthenticateRequest := *traq.NewPostWebRTCAuthenticateRequest("PeerId_example") // PostWebRTCAuthenticateRequest |  (optional)
+	postWebRTCAuthenticateRequest := *traq.NewPostWebRTCAuthenticateRequest("PeerId_example") // PostWebRTCAuthenticateRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebrtcApi.PostWebRTCAuthenticate(context.Background()).PostWebRTCAuthenticateRequest(postWebRTCAuthenticateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebrtcApi.PostWebRTCAuthenticate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostWebRTCAuthenticate`: WebRTCAuthenticateResult
-    fmt.Fprintf(os.Stdout, "Response from `WebrtcApi.PostWebRTCAuthenticate`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebrtcAPI.PostWebRTCAuthenticate(context.Background()).PostWebRTCAuthenticateRequest(postWebRTCAuthenticateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebrtcAPI.PostWebRTCAuthenticate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostWebRTCAuthenticate`: WebRTCAuthenticateResult
+	fmt.Fprintf(os.Stdout, "Response from `WebrtcAPI.PostWebRTCAuthenticate`: %v\n", resp)
 }
 ```
 

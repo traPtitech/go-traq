@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostStampPaletteRequest type satisfies the MappedNullable interface at compile time
@@ -26,6 +28,8 @@ type PostStampPaletteRequest struct {
 	// 説明
 	Description string `json:"description"`
 }
+
+type _PostStampPaletteRequest PostStampPaletteRequest
 
 // NewPostStampPaletteRequest instantiates a new PostStampPaletteRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -133,6 +137,45 @@ func (o PostStampPaletteRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description
 	return toSerialize, nil
+}
+
+func (o *PostStampPaletteRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"stamps",
+		"name",
+		"description",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostStampPaletteRequest := _PostStampPaletteRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostStampPaletteRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostStampPaletteRequest(varPostStampPaletteRequest)
+
+	return err
 }
 
 type NullablePostStampPaletteRequest struct {

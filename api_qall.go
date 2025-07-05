@@ -20,23 +20,23 @@ import (
 	"strings"
 )
 
-// QallApiService QallApi service
-type QallApiService service
+// QallAPIService QallAPI service
+type QallAPIService service
 
-type QallApiChangeParticipantRoleRequest struct {
+type QallAPIChangeParticipantRoleRequest struct {
 	ctx                    context.Context
-	ApiService             *QallApiService
+	ApiService             *QallAPIService
 	roomId                 string
 	qallParticipantRequest *[]QallParticipantRequest
 }
 
 // 発言権限を変更する参加者の情報
-func (r QallApiChangeParticipantRoleRequest) QallParticipantRequest(qallParticipantRequest []QallParticipantRequest) QallApiChangeParticipantRoleRequest {
+func (r QallAPIChangeParticipantRoleRequest) QallParticipantRequest(qallParticipantRequest []QallParticipantRequest) QallAPIChangeParticipantRoleRequest {
 	r.qallParticipantRequest = &qallParticipantRequest
 	return r
 }
 
-func (r QallApiChangeParticipantRoleRequest) Execute() (*QallParticipantResponse, *http.Response, error) {
+func (r QallAPIChangeParticipantRoleRequest) Execute() (*QallParticipantResponse, *http.Response, error) {
 	return r.ApiService.ChangeParticipantRoleExecute(r)
 }
 
@@ -47,10 +47,10 @@ ChangeParticipantRole ルームでの発言権限を変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param roomId ルームUUID
-	@return QallApiChangeParticipantRoleRequest
+	@return QallAPIChangeParticipantRoleRequest
 */
-func (a *QallApiService) ChangeParticipantRole(ctx context.Context, roomId string) QallApiChangeParticipantRoleRequest {
-	return QallApiChangeParticipantRoleRequest{
+func (a *QallAPIService) ChangeParticipantRole(ctx context.Context, roomId string) QallAPIChangeParticipantRoleRequest {
+	return QallAPIChangeParticipantRoleRequest{
 		ApiService: a,
 		ctx:        ctx,
 		roomId:     roomId,
@@ -60,7 +60,7 @@ func (a *QallApiService) ChangeParticipantRole(ctx context.Context, roomId strin
 // Execute executes the request
 //
 //	@return QallParticipantResponse
-func (a *QallApiService) ChangeParticipantRoleExecute(r QallApiChangeParticipantRoleRequest) (*QallParticipantResponse, *http.Response, error) {
+func (a *QallAPIService) ChangeParticipantRoleExecute(r QallAPIChangeParticipantRoleRequest) (*QallParticipantResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -68,7 +68,7 @@ func (a *QallApiService) ChangeParticipantRoleExecute(r QallApiChangeParticipant
 		localVarReturnValue *QallParticipantResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.ChangeParticipantRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.ChangeParticipantRole")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -139,26 +139,26 @@ func (a *QallApiService) ChangeParticipantRoleExecute(r QallApiChangeParticipant
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiGetLiveKitTokenRequest struct {
+type QallAPIGetLiveKitTokenRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 	roomId     *string
 	isWebinar  *bool
 }
 
 // ルームUUID
-func (r QallApiGetLiveKitTokenRequest) RoomId(roomId string) QallApiGetLiveKitTokenRequest {
+func (r QallAPIGetLiveKitTokenRequest) RoomId(roomId string) QallAPIGetLiveKitTokenRequest {
 	r.roomId = &roomId
 	return r
 }
 
 // ウェビナールームかどうか(デフォルト false)
-func (r QallApiGetLiveKitTokenRequest) IsWebinar(isWebinar bool) QallApiGetLiveKitTokenRequest {
+func (r QallAPIGetLiveKitTokenRequest) IsWebinar(isWebinar bool) QallAPIGetLiveKitTokenRequest {
 	r.isWebinar = &isWebinar
 	return r
 }
 
-func (r QallApiGetLiveKitTokenRequest) Execute() (*QallTokenResponse, *http.Response, error) {
+func (r QallAPIGetLiveKitTokenRequest) Execute() (*QallTokenResponse, *http.Response, error) {
 	return r.ApiService.GetLiveKitTokenExecute(r)
 }
 
@@ -168,10 +168,10 @@ GetLiveKitToken LiveKitトークンを取得
 指定したルームに参加するためのLiveKitトークンを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiGetLiveKitTokenRequest
+	@return QallAPIGetLiveKitTokenRequest
 */
-func (a *QallApiService) GetLiveKitToken(ctx context.Context) QallApiGetLiveKitTokenRequest {
-	return QallApiGetLiveKitTokenRequest{
+func (a *QallAPIService) GetLiveKitToken(ctx context.Context) QallAPIGetLiveKitTokenRequest {
+	return QallAPIGetLiveKitTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -180,7 +180,7 @@ func (a *QallApiService) GetLiveKitToken(ctx context.Context) QallApiGetLiveKitT
 // Execute executes the request
 //
 //	@return QallTokenResponse
-func (a *QallApiService) GetLiveKitTokenExecute(r QallApiGetLiveKitTokenRequest) (*QallTokenResponse, *http.Response, error) {
+func (a *QallAPIService) GetLiveKitTokenExecute(r QallAPIGetLiveKitTokenRequest) (*QallTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -188,7 +188,7 @@ func (a *QallApiService) GetLiveKitTokenExecute(r QallApiGetLiveKitTokenRequest)
 		localVarReturnValue *QallTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.GetLiveKitToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.GetLiveKitToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -200,10 +200,10 @@ func (a *QallApiService) GetLiveKitTokenExecute(r QallApiGetLiveKitTokenRequest)
 	localVarFormParams := url.Values{}
 
 	if r.roomId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "roomId", r.roomId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "roomId", r.roomId, "form", "")
 	}
 	if r.isWebinar != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "isWebinar", r.isWebinar, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "isWebinar", r.isWebinar, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -259,12 +259,12 @@ func (a *QallApiService) GetLiveKitTokenExecute(r QallApiGetLiveKitTokenRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiGetQallEndpointsRequest struct {
+type QallAPIGetQallEndpointsRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 }
 
-func (r QallApiGetQallEndpointsRequest) Execute() (*QallEndpointResponse, *http.Response, error) {
+func (r QallAPIGetQallEndpointsRequest) Execute() (*QallEndpointResponse, *http.Response, error) {
 	return r.ApiService.GetQallEndpointsExecute(r)
 }
 
@@ -274,10 +274,10 @@ GetQallEndpoints LiveKitエンドポイントを取得
 接続可能なLiveKitエンドポイントを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiGetQallEndpointsRequest
+	@return QallAPIGetQallEndpointsRequest
 */
-func (a *QallApiService) GetQallEndpoints(ctx context.Context) QallApiGetQallEndpointsRequest {
-	return QallApiGetQallEndpointsRequest{
+func (a *QallAPIService) GetQallEndpoints(ctx context.Context) QallAPIGetQallEndpointsRequest {
+	return QallAPIGetQallEndpointsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -286,7 +286,7 @@ func (a *QallApiService) GetQallEndpoints(ctx context.Context) QallApiGetQallEnd
 // Execute executes the request
 //
 //	@return QallEndpointResponse
-func (a *QallApiService) GetQallEndpointsExecute(r QallApiGetQallEndpointsRequest) (*QallEndpointResponse, *http.Response, error) {
+func (a *QallAPIService) GetQallEndpointsExecute(r QallAPIGetQallEndpointsRequest) (*QallEndpointResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -294,7 +294,7 @@ func (a *QallApiService) GetQallEndpointsExecute(r QallApiGetQallEndpointsReques
 		localVarReturnValue *QallEndpointResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.GetQallEndpoints")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.GetQallEndpoints")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -359,13 +359,13 @@ func (a *QallApiService) GetQallEndpointsExecute(r QallApiGetQallEndpointsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiGetRoomMetadataRequest struct {
+type QallAPIGetRoomMetadataRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 	roomId     string
 }
 
-func (r QallApiGetRoomMetadataRequest) Execute() (*QallMetadataResponse, *http.Response, error) {
+func (r QallAPIGetRoomMetadataRequest) Execute() (*QallMetadataResponse, *http.Response, error) {
 	return r.ApiService.GetRoomMetadataExecute(r)
 }
 
@@ -376,10 +376,10 @@ GetRoomMetadata ルームのメタデータを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param roomId ルームUUID
-	@return QallApiGetRoomMetadataRequest
+	@return QallAPIGetRoomMetadataRequest
 */
-func (a *QallApiService) GetRoomMetadata(ctx context.Context, roomId string) QallApiGetRoomMetadataRequest {
-	return QallApiGetRoomMetadataRequest{
+func (a *QallAPIService) GetRoomMetadata(ctx context.Context, roomId string) QallAPIGetRoomMetadataRequest {
+	return QallAPIGetRoomMetadataRequest{
 		ApiService: a,
 		ctx:        ctx,
 		roomId:     roomId,
@@ -389,7 +389,7 @@ func (a *QallApiService) GetRoomMetadata(ctx context.Context, roomId string) Qal
 // Execute executes the request
 //
 //	@return QallMetadataResponse
-func (a *QallApiService) GetRoomMetadataExecute(r QallApiGetRoomMetadataRequest) (*QallMetadataResponse, *http.Response, error) {
+func (a *QallAPIService) GetRoomMetadataExecute(r QallAPIGetRoomMetadataRequest) (*QallMetadataResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -397,7 +397,7 @@ func (a *QallApiService) GetRoomMetadataExecute(r QallApiGetRoomMetadataRequest)
 		localVarReturnValue *QallMetadataResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.GetRoomMetadata")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.GetRoomMetadata")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -463,12 +463,12 @@ func (a *QallApiService) GetRoomMetadataExecute(r QallApiGetRoomMetadataRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiGetRoomsRequest struct {
+type QallAPIGetRoomsRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 }
 
-func (r QallApiGetRoomsRequest) Execute() ([]QallRoomWithParticipants, *http.Response, error) {
+func (r QallAPIGetRoomsRequest) Execute() ([]QallRoomWithParticipants, *http.Response, error) {
 	return r.ApiService.GetRoomsExecute(r)
 }
 
@@ -478,10 +478,10 @@ GetRooms ルームと参加者の一覧を取得
 現在存在する(またはアクティブな)ルームと、そのルームに所属している参加者情報を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiGetRoomsRequest
+	@return QallAPIGetRoomsRequest
 */
-func (a *QallApiService) GetRooms(ctx context.Context) QallApiGetRoomsRequest {
-	return QallApiGetRoomsRequest{
+func (a *QallAPIService) GetRooms(ctx context.Context) QallAPIGetRoomsRequest {
+	return QallAPIGetRoomsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -490,7 +490,7 @@ func (a *QallApiService) GetRooms(ctx context.Context) QallApiGetRoomsRequest {
 // Execute executes the request
 //
 //	@return []QallRoomWithParticipants
-func (a *QallApiService) GetRoomsExecute(r QallApiGetRoomsRequest) ([]QallRoomWithParticipants, *http.Response, error) {
+func (a *QallAPIService) GetRoomsExecute(r QallAPIGetRoomsRequest) ([]QallRoomWithParticipants, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -498,7 +498,7 @@ func (a *QallApiService) GetRoomsExecute(r QallApiGetRoomsRequest) ([]QallRoomWi
 		localVarReturnValue []QallRoomWithParticipants
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.GetRooms")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.GetRooms")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -563,12 +563,12 @@ func (a *QallApiService) GetRoomsExecute(r QallApiGetRoomsRequest) ([]QallRoomWi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiGetSoundboardListRequest struct {
+type QallAPIGetSoundboardListRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 }
 
-func (r QallApiGetSoundboardListRequest) Execute() ([]SoundboardItem, *http.Response, error) {
+func (r QallAPIGetSoundboardListRequest) Execute() ([]SoundboardItem, *http.Response, error) {
 	return r.ApiService.GetSoundboardListExecute(r)
 }
 
@@ -578,10 +578,10 @@ GetSoundboardList サウンドボード用の音声一覧を取得
 DBに保存されたサウンドボード情報を取得します。   各アイテムには soundId, soundName, stampId が含まれます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiGetSoundboardListRequest
+	@return QallAPIGetSoundboardListRequest
 */
-func (a *QallApiService) GetSoundboardList(ctx context.Context) QallApiGetSoundboardListRequest {
-	return QallApiGetSoundboardListRequest{
+func (a *QallAPIService) GetSoundboardList(ctx context.Context) QallAPIGetSoundboardListRequest {
+	return QallAPIGetSoundboardListRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -590,7 +590,7 @@ func (a *QallApiService) GetSoundboardList(ctx context.Context) QallApiGetSoundb
 // Execute executes the request
 //
 //	@return []SoundboardItem
-func (a *QallApiService) GetSoundboardListExecute(r QallApiGetSoundboardListRequest) ([]SoundboardItem, *http.Response, error) {
+func (a *QallAPIService) GetSoundboardListExecute(r QallAPIGetSoundboardListRequest) ([]SoundboardItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -598,7 +598,7 @@ func (a *QallApiService) GetSoundboardListExecute(r QallApiGetSoundboardListRequ
 		localVarReturnValue []SoundboardItem
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.GetSoundboardList")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.GetSoundboardList")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -663,18 +663,18 @@ func (a *QallApiService) GetSoundboardListExecute(r QallApiGetSoundboardListRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiLiveKitWebhookRequest struct {
+type QallAPILiveKitWebhookRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 	body       *map[string]interface{}
 }
 
-func (r QallApiLiveKitWebhookRequest) Body(body map[string]interface{}) QallApiLiveKitWebhookRequest {
+func (r QallAPILiveKitWebhookRequest) Body(body map[string]interface{}) QallAPILiveKitWebhookRequest {
 	r.body = &body
 	return r
 }
 
-func (r QallApiLiveKitWebhookRequest) Execute() (*http.Response, error) {
+func (r QallAPILiveKitWebhookRequest) Execute() (*http.Response, error) {
 	return r.ApiService.LiveKitWebhookExecute(r)
 }
 
@@ -684,24 +684,24 @@ LiveKitWebhook LiveKit Webhook受信
 LiveKit側で設定したWebhookから呼び出されるエンドポイントです。   参加者の入室・退出などのイベントを受け取り、サーバ内で処理を行います。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiLiveKitWebhookRequest
+	@return QallAPILiveKitWebhookRequest
 */
-func (a *QallApiService) LiveKitWebhook(ctx context.Context) QallApiLiveKitWebhookRequest {
-	return QallApiLiveKitWebhookRequest{
+func (a *QallAPIService) LiveKitWebhook(ctx context.Context) QallAPILiveKitWebhookRequest {
+	return QallAPILiveKitWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *QallApiService) LiveKitWebhookExecute(r QallApiLiveKitWebhookRequest) (*http.Response, error) {
+func (a *QallAPIService) LiveKitWebhookExecute(r QallAPILiveKitWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.LiveKitWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.LiveKitWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -762,33 +762,33 @@ func (a *QallApiService) LiveKitWebhookExecute(r QallApiLiveKitWebhookRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type QallApiPostSoundboardRequest struct {
+type QallAPIPostSoundboardRequest struct {
 	ctx        context.Context
-	ApiService *QallApiService
+	ApiService *QallAPIService
 	audio      *os.File
 	soundName  *string
 	stampId    *string
 }
 
 // アップロードする音声ファイル(20秒以内)
-func (r QallApiPostSoundboardRequest) Audio(audio *os.File) QallApiPostSoundboardRequest {
+func (r QallAPIPostSoundboardRequest) Audio(audio *os.File) QallAPIPostSoundboardRequest {
 	r.audio = audio
 	return r
 }
 
 // ユーザが自由につけるサウンド名
-func (r QallApiPostSoundboardRequest) SoundName(soundName string) QallApiPostSoundboardRequest {
+func (r QallAPIPostSoundboardRequest) SoundName(soundName string) QallAPIPostSoundboardRequest {
 	r.soundName = &soundName
 	return r
 }
 
 // アイコンスタンプID
-func (r QallApiPostSoundboardRequest) StampId(stampId string) QallApiPostSoundboardRequest {
+func (r QallAPIPostSoundboardRequest) StampId(stampId string) QallAPIPostSoundboardRequest {
 	r.stampId = &stampId
 	return r
 }
 
-func (r QallApiPostSoundboardRequest) Execute() (*SoundboardUploadResponse, *http.Response, error) {
+func (r QallAPIPostSoundboardRequest) Execute() (*SoundboardUploadResponse, *http.Response, error) {
 	return r.ApiService.PostSoundboardExecute(r)
 }
 
@@ -798,10 +798,10 @@ PostSoundboard サウンドボード用の短い音声ファイルをアップ�
 15秒程度の短い音声ファイルを multipart/form-data で送信し、S3(互換ストレージ)にアップロードします。   クライアントは「soundName」というフィールドを送信し、それをDBに保存して関連付けを行います。   また、サーバ側で soundId を自動生成し、S3のファイル名に使用します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiPostSoundboardRequest
+	@return QallAPIPostSoundboardRequest
 */
-func (a *QallApiService) PostSoundboard(ctx context.Context) QallApiPostSoundboardRequest {
-	return QallApiPostSoundboardRequest{
+func (a *QallAPIService) PostSoundboard(ctx context.Context) QallAPIPostSoundboardRequest {
+	return QallAPIPostSoundboardRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -810,7 +810,7 @@ func (a *QallApiService) PostSoundboard(ctx context.Context) QallApiPostSoundboa
 // Execute executes the request
 //
 //	@return SoundboardUploadResponse
-func (a *QallApiService) PostSoundboardExecute(r QallApiPostSoundboardRequest) (*SoundboardUploadResponse, *http.Response, error) {
+func (a *QallAPIService) PostSoundboardExecute(r QallAPIPostSoundboardRequest) (*SoundboardUploadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -818,7 +818,7 @@ func (a *QallApiService) PostSoundboardExecute(r QallApiPostSoundboardRequest) (
 		localVarReturnValue *SoundboardUploadResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.PostSoundboard")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.PostSoundboard")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -857,7 +857,6 @@ func (a *QallApiService) PostSoundboardExecute(r QallApiPostSoundboardRequest) (
 	var audioLocalVarFileBytes []byte
 
 	audioLocalVarFormFileName = "audio"
-
 	audioLocalVarFile := r.audio
 
 	if audioLocalVarFile != nil {
@@ -868,9 +867,9 @@ func (a *QallApiService) PostSoundboardExecute(r QallApiPostSoundboardRequest) (
 		audioLocalVarFile.Close()
 		formFiles = append(formFiles, formFile{fileBytes: audioLocalVarFileBytes, fileName: audioLocalVarFileName, formFileName: audioLocalVarFormFileName})
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "soundName", r.soundName, "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "soundName", r.soundName, "", "")
 	if r.stampId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "stampId", r.stampId, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "stampId", r.stampId, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -909,18 +908,18 @@ func (a *QallApiService) PostSoundboardExecute(r QallApiPostSoundboardRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiPostSoundboardPlayRequest struct {
+type QallAPIPostSoundboardPlayRequest struct {
 	ctx                   context.Context
-	ApiService            *QallApiService
+	ApiService            *QallAPIService
 	soundboardPlayRequest *SoundboardPlayRequest
 }
 
-func (r QallApiPostSoundboardPlayRequest) SoundboardPlayRequest(soundboardPlayRequest SoundboardPlayRequest) QallApiPostSoundboardPlayRequest {
+func (r QallAPIPostSoundboardPlayRequest) SoundboardPlayRequest(soundboardPlayRequest SoundboardPlayRequest) QallAPIPostSoundboardPlayRequest {
 	r.soundboardPlayRequest = &soundboardPlayRequest
 	return r
 }
 
-func (r QallApiPostSoundboardPlayRequest) Execute() (*SoundboardPlayResponse, *http.Response, error) {
+func (r QallAPIPostSoundboardPlayRequest) Execute() (*SoundboardPlayResponse, *http.Response, error) {
 	return r.ApiService.PostSoundboardPlayExecute(r)
 }
 
@@ -930,10 +929,10 @@ PostSoundboardPlay アップロード済み音声を LiveKit ルームで再生
 S3上にある音声ファイルの署名付きURLを生成し、   Ingressを介して指定ルームに音声を流します。     該当ルームに参加しているユーザであれば再生可能とします。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return QallApiPostSoundboardPlayRequest
+	@return QallAPIPostSoundboardPlayRequest
 */
-func (a *QallApiService) PostSoundboardPlay(ctx context.Context) QallApiPostSoundboardPlayRequest {
-	return QallApiPostSoundboardPlayRequest{
+func (a *QallAPIService) PostSoundboardPlay(ctx context.Context) QallAPIPostSoundboardPlayRequest {
+	return QallAPIPostSoundboardPlayRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -942,7 +941,7 @@ func (a *QallApiService) PostSoundboardPlay(ctx context.Context) QallApiPostSoun
 // Execute executes the request
 //
 //	@return SoundboardPlayResponse
-func (a *QallApiService) PostSoundboardPlayExecute(r QallApiPostSoundboardPlayRequest) (*SoundboardPlayResponse, *http.Response, error) {
+func (a *QallAPIService) PostSoundboardPlayExecute(r QallAPIPostSoundboardPlayRequest) (*SoundboardPlayResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -950,7 +949,7 @@ func (a *QallApiService) PostSoundboardPlayExecute(r QallApiPostSoundboardPlayRe
 		localVarReturnValue *SoundboardPlayResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.PostSoundboardPlay")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.PostSoundboardPlay")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1020,20 +1019,20 @@ func (a *QallApiService) PostSoundboardPlayExecute(r QallApiPostSoundboardPlayRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type QallApiUpdateRoomMetadataRequest struct {
+type QallAPIUpdateRoomMetadataRequest struct {
 	ctx                 context.Context
-	ApiService          *QallApiService
+	ApiService          *QallAPIService
 	roomId              string
 	qallMetadataRequest *QallMetadataRequest
 }
 
 // ルームのメタデータ
-func (r QallApiUpdateRoomMetadataRequest) QallMetadataRequest(qallMetadataRequest QallMetadataRequest) QallApiUpdateRoomMetadataRequest {
+func (r QallAPIUpdateRoomMetadataRequest) QallMetadataRequest(qallMetadataRequest QallMetadataRequest) QallAPIUpdateRoomMetadataRequest {
 	r.qallMetadataRequest = &qallMetadataRequest
 	return r
 }
 
-func (r QallApiUpdateRoomMetadataRequest) Execute() (*http.Response, error) {
+func (r QallAPIUpdateRoomMetadataRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UpdateRoomMetadataExecute(r)
 }
 
@@ -1044,10 +1043,10 @@ UpdateRoomMetadata ルームのメタデータを更新
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param roomId ルームUUID
-	@return QallApiUpdateRoomMetadataRequest
+	@return QallAPIUpdateRoomMetadataRequest
 */
-func (a *QallApiService) UpdateRoomMetadata(ctx context.Context, roomId string) QallApiUpdateRoomMetadataRequest {
-	return QallApiUpdateRoomMetadataRequest{
+func (a *QallAPIService) UpdateRoomMetadata(ctx context.Context, roomId string) QallAPIUpdateRoomMetadataRequest {
+	return QallAPIUpdateRoomMetadataRequest{
 		ApiService: a,
 		ctx:        ctx,
 		roomId:     roomId,
@@ -1055,14 +1054,14 @@ func (a *QallApiService) UpdateRoomMetadata(ctx context.Context, roomId string) 
 }
 
 // Execute executes the request
-func (a *QallApiService) UpdateRoomMetadataExecute(r QallApiUpdateRoomMetadataRequest) (*http.Response, error) {
+func (a *QallAPIService) UpdateRoomMetadataExecute(r QallAPIUpdateRoomMetadataRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallApiService.UpdateRoomMetadata")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QallAPIService.UpdateRoomMetadata")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

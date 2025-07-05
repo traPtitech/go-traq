@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the OAuth2Client type satisfies the MappedNullable interface at compile time
@@ -32,6 +34,8 @@ type OAuth2Client struct {
 	// confidential client なら true, public client なら false
 	Confidential bool `json:"confidential"`
 }
+
+type _OAuth2Client OAuth2Client
 
 // NewOAuth2Client instantiates a new OAuth2Client object
 // This constructor will assign default values to properties that have it defined,
@@ -217,6 +221,48 @@ func (o OAuth2Client) ToMap() (map[string]interface{}, error) {
 	toSerialize["scopes"] = o.Scopes
 	toSerialize["confidential"] = o.Confidential
 	return toSerialize, nil
+}
+
+func (o *OAuth2Client) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"description",
+		"developerId",
+		"scopes",
+		"confidential",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOAuth2Client := _OAuth2Client{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOAuth2Client)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OAuth2Client(varOAuth2Client)
+
+	return err
 }
 
 type NullableOAuth2Client struct {

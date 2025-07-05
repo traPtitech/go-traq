@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -30,9 +32,9 @@ type UserDetail struct {
 	// ユーザー表示名
 	DisplayName string `json:"displayName"`
 	// ユーザー名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// Twitter ID
-	TwitterId string `json:"twitterId"`
+	TwitterId string `json:"twitterId" validate:"regexp=^[a-zA-Z0-9_]{0,15}$"`
 	// 最終オンライン日時
 	LastOnline NullableTime `json:"lastOnline"`
 	// 更新日時
@@ -46,6 +48,8 @@ type UserDetail struct {
 	// ホームチャンネル
 	HomeChannel NullableString `json:"homeChannel"`
 }
+
+type _UserDetail UserDetail
 
 // NewUserDetail instantiates a new UserDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -417,6 +421,55 @@ func (o UserDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["bio"] = o.Bio
 	toSerialize["homeChannel"] = o.HomeChannel.Get()
 	return toSerialize, nil
+}
+
+func (o *UserDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"state",
+		"bot",
+		"iconFileId",
+		"displayName",
+		"name",
+		"twitterId",
+		"lastOnline",
+		"updatedAt",
+		"tags",
+		"groups",
+		"bio",
+		"homeChannel",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserDetail := _UserDetail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserDetail(varUserDetail)
+
+	return err
 }
 
 type NullableUserDetail struct {

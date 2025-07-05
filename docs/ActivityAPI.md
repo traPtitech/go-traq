@@ -1,11 +1,11 @@
-# \ActivityApi
+# \ActivityAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetActivityTimeline**](ActivityApi.md#GetActivityTimeline) | **Get** /activity/timeline | アクテビティタイムラインを取得
-[**GetOnlineUsers**](ActivityApi.md#GetOnlineUsers) | **Get** /activity/onlines | オンラインユーザーリストを取得
+[**GetActivityTimeline**](ActivityAPI.md#GetActivityTimeline) | **Get** /activity/timeline | アクテビティタイムラインを取得
+[**GetOnlineUsers**](ActivityAPI.md#GetOnlineUsers) | **Get** /activity/onlines | オンラインユーザーリストを取得
 
 
 
@@ -23,26 +23,26 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    limit := int32(56) // int32 | 取得する件数 (optional) (default to 50)
-    all := true // bool | 全てのチャンネルのタイムラインを取得する (optional) (default to false)
-    perChannel := true // bool | 同じチャンネルのメッセージは最新のもののみ取得するか (optional) (default to false)
+	limit := int32(56) // int32 | 取得する件数 (optional) (default to 50)
+	all := true // bool | 全てのチャンネルのタイムラインを取得する (optional) (default to false)
+	perChannel := true // bool | 同じチャンネルのメッセージは最新のもののみ取得するか (optional) (default to false)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ActivityApi.GetActivityTimeline(context.Background()).Limit(limit).All(all).PerChannel(perChannel).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActivityApi.GetActivityTimeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetActivityTimeline`: []ActivityTimelineMessage
-    fmt.Fprintf(os.Stdout, "Response from `ActivityApi.GetActivityTimeline`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ActivityAPI.GetActivityTimeline(context.Background()).Limit(limit).All(all).PerChannel(perChannel).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ActivityAPI.GetActivityTimeline``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetActivityTimeline`: []ActivityTimelineMessage
+	fmt.Fprintf(os.Stdout, "Response from `ActivityAPI.GetActivityTimeline`: %v\n", resp)
 }
 ```
 
@@ -93,23 +93,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ActivityApi.GetOnlineUsers(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActivityApi.GetOnlineUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOnlineUsers`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ActivityApi.GetOnlineUsers`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ActivityAPI.GetOnlineUsers(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ActivityAPI.GetOnlineUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOnlineUsers`: []string
+	fmt.Fprintf(os.Stdout, "Response from `ActivityAPI.GetOnlineUsers`: %v\n", resp)
 }
 ```
 

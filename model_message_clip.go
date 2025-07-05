@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,6 +27,8 @@ type MessageClip struct {
 	// クリップされた日時
 	ClippedAt time.Time `json:"clippedAt"`
 }
+
+type _MessageClip MessageClip
 
 // NewMessageClip instantiates a new MessageClip object
 // This constructor will assign default values to properties that have it defined,
@@ -106,6 +110,44 @@ func (o MessageClip) ToMap() (map[string]interface{}, error) {
 	toSerialize["folderId"] = o.FolderId
 	toSerialize["clippedAt"] = o.ClippedAt
 	return toSerialize, nil
+}
+
+func (o *MessageClip) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"folderId",
+		"clippedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMessageClip := _MessageClip{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMessageClip)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MessageClip(varMessageClip)
+
+	return err
 }
 
 type NullableMessageClip struct {

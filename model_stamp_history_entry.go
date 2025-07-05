@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,6 +27,8 @@ type StampHistoryEntry struct {
 	// 使用日時
 	Datetime time.Time `json:"datetime"`
 }
+
+type _StampHistoryEntry StampHistoryEntry
 
 // NewStampHistoryEntry instantiates a new StampHistoryEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -106,6 +110,44 @@ func (o StampHistoryEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize["stampId"] = o.StampId
 	toSerialize["datetime"] = o.Datetime
 	return toSerialize, nil
+}
+
+func (o *StampHistoryEntry) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"stampId",
+		"datetime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStampHistoryEntry := _StampHistoryEntry{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStampHistoryEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StampHistoryEntry(varStampHistoryEntry)
+
+	return err
 }
 
 type NullableStampHistoryEntry struct {

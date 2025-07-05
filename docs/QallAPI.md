@@ -1,19 +1,19 @@
-# \QallApi
+# \QallAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ChangeParticipantRole**](QallApi.md#ChangeParticipantRole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
-[**GetLiveKitToken**](QallApi.md#GetLiveKitToken) | **Get** /qall/token | LiveKitトークンを取得
-[**GetQallEndpoints**](QallApi.md#GetQallEndpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
-[**GetRoomMetadata**](QallApi.md#GetRoomMetadata) | **Get** /qall/rooms/{roomId}/metadata | ルームのメタデータを取得
-[**GetRooms**](QallApi.md#GetRooms) | **Get** /qall/rooms | ルームと参加者の一覧を取得
-[**GetSoundboardList**](QallApi.md#GetSoundboardList) | **Get** /qall/soundboard | サウンドボード用の音声一覧を取得
-[**LiveKitWebhook**](QallApi.md#LiveKitWebhook) | **Post** /qall/webhook | LiveKit Webhook受信
-[**PostSoundboard**](QallApi.md#PostSoundboard) | **Post** /qall/soundboard | サウンドボード用の短い音声ファイルをアップロード
-[**PostSoundboardPlay**](QallApi.md#PostSoundboardPlay) | **Post** /qall/soundboard/play | アップロード済み音声を LiveKit ルームで再生
-[**UpdateRoomMetadata**](QallApi.md#UpdateRoomMetadata) | **Patch** /qall/rooms/{roomId}/metadata | ルームのメタデータを更新
+[**ChangeParticipantRole**](QallAPI.md#ChangeParticipantRole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
+[**GetLiveKitToken**](QallAPI.md#GetLiveKitToken) | **Get** /qall/token | LiveKitトークンを取得
+[**GetQallEndpoints**](QallAPI.md#GetQallEndpoints) | **Get** /qall/endpoints | LiveKitエンドポイントを取得
+[**GetRoomMetadata**](QallAPI.md#GetRoomMetadata) | **Get** /qall/rooms/{roomId}/metadata | ルームのメタデータを取得
+[**GetRooms**](QallAPI.md#GetRooms) | **Get** /qall/rooms | ルームと参加者の一覧を取得
+[**GetSoundboardList**](QallAPI.md#GetSoundboardList) | **Get** /qall/soundboard | サウンドボード用の音声一覧を取得
+[**LiveKitWebhook**](QallAPI.md#LiveKitWebhook) | **Post** /qall/webhook | LiveKit Webhook受信
+[**PostSoundboard**](QallAPI.md#PostSoundboard) | **Post** /qall/soundboard | サウンドボード用の短い音声ファイルをアップロード
+[**PostSoundboardPlay**](QallAPI.md#PostSoundboardPlay) | **Post** /qall/soundboard/play | アップロード済み音声を LiveKit ルームで再生
+[**UpdateRoomMetadata**](QallAPI.md#UpdateRoomMetadata) | **Patch** /qall/rooms/{roomId}/metadata | ルームのメタデータを更新
 
 
 
@@ -31,25 +31,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
-    qallParticipantRequest := []traq.QallParticipantRequest{*traq.NewQallParticipantRequest([]traq.QallParticipantRequestUsersInner{*traq.NewQallParticipantRequestUsersInner()})} // []QallParticipantRequest | 発言権限を変更する参加者の情報
+	roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
+	qallParticipantRequest := []traq.QallParticipantRequest{*traq.NewQallParticipantRequest([]traq.QallParticipantRequestUsersInner{*traq.NewQallParticipantRequestUsersInner()})} // []QallParticipantRequest | 発言権限を変更する参加者の情報
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.ChangeParticipantRole(context.Background(), roomId).QallParticipantRequest(qallParticipantRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.ChangeParticipantRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ChangeParticipantRole`: QallParticipantResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.ChangeParticipantRole`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.ChangeParticipantRole(context.Background(), roomId).QallParticipantRequest(qallParticipantRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.ChangeParticipantRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ChangeParticipantRole`: QallParticipantResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.ChangeParticipantRole`: %v\n", resp)
 }
 ```
 
@@ -103,25 +103,25 @@ LiveKitトークンを取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID (optional)
-    isWebinar := true // bool | ウェビナールームかどうか(デフォルト false) (optional)
+	roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID (optional)
+	isWebinar := true // bool | ウェビナールームかどうか(デフォルト false) (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetLiveKitToken(context.Background()).RoomId(roomId).IsWebinar(isWebinar).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetLiveKitToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLiveKitToken`: QallTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetLiveKitToken`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.GetLiveKitToken(context.Background()).RoomId(roomId).IsWebinar(isWebinar).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.GetLiveKitToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLiveKitToken`: QallTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.GetLiveKitToken`: %v\n", resp)
 }
 ```
 
@@ -171,23 +171,23 @@ LiveKitエンドポイントを取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetQallEndpoints(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetQallEndpoints``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetQallEndpoints`: QallEndpointResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetQallEndpoints`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.GetQallEndpoints(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.GetQallEndpoints``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetQallEndpoints`: QallEndpointResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.GetQallEndpoints`: %v\n", resp)
 }
 ```
 
@@ -232,24 +232,24 @@ Other parameters are passed through a pointer to a apiGetQallEndpointsRequest st
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
+	roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetRoomMetadata(context.Background(), roomId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetRoomMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRoomMetadata`: QallMetadataResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetRoomMetadata`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.GetRoomMetadata(context.Background(), roomId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.GetRoomMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRoomMetadata`: QallMetadataResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.GetRoomMetadata`: %v\n", resp)
 }
 ```
 
@@ -302,23 +302,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetRooms(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetRooms``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRooms`: []QallRoomWithParticipants
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetRooms`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.GetRooms(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.GetRooms``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRooms`: []QallRoomWithParticipants
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.GetRooms`: %v\n", resp)
 }
 ```
 
@@ -363,23 +363,23 @@ Other parameters are passed through a pointer to a apiGetRoomsRequest struct via
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.GetSoundboardList(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.GetSoundboardList``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSoundboardList`: []SoundboardItem
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.GetSoundboardList`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.GetSoundboardList(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.GetSoundboardList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSoundboardList`: []SoundboardItem
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.GetSoundboardList`: %v\n", resp)
 }
 ```
 
@@ -424,22 +424,22 @@ LiveKit Webhook受信
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    body := map[string]interface{}{ ... } // map[string]interface{} | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.QallApi.LiveKitWebhook(context.Background()).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.LiveKitWebhook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.QallAPI.LiveKitWebhook(context.Background()).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.LiveKitWebhook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -488,26 +488,26 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    audio := os.NewFile(1234, "some_file") // *os.File | アップロードする音声ファイル(20秒以内)
-    soundName := "soundName_example" // string | ユーザが自由につけるサウンド名
-    stampId := "stampId_example" // string | アイコンスタンプID (optional)
+	audio := os.NewFile(1234, "some_file") // *os.File | アップロードする音声ファイル(20秒以内)
+	soundName := "soundName_example" // string | ユーザが自由につけるサウンド名
+	stampId := "stampId_example" // string | アイコンスタンプID (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.PostSoundboard(context.Background()).Audio(audio).SoundName(soundName).StampId(stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.PostSoundboard``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostSoundboard`: SoundboardUploadResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.PostSoundboard`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.PostSoundboard(context.Background()).Audio(audio).SoundName(soundName).StampId(stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.PostSoundboard``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSoundboard`: SoundboardUploadResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.PostSoundboard`: %v\n", resp)
 }
 ```
 
@@ -558,24 +558,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    soundboardPlayRequest := *traq.NewSoundboardPlayRequest("SoundId_example", "RoomName_example") // SoundboardPlayRequest | 
+	soundboardPlayRequest := *traq.NewSoundboardPlayRequest("SoundId_example", "RoomName_example") // SoundboardPlayRequest | 
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.QallApi.PostSoundboardPlay(context.Background()).SoundboardPlayRequest(soundboardPlayRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.PostSoundboardPlay``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostSoundboardPlay`: SoundboardPlayResponse
-    fmt.Fprintf(os.Stdout, "Response from `QallApi.PostSoundboardPlay`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.QallAPI.PostSoundboardPlay(context.Background()).SoundboardPlayRequest(soundboardPlayRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.PostSoundboardPlay``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSoundboardPlay`: SoundboardPlayResponse
+	fmt.Fprintf(os.Stdout, "Response from `QallAPI.PostSoundboardPlay`: %v\n", resp)
 }
 ```
 
@@ -624,23 +624,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
-    qallMetadataRequest := *traq.NewQallMetadataRequest() // QallMetadataRequest | ルームのメタデータ
+	roomId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ルームUUID
+	qallMetadataRequest := *traq.NewQallMetadataRequest() // QallMetadataRequest | ルームのメタデータ
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.QallApi.UpdateRoomMetadata(context.Background(), roomId).QallMetadataRequest(qallMetadataRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QallApi.UpdateRoomMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.QallAPI.UpdateRoomMetadata(context.Background(), roomId).QallMetadataRequest(qallMetadataRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QallAPI.UpdateRoomMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

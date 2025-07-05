@@ -20,16 +20,16 @@ import (
 	"strings"
 )
 
-// PublicApiService PublicApi service
-type PublicApiService service
+// PublicAPIService PublicAPI service
+type PublicAPIService service
 
-type PublicApiGetPublicUserIconRequest struct {
+type PublicAPIGetPublicUserIconRequest struct {
 	ctx        context.Context
-	ApiService *PublicApiService
+	ApiService *PublicAPIService
 	username   string
 }
 
-func (r PublicApiGetPublicUserIconRequest) Execute() (*os.File, *http.Response, error) {
+func (r PublicAPIGetPublicUserIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetPublicUserIconExecute(r)
 }
 
@@ -40,10 +40,10 @@ GetPublicUserIcon ユーザーのアイコン画像を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param username ユーザー名
-	@return PublicApiGetPublicUserIconRequest
+	@return PublicAPIGetPublicUserIconRequest
 */
-func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username string) PublicApiGetPublicUserIconRequest {
-	return PublicApiGetPublicUserIconRequest{
+func (a *PublicAPIService) GetPublicUserIcon(ctx context.Context, username string) PublicAPIGetPublicUserIconRequest {
+	return PublicAPIGetPublicUserIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		username:   username,
@@ -53,7 +53,7 @@ func (a *PublicApiService) GetPublicUserIcon(ctx context.Context, username strin
 // Execute executes the request
 //
 //	@return *os.File
-func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiGetPublicUserIconRequest) (*os.File, *http.Response, error) {
+func (a *PublicAPIService) GetPublicUserIconExecute(r PublicAPIGetPublicUserIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiGetPublicUserIcon
 		localVarReturnValue *os.File
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetPublicUserIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAPIService.GetPublicUserIcon")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -127,12 +127,12 @@ func (a *PublicApiService) GetPublicUserIconExecute(r PublicApiGetPublicUserIcon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PublicApiGetServerVersionRequest struct {
+type PublicAPIGetServerVersionRequest struct {
 	ctx        context.Context
-	ApiService *PublicApiService
+	ApiService *PublicAPIService
 }
 
-func (r PublicApiGetServerVersionRequest) Execute() (*Version, *http.Response, error) {
+func (r PublicAPIGetServerVersionRequest) Execute() (*Version, *http.Response, error) {
 	return r.ApiService.GetServerVersionExecute(r)
 }
 
@@ -142,10 +142,10 @@ GetServerVersion バージョンを取得
 サーバーバージョン及びサーバーフラグ情報を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PublicApiGetServerVersionRequest
+	@return PublicAPIGetServerVersionRequest
 */
-func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiGetServerVersionRequest {
-	return PublicApiGetServerVersionRequest{
+func (a *PublicAPIService) GetServerVersion(ctx context.Context) PublicAPIGetServerVersionRequest {
+	return PublicAPIGetServerVersionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -154,7 +154,7 @@ func (a *PublicApiService) GetServerVersion(ctx context.Context) PublicApiGetSer
 // Execute executes the request
 //
 //	@return Version
-func (a *PublicApiService) GetServerVersionExecute(r PublicApiGetServerVersionRequest) (*Version, *http.Response, error) {
+func (a *PublicAPIService) GetServerVersionExecute(r PublicAPIGetServerVersionRequest) (*Version, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -162,7 +162,7 @@ func (a *PublicApiService) GetServerVersionExecute(r PublicApiGetServerVersionRe
 		localVarReturnValue *Version
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetServerVersion")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAPIService.GetServerVersion")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

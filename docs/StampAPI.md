@@ -1,26 +1,26 @@
-# \StampApi
+# \StampAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddMessageStamp**](StampApi.md#AddMessageStamp) | **Post** /messages/{messageId}/stamps/{stampId} | スタンプを押す
-[**ChangeStampImage**](StampApi.md#ChangeStampImage) | **Put** /stamps/{stampId}/image | スタンプ画像を変更
-[**CreateStamp**](StampApi.md#CreateStamp) | **Post** /stamps | スタンプを作成
-[**CreateStampPalette**](StampApi.md#CreateStampPalette) | **Post** /stamp-palettes | スタンプパレットを作成
-[**DeleteStamp**](StampApi.md#DeleteStamp) | **Delete** /stamps/{stampId} | スタンプを削除
-[**DeleteStampPalette**](StampApi.md#DeleteStampPalette) | **Delete** /stamp-palettes/{paletteId} | スタンプパレットを削除
-[**EditStamp**](StampApi.md#EditStamp) | **Patch** /stamps/{stampId} | スタンプ情報を変更
-[**EditStampPalette**](StampApi.md#EditStampPalette) | **Patch** /stamp-palettes/{paletteId} | スタンプパレットを編集
-[**GetMessageStamps**](StampApi.md#GetMessageStamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
-[**GetMyStampHistory**](StampApi.md#GetMyStampHistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
-[**GetStamp**](StampApi.md#GetStamp) | **Get** /stamps/{stampId} | スタンプ情報を取得
-[**GetStampImage**](StampApi.md#GetStampImage) | **Get** /stamps/{stampId}/image | スタンプ画像を取得
-[**GetStampPalette**](StampApi.md#GetStampPalette) | **Get** /stamp-palettes/{paletteId} | スタンプパレットを取得
-[**GetStampPalettes**](StampApi.md#GetStampPalettes) | **Get** /stamp-palettes | スタンプパレットのリストを取得
-[**GetStampStats**](StampApi.md#GetStampStats) | **Get** /stamps/{stampId}/stats | スタンプ統計情報を取得
-[**GetStamps**](StampApi.md#GetStamps) | **Get** /stamps | スタンプリストを取得
-[**RemoveMessageStamp**](StampApi.md#RemoveMessageStamp) | **Delete** /messages/{messageId}/stamps/{stampId} | スタンプを消す
+[**AddMessageStamp**](StampAPI.md#AddMessageStamp) | **Post** /messages/{messageId}/stamps/{stampId} | スタンプを押す
+[**ChangeStampImage**](StampAPI.md#ChangeStampImage) | **Put** /stamps/{stampId}/image | スタンプ画像を変更
+[**CreateStamp**](StampAPI.md#CreateStamp) | **Post** /stamps | スタンプを作成
+[**CreateStampPalette**](StampAPI.md#CreateStampPalette) | **Post** /stamp-palettes | スタンプパレットを作成
+[**DeleteStamp**](StampAPI.md#DeleteStamp) | **Delete** /stamps/{stampId} | スタンプを削除
+[**DeleteStampPalette**](StampAPI.md#DeleteStampPalette) | **Delete** /stamp-palettes/{paletteId} | スタンプパレットを削除
+[**EditStamp**](StampAPI.md#EditStamp) | **Patch** /stamps/{stampId} | スタンプ情報を変更
+[**EditStampPalette**](StampAPI.md#EditStampPalette) | **Patch** /stamp-palettes/{paletteId} | スタンプパレットを編集
+[**GetMessageStamps**](StampAPI.md#GetMessageStamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
+[**GetMyStampHistory**](StampAPI.md#GetMyStampHistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
+[**GetStamp**](StampAPI.md#GetStamp) | **Get** /stamps/{stampId} | スタンプ情報を取得
+[**GetStampImage**](StampAPI.md#GetStampImage) | **Get** /stamps/{stampId}/image | スタンプ画像を取得
+[**GetStampPalette**](StampAPI.md#GetStampPalette) | **Get** /stamp-palettes/{paletteId} | スタンプパレットを取得
+[**GetStampPalettes**](StampAPI.md#GetStampPalettes) | **Get** /stamp-palettes | スタンプパレットのリストを取得
+[**GetStampStats**](StampAPI.md#GetStampStats) | **Get** /stamps/{stampId}/stats | スタンプ統計情報を取得
+[**GetStamps**](StampAPI.md#GetStamps) | **Get** /stamps | スタンプリストを取得
+[**RemoveMessageStamp**](StampAPI.md#RemoveMessageStamp) | **Delete** /messages/{messageId}/stamps/{stampId} | スタンプを消す
 
 
 
@@ -38,24 +38,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.AddMessageStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.AddMessageStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -111,23 +111,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.ChangeStampImage(context.Background(), stampId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.ChangeStampImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.ChangeStampImage(context.Background(), stampId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.ChangeStampImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -181,25 +181,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    name := "name_example" // string | スタンプ名
-    file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
+	name := "name_example" // string | スタンプ名
+	file := os.NewFile(1234, "some_file") // *os.File | スタンプ画像(1MBまでのpng, jpeg, gif)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.CreateStamp(context.Background()).Name(name).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.CreateStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateStamp`: Stamp
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.CreateStamp`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.CreateStamp(context.Background()).Name(name).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.CreateStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateStamp`: Stamp
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.CreateStamp`: %v\n", resp)
 }
 ```
 
@@ -249,24 +249,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postStampPaletteRequest := *traq.NewPostStampPaletteRequest([]string{"Stamps_example"}, "Name_example", "Description_example") // PostStampPaletteRequest |  (optional)
+	postStampPaletteRequest := *traq.NewPostStampPaletteRequest([]string{"Stamps_example"}, "Name_example", "Description_example") // PostStampPaletteRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.CreateStampPalette(context.Background()).PostStampPaletteRequest(postStampPaletteRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.CreateStampPalette``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateStampPalette`: StampPalette
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.CreateStampPalette`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.CreateStampPalette(context.Background()).PostStampPaletteRequest(postStampPaletteRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.CreateStampPalette``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateStampPalette`: StampPalette
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.CreateStampPalette`: %v\n", resp)
 }
 ```
 
@@ -315,22 +315,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.DeleteStamp(context.Background(), stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.DeleteStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.DeleteStamp(context.Background(), stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.DeleteStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -383,22 +383,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
+	paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.DeleteStampPalette(context.Background(), paletteId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.DeleteStampPalette``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.DeleteStampPalette(context.Background(), paletteId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.DeleteStampPalette``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -451,23 +451,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    patchStampRequest := *traq.NewPatchStampRequest() // PatchStampRequest |  (optional)
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	patchStampRequest := *traq.NewPatchStampRequest() // PatchStampRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.EditStamp(context.Background(), stampId).PatchStampRequest(patchStampRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.EditStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.EditStamp(context.Background(), stampId).PatchStampRequest(patchStampRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.EditStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -521,23 +521,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
-    patchStampPaletteRequest := *traq.NewPatchStampPaletteRequest() // PatchStampPaletteRequest |  (optional)
+	paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
+	patchStampPaletteRequest := *traq.NewPatchStampPaletteRequest() // PatchStampPaletteRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.EditStampPalette(context.Background(), paletteId).PatchStampPaletteRequest(patchStampPaletteRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.EditStampPalette``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.EditStampPalette(context.Background(), paletteId).PatchStampPaletteRequest(patchStampPaletteRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.EditStampPalette``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -591,24 +591,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetMessageStamps(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetMessageStamps``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessageStamps`: []MessageStamp
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetMessageStamps`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetMessageStamps(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetMessageStamps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessageStamps`: []MessageStamp
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetMessageStamps`: %v\n", resp)
 }
 ```
 
@@ -661,24 +661,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    limit := int32(56) // int32 | 件数 (optional) (default to 100)
+	limit := int32(56) // int32 | 件数 (optional) (default to 100)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetMyStampHistory(context.Background()).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetMyStampHistory``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyStampHistory`: []StampHistoryEntry
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetMyStampHistory`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetMyStampHistory(context.Background()).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetMyStampHistory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyStampHistory`: []StampHistoryEntry
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetMyStampHistory`: %v\n", resp)
 }
 ```
 
@@ -727,24 +727,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStamp(context.Background(), stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStamp`: Stamp
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStamp`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStamp(context.Background(), stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStamp`: Stamp
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStamp`: %v\n", resp)
 }
 ```
 
@@ -797,24 +797,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStampImage(context.Background(), stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStampImage`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStampImage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStampImage(context.Background(), stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStampImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStampImage`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStampImage`: %v\n", resp)
 }
 ```
 
@@ -867,24 +867,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
+	paletteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプパレットUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStampPalette(context.Background(), paletteId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampPalette``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStampPalette`: StampPalette
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStampPalette`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStampPalette(context.Background(), paletteId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStampPalette``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStampPalette`: StampPalette
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStampPalette`: %v\n", resp)
 }
 ```
 
@@ -937,23 +937,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStampPalettes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampPalettes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStampPalettes`: []StampPalette
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStampPalettes`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStampPalettes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStampPalettes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStampPalettes`: []StampPalette
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStampPalettes`: %v\n", resp)
 }
 ```
 
@@ -998,24 +998,24 @@ Other parameters are passed through a pointer to a apiGetStampPalettesRequest st
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStampStats(context.Background(), stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStampStats``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStampStats`: StampStats
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStampStats`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStampStats(context.Background(), stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStampStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStampStats`: StampStats
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStampStats`: %v\n", resp)
 }
 ```
 
@@ -1068,25 +1068,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    includeUnicode := true // bool | Unicode絵文字を含ませるかどうか Deprecated: typeクエリを指定しなければ全てのスタンプを取得できるため、そちらを利用してください  (optional) (default to true)
-    type_ := "type__example" // string | 取得するスタンプの種類 (optional)
+	includeUnicode := true // bool | Unicode絵文字を含ませるかどうか Deprecated: typeクエリを指定しなければ全てのスタンプを取得できるため、そちらを利用してください  (optional) (default to true)
+	type_ := "type__example" // string | 取得するスタンプの種類 (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StampApi.GetStamps(context.Background()).IncludeUnicode(includeUnicode).Type_(type_).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.GetStamps``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStamps`: []StampWithThumbnail
-    fmt.Fprintf(os.Stdout, "Response from `StampApi.GetStamps`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetStamps(context.Background()).IncludeUnicode(includeUnicode).Type_(type_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetStamps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStamps`: []StampWithThumbnail
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetStamps`: %v\n", resp)
 }
 ```
 
@@ -1136,23 +1136,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StampApi.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StampApi.RemoveMessageStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StampAPI.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.RemoveMessageStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

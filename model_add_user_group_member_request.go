@@ -13,6 +13,7 @@ package traq
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // AddUserGroupMemberRequest - struct for AddUserGroupMemberRequest
@@ -46,7 +47,11 @@ func (dst *AddUserGroupMemberRequest) UnmarshalJSON(data []byte) error {
 		if string(jsonUserGroupMember) == "{}" { // empty struct
 			dst.UserGroupMember = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.UserGroupMember); err != nil {
+				dst.UserGroupMember = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.UserGroupMember = nil
@@ -59,7 +64,11 @@ func (dst *AddUserGroupMemberRequest) UnmarshalJSON(data []byte) error {
 		if string(jsonArrayOfUserGroupMember) == "{}" { // empty struct
 			dst.ArrayOfUserGroupMember = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ArrayOfUserGroupMember); err != nil {
+				dst.ArrayOfUserGroupMember = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ArrayOfUserGroupMember = nil
@@ -102,6 +111,20 @@ func (obj *AddUserGroupMemberRequest) GetActualInstance() interface{} {
 
 	if obj.ArrayOfUserGroupMember != nil {
 		return obj.ArrayOfUserGroupMember
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AddUserGroupMemberRequest) GetActualInstanceValue() interface{} {
+	if obj.UserGroupMember != nil {
+		return *obj.UserGroupMember
+	}
+
+	if obj.ArrayOfUserGroupMember != nil {
+		return *obj.ArrayOfUserGroupMember
 	}
 
 	// all schemas are nil

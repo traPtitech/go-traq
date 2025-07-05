@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -33,9 +35,9 @@ type MyUserDetail struct {
 	// 最終オンライン日時
 	LastOnline NullableTime `json:"lastOnline"`
 	// Twitter ID
-	TwitterId string `json:"twitterId"`
+	TwitterId string `json:"twitterId" validate:"regexp=^[a-zA-Z0-9_]{1,15}$"`
 	// ユーザー名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// ユーザー表示名
 	DisplayName string `json:"displayName"`
 	// アイコンファイルUUID
@@ -48,6 +50,8 @@ type MyUserDetail struct {
 	// ホームチャンネル
 	HomeChannel NullableString `json:"homeChannel"`
 }
+
+type _MyUserDetail MyUserDetail
 
 // NewMyUserDetail instantiates a new MyUserDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -445,6 +449,56 @@ func (o MyUserDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["permissions"] = o.Permissions
 	toSerialize["homeChannel"] = o.HomeChannel.Get()
 	return toSerialize, nil
+}
+
+func (o *MyUserDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"bio",
+		"groups",
+		"tags",
+		"updatedAt",
+		"lastOnline",
+		"twitterId",
+		"name",
+		"displayName",
+		"iconFileId",
+		"bot",
+		"state",
+		"permissions",
+		"homeChannel",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMyUserDetail := _MyUserDetail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMyUserDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MyUserDetail(varMyUserDetail)
+
+	return err
 }
 
 type NullableMyUserDetail struct {

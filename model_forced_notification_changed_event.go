@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ForcedNotificationChangedEvent type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type ForcedNotificationChangedEvent struct {
 	// 変更後強制通知状態
 	Force bool `json:"force"`
 }
+
+type _ForcedNotificationChangedEvent ForcedNotificationChangedEvent
 
 // NewForcedNotificationChangedEvent instantiates a new ForcedNotificationChangedEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o ForcedNotificationChangedEvent) ToMap() (map[string]interface{}, error) 
 	toSerialize["userId"] = o.UserId
 	toSerialize["force"] = o.Force
 	return toSerialize, nil
+}
+
+func (o *ForcedNotificationChangedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userId",
+		"force",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varForcedNotificationChangedEvent := _ForcedNotificationChangedEvent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varForcedNotificationChangedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ForcedNotificationChangedEvent(varForcedNotificationChangedEvent)
+
+	return err
 }
 
 type NullableForcedNotificationChangedEvent struct {

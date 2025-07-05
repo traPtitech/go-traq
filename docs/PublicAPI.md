@@ -1,11 +1,11 @@
-# \PublicApi
+# \PublicAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPublicUserIcon**](PublicApi.md#GetPublicUserIcon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
-[**GetServerVersion**](PublicApi.md#GetServerVersion) | **Get** /version | バージョンを取得
+[**GetPublicUserIcon**](PublicAPI.md#GetPublicUserIcon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
+[**GetServerVersion**](PublicAPI.md#GetServerVersion) | **Get** /version | バージョンを取得
 
 
 
@@ -23,24 +23,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    username := "username_example" // string | ユーザー名
+	username := "username_example" // string | ユーザー名
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicApi.GetPublicUserIcon(context.Background(), username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetPublicUserIcon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPublicUserIcon`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `PublicApi.GetPublicUserIcon`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicAPI.GetPublicUserIcon(context.Background(), username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicAPI.GetPublicUserIcon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPublicUserIcon`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `PublicAPI.GetPublicUserIcon`: %v\n", resp)
 }
 ```
 
@@ -93,23 +93,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicApi.GetServerVersion(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetServerVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetServerVersion`: Version
-    fmt.Fprintf(os.Stdout, "Response from `PublicApi.GetServerVersion`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicAPI.GetServerVersion(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicAPI.GetServerVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetServerVersion`: Version
+	fmt.Fprintf(os.Stdout, "Response from `PublicAPI.GetServerVersion`: %v\n", resp)
 }
 ```
 

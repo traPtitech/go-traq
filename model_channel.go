@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Channel type satisfies the MappedNullable interface at compile time
@@ -30,10 +32,12 @@ type Channel struct {
 	// チャンネルトピック
 	Topic string `json:"topic"`
 	// チャンネル名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9-_]{1,20}$"`
 	// 子チャンネルのUUID配列
 	Children []string `json:"children"`
 }
+
+type _Channel Channel
 
 // NewChannel instantiates a new Channel object
 // This constructor will assign default values to properties that have it defined,
@@ -247,6 +251,49 @@ func (o Channel) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["children"] = o.Children
 	return toSerialize, nil
+}
+
+func (o *Channel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"parentId",
+		"archived",
+		"force",
+		"topic",
+		"name",
+		"children",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChannel := _Channel{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varChannel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Channel(varChannel)
+
+	return err
 }
 
 type NullableChannel struct {

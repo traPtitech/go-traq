@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostBotRequest type satisfies the MappedNullable interface at compile time
@@ -20,7 +22,7 @@ var _ MappedNullable = &PostBotRequest{}
 // PostBotRequest BOT作成リクエスト
 type PostBotRequest struct {
 	// BOTユーザーID 自動的に接頭辞\"BOT_\"が付与されます
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,16}$"`
 	// BOTユーザー表示名
 	DisplayName string `json:"displayName"`
 	// BOTの説明
@@ -29,6 +31,8 @@ type PostBotRequest struct {
 	// BOTサーバーエンドポイント BOT動作モードがHTTPの場合必須です
 	Endpoint *string `json:"endpoint,omitempty"`
 }
+
+type _PostBotRequest PostBotRequest
 
 // NewPostBotRequest instantiates a new PostBotRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -197,6 +201,46 @@ func (o PostBotRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["endpoint"] = o.Endpoint
 	}
 	return toSerialize, nil
+}
+
+func (o *PostBotRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"displayName",
+		"description",
+		"mode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostBotRequest := _PostBotRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostBotRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostBotRequest(varPostBotRequest)
+
+	return err
 }
 
 type NullablePostBotRequest struct {

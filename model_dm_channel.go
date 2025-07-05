@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the DMChannel type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type DMChannel struct {
 	// 送信先相手のUUID
 	UserId string `json:"userId"`
 }
+
+type _DMChannel DMChannel
 
 // NewDMChannel instantiates a new DMChannel object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o DMChannel) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["userId"] = o.UserId
 	return toSerialize, nil
+}
+
+func (o *DMChannel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"userId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDMChannel := _DMChannel{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDMChannel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DMChannel(varDMChannel)
+
+	return err
 }
 
 type NullableDMChannel struct {

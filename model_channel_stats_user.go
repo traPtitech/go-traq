@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ChannelStatsUser type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type ChannelStatsUser struct {
 	// メッセージ数
 	MessageCount int64 `json:"messageCount"`
 }
+
+type _ChannelStatsUser ChannelStatsUser
 
 // NewChannelStatsUser instantiates a new ChannelStatsUser object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o ChannelStatsUser) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["messageCount"] = o.MessageCount
 	return toSerialize, nil
+}
+
+func (o *ChannelStatsUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"messageCount",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChannelStatsUser := _ChannelStatsUser{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varChannelStatsUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChannelStatsUser(varChannelStatsUser)
+
+	return err
 }
 
 type NullableChannelStatsUser struct {

@@ -20,21 +20,21 @@ import (
 	"time"
 )
 
-// ChannelApiService ChannelApi service
-type ChannelApiService service
+// ChannelAPIService ChannelAPI service
+type ChannelAPIService service
 
-type ChannelApiCreateChannelRequest struct {
+type ChannelAPICreateChannelRequest struct {
 	ctx                context.Context
-	ApiService         *ChannelApiService
+	ApiService         *ChannelAPIService
 	postChannelRequest *PostChannelRequest
 }
 
-func (r ChannelApiCreateChannelRequest) PostChannelRequest(postChannelRequest PostChannelRequest) ChannelApiCreateChannelRequest {
+func (r ChannelAPICreateChannelRequest) PostChannelRequest(postChannelRequest PostChannelRequest) ChannelAPICreateChannelRequest {
 	r.postChannelRequest = &postChannelRequest
 	return r
 }
 
-func (r ChannelApiCreateChannelRequest) Execute() (*Channel, *http.Response, error) {
+func (r ChannelAPICreateChannelRequest) Execute() (*Channel, *http.Response, error) {
 	return r.ApiService.CreateChannelExecute(r)
 }
 
@@ -45,10 +45,10 @@ CreateChannel チャンネルを作成
 階層が6以上になるチャンネルは作成できません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ChannelApiCreateChannelRequest
+	@return ChannelAPICreateChannelRequest
 */
-func (a *ChannelApiService) CreateChannel(ctx context.Context) ChannelApiCreateChannelRequest {
-	return ChannelApiCreateChannelRequest{
+func (a *ChannelAPIService) CreateChannel(ctx context.Context) ChannelAPICreateChannelRequest {
+	return ChannelAPICreateChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -57,7 +57,7 @@ func (a *ChannelApiService) CreateChannel(ctx context.Context) ChannelApiCreateC
 // Execute executes the request
 //
 //	@return Channel
-func (a *ChannelApiService) CreateChannelExecute(r ChannelApiCreateChannelRequest) (*Channel, *http.Response, error) {
+func (a *ChannelAPIService) CreateChannelExecute(r ChannelAPICreateChannelRequest) (*Channel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -65,7 +65,7 @@ func (a *ChannelApiService) CreateChannelExecute(r ChannelApiCreateChannelReques
 		localVarReturnValue *Channel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.CreateChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.CreateChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -132,19 +132,19 @@ func (a *ChannelApiService) CreateChannelExecute(r ChannelApiCreateChannelReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiEditChannelRequest struct {
+type ChannelAPIEditChannelRequest struct {
 	ctx                 context.Context
-	ApiService          *ChannelApiService
+	ApiService          *ChannelAPIService
 	channelId           string
 	patchChannelRequest *PatchChannelRequest
 }
 
-func (r ChannelApiEditChannelRequest) PatchChannelRequest(patchChannelRequest PatchChannelRequest) ChannelApiEditChannelRequest {
+func (r ChannelAPIEditChannelRequest) PatchChannelRequest(patchChannelRequest PatchChannelRequest) ChannelAPIEditChannelRequest {
 	r.patchChannelRequest = &patchChannelRequest
 	return r
 }
 
-func (r ChannelApiEditChannelRequest) Execute() (*http.Response, error) {
+func (r ChannelAPIEditChannelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditChannelExecute(r)
 }
 
@@ -157,10 +157,10 @@ EditChannel チャンネル情報を変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiEditChannelRequest
+	@return ChannelAPIEditChannelRequest
 */
-func (a *ChannelApiService) EditChannel(ctx context.Context, channelId string) ChannelApiEditChannelRequest {
-	return ChannelApiEditChannelRequest{
+func (a *ChannelAPIService) EditChannel(ctx context.Context, channelId string) ChannelAPIEditChannelRequest {
+	return ChannelAPIEditChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -168,14 +168,14 @@ func (a *ChannelApiService) EditChannel(ctx context.Context, channelId string) C
 }
 
 // Execute executes the request
-func (a *ChannelApiService) EditChannelExecute(r ChannelApiEditChannelRequest) (*http.Response, error) {
+func (a *ChannelAPIService) EditChannelExecute(r ChannelAPIEditChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.EditChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.EditChannel")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -234,19 +234,19 @@ func (a *ChannelApiService) EditChannelExecute(r ChannelApiEditChannelRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type ChannelApiEditChannelSubscribersRequest struct {
+type ChannelAPIEditChannelSubscribersRequest struct {
 	ctx                            context.Context
-	ApiService                     *ChannelApiService
+	ApiService                     *ChannelAPIService
 	channelId                      string
 	patchChannelSubscribersRequest *PatchChannelSubscribersRequest
 }
 
-func (r ChannelApiEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) ChannelApiEditChannelSubscribersRequest {
+func (r ChannelAPIEditChannelSubscribersRequest) PatchChannelSubscribersRequest(patchChannelSubscribersRequest PatchChannelSubscribersRequest) ChannelAPIEditChannelSubscribersRequest {
 	r.patchChannelSubscribersRequest = &patchChannelSubscribersRequest
 	return r
 }
 
-func (r ChannelApiEditChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r ChannelAPIEditChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditChannelSubscribersExecute(r)
 }
 
@@ -259,10 +259,10 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiEditChannelSubscribersRequest
+	@return ChannelAPIEditChannelSubscribersRequest
 */
-func (a *ChannelApiService) EditChannelSubscribers(ctx context.Context, channelId string) ChannelApiEditChannelSubscribersRequest {
-	return ChannelApiEditChannelSubscribersRequest{
+func (a *ChannelAPIService) EditChannelSubscribers(ctx context.Context, channelId string) ChannelAPIEditChannelSubscribersRequest {
+	return ChannelAPIEditChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -270,14 +270,14 @@ func (a *ChannelApiService) EditChannelSubscribers(ctx context.Context, channelI
 }
 
 // Execute executes the request
-func (a *ChannelApiService) EditChannelSubscribersExecute(r ChannelApiEditChannelSubscribersRequest) (*http.Response, error) {
+func (a *ChannelAPIService) EditChannelSubscribersExecute(r ChannelAPIEditChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.EditChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.EditChannelSubscribers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -336,19 +336,19 @@ func (a *ChannelApiService) EditChannelSubscribersExecute(r ChannelApiEditChanne
 	return localVarHTTPResponse, nil
 }
 
-type ChannelApiEditChannelTopicRequest struct {
+type ChannelAPIEditChannelTopicRequest struct {
 	ctx                    context.Context
-	ApiService             *ChannelApiService
+	ApiService             *ChannelAPIService
 	channelId              string
 	putChannelTopicRequest *PutChannelTopicRequest
 }
 
-func (r ChannelApiEditChannelTopicRequest) PutChannelTopicRequest(putChannelTopicRequest PutChannelTopicRequest) ChannelApiEditChannelTopicRequest {
+func (r ChannelAPIEditChannelTopicRequest) PutChannelTopicRequest(putChannelTopicRequest PutChannelTopicRequest) ChannelAPIEditChannelTopicRequest {
 	r.putChannelTopicRequest = &putChannelTopicRequest
 	return r
 }
 
-func (r ChannelApiEditChannelTopicRequest) Execute() (*http.Response, error) {
+func (r ChannelAPIEditChannelTopicRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditChannelTopicExecute(r)
 }
 
@@ -360,10 +360,10 @@ EditChannelTopic チャンネルトピックを編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiEditChannelTopicRequest
+	@return ChannelAPIEditChannelTopicRequest
 */
-func (a *ChannelApiService) EditChannelTopic(ctx context.Context, channelId string) ChannelApiEditChannelTopicRequest {
-	return ChannelApiEditChannelTopicRequest{
+func (a *ChannelAPIService) EditChannelTopic(ctx context.Context, channelId string) ChannelAPIEditChannelTopicRequest {
+	return ChannelAPIEditChannelTopicRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -371,14 +371,14 @@ func (a *ChannelApiService) EditChannelTopic(ctx context.Context, channelId stri
 }
 
 // Execute executes the request
-func (a *ChannelApiService) EditChannelTopicExecute(r ChannelApiEditChannelTopicRequest) (*http.Response, error) {
+func (a *ChannelAPIService) EditChannelTopicExecute(r ChannelAPIEditChannelTopicRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.EditChannelTopic")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.EditChannelTopic")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -437,13 +437,13 @@ func (a *ChannelApiService) EditChannelTopicExecute(r ChannelApiEditChannelTopic
 	return localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelRequest struct {
+type ChannelAPIGetChannelRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelRequest) Execute() (*Channel, *http.Response, error) {
+func (r ChannelAPIGetChannelRequest) Execute() (*Channel, *http.Response, error) {
 	return r.ApiService.GetChannelExecute(r)
 }
 
@@ -454,10 +454,10 @@ GetChannel チャンネル情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelRequest
+	@return ChannelAPIGetChannelRequest
 */
-func (a *ChannelApiService) GetChannel(ctx context.Context, channelId string) ChannelApiGetChannelRequest {
-	return ChannelApiGetChannelRequest{
+func (a *ChannelAPIService) GetChannel(ctx context.Context, channelId string) ChannelAPIGetChannelRequest {
+	return ChannelAPIGetChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -467,7 +467,7 @@ func (a *ChannelApiService) GetChannel(ctx context.Context, channelId string) Ch
 // Execute executes the request
 //
 //	@return Channel
-func (a *ChannelApiService) GetChannelExecute(r ChannelApiGetChannelRequest) (*Channel, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*Channel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -475,7 +475,7 @@ func (a *ChannelApiService) GetChannelExecute(r ChannelApiGetChannelRequest) (*C
 		localVarReturnValue *Channel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -541,13 +541,13 @@ func (a *ChannelApiService) GetChannelExecute(r ChannelApiGetChannelRequest) (*C
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelBotsRequest struct {
+type ChannelAPIGetChannelBotsRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelBotsRequest) Execute() ([]BotUser, *http.Response, error) {
+func (r ChannelAPIGetChannelBotsRequest) Execute() ([]BotUser, *http.Response, error) {
 	return r.ApiService.GetChannelBotsExecute(r)
 }
 
@@ -558,10 +558,10 @@ GetChannelBots チャンネル参加中のBOTのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelBotsRequest
+	@return ChannelAPIGetChannelBotsRequest
 */
-func (a *ChannelApiService) GetChannelBots(ctx context.Context, channelId string) ChannelApiGetChannelBotsRequest {
-	return ChannelApiGetChannelBotsRequest{
+func (a *ChannelAPIService) GetChannelBots(ctx context.Context, channelId string) ChannelAPIGetChannelBotsRequest {
+	return ChannelAPIGetChannelBotsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -571,7 +571,7 @@ func (a *ChannelApiService) GetChannelBots(ctx context.Context, channelId string
 // Execute executes the request
 //
 //	@return []BotUser
-func (a *ChannelApiService) GetChannelBotsExecute(r ChannelApiGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelBotsExecute(r ChannelAPIGetChannelBotsRequest) ([]BotUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -579,7 +579,7 @@ func (a *ChannelApiService) GetChannelBotsExecute(r ChannelApiGetChannelBotsRequ
 		localVarReturnValue []BotUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelBots")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelBots")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -645,9 +645,9 @@ func (a *ChannelApiService) GetChannelBotsExecute(r ChannelApiGetChannelBotsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelEventsRequest struct {
+type ChannelAPIGetChannelEventsRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 	limit      *int32
 	offset     *int32
@@ -658,42 +658,42 @@ type ChannelApiGetChannelEventsRequest struct {
 }
 
 // 取得する件数
-func (r ChannelApiGetChannelEventsRequest) Limit(limit int32) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Limit(limit int32) ChannelAPIGetChannelEventsRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r ChannelApiGetChannelEventsRequest) Offset(offset int32) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Offset(offset int32) ChannelAPIGetChannelEventsRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r ChannelApiGetChannelEventsRequest) Since(since time.Time) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Since(since time.Time) ChannelAPIGetChannelEventsRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r ChannelApiGetChannelEventsRequest) Until(until time.Time) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Until(until time.Time) ChannelAPIGetChannelEventsRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r ChannelApiGetChannelEventsRequest) Inclusive(inclusive bool) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Inclusive(inclusive bool) ChannelAPIGetChannelEventsRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r ChannelApiGetChannelEventsRequest) Order(order string) ChannelApiGetChannelEventsRequest {
+func (r ChannelAPIGetChannelEventsRequest) Order(order string) ChannelAPIGetChannelEventsRequest {
 	r.order = &order
 	return r
 }
 
-func (r ChannelApiGetChannelEventsRequest) Execute() ([]ChannelEvent, *http.Response, error) {
+func (r ChannelAPIGetChannelEventsRequest) Execute() ([]ChannelEvent, *http.Response, error) {
 	return r.ApiService.GetChannelEventsExecute(r)
 }
 
@@ -704,10 +704,10 @@ GetChannelEvents チャンネルイベントのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelEventsRequest
+	@return ChannelAPIGetChannelEventsRequest
 */
-func (a *ChannelApiService) GetChannelEvents(ctx context.Context, channelId string) ChannelApiGetChannelEventsRequest {
-	return ChannelApiGetChannelEventsRequest{
+func (a *ChannelAPIService) GetChannelEvents(ctx context.Context, channelId string) ChannelAPIGetChannelEventsRequest {
+	return ChannelAPIGetChannelEventsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -717,7 +717,7 @@ func (a *ChannelApiService) GetChannelEvents(ctx context.Context, channelId stri
 // Execute executes the request
 //
 //	@return []ChannelEvent
-func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEventsRequest) ([]ChannelEvent, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelEventsExecute(r ChannelAPIGetChannelEventsRequest) ([]ChannelEvent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -725,7 +725,7 @@ func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEvents
 		localVarReturnValue []ChannelEvent
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelEvents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -738,22 +738,34 @@ func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEvents
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -809,13 +821,13 @@ func (a *ChannelApiService) GetChannelEventsExecute(r ChannelApiGetChannelEvents
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelPathRequest struct {
+type ChannelAPIGetChannelPathRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelPathRequest) Execute() (*ChannelPath, *http.Response, error) {
+func (r ChannelAPIGetChannelPathRequest) Execute() (*ChannelPath, *http.Response, error) {
 	return r.ApiService.GetChannelPathExecute(r)
 }
 
@@ -824,10 +836,10 @@ GetChannelPath 指定したチャンネルパスを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelPathRequest
+	@return ChannelAPIGetChannelPathRequest
 */
-func (a *ChannelApiService) GetChannelPath(ctx context.Context, channelId string) ChannelApiGetChannelPathRequest {
-	return ChannelApiGetChannelPathRequest{
+func (a *ChannelAPIService) GetChannelPath(ctx context.Context, channelId string) ChannelAPIGetChannelPathRequest {
+	return ChannelAPIGetChannelPathRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -837,7 +849,7 @@ func (a *ChannelApiService) GetChannelPath(ctx context.Context, channelId string
 // Execute executes the request
 //
 //	@return ChannelPath
-func (a *ChannelApiService) GetChannelPathExecute(r ChannelApiGetChannelPathRequest) (*ChannelPath, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelPathExecute(r ChannelAPIGetChannelPathRequest) (*ChannelPath, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -845,7 +857,7 @@ func (a *ChannelApiService) GetChannelPathExecute(r ChannelApiGetChannelPathRequ
 		localVarReturnValue *ChannelPath
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelPath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelPath")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -911,13 +923,13 @@ func (a *ChannelApiService) GetChannelPathExecute(r ChannelApiGetChannelPathRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelPinsRequest struct {
+type ChannelAPIGetChannelPinsRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
+func (r ChannelAPIGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
 	return r.ApiService.GetChannelPinsExecute(r)
 }
 
@@ -928,10 +940,10 @@ GetChannelPins チャンネルピンのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelPinsRequest
+	@return ChannelAPIGetChannelPinsRequest
 */
-func (a *ChannelApiService) GetChannelPins(ctx context.Context, channelId string) ChannelApiGetChannelPinsRequest {
-	return ChannelApiGetChannelPinsRequest{
+func (a *ChannelAPIService) GetChannelPins(ctx context.Context, channelId string) ChannelAPIGetChannelPinsRequest {
+	return ChannelAPIGetChannelPinsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -941,7 +953,7 @@ func (a *ChannelApiService) GetChannelPins(ctx context.Context, channelId string
 // Execute executes the request
 //
 //	@return []Pin
-func (a *ChannelApiService) GetChannelPinsExecute(r ChannelApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelPinsExecute(r ChannelAPIGetChannelPinsRequest) ([]Pin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -949,7 +961,7 @@ func (a *ChannelApiService) GetChannelPinsExecute(r ChannelApiGetChannelPinsRequ
 		localVarReturnValue []Pin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelPins")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelPins")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1015,20 +1027,20 @@ func (a *ChannelApiService) GetChannelPinsExecute(r ChannelApiGetChannelPinsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelStatsRequest struct {
+type ChannelAPIGetChannelStatsRequest struct {
 	ctx                    context.Context
-	ApiService             *ChannelApiService
+	ApiService             *ChannelAPIService
 	channelId              string
 	excludeDeletedMessages *bool
 }
 
 // 削除されたメッセージを除外するかどうか(デフォルト false)
-func (r ChannelApiGetChannelStatsRequest) ExcludeDeletedMessages(excludeDeletedMessages bool) ChannelApiGetChannelStatsRequest {
+func (r ChannelAPIGetChannelStatsRequest) ExcludeDeletedMessages(excludeDeletedMessages bool) ChannelAPIGetChannelStatsRequest {
 	r.excludeDeletedMessages = &excludeDeletedMessages
 	return r
 }
 
-func (r ChannelApiGetChannelStatsRequest) Execute() (*ChannelStats, *http.Response, error) {
+func (r ChannelAPIGetChannelStatsRequest) Execute() (*ChannelStats, *http.Response, error) {
 	return r.ApiService.GetChannelStatsExecute(r)
 }
 
@@ -1039,10 +1051,10 @@ GetChannelStats チャンネル統計情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelStatsRequest
+	@return ChannelAPIGetChannelStatsRequest
 */
-func (a *ChannelApiService) GetChannelStats(ctx context.Context, channelId string) ChannelApiGetChannelStatsRequest {
-	return ChannelApiGetChannelStatsRequest{
+func (a *ChannelAPIService) GetChannelStats(ctx context.Context, channelId string) ChannelAPIGetChannelStatsRequest {
+	return ChannelAPIGetChannelStatsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1052,7 +1064,7 @@ func (a *ChannelApiService) GetChannelStats(ctx context.Context, channelId strin
 // Execute executes the request
 //
 //	@return ChannelStats
-func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRequest) (*ChannelStats, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelStatsExecute(r ChannelAPIGetChannelStatsRequest) (*ChannelStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1060,7 +1072,7 @@ func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRe
 		localVarReturnValue *ChannelStats
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelStats")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelStats")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1073,7 +1085,7 @@ func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRe
 	localVarFormParams := url.Values{}
 
 	if r.excludeDeletedMessages != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude-deleted-messages", r.excludeDeletedMessages, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude-deleted-messages", r.excludeDeletedMessages, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1129,13 +1141,13 @@ func (a *ChannelApiService) GetChannelStatsExecute(r ChannelApiGetChannelStatsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelSubscribersRequest struct {
+type ChannelAPIGetChannelSubscribersRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
+func (r ChannelAPIGetChannelSubscribersRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetChannelSubscribersExecute(r)
 }
 
@@ -1146,10 +1158,10 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelSubscribersRequest
+	@return ChannelAPIGetChannelSubscribersRequest
 */
-func (a *ChannelApiService) GetChannelSubscribers(ctx context.Context, channelId string) ChannelApiGetChannelSubscribersRequest {
-	return ChannelApiGetChannelSubscribersRequest{
+func (a *ChannelAPIService) GetChannelSubscribers(ctx context.Context, channelId string) ChannelAPIGetChannelSubscribersRequest {
+	return ChannelAPIGetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1159,7 +1171,7 @@ func (a *ChannelApiService) GetChannelSubscribers(ctx context.Context, channelId
 // Execute executes the request
 //
 //	@return []string
-func (a *ChannelApiService) GetChannelSubscribersExecute(r ChannelApiGetChannelSubscribersRequest) ([]string, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelSubscribersExecute(r ChannelAPIGetChannelSubscribersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1167,7 +1179,7 @@ func (a *ChannelApiService) GetChannelSubscribersExecute(r ChannelApiGetChannelS
 		localVarReturnValue []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelSubscribers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1233,13 +1245,13 @@ func (a *ChannelApiService) GetChannelSubscribersExecute(r ChannelApiGetChannelS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelTopicRequest struct {
+type ChannelAPIGetChannelTopicRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelTopicRequest) Execute() (*ChannelTopic, *http.Response, error) {
+func (r ChannelAPIGetChannelTopicRequest) Execute() (*ChannelTopic, *http.Response, error) {
 	return r.ApiService.GetChannelTopicExecute(r)
 }
 
@@ -1250,10 +1262,10 @@ GetChannelTopic チャンネルトピックを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelTopicRequest
+	@return ChannelAPIGetChannelTopicRequest
 */
-func (a *ChannelApiService) GetChannelTopic(ctx context.Context, channelId string) ChannelApiGetChannelTopicRequest {
-	return ChannelApiGetChannelTopicRequest{
+func (a *ChannelAPIService) GetChannelTopic(ctx context.Context, channelId string) ChannelAPIGetChannelTopicRequest {
+	return ChannelAPIGetChannelTopicRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1263,7 +1275,7 @@ func (a *ChannelApiService) GetChannelTopic(ctx context.Context, channelId strin
 // Execute executes the request
 //
 //	@return ChannelTopic
-func (a *ChannelApiService) GetChannelTopicExecute(r ChannelApiGetChannelTopicRequest) (*ChannelTopic, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelTopicExecute(r ChannelAPIGetChannelTopicRequest) (*ChannelTopic, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1271,7 +1283,7 @@ func (a *ChannelApiService) GetChannelTopicExecute(r ChannelApiGetChannelTopicRe
 		localVarReturnValue *ChannelTopic
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelTopic")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelTopic")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1337,13 +1349,13 @@ func (a *ChannelApiService) GetChannelTopicExecute(r ChannelApiGetChannelTopicRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelViewersRequest struct {
+type ChannelAPIGetChannelViewersRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 }
 
-func (r ChannelApiGetChannelViewersRequest) Execute() ([]ChannelViewer, *http.Response, error) {
+func (r ChannelAPIGetChannelViewersRequest) Execute() ([]ChannelViewer, *http.Response, error) {
 	return r.ApiService.GetChannelViewersExecute(r)
 }
 
@@ -1354,10 +1366,10 @@ GetChannelViewers チャンネル閲覧者リストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetChannelViewersRequest
+	@return ChannelAPIGetChannelViewersRequest
 */
-func (a *ChannelApiService) GetChannelViewers(ctx context.Context, channelId string) ChannelApiGetChannelViewersRequest {
-	return ChannelApiGetChannelViewersRequest{
+func (a *ChannelAPIService) GetChannelViewers(ctx context.Context, channelId string) ChannelAPIGetChannelViewersRequest {
+	return ChannelAPIGetChannelViewersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1367,7 +1379,7 @@ func (a *ChannelApiService) GetChannelViewers(ctx context.Context, channelId str
 // Execute executes the request
 //
 //	@return []ChannelViewer
-func (a *ChannelApiService) GetChannelViewersExecute(r ChannelApiGetChannelViewersRequest) ([]ChannelViewer, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelViewersExecute(r ChannelAPIGetChannelViewersRequest) ([]ChannelViewer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1375,7 +1387,7 @@ func (a *ChannelApiService) GetChannelViewersExecute(r ChannelApiGetChannelViewe
 		localVarReturnValue []ChannelViewer
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannelViewers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelViewers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1441,26 +1453,26 @@ func (a *ChannelApiService) GetChannelViewersExecute(r ChannelApiGetChannelViewe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetChannelsRequest struct {
+type ChannelAPIGetChannelsRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	includeDm  *bool
 	path       *string
 }
 
 // ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
-func (r ChannelApiGetChannelsRequest) IncludeDm(includeDm bool) ChannelApiGetChannelsRequest {
+func (r ChannelAPIGetChannelsRequest) IncludeDm(includeDm bool) ChannelAPIGetChannelsRequest {
 	r.includeDm = &includeDm
 	return r
 }
 
 // パスが一致するチャンネルのみを取得する
-func (r ChannelApiGetChannelsRequest) Path(path string) ChannelApiGetChannelsRequest {
+func (r ChannelAPIGetChannelsRequest) Path(path string) ChannelAPIGetChannelsRequest {
 	r.path = &path
 	return r
 }
 
-func (r ChannelApiGetChannelsRequest) Execute() (*ChannelList, *http.Response, error) {
+func (r ChannelAPIGetChannelsRequest) Execute() (*ChannelList, *http.Response, error) {
 	return r.ApiService.GetChannelsExecute(r)
 }
 
@@ -1470,10 +1482,10 @@ GetChannels チャンネルリストを取得
 チャンネルのリストを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ChannelApiGetChannelsRequest
+	@return ChannelAPIGetChannelsRequest
 */
-func (a *ChannelApiService) GetChannels(ctx context.Context) ChannelApiGetChannelsRequest {
-	return ChannelApiGetChannelsRequest{
+func (a *ChannelAPIService) GetChannels(ctx context.Context) ChannelAPIGetChannelsRequest {
+	return ChannelAPIGetChannelsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1482,7 +1494,7 @@ func (a *ChannelApiService) GetChannels(ctx context.Context) ChannelApiGetChanne
 // Execute executes the request
 //
 //	@return ChannelList
-func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (*ChannelList, *http.Response, error) {
+func (a *ChannelAPIService) GetChannelsExecute(r ChannelAPIGetChannelsRequest) (*ChannelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1490,7 +1502,7 @@ func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (
 		localVarReturnValue *ChannelList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetChannels")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1502,10 +1514,13 @@ func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.includeDm != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "include-dm", r.includeDm, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include-dm", r.includeDm, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeDm = &defaultValue
 	}
 	if r.path != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1561,9 +1576,9 @@ func (a *ChannelApiService) GetChannelsExecute(r ChannelApiGetChannelsRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetMessagesRequest struct {
+type ChannelAPIGetMessagesRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	channelId  string
 	limit      *int32
 	offset     *int32
@@ -1574,42 +1589,42 @@ type ChannelApiGetMessagesRequest struct {
 }
 
 // 取得する件数
-func (r ChannelApiGetMessagesRequest) Limit(limit int32) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Limit(limit int32) ChannelAPIGetMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r ChannelApiGetMessagesRequest) Offset(offset int32) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Offset(offset int32) ChannelAPIGetMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r ChannelApiGetMessagesRequest) Since(since time.Time) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Since(since time.Time) ChannelAPIGetMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r ChannelApiGetMessagesRequest) Until(until time.Time) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Until(until time.Time) ChannelAPIGetMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r ChannelApiGetMessagesRequest) Inclusive(inclusive bool) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Inclusive(inclusive bool) ChannelAPIGetMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r ChannelApiGetMessagesRequest) Order(order string) ChannelApiGetMessagesRequest {
+func (r ChannelAPIGetMessagesRequest) Order(order string) ChannelAPIGetMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r ChannelApiGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r ChannelAPIGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetMessagesExecute(r)
 }
 
@@ -1620,10 +1635,10 @@ GetMessages チャンネルメッセージのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiGetMessagesRequest
+	@return ChannelAPIGetMessagesRequest
 */
-func (a *ChannelApiService) GetMessages(ctx context.Context, channelId string) ChannelApiGetMessagesRequest {
-	return ChannelApiGetMessagesRequest{
+func (a *ChannelAPIService) GetMessages(ctx context.Context, channelId string) ChannelAPIGetMessagesRequest {
+	return ChannelAPIGetMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1633,7 +1648,7 @@ func (a *ChannelApiService) GetMessages(ctx context.Context, channelId string) C
 // Execute executes the request
 //
 //	@return []Message
-func (a *ChannelApiService) GetMessagesExecute(r ChannelApiGetMessagesRequest) ([]Message, *http.Response, error) {
+func (a *ChannelAPIService) GetMessagesExecute(r ChannelAPIGetMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1641,7 +1656,7 @@ func (a *ChannelApiService) GetMessagesExecute(r ChannelApiGetMessagesRequest) (
 		localVarReturnValue []Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1654,22 +1669,34 @@ func (a *ChannelApiService) GetMessagesExecute(r ChannelApiGetMessagesRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1725,13 +1752,13 @@ func (a *ChannelApiService) GetMessagesExecute(r ChannelApiGetMessagesRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiGetUserDMChannelRequest struct {
+type ChannelAPIGetUserDMChannelRequest struct {
 	ctx        context.Context
-	ApiService *ChannelApiService
+	ApiService *ChannelAPIService
 	userId     string
 }
 
-func (r ChannelApiGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
+func (r ChannelAPIGetUserDMChannelRequest) Execute() (*DMChannel, *http.Response, error) {
 	return r.ApiService.GetUserDMChannelExecute(r)
 }
 
@@ -1743,10 +1770,10 @@ GetUserDMChannel DMチャンネル情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return ChannelApiGetUserDMChannelRequest
+	@return ChannelAPIGetUserDMChannelRequest
 */
-func (a *ChannelApiService) GetUserDMChannel(ctx context.Context, userId string) ChannelApiGetUserDMChannelRequest {
-	return ChannelApiGetUserDMChannelRequest{
+func (a *ChannelAPIService) GetUserDMChannel(ctx context.Context, userId string) ChannelAPIGetUserDMChannelRequest {
+	return ChannelAPIGetUserDMChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1756,7 +1783,7 @@ func (a *ChannelApiService) GetUserDMChannel(ctx context.Context, userId string)
 // Execute executes the request
 //
 //	@return DMChannel
-func (a *ChannelApiService) GetUserDMChannelExecute(r ChannelApiGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
+func (a *ChannelAPIService) GetUserDMChannelExecute(r ChannelAPIGetUserDMChannelRequest) (*DMChannel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1764,7 +1791,7 @@ func (a *ChannelApiService) GetUserDMChannelExecute(r ChannelApiGetUserDMChannel
 		localVarReturnValue *DMChannel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.GetUserDMChannel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetUserDMChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1830,19 +1857,19 @@ func (a *ChannelApiService) GetUserDMChannelExecute(r ChannelApiGetUserDMChannel
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiPostMessageRequest struct {
+type ChannelAPIPostMessageRequest struct {
 	ctx                context.Context
-	ApiService         *ChannelApiService
+	ApiService         *ChannelAPIService
 	channelId          string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r ChannelApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) ChannelApiPostMessageRequest {
+func (r ChannelAPIPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) ChannelAPIPostMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r ChannelApiPostMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r ChannelAPIPostMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostMessageExecute(r)
 }
 
@@ -1855,10 +1882,10 @@ embedをtrueに指定すると、メッセージ埋め込みが自動で行わ�
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiPostMessageRequest
+	@return ChannelAPIPostMessageRequest
 */
-func (a *ChannelApiService) PostMessage(ctx context.Context, channelId string) ChannelApiPostMessageRequest {
-	return ChannelApiPostMessageRequest{
+func (a *ChannelAPIService) PostMessage(ctx context.Context, channelId string) ChannelAPIPostMessageRequest {
+	return ChannelAPIPostMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1868,7 +1895,7 @@ func (a *ChannelApiService) PostMessage(ctx context.Context, channelId string) C
 // Execute executes the request
 //
 //	@return Message
-func (a *ChannelApiService) PostMessageExecute(r ChannelApiPostMessageRequest) (*Message, *http.Response, error) {
+func (a *ChannelAPIService) PostMessageExecute(r ChannelAPIPostMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1876,7 +1903,7 @@ func (a *ChannelApiService) PostMessageExecute(r ChannelApiPostMessageRequest) (
 		localVarReturnValue *Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.PostMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PostMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1944,19 +1971,19 @@ func (a *ChannelApiService) PostMessageExecute(r ChannelApiPostMessageRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ChannelApiSetChannelSubscribersRequest struct {
+type ChannelAPISetChannelSubscribersRequest struct {
 	ctx                          context.Context
-	ApiService                   *ChannelApiService
+	ApiService                   *ChannelAPIService
 	channelId                    string
 	putChannelSubscribersRequest *PutChannelSubscribersRequest
 }
 
-func (r ChannelApiSetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) ChannelApiSetChannelSubscribersRequest {
+func (r ChannelAPISetChannelSubscribersRequest) PutChannelSubscribersRequest(putChannelSubscribersRequest PutChannelSubscribersRequest) ChannelAPISetChannelSubscribersRequest {
 	r.putChannelSubscribersRequest = &putChannelSubscribersRequest
 	return r
 }
 
-func (r ChannelApiSetChannelSubscribersRequest) Execute() (*http.Response, error) {
+func (r ChannelAPISetChannelSubscribersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetChannelSubscribersExecute(r)
 }
 
@@ -1969,10 +1996,10 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return ChannelApiSetChannelSubscribersRequest
+	@return ChannelAPISetChannelSubscribersRequest
 */
-func (a *ChannelApiService) SetChannelSubscribers(ctx context.Context, channelId string) ChannelApiSetChannelSubscribersRequest {
-	return ChannelApiSetChannelSubscribersRequest{
+func (a *ChannelAPIService) SetChannelSubscribers(ctx context.Context, channelId string) ChannelAPISetChannelSubscribersRequest {
+	return ChannelAPISetChannelSubscribersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1980,14 +2007,14 @@ func (a *ChannelApiService) SetChannelSubscribers(ctx context.Context, channelId
 }
 
 // Execute executes the request
-func (a *ChannelApiService) SetChannelSubscribersExecute(r ChannelApiSetChannelSubscribersRequest) (*http.Response, error) {
+func (a *ChannelAPIService) SetChannelSubscribersExecute(r ChannelAPISetChannelSubscribersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelApiService.SetChannelSubscribers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.SetChannelSubscribers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

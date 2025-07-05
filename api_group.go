@@ -20,22 +20,22 @@ import (
 	"strings"
 )
 
-// GroupApiService GroupApi service
-type GroupApiService service
+// GroupAPIService GroupAPI service
+type GroupAPIService service
 
-type GroupApiAddUserGroupAdminRequest struct {
+type GroupAPIAddUserGroupAdminRequest struct {
 	ctx                       context.Context
-	ApiService                *GroupApiService
+	ApiService                *GroupAPIService
 	groupId                   string
 	postUserGroupAdminRequest *PostUserGroupAdminRequest
 }
 
-func (r GroupApiAddUserGroupAdminRequest) PostUserGroupAdminRequest(postUserGroupAdminRequest PostUserGroupAdminRequest) GroupApiAddUserGroupAdminRequest {
+func (r GroupAPIAddUserGroupAdminRequest) PostUserGroupAdminRequest(postUserGroupAdminRequest PostUserGroupAdminRequest) GroupAPIAddUserGroupAdminRequest {
 	r.postUserGroupAdminRequest = &postUserGroupAdminRequest
 	return r
 }
 
-func (r GroupApiAddUserGroupAdminRequest) Execute() (*http.Response, error) {
+func (r GroupAPIAddUserGroupAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddUserGroupAdminExecute(r)
 }
 
@@ -47,10 +47,10 @@ AddUserGroupAdmin グループ管理者を追加
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiAddUserGroupAdminRequest
+	@return GroupAPIAddUserGroupAdminRequest
 */
-func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string) GroupApiAddUserGroupAdminRequest {
-	return GroupApiAddUserGroupAdminRequest{
+func (a *GroupAPIService) AddUserGroupAdmin(ctx context.Context, groupId string) GroupAPIAddUserGroupAdminRequest {
+	return GroupAPIAddUserGroupAdminRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -58,14 +58,14 @@ func (a *GroupApiService) AddUserGroupAdmin(ctx context.Context, groupId string)
 }
 
 // Execute executes the request
-func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiAddUserGroupAdminRequest) (*http.Response, error) {
+func (a *GroupAPIService) AddUserGroupAdminExecute(r GroupAPIAddUserGroupAdminRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.AddUserGroupAdmin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.AddUserGroupAdmin")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -124,19 +124,19 @@ func (a *GroupApiService) AddUserGroupAdminExecute(r GroupApiAddUserGroupAdminRe
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiAddUserGroupMemberRequest struct {
+type GroupAPIAddUserGroupMemberRequest struct {
 	ctx                       context.Context
-	ApiService                *GroupApiService
+	ApiService                *GroupAPIService
 	groupId                   string
 	addUserGroupMemberRequest *AddUserGroupMemberRequest
 }
 
-func (r GroupApiAddUserGroupMemberRequest) AddUserGroupMemberRequest(addUserGroupMemberRequest AddUserGroupMemberRequest) GroupApiAddUserGroupMemberRequest {
+func (r GroupAPIAddUserGroupMemberRequest) AddUserGroupMemberRequest(addUserGroupMemberRequest AddUserGroupMemberRequest) GroupAPIAddUserGroupMemberRequest {
 	r.addUserGroupMemberRequest = &addUserGroupMemberRequest
 	return r
 }
 
-func (r GroupApiAddUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupAPIAddUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddUserGroupMemberExecute(r)
 }
 
@@ -148,10 +148,10 @@ AddUserGroupMember グループメンバーを追加
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiAddUserGroupMemberRequest
+	@return GroupAPIAddUserGroupMemberRequest
 */
-func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string) GroupApiAddUserGroupMemberRequest {
-	return GroupApiAddUserGroupMemberRequest{
+func (a *GroupAPIService) AddUserGroupMember(ctx context.Context, groupId string) GroupAPIAddUserGroupMemberRequest {
+	return GroupAPIAddUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -159,14 +159,14 @@ func (a *GroupApiService) AddUserGroupMember(ctx context.Context, groupId string
 }
 
 // Execute executes the request
-func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiAddUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupAPIService) AddUserGroupMemberExecute(r GroupAPIAddUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.AddUserGroupMember")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.AddUserGroupMember")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -225,20 +225,20 @@ func (a *GroupApiService) AddUserGroupMemberExecute(r GroupApiAddUserGroupMember
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiChangeUserGroupIconRequest struct {
+type GroupAPIChangeUserGroupIconRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 	file       *os.File
 }
 
 // アイコン画像(2MBまでのpng, jpeg, gif)
-func (r GroupApiChangeUserGroupIconRequest) File(file *os.File) GroupApiChangeUserGroupIconRequest {
+func (r GroupAPIChangeUserGroupIconRequest) File(file *os.File) GroupAPIChangeUserGroupIconRequest {
 	r.file = file
 	return r
 }
 
-func (r GroupApiChangeUserGroupIconRequest) Execute() (*http.Response, error) {
+func (r GroupAPIChangeUserGroupIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeUserGroupIconExecute(r)
 }
 
@@ -250,10 +250,10 @@ ChangeUserGroupIcon ユーザーグループのアイコンを変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiChangeUserGroupIconRequest
+	@return GroupAPIChangeUserGroupIconRequest
 */
-func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId string) GroupApiChangeUserGroupIconRequest {
-	return GroupApiChangeUserGroupIconRequest{
+func (a *GroupAPIService) ChangeUserGroupIcon(ctx context.Context, groupId string) GroupAPIChangeUserGroupIconRequest {
+	return GroupAPIChangeUserGroupIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -261,14 +261,14 @@ func (a *GroupApiService) ChangeUserGroupIcon(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiChangeUserGroupIconRequest) (*http.Response, error) {
+func (a *GroupAPIService) ChangeUserGroupIconExecute(r GroupAPIChangeUserGroupIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.ChangeUserGroupIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ChangeUserGroupIcon")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -305,7 +305,6 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiChangeUserGroupIc
 	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
-
 	fileLocalVarFile := r.file
 
 	if fileLocalVarFile != nil {
@@ -344,18 +343,18 @@ func (a *GroupApiService) ChangeUserGroupIconExecute(r GroupApiChangeUserGroupIc
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiCreateUserGroupRequest struct {
+type GroupAPICreateUserGroupRequest struct {
 	ctx                  context.Context
-	ApiService           *GroupApiService
+	ApiService           *GroupAPIService
 	postUserGroupRequest *PostUserGroupRequest
 }
 
-func (r GroupApiCreateUserGroupRequest) PostUserGroupRequest(postUserGroupRequest PostUserGroupRequest) GroupApiCreateUserGroupRequest {
+func (r GroupAPICreateUserGroupRequest) PostUserGroupRequest(postUserGroupRequest PostUserGroupRequest) GroupAPICreateUserGroupRequest {
 	r.postUserGroupRequest = &postUserGroupRequest
 	return r
 }
 
-func (r GroupApiCreateUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
+func (r GroupAPICreateUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
 	return r.ApiService.CreateUserGroupExecute(r)
 }
 
@@ -366,10 +365,10 @@ CreateUserGroup ユーザーグループを作成
 作成者は自動的にグループ管理者になります。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GroupApiCreateUserGroupRequest
+	@return GroupAPICreateUserGroupRequest
 */
-func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiCreateUserGroupRequest {
-	return GroupApiCreateUserGroupRequest{
+func (a *GroupAPIService) CreateUserGroup(ctx context.Context) GroupAPICreateUserGroupRequest {
+	return GroupAPICreateUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -378,7 +377,7 @@ func (a *GroupApiService) CreateUserGroup(ctx context.Context) GroupApiCreateUse
 // Execute executes the request
 //
 //	@return UserGroup
-func (a *GroupApiService) CreateUserGroupExecute(r GroupApiCreateUserGroupRequest) (*UserGroup, *http.Response, error) {
+func (a *GroupAPIService) CreateUserGroupExecute(r GroupAPICreateUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -386,7 +385,7 @@ func (a *GroupApiService) CreateUserGroupExecute(r GroupApiCreateUserGroupReques
 		localVarReturnValue *UserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.CreateUserGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.CreateUserGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -453,13 +452,13 @@ func (a *GroupApiService) CreateUserGroupExecute(r GroupApiCreateUserGroupReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiDeleteUserGroupRequest struct {
+type GroupAPIDeleteUserGroupRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 }
 
-func (r GroupApiDeleteUserGroupRequest) Execute() (*http.Response, error) {
+func (r GroupAPIDeleteUserGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteUserGroupExecute(r)
 }
 
@@ -471,10 +470,10 @@ DeleteUserGroup ユーザーグループを削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiDeleteUserGroupRequest
+	@return GroupAPIDeleteUserGroupRequest
 */
-func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) GroupApiDeleteUserGroupRequest {
-	return GroupApiDeleteUserGroupRequest{
+func (a *GroupAPIService) DeleteUserGroup(ctx context.Context, groupId string) GroupAPIDeleteUserGroupRequest {
+	return GroupAPIDeleteUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -482,14 +481,14 @@ func (a *GroupApiService) DeleteUserGroup(ctx context.Context, groupId string) G
 }
 
 // Execute executes the request
-func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiDeleteUserGroupRequest) (*http.Response, error) {
+func (a *GroupAPIService) DeleteUserGroupExecute(r GroupAPIDeleteUserGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.DeleteUserGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.DeleteUserGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -546,19 +545,19 @@ func (a *GroupApiService) DeleteUserGroupExecute(r GroupApiDeleteUserGroupReques
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiEditUserGroupRequest struct {
+type GroupAPIEditUserGroupRequest struct {
 	ctx                   context.Context
-	ApiService            *GroupApiService
+	ApiService            *GroupAPIService
 	groupId               string
 	patchUserGroupRequest *PatchUserGroupRequest
 }
 
-func (r GroupApiEditUserGroupRequest) PatchUserGroupRequest(patchUserGroupRequest PatchUserGroupRequest) GroupApiEditUserGroupRequest {
+func (r GroupAPIEditUserGroupRequest) PatchUserGroupRequest(patchUserGroupRequest PatchUserGroupRequest) GroupAPIEditUserGroupRequest {
 	r.patchUserGroupRequest = &patchUserGroupRequest
 	return r
 }
 
-func (r GroupApiEditUserGroupRequest) Execute() (*http.Response, error) {
+func (r GroupAPIEditUserGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserGroupExecute(r)
 }
 
@@ -570,10 +569,10 @@ EditUserGroup ユーザーグループを編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiEditUserGroupRequest
+	@return GroupAPIEditUserGroupRequest
 */
-func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) GroupApiEditUserGroupRequest {
-	return GroupApiEditUserGroupRequest{
+func (a *GroupAPIService) EditUserGroup(ctx context.Context, groupId string) GroupAPIEditUserGroupRequest {
+	return GroupAPIEditUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -581,14 +580,14 @@ func (a *GroupApiService) EditUserGroup(ctx context.Context, groupId string) Gro
 }
 
 // Execute executes the request
-func (a *GroupApiService) EditUserGroupExecute(r GroupApiEditUserGroupRequest) (*http.Response, error) {
+func (a *GroupAPIService) EditUserGroupExecute(r GroupAPIEditUserGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.EditUserGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.EditUserGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -647,20 +646,20 @@ func (a *GroupApiService) EditUserGroupExecute(r GroupApiEditUserGroupRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiEditUserGroupMemberRequest struct {
+type GroupAPIEditUserGroupMemberRequest struct {
 	ctx                     context.Context
-	ApiService              *GroupApiService
+	ApiService              *GroupAPIService
 	groupId                 string
 	userId                  string
 	patchGroupMemberRequest *PatchGroupMemberRequest
 }
 
-func (r GroupApiEditUserGroupMemberRequest) PatchGroupMemberRequest(patchGroupMemberRequest PatchGroupMemberRequest) GroupApiEditUserGroupMemberRequest {
+func (r GroupAPIEditUserGroupMemberRequest) PatchGroupMemberRequest(patchGroupMemberRequest PatchGroupMemberRequest) GroupAPIEditUserGroupMemberRequest {
 	r.patchGroupMemberRequest = &patchGroupMemberRequest
 	return r
 }
 
-func (r GroupApiEditUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupAPIEditUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditUserGroupMemberExecute(r)
 }
 
@@ -673,10 +672,10 @@ EditUserGroupMember グループメンバーを編集
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
 	@param userId ユーザーUUID
-	@return GroupApiEditUserGroupMemberRequest
+	@return GroupAPIEditUserGroupMemberRequest
 */
-func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiEditUserGroupMemberRequest {
-	return GroupApiEditUserGroupMemberRequest{
+func (a *GroupAPIService) EditUserGroupMember(ctx context.Context, groupId string, userId string) GroupAPIEditUserGroupMemberRequest {
+	return GroupAPIEditUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -685,14 +684,14 @@ func (a *GroupApiService) EditUserGroupMember(ctx context.Context, groupId strin
 }
 
 // Execute executes the request
-func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiEditUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupAPIService) EditUserGroupMemberExecute(r GroupAPIEditUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.EditUserGroupMember")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.EditUserGroupMember")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -752,13 +751,13 @@ func (a *GroupApiService) EditUserGroupMemberExecute(r GroupApiEditUserGroupMemb
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiGetUserGroupRequest struct {
+type GroupAPIGetUserGroupRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 }
 
-func (r GroupApiGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
+func (r GroupAPIGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
 	return r.ApiService.GetUserGroupExecute(r)
 }
 
@@ -769,10 +768,10 @@ GetUserGroup ユーザーグループを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupRequest
+	@return GroupAPIGetUserGroupRequest
 */
-func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) GroupApiGetUserGroupRequest {
-	return GroupApiGetUserGroupRequest{
+func (a *GroupAPIService) GetUserGroup(ctx context.Context, groupId string) GroupAPIGetUserGroupRequest {
+	return GroupAPIGetUserGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -782,7 +781,7 @@ func (a *GroupApiService) GetUserGroup(ctx context.Context, groupId string) Grou
 // Execute executes the request
 //
 //	@return UserGroup
-func (a *GroupApiService) GetUserGroupExecute(r GroupApiGetUserGroupRequest) (*UserGroup, *http.Response, error) {
+func (a *GroupAPIService) GetUserGroupExecute(r GroupAPIGetUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -790,7 +789,7 @@ func (a *GroupApiService) GetUserGroupExecute(r GroupApiGetUserGroupRequest) (*U
 		localVarReturnValue *UserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.GetUserGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetUserGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -856,13 +855,13 @@ func (a *GroupApiService) GetUserGroupExecute(r GroupApiGetUserGroupRequest) (*U
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiGetUserGroupAdminsRequest struct {
+type GroupAPIGetUserGroupAdminsRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 }
 
-func (r GroupApiGetUserGroupAdminsRequest) Execute() ([]string, *http.Response, error) {
+func (r GroupAPIGetUserGroupAdminsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetUserGroupAdminsExecute(r)
 }
 
@@ -873,10 +872,10 @@ GetUserGroupAdmins グループ管理者を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupAdminsRequest
+	@return GroupAPIGetUserGroupAdminsRequest
 */
-func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string) GroupApiGetUserGroupAdminsRequest {
-	return GroupApiGetUserGroupAdminsRequest{
+func (a *GroupAPIService) GetUserGroupAdmins(ctx context.Context, groupId string) GroupAPIGetUserGroupAdminsRequest {
+	return GroupAPIGetUserGroupAdminsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -886,7 +885,7 @@ func (a *GroupApiService) GetUserGroupAdmins(ctx context.Context, groupId string
 // Execute executes the request
 //
 //	@return []string
-func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiGetUserGroupAdminsRequest) ([]string, *http.Response, error) {
+func (a *GroupAPIService) GetUserGroupAdminsExecute(r GroupAPIGetUserGroupAdminsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -894,7 +893,7 @@ func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiGetUserGroupAdmins
 		localVarReturnValue []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.GetUserGroupAdmins")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetUserGroupAdmins")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -960,13 +959,13 @@ func (a *GroupApiService) GetUserGroupAdminsExecute(r GroupApiGetUserGroupAdmins
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiGetUserGroupMembersRequest struct {
+type GroupAPIGetUserGroupMembersRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 }
 
-func (r GroupApiGetUserGroupMembersRequest) Execute() ([]UserGroupMember, *http.Response, error) {
+func (r GroupAPIGetUserGroupMembersRequest) Execute() ([]UserGroupMember, *http.Response, error) {
 	return r.ApiService.GetUserGroupMembersExecute(r)
 }
 
@@ -977,10 +976,10 @@ GetUserGroupMembers グループメンバーを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiGetUserGroupMembersRequest
+	@return GroupAPIGetUserGroupMembersRequest
 */
-func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId string) GroupApiGetUserGroupMembersRequest {
-	return GroupApiGetUserGroupMembersRequest{
+func (a *GroupAPIService) GetUserGroupMembers(ctx context.Context, groupId string) GroupAPIGetUserGroupMembersRequest {
+	return GroupAPIGetUserGroupMembersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -990,7 +989,7 @@ func (a *GroupApiService) GetUserGroupMembers(ctx context.Context, groupId strin
 // Execute executes the request
 //
 //	@return []UserGroupMember
-func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiGetUserGroupMembersRequest) ([]UserGroupMember, *http.Response, error) {
+func (a *GroupAPIService) GetUserGroupMembersExecute(r GroupAPIGetUserGroupMembersRequest) ([]UserGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -998,7 +997,7 @@ func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiGetUserGroupMembe
 		localVarReturnValue []UserGroupMember
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.GetUserGroupMembers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetUserGroupMembers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1064,12 +1063,12 @@ func (a *GroupApiService) GetUserGroupMembersExecute(r GroupApiGetUserGroupMembe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiGetUserGroupsRequest struct {
+type GroupAPIGetUserGroupsRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 }
 
-func (r GroupApiGetUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
+func (r GroupAPIGetUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
 	return r.ApiService.GetUserGroupsExecute(r)
 }
 
@@ -1079,10 +1078,10 @@ GetUserGroups ユーザーグループのリストを取得
 ユーザーグループのリストを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GroupApiGetUserGroupsRequest
+	@return GroupAPIGetUserGroupsRequest
 */
-func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiGetUserGroupsRequest {
-	return GroupApiGetUserGroupsRequest{
+func (a *GroupAPIService) GetUserGroups(ctx context.Context) GroupAPIGetUserGroupsRequest {
+	return GroupAPIGetUserGroupsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1091,7 +1090,7 @@ func (a *GroupApiService) GetUserGroups(ctx context.Context) GroupApiGetUserGrou
 // Execute executes the request
 //
 //	@return []UserGroup
-func (a *GroupApiService) GetUserGroupsExecute(r GroupApiGetUserGroupsRequest) ([]UserGroup, *http.Response, error) {
+func (a *GroupAPIService) GetUserGroupsExecute(r GroupAPIGetUserGroupsRequest) ([]UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1099,7 +1098,7 @@ func (a *GroupApiService) GetUserGroupsExecute(r GroupApiGetUserGroupsRequest) (
 		localVarReturnValue []UserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.GetUserGroups")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetUserGroups")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1164,14 +1163,14 @@ func (a *GroupApiService) GetUserGroupsExecute(r GroupApiGetUserGroupsRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GroupApiRemoveUserGroupAdminRequest struct {
+type GroupAPIRemoveUserGroupAdminRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 	userId     string
 }
 
-func (r GroupApiRemoveUserGroupAdminRequest) Execute() (*http.Response, error) {
+func (r GroupAPIRemoveUserGroupAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserGroupAdminExecute(r)
 }
 
@@ -1185,10 +1184,10 @@ RemoveUserGroupAdmin グループ管理者を削除
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
 	@param userId ユーザーUUID
-	@return GroupApiRemoveUserGroupAdminRequest
+	@return GroupAPIRemoveUserGroupAdminRequest
 */
-func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupAdminRequest {
-	return GroupApiRemoveUserGroupAdminRequest{
+func (a *GroupAPIService) RemoveUserGroupAdmin(ctx context.Context, groupId string, userId string) GroupAPIRemoveUserGroupAdminRequest {
+	return GroupAPIRemoveUserGroupAdminRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -1197,14 +1196,14 @@ func (a *GroupApiService) RemoveUserGroupAdmin(ctx context.Context, groupId stri
 }
 
 // Execute executes the request
-func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiRemoveUserGroupAdminRequest) (*http.Response, error) {
+func (a *GroupAPIService) RemoveUserGroupAdminExecute(r GroupAPIRemoveUserGroupAdminRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.RemoveUserGroupAdmin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.RemoveUserGroupAdmin")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1262,14 +1261,14 @@ func (a *GroupApiService) RemoveUserGroupAdminExecute(r GroupApiRemoveUserGroupA
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiRemoveUserGroupMemberRequest struct {
+type GroupAPIRemoveUserGroupMemberRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 	userId     string
 }
 
-func (r GroupApiRemoveUserGroupMemberRequest) Execute() (*http.Response, error) {
+func (r GroupAPIRemoveUserGroupMemberRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserGroupMemberExecute(r)
 }
 
@@ -1283,10 +1282,10 @@ RemoveUserGroupMember グループメンバーを削除
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
 	@param userId ユーザーUUID
-	@return GroupApiRemoveUserGroupMemberRequest
+	@return GroupAPIRemoveUserGroupMemberRequest
 */
-func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId string, userId string) GroupApiRemoveUserGroupMemberRequest {
-	return GroupApiRemoveUserGroupMemberRequest{
+func (a *GroupAPIService) RemoveUserGroupMember(ctx context.Context, groupId string, userId string) GroupAPIRemoveUserGroupMemberRequest {
+	return GroupAPIRemoveUserGroupMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -1295,14 +1294,14 @@ func (a *GroupApiService) RemoveUserGroupMember(ctx context.Context, groupId str
 }
 
 // Execute executes the request
-func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiRemoveUserGroupMemberRequest) (*http.Response, error) {
+func (a *GroupAPIService) RemoveUserGroupMemberExecute(r GroupAPIRemoveUserGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.RemoveUserGroupMember")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.RemoveUserGroupMember")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1360,13 +1359,13 @@ func (a *GroupApiService) RemoveUserGroupMemberExecute(r GroupApiRemoveUserGroup
 	return localVarHTTPResponse, nil
 }
 
-type GroupApiRemoveUserGroupMembersRequest struct {
+type GroupAPIRemoveUserGroupMembersRequest struct {
 	ctx        context.Context
-	ApiService *GroupApiService
+	ApiService *GroupAPIService
 	groupId    string
 }
 
-func (r GroupApiRemoveUserGroupMembersRequest) Execute() (*http.Response, error) {
+func (r GroupAPIRemoveUserGroupMembersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveUserGroupMembersExecute(r)
 }
 
@@ -1378,10 +1377,10 @@ RemoveUserGroupMembers グループメンバーを一括削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId ユーザーグループUUID
-	@return GroupApiRemoveUserGroupMembersRequest
+	@return GroupAPIRemoveUserGroupMembersRequest
 */
-func (a *GroupApiService) RemoveUserGroupMembers(ctx context.Context, groupId string) GroupApiRemoveUserGroupMembersRequest {
-	return GroupApiRemoveUserGroupMembersRequest{
+func (a *GroupAPIService) RemoveUserGroupMembers(ctx context.Context, groupId string) GroupAPIRemoveUserGroupMembersRequest {
+	return GroupAPIRemoveUserGroupMembersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -1389,14 +1388,14 @@ func (a *GroupApiService) RemoveUserGroupMembers(ctx context.Context, groupId st
 }
 
 // Execute executes the request
-func (a *GroupApiService) RemoveUserGroupMembersExecute(r GroupApiRemoveUserGroupMembersRequest) (*http.Response, error) {
+func (a *GroupAPIService) RemoveUserGroupMembersExecute(r GroupAPIRemoveUserGroupMembersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupApiService.RemoveUserGroupMembers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.RemoveUserGroupMembers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -42,6 +44,8 @@ type FileInfo struct {
 	// アップロード者UUID
 	UploaderId NullableString `json:"uploaderId"`
 }
+
+type _FileInfo FileInfo
 
 // NewFileInfo instantiates a new FileInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -366,6 +370,53 @@ func (o FileInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["channelId"] = o.ChannelId.Get()
 	toSerialize["uploaderId"] = o.UploaderId.Get()
 	return toSerialize, nil
+}
+
+func (o *FileInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"mime",
+		"size",
+		"md5",
+		"isAnimatedImage",
+		"createdAt",
+		"thumbnails",
+		"thumbnail",
+		"channelId",
+		"uploaderId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFileInfo := _FileInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFileInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FileInfo(varFileInfo)
+
+	return err
 }
 
 type NullableFileInfo struct {

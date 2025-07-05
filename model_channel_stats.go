@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -29,6 +31,8 @@ type ChannelStats struct {
 	// 統計情報日時
 	Datetime time.Time `json:"datetime"`
 }
+
+type _ChannelStats ChannelStats
 
 // NewChannelStats instantiates a new ChannelStats object
 // This constructor will assign default values to properties that have it defined,
@@ -162,6 +166,46 @@ func (o ChannelStats) ToMap() (map[string]interface{}, error) {
 	toSerialize["users"] = o.Users
 	toSerialize["datetime"] = o.Datetime
 	return toSerialize, nil
+}
+
+func (o *ChannelStats) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"totalMessageCount",
+		"stamps",
+		"users",
+		"datetime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChannelStats := _ChannelStats{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varChannelStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChannelStats(varChannelStats)
+
+	return err
 }
 
 type NullableChannelStats struct {

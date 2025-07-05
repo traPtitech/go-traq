@@ -1,24 +1,24 @@
-# \MessageApi
+# \MessageAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddMessageStamp**](MessageApi.md#AddMessageStamp) | **Post** /messages/{messageId}/stamps/{stampId} | スタンプを押す
-[**CreatePin**](MessageApi.md#CreatePin) | **Post** /messages/{messageId}/pin | ピン留めする
-[**DeleteMessage**](MessageApi.md#DeleteMessage) | **Delete** /messages/{messageId} | メッセージを削除
-[**EditMessage**](MessageApi.md#EditMessage) | **Put** /messages/{messageId} | メッセージを編集
-[**GetDirectMessages**](MessageApi.md#GetDirectMessages) | **Get** /users/{userId}/messages | ダイレクトメッセージのリストを取得
-[**GetMessage**](MessageApi.md#GetMessage) | **Get** /messages/{messageId} | メッセージを取得
-[**GetMessageClips**](MessageApi.md#GetMessageClips) | **Get** /messages/{messageId}/clips | 自分のクリップを取得
-[**GetMessageStamps**](MessageApi.md#GetMessageStamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
-[**GetMessages**](MessageApi.md#GetMessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
-[**GetPin**](MessageApi.md#GetPin) | **Get** /messages/{messageId}/pin | ピン留めを取得
-[**PostDirectMessage**](MessageApi.md#PostDirectMessage) | **Post** /users/{userId}/messages | ダイレクトメッセージを送信
-[**PostMessage**](MessageApi.md#PostMessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
-[**RemoveMessageStamp**](MessageApi.md#RemoveMessageStamp) | **Delete** /messages/{messageId}/stamps/{stampId} | スタンプを消す
-[**RemovePin**](MessageApi.md#RemovePin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
-[**SearchMessages**](MessageApi.md#SearchMessages) | **Get** /messages | メッセージを検索
+[**AddMessageStamp**](MessageAPI.md#AddMessageStamp) | **Post** /messages/{messageId}/stamps/{stampId} | スタンプを押す
+[**CreatePin**](MessageAPI.md#CreatePin) | **Post** /messages/{messageId}/pin | ピン留めする
+[**DeleteMessage**](MessageAPI.md#DeleteMessage) | **Delete** /messages/{messageId} | メッセージを削除
+[**EditMessage**](MessageAPI.md#EditMessage) | **Put** /messages/{messageId} | メッセージを編集
+[**GetDirectMessages**](MessageAPI.md#GetDirectMessages) | **Get** /users/{userId}/messages | ダイレクトメッセージのリストを取得
+[**GetMessage**](MessageAPI.md#GetMessage) | **Get** /messages/{messageId} | メッセージを取得
+[**GetMessageClips**](MessageAPI.md#GetMessageClips) | **Get** /messages/{messageId}/clips | 自分のクリップを取得
+[**GetMessageStamps**](MessageAPI.md#GetMessageStamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
+[**GetMessages**](MessageAPI.md#GetMessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
+[**GetPin**](MessageAPI.md#GetPin) | **Get** /messages/{messageId}/pin | ピン留めを取得
+[**PostDirectMessage**](MessageAPI.md#PostDirectMessage) | **Post** /users/{userId}/messages | ダイレクトメッセージを送信
+[**PostMessage**](MessageAPI.md#PostMessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
+[**RemoveMessageStamp**](MessageAPI.md#RemoveMessageStamp) | **Delete** /messages/{messageId}/stamps/{stampId} | スタンプを消す
+[**RemovePin**](MessageAPI.md#RemovePin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
+[**SearchMessages**](MessageAPI.md#SearchMessages) | **Get** /messages | メッセージを検索
 
 
 
@@ -36,24 +36,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
-    postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	postMessageStampRequest := *traq.NewPostMessageStampRequest(int32(123)) // PostMessageStampRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.MessageApi.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.AddMessageStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.MessageAPI.AddMessageStamp(context.Background(), messageId, stampId).PostMessageStampRequest(postMessageStampRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.AddMessageStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -109,24 +109,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.CreatePin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.CreatePin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePin`: MessagePin
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.CreatePin`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.CreatePin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.CreatePin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePin`: MessagePin
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.CreatePin`: %v\n", resp)
 }
 ```
 
@@ -179,22 +179,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.MessageApi.DeleteMessage(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.DeleteMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.MessageAPI.DeleteMessage(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.DeleteMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -247,23 +247,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.MessageApi.EditMessage(context.Background(), messageId).PostMessageRequest(postMessageRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.EditMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.MessageAPI.EditMessage(context.Background(), messageId).PostMessageRequest(postMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.EditMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -317,31 +317,31 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetDirectMessages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDirectMessages`: []Message
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetDirectMessages`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetDirectMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDirectMessages`: []Message
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetDirectMessages`: %v\n", resp)
 }
 ```
 
@@ -400,24 +400,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetMessage(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessage`: Message
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetMessage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetMessage(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessage`: Message
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetMessage`: %v\n", resp)
 }
 ```
 
@@ -470,24 +470,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetMessageClips(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessageClips``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessageClips`: []MessageClip
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetMessageClips`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetMessageClips(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetMessageClips``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessageClips`: []MessageClip
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetMessageClips`: %v\n", resp)
 }
 ```
 
@@ -540,24 +540,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetMessageStamps(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessageStamps``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessageStamps`: []MessageStamp
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetMessageStamps`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetMessageStamps(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetMessageStamps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessageStamps`: []MessageStamp
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetMessageStamps`: %v\n", resp)
 }
 ```
 
@@ -610,31 +610,31 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetMessages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessages`: []Message
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetMessages`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessages`: []Message
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetMessages`: %v\n", resp)
 }
 ```
 
@@ -693,24 +693,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.GetPin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.GetPin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPin`: MessagePin
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.GetPin`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.GetPin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.GetPin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPin`: MessagePin
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.GetPin`: %v\n", resp)
 }
 ```
 
@@ -763,25 +763,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.PostDirectMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostDirectMessage`: Message
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.PostDirectMessage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.PostDirectMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDirectMessage`: Message
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.PostDirectMessage`: %v\n", resp)
 }
 ```
 
@@ -835,25 +835,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.PostMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMessage`: Message
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.PostMessage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.PostMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMessage`: Message
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.PostMessage`: %v\n", resp)
 }
 ```
 
@@ -907,23 +907,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
-    stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.MessageApi.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.RemoveMessageStamp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.MessageAPI.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.RemoveMessageStamp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -978,22 +978,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.MessageApi.RemovePin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.RemovePin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.MessageAPI.RemovePin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.RemovePin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1046,40 +1046,40 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    word := ""phrase match" +(foo | bar) -baz" // string | 検索ワード Simple-Query-String-Syntaxをパースして検索します  (optional)
-    after := time.Now() // time.Time | 投稿日時が指定日時より後 (optional)
-    before := time.Now() // time.Time | 投稿日時が指定日時より前 (optional)
-    in := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージが投稿されたチャンネル (optional)
-    to := []string{"Inner_example"} // []string | メンションされたユーザー (optional)
-    from := []string{"Inner_example"} // []string | メッセージを投稿したユーザー (optional)
-    citation := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 引用しているメッセージ (optional)
-    bot := true // bool | メッセージを投稿したユーザーがBotかどうか (optional)
-    hasURL := true // bool | メッセージがURLを含むか (optional)
-    hasAttachments := true // bool | メッセージが添付ファイルを含むか (optional)
-    hasImage := true // bool | メッセージが画像を含むか (optional)
-    hasVideo := true // bool | メッセージが動画を含むか (optional)
-    hasAudio := true // bool | メッセージが音声ファイルを含むか (optional)
-    limit := int32(56) // int32 | 検索結果から取得するメッセージの最大件数 (optional)
-    offset := int32(56) // int32 | 検索結果から取得するメッセージのオフセット (optional)
-    sort := "sort_example" // string | ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`, 更新日時が新しい `updatedAt`, 更新日時が古い `-updatedAt`) (optional) (default to "-createdAt")
+	word := ""phrase match" +(foo | bar) -baz" // string | 検索ワード Simple-Query-String-Syntaxをパースして検索します  (optional)
+	after := time.Now() // time.Time | 投稿日時が指定日時より後 (optional)
+	before := time.Now() // time.Time | 投稿日時が指定日時より前 (optional)
+	in := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージが投稿されたチャンネル (optional)
+	to := []string{"Inner_example"} // []string | メンションされたユーザー (optional)
+	from := []string{"Inner_example"} // []string | メッセージを投稿したユーザー (optional)
+	citation := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 引用しているメッセージ (optional)
+	bot := true // bool | メッセージを投稿したユーザーがBotかどうか (optional)
+	hasURL := true // bool | メッセージがURLを含むか (optional)
+	hasAttachments := true // bool | メッセージが添付ファイルを含むか (optional)
+	hasImage := true // bool | メッセージが画像を含むか (optional)
+	hasVideo := true // bool | メッセージが動画を含むか (optional)
+	hasAudio := true // bool | メッセージが音声ファイルを含むか (optional)
+	limit := int32(56) // int32 | 検索結果から取得するメッセージの最大件数 (optional)
+	offset := int32(56) // int32 | 検索結果から取得するメッセージのオフセット (optional)
+	sort := "sort_example" // string | ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`, 更新日時が新しい `updatedAt`, 更新日時が古い `-updatedAt`) (optional) (default to "-createdAt")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.SearchMessages(context.Background()).Word(word).After(after).Before(before).In(in).To(to).From(from).Citation(citation).Bot(bot).HasURL(hasURL).HasAttachments(hasAttachments).HasImage(hasImage).HasVideo(hasVideo).HasAudio(hasAudio).Limit(limit).Offset(offset).Sort(sort).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.SearchMessages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SearchMessages`: MessageSearchResult
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.SearchMessages`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.SearchMessages(context.Background()).Word(word).After(after).Before(before).In(in).To(to).From(from).Citation(citation).Bot(bot).HasURL(hasURL).HasAttachments(hasAttachments).HasImage(hasImage).HasVideo(hasVideo).HasAudio(hasAudio).Limit(limit).Offset(offset).Sort(sort).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.SearchMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SearchMessages`: MessageSearchResult
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.SearchMessages`: %v\n", resp)
 }
 ```
 

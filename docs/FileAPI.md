@@ -1,15 +1,15 @@
-# \FileApi
+# \FileAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteFile**](FileApi.md#DeleteFile) | **Delete** /files/{fileId} | ファイルを削除
-[**GetFile**](FileApi.md#GetFile) | **Get** /files/{fileId} | ファイルをダウンロード
-[**GetFileMeta**](FileApi.md#GetFileMeta) | **Get** /files/{fileId}/meta | ファイルメタを取得
-[**GetFiles**](FileApi.md#GetFiles) | **Get** /files | ファイルメタのリストを取得
-[**GetThumbnailImage**](FileApi.md#GetThumbnailImage) | **Get** /files/{fileId}/thumbnail | サムネイル画像を取得
-[**PostFile**](FileApi.md#PostFile) | **Post** /files | ファイルをアップロード
+[**DeleteFile**](FileAPI.md#DeleteFile) | **Delete** /files/{fileId} | ファイルを削除
+[**GetFile**](FileAPI.md#GetFile) | **Get** /files/{fileId} | ファイルをダウンロード
+[**GetFileMeta**](FileAPI.md#GetFileMeta) | **Get** /files/{fileId}/meta | ファイルメタを取得
+[**GetFiles**](FileAPI.md#GetFiles) | **Get** /files | ファイルメタのリストを取得
+[**GetThumbnailImage**](FileAPI.md#GetThumbnailImage) | **Get** /files/{fileId}/thumbnail | サムネイル画像を取得
+[**PostFile**](FileAPI.md#PostFile) | **Post** /files | ファイルをアップロード
 
 
 
@@ -27,22 +27,22 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
+	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.FileApi.DeleteFile(context.Background(), fileId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.DeleteFile``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.FileAPI.DeleteFile(context.Background(), fileId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.DeleteFile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -95,25 +95,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
-    dl := int32(56) // int32 | 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます (optional)
+	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
+	dl := int32(56) // int32 | 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.FileApi.GetFile(context.Background(), fileId).Dl(dl).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFile``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFile`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `FileApi.GetFile`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.FileAPI.GetFile(context.Background(), fileId).Dl(dl).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.GetFile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFile`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `FileAPI.GetFile`: %v\n", resp)
 }
 ```
 
@@ -167,24 +167,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
+	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.FileApi.GetFileMeta(context.Background(), fileId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFileMeta``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFileMeta`: FileInfo
-    fmt.Fprintf(os.Stdout, "Response from `FileApi.GetFileMeta`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.FileAPI.GetFileMeta(context.Background(), fileId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.GetFileMeta``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFileMeta`: FileInfo
+	fmt.Fprintf(os.Stdout, "Response from `FileAPI.GetFileMeta`: %v\n", resp)
 }
 ```
 
@@ -237,32 +237,32 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | アップロード先チャンネルUUID (optional)
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
-    mine := true // bool | アップロード者が自分のファイルのみを取得するか (optional) (default to false)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | アップロード先チャンネルUUID (optional)
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	mine := true // bool | アップロード者が自分のファイルのみを取得するか (optional) (default to false)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.FileApi.GetFiles(context.Background()).ChannelId(channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Mine(mine).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetFiles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFiles`: []FileInfo
-    fmt.Fprintf(os.Stdout, "Response from `FileApi.GetFiles`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.FileAPI.GetFiles(context.Background()).ChannelId(channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Mine(mine).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.GetFiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFiles`: []FileInfo
+	fmt.Fprintf(os.Stdout, "Response from `FileAPI.GetFiles`: %v\n", resp)
 }
 ```
 
@@ -318,25 +318,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
-    type_ := traq.ThumbnailType("image") // ThumbnailType | 取得するサムネイルのタイプ (optional) (default to "image")
+	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
+	type_ := traq.ThumbnailType("image") // ThumbnailType | 取得するサムネイルのタイプ (optional) (default to "image")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.FileApi.GetThumbnailImage(context.Background(), fileId).Type_(type_).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.GetThumbnailImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetThumbnailImage`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `FileApi.GetThumbnailImage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.FileAPI.GetThumbnailImage(context.Background(), fileId).Type_(type_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.GetThumbnailImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetThumbnailImage`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `FileAPI.GetThumbnailImage`: %v\n", resp)
 }
 ```
 
@@ -390,25 +390,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    file := os.NewFile(1234, "some_file") // *os.File | ファイル本体
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | アップロード先チャンネルUUID
+	file := os.NewFile(1234, "some_file") // *os.File | ファイル本体
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | アップロード先チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.FileApi.PostFile(context.Background()).File(file).ChannelId(channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FileApi.PostFile``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostFile`: FileInfo
-    fmt.Fprintf(os.Stdout, "Response from `FileApi.PostFile`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.FileAPI.PostFile(context.Background()).File(file).ChannelId(channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FileAPI.PostFile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFile`: FileInfo
+	fmt.Fprintf(os.Stdout, "Response from `FileAPI.PostFile`: %v\n", resp)
 }
 ```
 

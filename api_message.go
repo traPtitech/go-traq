@@ -21,23 +21,23 @@ import (
 	"time"
 )
 
-// MessageApiService MessageApi service
-type MessageApiService service
+// MessageAPIService MessageAPI service
+type MessageAPIService service
 
-type MessageApiAddMessageStampRequest struct {
+type MessageAPIAddMessageStampRequest struct {
 	ctx                     context.Context
-	ApiService              *MessageApiService
+	ApiService              *MessageAPIService
 	messageId               string
 	stampId                 string
 	postMessageStampRequest *PostMessageStampRequest
 }
 
-func (r MessageApiAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) MessageApiAddMessageStampRequest {
+func (r MessageAPIAddMessageStampRequest) PostMessageStampRequest(postMessageStampRequest PostMessageStampRequest) MessageAPIAddMessageStampRequest {
 	r.postMessageStampRequest = &postMessageStampRequest
 	return r
 }
 
-func (r MessageApiAddMessageStampRequest) Execute() (*http.Response, error) {
+func (r MessageAPIAddMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddMessageStampExecute(r)
 }
 
@@ -49,10 +49,10 @@ AddMessageStamp スタンプを押す
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
 	@param stampId スタンプUUID
-	@return MessageApiAddMessageStampRequest
+	@return MessageAPIAddMessageStampRequest
 */
-func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiAddMessageStampRequest {
-	return MessageApiAddMessageStampRequest{
+func (a *MessageAPIService) AddMessageStamp(ctx context.Context, messageId string, stampId string) MessageAPIAddMessageStampRequest {
+	return MessageAPIAddMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -61,14 +61,14 @@ func (a *MessageApiService) AddMessageStamp(ctx context.Context, messageId strin
 }
 
 // Execute executes the request
-func (a *MessageApiService) AddMessageStampExecute(r MessageApiAddMessageStampRequest) (*http.Response, error) {
+func (a *MessageAPIService) AddMessageStampExecute(r MessageAPIAddMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.AddMessageStamp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.AddMessageStamp")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -128,13 +128,13 @@ func (a *MessageApiService) AddMessageStampExecute(r MessageApiAddMessageStampRe
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiCreatePinRequest struct {
+type MessageAPICreatePinRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r MessageAPICreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.CreatePinExecute(r)
 }
 
@@ -146,10 +146,10 @@ CreatePin ピン留めする
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiCreatePinRequest
+	@return MessageAPICreatePinRequest
 */
-func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) MessageApiCreatePinRequest {
-	return MessageApiCreatePinRequest{
+func (a *MessageAPIService) CreatePin(ctx context.Context, messageId string) MessageAPICreatePinRequest {
+	return MessageAPICreatePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -159,7 +159,7 @@ func (a *MessageApiService) CreatePin(ctx context.Context, messageId string) Mes
 // Execute executes the request
 //
 //	@return MessagePin
-func (a *MessageApiService) CreatePinExecute(r MessageApiCreatePinRequest) (*MessagePin, *http.Response, error) {
+func (a *MessageAPIService) CreatePinExecute(r MessageAPICreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -167,7 +167,7 @@ func (a *MessageApiService) CreatePinExecute(r MessageApiCreatePinRequest) (*Mes
 		localVarReturnValue *MessagePin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.CreatePin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.CreatePin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -233,13 +233,13 @@ func (a *MessageApiService) CreatePinExecute(r MessageApiCreatePinRequest) (*Mes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiDeleteMessageRequest struct {
+type MessageAPIDeleteMessageRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiDeleteMessageRequest) Execute() (*http.Response, error) {
+func (r MessageAPIDeleteMessageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteMessageExecute(r)
 }
 
@@ -252,10 +252,10 @@ DeleteMessage メッセージを削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiDeleteMessageRequest
+	@return MessageAPIDeleteMessageRequest
 */
-func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string) MessageApiDeleteMessageRequest {
-	return MessageApiDeleteMessageRequest{
+func (a *MessageAPIService) DeleteMessage(ctx context.Context, messageId string) MessageAPIDeleteMessageRequest {
+	return MessageAPIDeleteMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -263,14 +263,14 @@ func (a *MessageApiService) DeleteMessage(ctx context.Context, messageId string)
 }
 
 // Execute executes the request
-func (a *MessageApiService) DeleteMessageExecute(r MessageApiDeleteMessageRequest) (*http.Response, error) {
+func (a *MessageAPIService) DeleteMessageExecute(r MessageAPIDeleteMessageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.DeleteMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.DeleteMessage")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -327,19 +327,19 @@ func (a *MessageApiService) DeleteMessageExecute(r MessageApiDeleteMessageReques
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiEditMessageRequest struct {
+type MessageAPIEditMessageRequest struct {
 	ctx                context.Context
-	ApiService         *MessageApiService
+	ApiService         *MessageAPIService
 	messageId          string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiEditMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiEditMessageRequest {
+func (r MessageAPIEditMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageAPIEditMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiEditMessageRequest) Execute() (*http.Response, error) {
+func (r MessageAPIEditMessageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditMessageExecute(r)
 }
 
@@ -352,10 +352,10 @@ EditMessage メッセージを編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiEditMessageRequest
+	@return MessageAPIEditMessageRequest
 */
-func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) MessageApiEditMessageRequest {
-	return MessageApiEditMessageRequest{
+func (a *MessageAPIService) EditMessage(ctx context.Context, messageId string) MessageAPIEditMessageRequest {
+	return MessageAPIEditMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -363,14 +363,14 @@ func (a *MessageApiService) EditMessage(ctx context.Context, messageId string) M
 }
 
 // Execute executes the request
-func (a *MessageApiService) EditMessageExecute(r MessageApiEditMessageRequest) (*http.Response, error) {
+func (a *MessageAPIService) EditMessageExecute(r MessageAPIEditMessageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.EditMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.EditMessage")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -429,9 +429,9 @@ func (a *MessageApiService) EditMessageExecute(r MessageApiEditMessageRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiGetDirectMessagesRequest struct {
+type MessageAPIGetDirectMessagesRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	userId     string
 	limit      *int32
 	offset     *int32
@@ -442,42 +442,42 @@ type MessageApiGetDirectMessagesRequest struct {
 }
 
 // 取得する件数
-func (r MessageApiGetDirectMessagesRequest) Limit(limit int32) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Limit(limit int32) MessageAPIGetDirectMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r MessageApiGetDirectMessagesRequest) Offset(offset int32) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Offset(offset int32) MessageAPIGetDirectMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r MessageApiGetDirectMessagesRequest) Since(since time.Time) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Since(since time.Time) MessageAPIGetDirectMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r MessageApiGetDirectMessagesRequest) Until(until time.Time) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Until(until time.Time) MessageAPIGetDirectMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r MessageApiGetDirectMessagesRequest) Inclusive(inclusive bool) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Inclusive(inclusive bool) MessageAPIGetDirectMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r MessageApiGetDirectMessagesRequest) Order(order string) MessageApiGetDirectMessagesRequest {
+func (r MessageAPIGetDirectMessagesRequest) Order(order string) MessageAPIGetDirectMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r MessageApiGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r MessageAPIGetDirectMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetDirectMessagesExecute(r)
 }
 
@@ -488,10 +488,10 @@ GetDirectMessages ダイレクトメッセージのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return MessageApiGetDirectMessagesRequest
+	@return MessageAPIGetDirectMessagesRequest
 */
-func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string) MessageApiGetDirectMessagesRequest {
-	return MessageApiGetDirectMessagesRequest{
+func (a *MessageAPIService) GetDirectMessages(ctx context.Context, userId string) MessageAPIGetDirectMessagesRequest {
+	return MessageAPIGetDirectMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -501,7 +501,7 @@ func (a *MessageApiService) GetDirectMessages(ctx context.Context, userId string
 // Execute executes the request
 //
 //	@return []Message
-func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessagesRequest) ([]Message, *http.Response, error) {
+func (a *MessageAPIService) GetDirectMessagesExecute(r MessageAPIGetDirectMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -509,7 +509,7 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessag
 		localVarReturnValue []Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetDirectMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetDirectMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -522,22 +522,34 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessag
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -593,13 +605,13 @@ func (a *MessageApiService) GetDirectMessagesExecute(r MessageApiGetDirectMessag
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiGetMessageRequest struct {
+type MessageAPIGetMessageRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiGetMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageAPIGetMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.GetMessageExecute(r)
 }
 
@@ -610,10 +622,10 @@ GetMessage メッセージを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiGetMessageRequest
+	@return MessageAPIGetMessageRequest
 */
-func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) MessageApiGetMessageRequest {
-	return MessageApiGetMessageRequest{
+func (a *MessageAPIService) GetMessage(ctx context.Context, messageId string) MessageAPIGetMessageRequest {
+	return MessageAPIGetMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -623,7 +635,7 @@ func (a *MessageApiService) GetMessage(ctx context.Context, messageId string) Me
 // Execute executes the request
 //
 //	@return Message
-func (a *MessageApiService) GetMessageExecute(r MessageApiGetMessageRequest) (*Message, *http.Response, error) {
+func (a *MessageAPIService) GetMessageExecute(r MessageAPIGetMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -631,7 +643,7 @@ func (a *MessageApiService) GetMessageExecute(r MessageApiGetMessageRequest) (*M
 		localVarReturnValue *Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -697,13 +709,13 @@ func (a *MessageApiService) GetMessageExecute(r MessageApiGetMessageRequest) (*M
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiGetMessageClipsRequest struct {
+type MessageAPIGetMessageClipsRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
+func (r MessageAPIGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
 	return r.ApiService.GetMessageClipsExecute(r)
 }
 
@@ -714,10 +726,10 @@ GetMessageClips 自分のクリップを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiGetMessageClipsRequest
+	@return MessageAPIGetMessageClipsRequest
 */
-func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId string) MessageApiGetMessageClipsRequest {
-	return MessageApiGetMessageClipsRequest{
+func (a *MessageAPIService) GetMessageClips(ctx context.Context, messageId string) MessageAPIGetMessageClipsRequest {
+	return MessageAPIGetMessageClipsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -727,7 +739,7 @@ func (a *MessageApiService) GetMessageClips(ctx context.Context, messageId strin
 // Execute executes the request
 //
 //	@return []MessageClip
-func (a *MessageApiService) GetMessageClipsExecute(r MessageApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
+func (a *MessageAPIService) GetMessageClipsExecute(r MessageAPIGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -735,7 +747,7 @@ func (a *MessageApiService) GetMessageClipsExecute(r MessageApiGetMessageClipsRe
 		localVarReturnValue []MessageClip
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetMessageClips")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetMessageClips")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -801,13 +813,13 @@ func (a *MessageApiService) GetMessageClipsExecute(r MessageApiGetMessageClipsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiGetMessageStampsRequest struct {
+type MessageAPIGetMessageStampsRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
+func (r MessageAPIGetMessageStampsRequest) Execute() ([]MessageStamp, *http.Response, error) {
 	return r.ApiService.GetMessageStampsExecute(r)
 }
 
@@ -818,10 +830,10 @@ GetMessageStamps メッセージのスタンプリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiGetMessageStampsRequest
+	@return MessageAPIGetMessageStampsRequest
 */
-func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId string) MessageApiGetMessageStampsRequest {
-	return MessageApiGetMessageStampsRequest{
+func (a *MessageAPIService) GetMessageStamps(ctx context.Context, messageId string) MessageAPIGetMessageStampsRequest {
+	return MessageAPIGetMessageStampsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -831,7 +843,7 @@ func (a *MessageApiService) GetMessageStamps(ctx context.Context, messageId stri
 // Execute executes the request
 //
 //	@return []MessageStamp
-func (a *MessageApiService) GetMessageStampsExecute(r MessageApiGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
+func (a *MessageAPIService) GetMessageStampsExecute(r MessageAPIGetMessageStampsRequest) ([]MessageStamp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -839,7 +851,7 @@ func (a *MessageApiService) GetMessageStampsExecute(r MessageApiGetMessageStamps
 		localVarReturnValue []MessageStamp
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetMessageStamps")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetMessageStamps")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -905,9 +917,9 @@ func (a *MessageApiService) GetMessageStampsExecute(r MessageApiGetMessageStamps
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiGetMessagesRequest struct {
+type MessageAPIGetMessagesRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	channelId  string
 	limit      *int32
 	offset     *int32
@@ -918,42 +930,42 @@ type MessageApiGetMessagesRequest struct {
 }
 
 // 取得する件数
-func (r MessageApiGetMessagesRequest) Limit(limit int32) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Limit(limit int32) MessageAPIGetMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r MessageApiGetMessagesRequest) Offset(offset int32) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Offset(offset int32) MessageAPIGetMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r MessageApiGetMessagesRequest) Since(since time.Time) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Since(since time.Time) MessageAPIGetMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r MessageApiGetMessagesRequest) Until(until time.Time) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Until(until time.Time) MessageAPIGetMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r MessageApiGetMessagesRequest) Inclusive(inclusive bool) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Inclusive(inclusive bool) MessageAPIGetMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r MessageApiGetMessagesRequest) Order(order string) MessageApiGetMessagesRequest {
+func (r MessageAPIGetMessagesRequest) Order(order string) MessageAPIGetMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r MessageApiGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r MessageAPIGetMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetMessagesExecute(r)
 }
 
@@ -964,10 +976,10 @@ GetMessages チャンネルメッセージのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return MessageApiGetMessagesRequest
+	@return MessageAPIGetMessagesRequest
 */
-func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) MessageApiGetMessagesRequest {
-	return MessageApiGetMessagesRequest{
+func (a *MessageAPIService) GetMessages(ctx context.Context, channelId string) MessageAPIGetMessagesRequest {
+	return MessageAPIGetMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -977,7 +989,7 @@ func (a *MessageApiService) GetMessages(ctx context.Context, channelId string) M
 // Execute executes the request
 //
 //	@return []Message
-func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) ([]Message, *http.Response, error) {
+func (a *MessageAPIService) GetMessagesExecute(r MessageAPIGetMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -985,7 +997,7 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) (
 		localVarReturnValue []Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -998,22 +1010,34 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1069,13 +1093,13 @@ func (a *MessageApiService) GetMessagesExecute(r MessageApiGetMessagesRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiGetPinRequest struct {
+type MessageAPIGetPinRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r MessageAPIGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.GetPinExecute(r)
 }
 
@@ -1086,10 +1110,10 @@ GetPin ピン留めを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiGetPinRequest
+	@return MessageAPIGetPinRequest
 */
-func (a *MessageApiService) GetPin(ctx context.Context, messageId string) MessageApiGetPinRequest {
-	return MessageApiGetPinRequest{
+func (a *MessageAPIService) GetPin(ctx context.Context, messageId string) MessageAPIGetPinRequest {
+	return MessageAPIGetPinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1099,7 +1123,7 @@ func (a *MessageApiService) GetPin(ctx context.Context, messageId string) Messag
 // Execute executes the request
 //
 //	@return MessagePin
-func (a *MessageApiService) GetPinExecute(r MessageApiGetPinRequest) (*MessagePin, *http.Response, error) {
+func (a *MessageAPIService) GetPinExecute(r MessageAPIGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1107,7 +1131,7 @@ func (a *MessageApiService) GetPinExecute(r MessageApiGetPinRequest) (*MessagePi
 		localVarReturnValue *MessagePin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.GetPin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.GetPin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1173,19 +1197,19 @@ func (a *MessageApiService) GetPinExecute(r MessageApiGetPinRequest) (*MessagePi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiPostDirectMessageRequest struct {
+type MessageAPIPostDirectMessageRequest struct {
 	ctx                context.Context
-	ApiService         *MessageApiService
+	ApiService         *MessageAPIService
 	userId             string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiPostDirectMessageRequest {
+func (r MessageAPIPostDirectMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageAPIPostDirectMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageAPIPostDirectMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostDirectMessageExecute(r)
 }
 
@@ -1196,10 +1220,10 @@ PostDirectMessage ダイレクトメッセージを送信
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ユーザーUUID
-	@return MessageApiPostDirectMessageRequest
+	@return MessageAPIPostDirectMessageRequest
 */
-func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string) MessageApiPostDirectMessageRequest {
-	return MessageApiPostDirectMessageRequest{
+func (a *MessageAPIService) PostDirectMessage(ctx context.Context, userId string) MessageAPIPostDirectMessageRequest {
+	return MessageAPIPostDirectMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -1209,7 +1233,7 @@ func (a *MessageApiService) PostDirectMessage(ctx context.Context, userId string
 // Execute executes the request
 //
 //	@return Message
-func (a *MessageApiService) PostDirectMessageExecute(r MessageApiPostDirectMessageRequest) (*Message, *http.Response, error) {
+func (a *MessageAPIService) PostDirectMessageExecute(r MessageAPIPostDirectMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1217,7 +1241,7 @@ func (a *MessageApiService) PostDirectMessageExecute(r MessageApiPostDirectMessa
 		localVarReturnValue *Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.PostDirectMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.PostDirectMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1285,19 +1309,19 @@ func (a *MessageApiService) PostDirectMessageExecute(r MessageApiPostDirectMessa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiPostMessageRequest struct {
+type MessageAPIPostMessageRequest struct {
 	ctx                context.Context
-	ApiService         *MessageApiService
+	ApiService         *MessageAPIService
 	channelId          string
 	postMessageRequest *PostMessageRequest
 }
 
-func (r MessageApiPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageApiPostMessageRequest {
+func (r MessageAPIPostMessageRequest) PostMessageRequest(postMessageRequest PostMessageRequest) MessageAPIPostMessageRequest {
 	r.postMessageRequest = &postMessageRequest
 	return r
 }
 
-func (r MessageApiPostMessageRequest) Execute() (*Message, *http.Response, error) {
+func (r MessageAPIPostMessageRequest) Execute() (*Message, *http.Response, error) {
 	return r.ApiService.PostMessageExecute(r)
 }
 
@@ -1310,10 +1334,10 @@ embedをtrueに指定すると、メッセージ埋め込みが自動で行わ�
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return MessageApiPostMessageRequest
+	@return MessageAPIPostMessageRequest
 */
-func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) MessageApiPostMessageRequest {
-	return MessageApiPostMessageRequest{
+func (a *MessageAPIService) PostMessage(ctx context.Context, channelId string) MessageAPIPostMessageRequest {
+	return MessageAPIPostMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -1323,7 +1347,7 @@ func (a *MessageApiService) PostMessage(ctx context.Context, channelId string) M
 // Execute executes the request
 //
 //	@return Message
-func (a *MessageApiService) PostMessageExecute(r MessageApiPostMessageRequest) (*Message, *http.Response, error) {
+func (a *MessageAPIService) PostMessageExecute(r MessageAPIPostMessageRequest) (*Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1331,7 +1355,7 @@ func (a *MessageApiService) PostMessageExecute(r MessageApiPostMessageRequest) (
 		localVarReturnValue *Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.PostMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.PostMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1399,14 +1423,14 @@ func (a *MessageApiService) PostMessageExecute(r MessageApiPostMessageRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MessageApiRemoveMessageStampRequest struct {
+type MessageAPIRemoveMessageStampRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 	stampId    string
 }
 
-func (r MessageApiRemoveMessageStampRequest) Execute() (*http.Response, error) {
+func (r MessageAPIRemoveMessageStampRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMessageStampExecute(r)
 }
 
@@ -1418,10 +1442,10 @@ RemoveMessageStamp スタンプを消す
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
 	@param stampId スタンプUUID
-	@return MessageApiRemoveMessageStampRequest
+	@return MessageAPIRemoveMessageStampRequest
 */
-func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) MessageApiRemoveMessageStampRequest {
-	return MessageApiRemoveMessageStampRequest{
+func (a *MessageAPIService) RemoveMessageStamp(ctx context.Context, messageId string, stampId string) MessageAPIRemoveMessageStampRequest {
+	return MessageAPIRemoveMessageStampRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1430,14 +1454,14 @@ func (a *MessageApiService) RemoveMessageStamp(ctx context.Context, messageId st
 }
 
 // Execute executes the request
-func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiRemoveMessageStampRequest) (*http.Response, error) {
+func (a *MessageAPIService) RemoveMessageStampExecute(r MessageAPIRemoveMessageStampRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.RemoveMessageStamp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.RemoveMessageStamp")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1495,13 +1519,13 @@ func (a *MessageApiService) RemoveMessageStampExecute(r MessageApiRemoveMessageS
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiRemovePinRequest struct {
+type MessageAPIRemovePinRequest struct {
 	ctx        context.Context
-	ApiService *MessageApiService
+	ApiService *MessageAPIService
 	messageId  string
 }
 
-func (r MessageApiRemovePinRequest) Execute() (*http.Response, error) {
+func (r MessageAPIRemovePinRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemovePinExecute(r)
 }
 
@@ -1512,10 +1536,10 @@ RemovePin ピン留めを外す
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return MessageApiRemovePinRequest
+	@return MessageAPIRemovePinRequest
 */
-func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) MessageApiRemovePinRequest {
-	return MessageApiRemovePinRequest{
+func (a *MessageAPIService) RemovePin(ctx context.Context, messageId string) MessageAPIRemovePinRequest {
+	return MessageAPIRemovePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -1523,14 +1547,14 @@ func (a *MessageApiService) RemovePin(ctx context.Context, messageId string) Mes
 }
 
 // Execute executes the request
-func (a *MessageApiService) RemovePinExecute(r MessageApiRemovePinRequest) (*http.Response, error) {
+func (a *MessageAPIService) RemovePinExecute(r MessageAPIRemovePinRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.RemovePin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.RemovePin")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1587,9 +1611,9 @@ func (a *MessageApiService) RemovePinExecute(r MessageApiRemovePinRequest) (*htt
 	return localVarHTTPResponse, nil
 }
 
-type MessageApiSearchMessagesRequest struct {
+type MessageAPISearchMessagesRequest struct {
 	ctx            context.Context
-	ApiService     *MessageApiService
+	ApiService     *MessageAPIService
 	word           *string
 	after          *time.Time
 	before         *time.Time
@@ -1609,102 +1633,102 @@ type MessageApiSearchMessagesRequest struct {
 }
 
 // 検索ワード Simple-Query-String-Syntaxをパースして検索します
-func (r MessageApiSearchMessagesRequest) Word(word string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Word(word string) MessageAPISearchMessagesRequest {
 	r.word = &word
 	return r
 }
 
 // 投稿日時が指定日時より後
-func (r MessageApiSearchMessagesRequest) After(after time.Time) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) After(after time.Time) MessageAPISearchMessagesRequest {
 	r.after = &after
 	return r
 }
 
 // 投稿日時が指定日時より前
-func (r MessageApiSearchMessagesRequest) Before(before time.Time) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Before(before time.Time) MessageAPISearchMessagesRequest {
 	r.before = &before
 	return r
 }
 
 // メッセージが投稿されたチャンネル
-func (r MessageApiSearchMessagesRequest) In(in string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) In(in string) MessageAPISearchMessagesRequest {
 	r.in = &in
 	return r
 }
 
 // メンションされたユーザー
-func (r MessageApiSearchMessagesRequest) To(to []string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) To(to []string) MessageAPISearchMessagesRequest {
 	r.to = &to
 	return r
 }
 
 // メッセージを投稿したユーザー
-func (r MessageApiSearchMessagesRequest) From(from []string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) From(from []string) MessageAPISearchMessagesRequest {
 	r.from = &from
 	return r
 }
 
 // 引用しているメッセージ
-func (r MessageApiSearchMessagesRequest) Citation(citation string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Citation(citation string) MessageAPISearchMessagesRequest {
 	r.citation = &citation
 	return r
 }
 
 // メッセージを投稿したユーザーがBotかどうか
-func (r MessageApiSearchMessagesRequest) Bot(bot bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Bot(bot bool) MessageAPISearchMessagesRequest {
 	r.bot = &bot
 	return r
 }
 
 // メッセージがURLを含むか
-func (r MessageApiSearchMessagesRequest) HasURL(hasURL bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) HasURL(hasURL bool) MessageAPISearchMessagesRequest {
 	r.hasURL = &hasURL
 	return r
 }
 
 // メッセージが添付ファイルを含むか
-func (r MessageApiSearchMessagesRequest) HasAttachments(hasAttachments bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) HasAttachments(hasAttachments bool) MessageAPISearchMessagesRequest {
 	r.hasAttachments = &hasAttachments
 	return r
 }
 
 // メッセージが画像を含むか
-func (r MessageApiSearchMessagesRequest) HasImage(hasImage bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) HasImage(hasImage bool) MessageAPISearchMessagesRequest {
 	r.hasImage = &hasImage
 	return r
 }
 
 // メッセージが動画を含むか
-func (r MessageApiSearchMessagesRequest) HasVideo(hasVideo bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) HasVideo(hasVideo bool) MessageAPISearchMessagesRequest {
 	r.hasVideo = &hasVideo
 	return r
 }
 
 // メッセージが音声ファイルを含むか
-func (r MessageApiSearchMessagesRequest) HasAudio(hasAudio bool) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) HasAudio(hasAudio bool) MessageAPISearchMessagesRequest {
 	r.hasAudio = &hasAudio
 	return r
 }
 
 // 検索結果から取得するメッセージの最大件数
-func (r MessageApiSearchMessagesRequest) Limit(limit int32) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Limit(limit int32) MessageAPISearchMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 検索結果から取得するメッセージのオフセット
-func (r MessageApiSearchMessagesRequest) Offset(offset int32) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Offset(offset int32) MessageAPISearchMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // ソート順 (作成日時が新しい &#x60;createdAt&#x60;, 作成日時が古い &#x60;-createdAt&#x60;, 更新日時が新しい &#x60;updatedAt&#x60;, 更新日時が古い &#x60;-updatedAt&#x60;)
-func (r MessageApiSearchMessagesRequest) Sort(sort string) MessageApiSearchMessagesRequest {
+func (r MessageAPISearchMessagesRequest) Sort(sort string) MessageAPISearchMessagesRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r MessageApiSearchMessagesRequest) Execute() (*MessageSearchResult, *http.Response, error) {
+func (r MessageAPISearchMessagesRequest) Execute() (*MessageSearchResult, *http.Response, error) {
 	return r.ApiService.SearchMessagesExecute(r)
 }
 
@@ -1714,10 +1738,10 @@ SearchMessages メッセージを検索
 メッセージを検索します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MessageApiSearchMessagesRequest
+	@return MessageAPISearchMessagesRequest
 */
-func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiSearchMessagesRequest {
-	return MessageApiSearchMessagesRequest{
+func (a *MessageAPIService) SearchMessages(ctx context.Context) MessageAPISearchMessagesRequest {
+	return MessageAPISearchMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1726,7 +1750,7 @@ func (a *MessageApiService) SearchMessages(ctx context.Context) MessageApiSearch
 // Execute executes the request
 //
 //	@return MessageSearchResult
-func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequest) (*MessageSearchResult, *http.Response, error) {
+func (a *MessageAPIService) SearchMessagesExecute(r MessageAPISearchMessagesRequest) (*MessageSearchResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1734,7 +1758,7 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequ
 		localVarReturnValue *MessageSearchResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageApiService.SearchMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MessageAPIService.SearchMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1746,26 +1770,26 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequ
 	localVarFormParams := url.Values{}
 
 	if r.word != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "word", r.word, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "word", r.word, "form", "")
 	}
 	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	if r.in != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "in", r.in, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "in", r.in, "form", "")
 	}
 	if r.to != nil {
 		t := *r.to
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "to", s.Index(i), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "to", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "to", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "to", t, "form", "multi")
 		}
 	}
 	if r.from != nil {
@@ -1773,41 +1797,44 @@ func (a *MessageApiService) SearchMessagesExecute(r MessageApiSearchMessagesRequ
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "from", s.Index(i), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "from", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "from", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "from", t, "form", "multi")
 		}
 	}
 	if r.citation != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "citation", r.citation, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "citation", r.citation, "form", "")
 	}
 	if r.bot != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bot", r.bot, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bot", r.bot, "form", "")
 	}
 	if r.hasURL != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasURL", r.hasURL, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasURL", r.hasURL, "form", "")
 	}
 	if r.hasAttachments != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAttachments", r.hasAttachments, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAttachments", r.hasAttachments, "form", "")
 	}
 	if r.hasImage != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasImage", r.hasImage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasImage", r.hasImage, "form", "")
 	}
 	if r.hasVideo != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasVideo", r.hasVideo, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasVideo", r.hasVideo, "form", "")
 	}
 	if r.hasAudio != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAudio", r.hasAudio, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasAudio", r.hasAudio, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	} else {
+		var defaultValue string = "-createdAt"
+		r.sort = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
