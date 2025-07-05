@@ -23,6 +23,10 @@ mv README.md.bak README.md
 sed -i.bak s/\(time.RFC3339\)/\(time.RFC3339Nano\)/g ./client.go
 rm ./client.go.bak
 
+# openapi-generator bug: https://github.com/OpenAPITools/openapi-generator/issues/20749
+# Replace default value of time.Time from "0000-01-01T00:00Z" (string) to time.Time (zero value)
+find . -name "*.go" -print0 | xargs -0 sed -i -E 's/var\s+defaultValue\s+time\.Time\s*=\s*"0000-01-01T00:00Z"/var defaultValue time.Time/g'
+
 # setup go
 go fmt ./...
 go mod tidy

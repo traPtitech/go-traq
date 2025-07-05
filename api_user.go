@@ -775,7 +775,7 @@ func (a *UserAPIService) GetDirectMessagesExecute(r UserAPIGetDirectMessagesRequ
 	if r.since != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	} else {
-		var defaultValue time.Time = "0000-01-01T00:00Z"
+		var defaultValue time.Time
 		r.since = &defaultValue
 	}
 	if r.until != nil {

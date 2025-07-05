@@ -533,7 +533,7 @@ func (a *MessageAPIService) GetDirectMessagesExecute(r MessageAPIGetDirectMessag
 	if r.since != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	} else {
-		var defaultValue time.Time = "0000-01-01T00:00Z"
+		var defaultValue time.Time
 		r.since = &defaultValue
 	}
 	if r.until != nil {
@@ -1021,7 +1021,7 @@ func (a *MessageAPIService) GetMessagesExecute(r MessageAPIGetMessagesRequest) (
 	if r.since != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	} else {
-		var defaultValue time.Time = "0000-01-01T00:00Z"
+		var defaultValue time.Time
 		r.since = &defaultValue
 	}
 	if r.until != nil {
