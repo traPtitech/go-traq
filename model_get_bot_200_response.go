@@ -13,6 +13,7 @@ package traq
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // GetBot200Response - struct for GetBot200Response
@@ -46,7 +47,11 @@ func (dst *GetBot200Response) UnmarshalJSON(data []byte) error {
 		if string(jsonBot) == "{}" { // empty struct
 			dst.Bot = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.Bot); err != nil {
+				dst.Bot = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.Bot = nil
@@ -59,7 +64,11 @@ func (dst *GetBot200Response) UnmarshalJSON(data []byte) error {
 		if string(jsonBotDetail) == "{}" { // empty struct
 			dst.BotDetail = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.BotDetail); err != nil {
+				dst.BotDetail = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.BotDetail = nil
@@ -102,6 +111,20 @@ func (obj *GetBot200Response) GetActualInstance() interface{} {
 
 	if obj.BotDetail != nil {
 		return obj.BotDetail
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GetBot200Response) GetActualInstanceValue() interface{} {
+	if obj.Bot != nil {
+		return *obj.Bot
+	}
+
+	if obj.BotDetail != nil {
+		return *obj.BotDetail
 	}
 
 	// all schemas are nil

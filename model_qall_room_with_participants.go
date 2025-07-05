@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the QallRoomWithParticipants type satisfies the MappedNullable interface at compile time
@@ -27,6 +29,8 @@ type QallRoomWithParticipants struct {
 	// ルームに関連付けられたカスタム属性
 	Metadata *string `json:"metadata,omitempty"`
 }
+
+type _QallRoomWithParticipants QallRoomWithParticipants
 
 // NewQallRoomWithParticipants instantiates a new QallRoomWithParticipants object
 // This constructor will assign default values to properties that have it defined,
@@ -178,6 +182,44 @@ func (o QallRoomWithParticipants) ToMap() (map[string]interface{}, error) {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil
+}
+
+func (o *QallRoomWithParticipants) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"roomId",
+		"participants",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varQallRoomWithParticipants := _QallRoomWithParticipants{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varQallRoomWithParticipants)
+
+	if err != nil {
+		return err
+	}
+
+	*o = QallRoomWithParticipants(varQallRoomWithParticipants)
+
+	return err
 }
 
 type NullableQallRoomWithParticipants struct {

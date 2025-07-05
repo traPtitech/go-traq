@@ -1,24 +1,24 @@
-# \UserApi
+# \UserAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddUserTag**](UserApi.md#AddUserTag) | **Post** /users/{userId}/tags | ユーザーにタグを追加
-[**ChangeUserIcon**](UserApi.md#ChangeUserIcon) | **Put** /users/{userId}/icon | ユーザーのアイコン画像を変更します
-[**ChangeUserPassword**](UserApi.md#ChangeUserPassword) | **Put** /users/{userId}/password | ユーザーのパスワードを変更
-[**CreateUser**](UserApi.md#CreateUser) | **Post** /users | ユーザーを登録
-[**EditUser**](UserApi.md#EditUser) | **Patch** /users/{userId} | ユーザー情報を変更
-[**EditUserTag**](UserApi.md#EditUserTag) | **Patch** /users/{userId}/tags/{tagId} | ユーザーのタグを編集
-[**GetDirectMessages**](UserApi.md#GetDirectMessages) | **Get** /users/{userId}/messages | ダイレクトメッセージのリストを取得
-[**GetUser**](UserApi.md#GetUser) | **Get** /users/{userId} | ユーザー詳細情報を取得
-[**GetUserDMChannel**](UserApi.md#GetUserDMChannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
-[**GetUserIcon**](UserApi.md#GetUserIcon) | **Get** /users/{userId}/icon | ユーザーのアイコン画像を取得
-[**GetUserStats**](UserApi.md#GetUserStats) | **Get** /users/{userId}/stats | ユーザー統計情報を取得
-[**GetUserTags**](UserApi.md#GetUserTags) | **Get** /users/{userId}/tags | ユーザーのタグリストを取得
-[**GetUsers**](UserApi.md#GetUsers) | **Get** /users | ユーザーのリストを取得
-[**PostDirectMessage**](UserApi.md#PostDirectMessage) | **Post** /users/{userId}/messages | ダイレクトメッセージを送信
-[**RemoveUserTag**](UserApi.md#RemoveUserTag) | **Delete** /users/{userId}/tags/{tagId} | ユーザーからタグを削除します
+[**AddUserTag**](UserAPI.md#AddUserTag) | **Post** /users/{userId}/tags | ユーザーにタグを追加
+[**ChangeUserIcon**](UserAPI.md#ChangeUserIcon) | **Put** /users/{userId}/icon | ユーザーのアイコン画像を変更します
+[**ChangeUserPassword**](UserAPI.md#ChangeUserPassword) | **Put** /users/{userId}/password | ユーザーのパスワードを変更
+[**CreateUser**](UserAPI.md#CreateUser) | **Post** /users | ユーザーを登録
+[**EditUser**](UserAPI.md#EditUser) | **Patch** /users/{userId} | ユーザー情報を変更
+[**EditUserTag**](UserAPI.md#EditUserTag) | **Patch** /users/{userId}/tags/{tagId} | ユーザーのタグを編集
+[**GetDirectMessages**](UserAPI.md#GetDirectMessages) | **Get** /users/{userId}/messages | ダイレクトメッセージのリストを取得
+[**GetUser**](UserAPI.md#GetUser) | **Get** /users/{userId} | ユーザー詳細情報を取得
+[**GetUserDMChannel**](UserAPI.md#GetUserDMChannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
+[**GetUserIcon**](UserAPI.md#GetUserIcon) | **Get** /users/{userId}/icon | ユーザーのアイコン画像を取得
+[**GetUserStats**](UserAPI.md#GetUserStats) | **Get** /users/{userId}/stats | ユーザー統計情報を取得
+[**GetUserTags**](UserAPI.md#GetUserTags) | **Get** /users/{userId}/tags | ユーザーのタグリストを取得
+[**GetUsers**](UserAPI.md#GetUsers) | **Get** /users | ユーザーのリストを取得
+[**PostDirectMessage**](UserAPI.md#PostDirectMessage) | **Post** /users/{userId}/messages | ダイレクトメッセージを送信
+[**RemoveUserTag**](UserAPI.md#RemoveUserTag) | **Delete** /users/{userId}/tags/{tagId} | ユーザーからタグを削除します
 
 
 
@@ -36,25 +36,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	postUserTagRequest := *traq.NewPostUserTagRequest("Tag_example") // PostUserTagRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.AddUserTag(context.Background(), userId).PostUserTagRequest(postUserTagRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.AddUserTag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddUserTag`: UserTag
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.AddUserTag`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.AddUserTag(context.Background(), userId).PostUserTagRequest(postUserTagRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.AddUserTag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddUserTag`: UserTag
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.AddUserTag`: %v\n", resp)
 }
 ```
 
@@ -108,23 +108,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.ChangeUserIcon(context.Background(), userId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ChangeUserIcon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.ChangeUserIcon(context.Background(), userId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangeUserIcon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -178,23 +178,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    putUserPasswordRequest := *traq.NewPutUserPasswordRequest("NewPassword_example") // PutUserPasswordRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	putUserPasswordRequest := *traq.NewPutUserPasswordRequest("NewPassword_example") // PutUserPasswordRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.ChangeUserPassword(context.Background(), userId).PutUserPasswordRequest(putUserPasswordRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ChangeUserPassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.ChangeUserPassword(context.Background(), userId).PutUserPasswordRequest(putUserPasswordRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangeUserPassword``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -248,24 +248,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUserRequest := *traq.NewPostUserRequest("Name_example") // PostUserRequest |  (optional)
+	postUserRequest := *traq.NewPostUserRequest("Name_example") // PostUserRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.CreateUser(context.Background()).PostUserRequest(postUserRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.CreateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUser`: UserDetail
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.CreateUser`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.CreateUser(context.Background()).PostUserRequest(postUserRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.CreateUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUser`: UserDetail
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -314,23 +314,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    patchUserRequest := *traq.NewPatchUserRequest() // PatchUserRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	patchUserRequest := *traq.NewPatchUserRequest() // PatchUserRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.EditUser(context.Background(), userId).PatchUserRequest(patchUserRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.EditUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.EditUser(context.Background(), userId).PatchUserRequest(patchUserRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.EditUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -384,24 +384,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
-    patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
+	patchUserTagRequest := *traq.NewPatchUserTagRequest(false) // PatchUserTagRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.EditUserTag(context.Background(), userId, tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.EditUserTag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.EditUserTag(context.Background(), userId, tagId).PatchUserTagRequest(patchUserTagRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.EditUserTag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -457,31 +457,31 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetDirectMessages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDirectMessages`: []Message
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetDirectMessages`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetDirectMessages(context.Background(), userId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetDirectMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDirectMessages`: []Message
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetDirectMessages`: %v\n", resp)
 }
 ```
 
@@ -540,24 +540,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUser(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUser`: UserDetail
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUser`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUser(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUser`: UserDetail
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
 }
 ```
 
@@ -610,24 +610,24 @@ DMチャンネル情報を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUserDMChannel(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserDMChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserDMChannel`: DMChannel
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUserDMChannel`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUserDMChannel(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserDMChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserDMChannel`: DMChannel
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserDMChannel`: %v\n", resp)
 }
 ```
 
@@ -680,24 +680,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUserIcon(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserIcon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserIcon`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUserIcon`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUserIcon(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserIcon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserIcon`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserIcon`: %v\n", resp)
 }
 ```
 
@@ -750,24 +750,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUserStats(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserStats``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserStats`: UserStats
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUserStats`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUserStats(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserStats`: UserStats
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserStats`: %v\n", resp)
 }
 ```
 
@@ -820,24 +820,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUserTags(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserTags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserTags`: []UserTag
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUserTags`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUserTags(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserTags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserTags`: []UserTag
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserTags`: %v\n", resp)
 }
 ```
 
@@ -890,25 +890,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    includeSuspended := true // bool | アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか (optional) (default to false)
-    name := "name_example" // string | 名前が一致するアカウントのみを取得する (optional)
+	includeSuspended := true // bool | アカウントがアクティブでないユーザーを含め、全てのユーザーを取得するかどうか (optional) (default to false)
+	name := "name_example" // string | 名前が一致するアカウントのみを取得する (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.GetUsers(context.Background()).IncludeSuspended(includeSuspended).Name(name).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUsers`: []User
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUsers`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUsers(context.Background()).IncludeSuspended(includeSuspended).Name(name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUsers`: []User
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUsers`: %v\n", resp)
 }
 ```
 
@@ -958,25 +958,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.PostDirectMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostDirectMessage`: Message
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.PostDirectMessage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.PostDirectMessage(context.Background(), userId).PostMessageRequest(postMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.PostDirectMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDirectMessage`: Message
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.PostDirectMessage`: %v\n", resp)
 }
 ```
 
@@ -1030,23 +1030,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
-    tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ユーザーUUID
+	tagId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | タグUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.RemoveUserTag(context.Background(), userId, tagId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.RemoveUserTag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.RemoveUserTag(context.Background(), userId, tagId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RemoveUserTag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

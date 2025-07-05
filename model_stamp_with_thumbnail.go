@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -23,7 +25,7 @@ type StampWithThumbnail struct {
 	// スタンプUUID
 	Id string `json:"id"`
 	// スタンプ名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// 作成者UUID
 	CreatorId string `json:"creatorId"`
 	// 作成日時
@@ -37,6 +39,8 @@ type StampWithThumbnail struct {
 	// サムネイルの有無
 	HasThumbnail bool `json:"hasThumbnail"`
 }
+
+type _StampWithThumbnail StampWithThumbnail
 
 // NewStampWithThumbnail instantiates a new StampWithThumbnail object
 // This constructor will assign default values to properties that have it defined,
@@ -274,6 +278,50 @@ func (o StampWithThumbnail) ToMap() (map[string]interface{}, error) {
 	toSerialize["isUnicode"] = o.IsUnicode
 	toSerialize["hasThumbnail"] = o.HasThumbnail
 	return toSerialize, nil
+}
+
+func (o *StampWithThumbnail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"creatorId",
+		"createdAt",
+		"updatedAt",
+		"fileId",
+		"isUnicode",
+		"hasThumbnail",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStampWithThumbnail := _StampWithThumbnail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStampWithThumbnail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StampWithThumbnail(varStampWithThumbnail)
+
+	return err
 }
 
 type NullableStampWithThumbnail struct {

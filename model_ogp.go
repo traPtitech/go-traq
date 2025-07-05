@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Ogp type satisfies the MappedNullable interface at compile time
@@ -26,6 +28,8 @@ type Ogp struct {
 	Description string     `json:"description"`
 	Videos      []OgpMedia `json:"videos"`
 }
+
+type _Ogp Ogp
 
 // NewOgp instantiates a new Ogp object
 // This constructor will assign default values to properties that have it defined,
@@ -211,6 +215,48 @@ func (o Ogp) ToMap() (map[string]interface{}, error) {
 	toSerialize["description"] = o.Description
 	toSerialize["videos"] = o.Videos
 	return toSerialize, nil
+}
+
+func (o *Ogp) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"title",
+		"url",
+		"images",
+		"description",
+		"videos",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOgp := _Ogp{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOgp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Ogp(varOgp)
+
+	return err
 }
 
 type NullableOgp struct {

@@ -20,7 +20,7 @@ var _ MappedNullable = &PatchChannelRequest{}
 // PatchChannelRequest チャンネル情報変更リクエスト
 type PatchChannelRequest struct {
 	// チャンネル名
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^[a-zA-Z0-9-_]{1,20}$"`
 	// アーカイブされているかどうか
 	Archived *bool `json:"archived,omitempty"`
 	// 強制通知チャンネルかどうか

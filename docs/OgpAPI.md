@@ -1,11 +1,11 @@
-# \OgpApi
+# \OgpAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteOgpCache**](OgpApi.md#DeleteOgpCache) | **Delete** /ogp/cache | OGP情報のキャッシュを削除
-[**GetOgp**](OgpApi.md#GetOgp) | **Get** /ogp | OGP情報を取得
+[**DeleteOgpCache**](OgpAPI.md#DeleteOgpCache) | **Delete** /ogp/cache | OGP情報のキャッシュを削除
+[**GetOgp**](OgpAPI.md#GetOgp) | **Get** /ogp | OGP情報を取得
 
 
 
@@ -23,22 +23,22 @@ OGP情報のキャッシュを削除
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    url := "url_example" // string | OGPのキャッシュを削除したいURL
+	url := "url_example" // string | OGPのキャッシュを削除したいURL
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.OgpApi.DeleteOgpCache(context.Background()).Url(url).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OgpApi.DeleteOgpCache``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.OgpAPI.DeleteOgpCache(context.Background()).Url(url).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OgpAPI.DeleteOgpCache``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -87,24 +87,24 @@ OGP情報を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    url := "url_example" // string | OGPを取得したいURL
+	url := "url_example" // string | OGPを取得したいURL
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.OgpApi.GetOgp(context.Background()).Url(url).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OgpApi.GetOgp``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOgp`: Ogp
-    fmt.Fprintf(os.Stdout, "Response from `OgpApi.GetOgp`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.OgpAPI.GetOgp(context.Background()).Url(url).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OgpAPI.GetOgp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOgp`: Ogp
+	fmt.Fprintf(os.Stdout, "Response from `OgpAPI.GetOgp`: %v\n", resp)
 }
 ```
 

@@ -21,23 +21,23 @@ import (
 	"time"
 )
 
-// WebhookApiService WebhookApi service
-type WebhookApiService service
+// WebhookAPIService WebhookAPI service
+type WebhookAPIService service
 
-type WebhookApiChangeWebhookIconRequest struct {
+type WebhookAPIChangeWebhookIconRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	webhookId  string
 	file       *os.File
 }
 
 // アイコン画像(2MBまでのpng, jpeg, gif)
-func (r WebhookApiChangeWebhookIconRequest) File(file *os.File) WebhookApiChangeWebhookIconRequest {
+func (r WebhookAPIChangeWebhookIconRequest) File(file *os.File) WebhookAPIChangeWebhookIconRequest {
 	r.file = file
 	return r
 }
 
-func (r WebhookApiChangeWebhookIconRequest) Execute() (*http.Response, error) {
+func (r WebhookAPIChangeWebhookIconRequest) Execute() (*http.Response, error) {
 	return r.ApiService.ChangeWebhookIconExecute(r)
 }
 
@@ -48,10 +48,10 @@ ChangeWebhookIcon Webhookのアイコンを変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiChangeWebhookIconRequest
+	@return WebhookAPIChangeWebhookIconRequest
 */
-func (a *WebhookApiService) ChangeWebhookIcon(ctx context.Context, webhookId string) WebhookApiChangeWebhookIconRequest {
-	return WebhookApiChangeWebhookIconRequest{
+func (a *WebhookAPIService) ChangeWebhookIcon(ctx context.Context, webhookId string) WebhookAPIChangeWebhookIconRequest {
+	return WebhookAPIChangeWebhookIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -59,14 +59,14 @@ func (a *WebhookApiService) ChangeWebhookIcon(ctx context.Context, webhookId str
 }
 
 // Execute executes the request
-func (a *WebhookApiService) ChangeWebhookIconExecute(r WebhookApiChangeWebhookIconRequest) (*http.Response, error) {
+func (a *WebhookAPIService) ChangeWebhookIconExecute(r WebhookAPIChangeWebhookIconRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.ChangeWebhookIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.ChangeWebhookIcon")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -103,7 +103,6 @@ func (a *WebhookApiService) ChangeWebhookIconExecute(r WebhookApiChangeWebhookIc
 	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
-
 	fileLocalVarFile := r.file
 
 	if fileLocalVarFile != nil {
@@ -142,18 +141,18 @@ func (a *WebhookApiService) ChangeWebhookIconExecute(r WebhookApiChangeWebhookIc
 	return localVarHTTPResponse, nil
 }
 
-type WebhookApiCreateWebhookRequest struct {
+type WebhookAPICreateWebhookRequest struct {
 	ctx                context.Context
-	ApiService         *WebhookApiService
+	ApiService         *WebhookAPIService
 	postWebhookRequest *PostWebhookRequest
 }
 
-func (r WebhookApiCreateWebhookRequest) PostWebhookRequest(postWebhookRequest PostWebhookRequest) WebhookApiCreateWebhookRequest {
+func (r WebhookAPICreateWebhookRequest) PostWebhookRequest(postWebhookRequest PostWebhookRequest) WebhookAPICreateWebhookRequest {
 	r.postWebhookRequest = &postWebhookRequest
 	return r
 }
 
-func (r WebhookApiCreateWebhookRequest) Execute() (*Webhook, *http.Response, error) {
+func (r WebhookAPICreateWebhookRequest) Execute() (*Webhook, *http.Response, error) {
 	return r.ApiService.CreateWebhookExecute(r)
 }
 
@@ -164,10 +163,10 @@ Webhookを新規作成します。
 `secret`が空文字の場合、insecureウェブフックが作成されます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebhookApiCreateWebhookRequest
+	@return WebhookAPICreateWebhookRequest
 */
-func (a *WebhookApiService) CreateWebhook(ctx context.Context) WebhookApiCreateWebhookRequest {
-	return WebhookApiCreateWebhookRequest{
+func (a *WebhookAPIService) CreateWebhook(ctx context.Context) WebhookAPICreateWebhookRequest {
+	return WebhookAPICreateWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -176,7 +175,7 @@ func (a *WebhookApiService) CreateWebhook(ctx context.Context) WebhookApiCreateW
 // Execute executes the request
 //
 //	@return Webhook
-func (a *WebhookApiService) CreateWebhookExecute(r WebhookApiCreateWebhookRequest) (*Webhook, *http.Response, error) {
+func (a *WebhookAPIService) CreateWebhookExecute(r WebhookAPICreateWebhookRequest) (*Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -184,7 +183,7 @@ func (a *WebhookApiService) CreateWebhookExecute(r WebhookApiCreateWebhookReques
 		localVarReturnValue *Webhook
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.CreateWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.CreateWebhook")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -251,13 +250,13 @@ func (a *WebhookApiService) CreateWebhookExecute(r WebhookApiCreateWebhookReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebhookApiDeleteWebhookRequest struct {
+type WebhookAPIDeleteWebhookRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	webhookId  string
 }
 
-func (r WebhookApiDeleteWebhookRequest) Execute() (*http.Response, error) {
+func (r WebhookAPIDeleteWebhookRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWebhookExecute(r)
 }
 
@@ -269,10 +268,10 @@ Webhookによって投稿されたメッセージは削除されません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiDeleteWebhookRequest
+	@return WebhookAPIDeleteWebhookRequest
 */
-func (a *WebhookApiService) DeleteWebhook(ctx context.Context, webhookId string) WebhookApiDeleteWebhookRequest {
-	return WebhookApiDeleteWebhookRequest{
+func (a *WebhookAPIService) DeleteWebhook(ctx context.Context, webhookId string) WebhookAPIDeleteWebhookRequest {
+	return WebhookAPIDeleteWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -280,14 +279,14 @@ func (a *WebhookApiService) DeleteWebhook(ctx context.Context, webhookId string)
 }
 
 // Execute executes the request
-func (a *WebhookApiService) DeleteWebhookExecute(r WebhookApiDeleteWebhookRequest) (*http.Response, error) {
+func (a *WebhookAPIService) DeleteWebhookExecute(r WebhookAPIDeleteWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.DeleteWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.DeleteWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -344,19 +343,19 @@ func (a *WebhookApiService) DeleteWebhookExecute(r WebhookApiDeleteWebhookReques
 	return localVarHTTPResponse, nil
 }
 
-type WebhookApiEditWebhookRequest struct {
+type WebhookAPIEditWebhookRequest struct {
 	ctx                 context.Context
-	ApiService          *WebhookApiService
+	ApiService          *WebhookAPIService
 	webhookId           string
 	patchWebhookRequest *PatchWebhookRequest
 }
 
-func (r WebhookApiEditWebhookRequest) PatchWebhookRequest(patchWebhookRequest PatchWebhookRequest) WebhookApiEditWebhookRequest {
+func (r WebhookAPIEditWebhookRequest) PatchWebhookRequest(patchWebhookRequest PatchWebhookRequest) WebhookAPIEditWebhookRequest {
 	r.patchWebhookRequest = &patchWebhookRequest
 	return r
 }
 
-func (r WebhookApiEditWebhookRequest) Execute() (*http.Response, error) {
+func (r WebhookAPIEditWebhookRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditWebhookExecute(r)
 }
 
@@ -367,10 +366,10 @@ EditWebhook Webhook情報を変更
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiEditWebhookRequest
+	@return WebhookAPIEditWebhookRequest
 */
-func (a *WebhookApiService) EditWebhook(ctx context.Context, webhookId string) WebhookApiEditWebhookRequest {
-	return WebhookApiEditWebhookRequest{
+func (a *WebhookAPIService) EditWebhook(ctx context.Context, webhookId string) WebhookAPIEditWebhookRequest {
+	return WebhookAPIEditWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -378,14 +377,14 @@ func (a *WebhookApiService) EditWebhook(ctx context.Context, webhookId string) W
 }
 
 // Execute executes the request
-func (a *WebhookApiService) EditWebhookExecute(r WebhookApiEditWebhookRequest) (*http.Response, error) {
+func (a *WebhookAPIService) EditWebhookExecute(r WebhookAPIEditWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.EditWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.EditWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -444,13 +443,13 @@ func (a *WebhookApiService) EditWebhookExecute(r WebhookApiEditWebhookRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type WebhookApiGetWebhookRequest struct {
+type WebhookAPIGetWebhookRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	webhookId  string
 }
 
-func (r WebhookApiGetWebhookRequest) Execute() (*Webhook, *http.Response, error) {
+func (r WebhookAPIGetWebhookRequest) Execute() (*Webhook, *http.Response, error) {
 	return r.ApiService.GetWebhookExecute(r)
 }
 
@@ -461,10 +460,10 @@ GetWebhook Webhook情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookRequest
+	@return WebhookAPIGetWebhookRequest
 */
-func (a *WebhookApiService) GetWebhook(ctx context.Context, webhookId string) WebhookApiGetWebhookRequest {
-	return WebhookApiGetWebhookRequest{
+func (a *WebhookAPIService) GetWebhook(ctx context.Context, webhookId string) WebhookAPIGetWebhookRequest {
+	return WebhookAPIGetWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -474,7 +473,7 @@ func (a *WebhookApiService) GetWebhook(ctx context.Context, webhookId string) We
 // Execute executes the request
 //
 //	@return Webhook
-func (a *WebhookApiService) GetWebhookExecute(r WebhookApiGetWebhookRequest) (*Webhook, *http.Response, error) {
+func (a *WebhookAPIService) GetWebhookExecute(r WebhookAPIGetWebhookRequest) (*Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -482,7 +481,7 @@ func (a *WebhookApiService) GetWebhookExecute(r WebhookApiGetWebhookRequest) (*W
 		localVarReturnValue *Webhook
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.GetWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhook")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -548,13 +547,13 @@ func (a *WebhookApiService) GetWebhookExecute(r WebhookApiGetWebhookRequest) (*W
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebhookApiGetWebhookIconRequest struct {
+type WebhookAPIGetWebhookIconRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	webhookId  string
 }
 
-func (r WebhookApiGetWebhookIconRequest) Execute() (*os.File, *http.Response, error) {
+func (r WebhookAPIGetWebhookIconRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetWebhookIconExecute(r)
 }
 
@@ -565,10 +564,10 @@ GetWebhookIcon Webhookのアイコンを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookIconRequest
+	@return WebhookAPIGetWebhookIconRequest
 */
-func (a *WebhookApiService) GetWebhookIcon(ctx context.Context, webhookId string) WebhookApiGetWebhookIconRequest {
-	return WebhookApiGetWebhookIconRequest{
+func (a *WebhookAPIService) GetWebhookIcon(ctx context.Context, webhookId string) WebhookAPIGetWebhookIconRequest {
+	return WebhookAPIGetWebhookIconRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -578,7 +577,7 @@ func (a *WebhookApiService) GetWebhookIcon(ctx context.Context, webhookId string
 // Execute executes the request
 //
 //	@return *os.File
-func (a *WebhookApiService) GetWebhookIconExecute(r WebhookApiGetWebhookIconRequest) (*os.File, *http.Response, error) {
+func (a *WebhookAPIService) GetWebhookIconExecute(r WebhookAPIGetWebhookIconRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -586,7 +585,7 @@ func (a *WebhookApiService) GetWebhookIconExecute(r WebhookApiGetWebhookIconRequ
 		localVarReturnValue *os.File
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.GetWebhookIcon")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhookIcon")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -652,9 +651,9 @@ func (a *WebhookApiService) GetWebhookIconExecute(r WebhookApiGetWebhookIconRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebhookApiGetWebhookMessagesRequest struct {
+type WebhookAPIGetWebhookMessagesRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	webhookId  string
 	limit      *int32
 	offset     *int32
@@ -665,42 +664,42 @@ type WebhookApiGetWebhookMessagesRequest struct {
 }
 
 // 取得する件数
-func (r WebhookApiGetWebhookMessagesRequest) Limit(limit int32) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Limit(limit int32) WebhookAPIGetWebhookMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r WebhookApiGetWebhookMessagesRequest) Offset(offset int32) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Offset(offset int32) WebhookAPIGetWebhookMessagesRequest {
 	r.offset = &offset
 	return r
 }
 
 // 取得する時間範囲の開始日時
-func (r WebhookApiGetWebhookMessagesRequest) Since(since time.Time) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Since(since time.Time) WebhookAPIGetWebhookMessagesRequest {
 	r.since = &since
 	return r
 }
 
 // 取得する時間範囲の終了日時
-func (r WebhookApiGetWebhookMessagesRequest) Until(until time.Time) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Until(until time.Time) WebhookAPIGetWebhookMessagesRequest {
 	r.until = &until
 	return r
 }
 
 // 範囲の端を含めるかどうか
-func (r WebhookApiGetWebhookMessagesRequest) Inclusive(inclusive bool) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Inclusive(inclusive bool) WebhookAPIGetWebhookMessagesRequest {
 	r.inclusive = &inclusive
 	return r
 }
 
 // 昇順か降順か
-func (r WebhookApiGetWebhookMessagesRequest) Order(order string) WebhookApiGetWebhookMessagesRequest {
+func (r WebhookAPIGetWebhookMessagesRequest) Order(order string) WebhookAPIGetWebhookMessagesRequest {
 	r.order = &order
 	return r
 }
 
-func (r WebhookApiGetWebhookMessagesRequest) Execute() ([]Message, *http.Response, error) {
+func (r WebhookAPIGetWebhookMessagesRequest) Execute() ([]Message, *http.Response, error) {
 	return r.ApiService.GetWebhookMessagesExecute(r)
 }
 
@@ -711,10 +710,10 @@ GetWebhookMessages Webhookの投稿メッセージのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiGetWebhookMessagesRequest
+	@return WebhookAPIGetWebhookMessagesRequest
 */
-func (a *WebhookApiService) GetWebhookMessages(ctx context.Context, webhookId string) WebhookApiGetWebhookMessagesRequest {
-	return WebhookApiGetWebhookMessagesRequest{
+func (a *WebhookAPIService) GetWebhookMessages(ctx context.Context, webhookId string) WebhookAPIGetWebhookMessagesRequest {
+	return WebhookAPIGetWebhookMessagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -724,7 +723,7 @@ func (a *WebhookApiService) GetWebhookMessages(ctx context.Context, webhookId st
 // Execute executes the request
 //
 //	@return []Message
-func (a *WebhookApiService) GetWebhookMessagesExecute(r WebhookApiGetWebhookMessagesRequest) ([]Message, *http.Response, error) {
+func (a *WebhookAPIService) GetWebhookMessagesExecute(r WebhookAPIGetWebhookMessagesRequest) ([]Message, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -732,7 +731,7 @@ func (a *WebhookApiService) GetWebhookMessagesExecute(r WebhookApiGetWebhookMess
 		localVarReturnValue []Message
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.GetWebhookMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhookMessages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -745,22 +744,34 @@ func (a *WebhookApiService) GetWebhookMessagesExecute(r WebhookApiGetWebhookMess
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	} else {
+		var defaultValue time.Time = "0000-01-01T00:00Z"
+		r.since = &defaultValue
 	}
 	if r.until != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "until", r.until, "form", "")
 	}
 	if r.inclusive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inclusive", r.inclusive, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.inclusive = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -816,19 +827,19 @@ func (a *WebhookApiService) GetWebhookMessagesExecute(r WebhookApiGetWebhookMess
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebhookApiGetWebhooksRequest struct {
+type WebhookAPIGetWebhooksRequest struct {
 	ctx        context.Context
-	ApiService *WebhookApiService
+	ApiService *WebhookAPIService
 	all        *bool
 }
 
 // 全てのWebhookを取得します。権限が必要です。
-func (r WebhookApiGetWebhooksRequest) All(all bool) WebhookApiGetWebhooksRequest {
+func (r WebhookAPIGetWebhooksRequest) All(all bool) WebhookAPIGetWebhooksRequest {
 	r.all = &all
 	return r
 }
 
-func (r WebhookApiGetWebhooksRequest) Execute() ([]Webhook, *http.Response, error) {
+func (r WebhookAPIGetWebhooksRequest) Execute() ([]Webhook, *http.Response, error) {
 	return r.ApiService.GetWebhooksExecute(r)
 }
 
@@ -839,10 +850,10 @@ Webhookのリストを取得します。
 allがtrueで無い場合は、自分がオーナーのWebhookのリストを返します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebhookApiGetWebhooksRequest
+	@return WebhookAPIGetWebhooksRequest
 */
-func (a *WebhookApiService) GetWebhooks(ctx context.Context) WebhookApiGetWebhooksRequest {
-	return WebhookApiGetWebhooksRequest{
+func (a *WebhookAPIService) GetWebhooks(ctx context.Context) WebhookAPIGetWebhooksRequest {
+	return WebhookAPIGetWebhooksRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -851,7 +862,7 @@ func (a *WebhookApiService) GetWebhooks(ctx context.Context) WebhookApiGetWebhoo
 // Execute executes the request
 //
 //	@return []Webhook
-func (a *WebhookApiService) GetWebhooksExecute(r WebhookApiGetWebhooksRequest) ([]Webhook, *http.Response, error) {
+func (a *WebhookAPIService) GetWebhooksExecute(r WebhookAPIGetWebhooksRequest) ([]Webhook, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -859,7 +870,7 @@ func (a *WebhookApiService) GetWebhooksExecute(r WebhookApiGetWebhooksRequest) (
 		localVarReturnValue []Webhook
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.GetWebhooks")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhooks")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -871,7 +882,10 @@ func (a *WebhookApiService) GetWebhooksExecute(r WebhookApiGetWebhooksRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.all != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.all = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -927,9 +941,9 @@ func (a *WebhookApiService) GetWebhooksExecute(r WebhookApiGetWebhooksRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebhookApiPostWebhookRequest struct {
+type WebhookAPIPostWebhookRequest struct {
 	ctx            context.Context
-	ApiService     *WebhookApiService
+	ApiService     *WebhookAPIService
 	webhookId      string
 	xTRAQSignature *string
 	xTRAQChannelId *string
@@ -938,29 +952,29 @@ type WebhookApiPostWebhookRequest struct {
 }
 
 // リクエストボディシグネチャ(Secretが設定されている場合は必須)
-func (r WebhookApiPostWebhookRequest) XTRAQSignature(xTRAQSignature string) WebhookApiPostWebhookRequest {
+func (r WebhookAPIPostWebhookRequest) XTRAQSignature(xTRAQSignature string) WebhookAPIPostWebhookRequest {
 	r.xTRAQSignature = &xTRAQSignature
 	return r
 }
 
 // 投稿先のチャンネルID(変更する場合)
-func (r WebhookApiPostWebhookRequest) XTRAQChannelId(xTRAQChannelId string) WebhookApiPostWebhookRequest {
+func (r WebhookAPIPostWebhookRequest) XTRAQChannelId(xTRAQChannelId string) WebhookAPIPostWebhookRequest {
 	r.xTRAQChannelId = &xTRAQChannelId
 	return r
 }
 
 // メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
-func (r WebhookApiPostWebhookRequest) Embed(embed int32) WebhookApiPostWebhookRequest {
+func (r WebhookAPIPostWebhookRequest) Embed(embed int32) WebhookAPIPostWebhookRequest {
 	r.embed = &embed
 	return r
 }
 
-func (r WebhookApiPostWebhookRequest) Body(body string) WebhookApiPostWebhookRequest {
+func (r WebhookAPIPostWebhookRequest) Body(body string) WebhookAPIPostWebhookRequest {
 	r.body = &body
 	return r
 }
 
-func (r WebhookApiPostWebhookRequest) Execute() (*http.Response, error) {
+func (r WebhookAPIPostWebhookRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostWebhookExecute(r)
 }
 
@@ -973,10 +987,10 @@ secureなウェブフックに対しては`X-TRAQ-Signature`ヘッダーが必�
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
-	@return WebhookApiPostWebhookRequest
+	@return WebhookAPIPostWebhookRequest
 */
-func (a *WebhookApiService) PostWebhook(ctx context.Context, webhookId string) WebhookApiPostWebhookRequest {
-	return WebhookApiPostWebhookRequest{
+func (a *WebhookAPIService) PostWebhook(ctx context.Context, webhookId string) WebhookAPIPostWebhookRequest {
+	return WebhookAPIPostWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 		webhookId:  webhookId,
@@ -984,14 +998,14 @@ func (a *WebhookApiService) PostWebhook(ctx context.Context, webhookId string) W
 }
 
 // Execute executes the request
-func (a *WebhookApiService) PostWebhookExecute(r WebhookApiPostWebhookRequest) (*http.Response, error) {
+func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookApiService.PostWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.PostWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1004,7 +1018,10 @@ func (a *WebhookApiService) PostWebhookExecute(r WebhookApiPostWebhookRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.embed != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "embed", r.embed, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "embed", r.embed, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.embed = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"text/plain"}
@@ -1024,10 +1041,10 @@ func (a *WebhookApiService) PostWebhookExecute(r WebhookApiPostWebhookRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xTRAQSignature != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-TRAQ-Signature", r.xTRAQSignature, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-TRAQ-Signature", r.xTRAQSignature, "simple", "")
 	}
 	if r.xTRAQChannelId != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-TRAQ-Channel-Id", r.xTRAQChannelId, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-TRAQ-Channel-Id", r.xTRAQChannelId, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.body

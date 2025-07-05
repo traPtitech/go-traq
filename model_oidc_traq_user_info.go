@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -29,7 +31,7 @@ type OIDCTraqUserInfo struct {
 	// 最終オンライン日時
 	LastOnline NullableTime `json:"last_online"`
 	// Twitter ID
-	TwitterId string `json:"twitter_id"`
+	TwitterId string `json:"twitter_id" validate:"regexp=^[a-zA-Z0-9_]{1,15}$"`
 	// ユーザー表示名
 	DisplayName string `json:"display_name"`
 	// アイコンファイルUUID
@@ -42,6 +44,8 @@ type OIDCTraqUserInfo struct {
 	// ホームチャンネル
 	HomeChannel NullableString `json:"home_channel"`
 }
+
+type _OIDCTraqUserInfo OIDCTraqUserInfo
 
 // NewOIDCTraqUserInfo instantiates a new OIDCTraqUserInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -361,6 +365,53 @@ func (o OIDCTraqUserInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["permissions"] = o.Permissions
 	toSerialize["home_channel"] = o.HomeChannel.Get()
 	return toSerialize, nil
+}
+
+func (o *OIDCTraqUserInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"bio",
+		"groups",
+		"tags",
+		"last_online",
+		"twitter_id",
+		"display_name",
+		"icon_file_id",
+		"bot",
+		"state",
+		"permissions",
+		"home_channel",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOIDCTraqUserInfo := _OIDCTraqUserInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOIDCTraqUserInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OIDCTraqUserInfo(varOIDCTraqUserInfo)
+
+	return err
 }
 
 type NullableOIDCTraqUserInfo struct {

@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ChannelStatsStamp type satisfies the MappedNullable interface at compile time
@@ -26,6 +28,8 @@ type ChannelStatsStamp struct {
 	// スタンプ数(同一メッセージ上のものも複数カウントする)
 	Total int64 `json:"total"`
 }
+
+type _ChannelStatsStamp ChannelStatsStamp
 
 // NewChannelStatsStamp instantiates a new ChannelStatsStamp object
 // This constructor will assign default values to properties that have it defined,
@@ -133,6 +137,45 @@ func (o ChannelStatsStamp) ToMap() (map[string]interface{}, error) {
 	toSerialize["count"] = o.Count
 	toSerialize["total"] = o.Total
 	return toSerialize, nil
+}
+
+func (o *ChannelStatsStamp) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"count",
+		"total",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChannelStatsStamp := _ChannelStatsStamp{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varChannelStatsStamp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChannelStatsStamp(varChannelStatsStamp)
+
+	return err
 }
 
 type NullableChannelStatsStamp struct {

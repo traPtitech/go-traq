@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,6 +27,8 @@ type MessagePin struct {
 	// ピン留めされた日時
 	PinnedAt time.Time `json:"pinnedAt"`
 }
+
+type _MessagePin MessagePin
 
 // NewMessagePin instantiates a new MessagePin object
 // This constructor will assign default values to properties that have it defined,
@@ -106,6 +110,44 @@ func (o MessagePin) ToMap() (map[string]interface{}, error) {
 	toSerialize["userId"] = o.UserId
 	toSerialize["pinnedAt"] = o.PinnedAt
 	return toSerialize, nil
+}
+
+func (o *MessagePin) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userId",
+		"pinnedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMessagePin := _MessagePin{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMessagePin)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MessagePin(varMessagePin)
+
+	return err
 }
 
 type NullableMessagePin struct {

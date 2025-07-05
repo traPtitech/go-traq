@@ -22,7 +22,7 @@ type PatchMeRequest struct {
 	// 新しい表示名
 	DisplayName *string `json:"displayName,omitempty"`
 	// TwitterID
-	TwitterId *string `json:"twitterId,omitempty"`
+	TwitterId *string `json:"twitterId,omitempty" validate:"regexp=^[a-zA-Z0-9_]{1,15}$"`
 	// 自己紹介(biography)
 	Bio *string `json:"bio,omitempty"`
 	// ホームチャンネルのUUID `00000000-0000-0000-0000-000000000000`を指定すると、ホームチャンネルが`null`に設定されます

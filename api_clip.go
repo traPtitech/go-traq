@@ -19,22 +19,22 @@ import (
 	"strings"
 )
 
-// ClipApiService ClipApi service
-type ClipApiService service
+// ClipAPIService ClipAPI service
+type ClipAPIService service
 
-type ClipApiClipMessageRequest struct {
+type ClipAPIClipMessageRequest struct {
 	ctx                          context.Context
-	ApiService                   *ClipApiService
+	ApiService                   *ClipAPIService
 	folderId                     string
 	postClipFolderMessageRequest *PostClipFolderMessageRequest
 }
 
-func (r ClipApiClipMessageRequest) PostClipFolderMessageRequest(postClipFolderMessageRequest PostClipFolderMessageRequest) ClipApiClipMessageRequest {
+func (r ClipAPIClipMessageRequest) PostClipFolderMessageRequest(postClipFolderMessageRequest PostClipFolderMessageRequest) ClipAPIClipMessageRequest {
 	r.postClipFolderMessageRequest = &postClipFolderMessageRequest
 	return r
 }
 
-func (r ClipApiClipMessageRequest) Execute() (*ClippedMessage, *http.Response, error) {
+func (r ClipAPIClipMessageRequest) Execute() (*ClippedMessage, *http.Response, error) {
 	return r.ApiService.ClipMessageExecute(r)
 }
 
@@ -45,10 +45,10 @@ ClipMessage メッセージをクリップフォルダに追加
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
-	@return ClipApiClipMessageRequest
+	@return ClipAPIClipMessageRequest
 */
-func (a *ClipApiService) ClipMessage(ctx context.Context, folderId string) ClipApiClipMessageRequest {
-	return ClipApiClipMessageRequest{
+func (a *ClipAPIService) ClipMessage(ctx context.Context, folderId string) ClipAPIClipMessageRequest {
+	return ClipAPIClipMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -58,7 +58,7 @@ func (a *ClipApiService) ClipMessage(ctx context.Context, folderId string) ClipA
 // Execute executes the request
 //
 //	@return ClippedMessage
-func (a *ClipApiService) ClipMessageExecute(r ClipApiClipMessageRequest) (*ClippedMessage, *http.Response, error) {
+func (a *ClipAPIService) ClipMessageExecute(r ClipAPIClipMessageRequest) (*ClippedMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -66,7 +66,7 @@ func (a *ClipApiService) ClipMessageExecute(r ClipApiClipMessageRequest) (*Clipp
 		localVarReturnValue *ClippedMessage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.ClipMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.ClipMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -134,18 +134,18 @@ func (a *ClipApiService) ClipMessageExecute(r ClipApiClipMessageRequest) (*Clipp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiCreateClipFolderRequest struct {
+type ClipAPICreateClipFolderRequest struct {
 	ctx                   context.Context
-	ApiService            *ClipApiService
+	ApiService            *ClipAPIService
 	postClipFolderRequest *PostClipFolderRequest
 }
 
-func (r ClipApiCreateClipFolderRequest) PostClipFolderRequest(postClipFolderRequest PostClipFolderRequest) ClipApiCreateClipFolderRequest {
+func (r ClipAPICreateClipFolderRequest) PostClipFolderRequest(postClipFolderRequest PostClipFolderRequest) ClipAPICreateClipFolderRequest {
 	r.postClipFolderRequest = &postClipFolderRequest
 	return r
 }
 
-func (r ClipApiCreateClipFolderRequest) Execute() (*ClipFolder, *http.Response, error) {
+func (r ClipAPICreateClipFolderRequest) Execute() (*ClipFolder, *http.Response, error) {
 	return r.ApiService.CreateClipFolderExecute(r)
 }
 
@@ -156,10 +156,10 @@ CreateClipFolder クリップフォルダを作成
 既にあるフォルダと同名のフォルダを作成することは可能です。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ClipApiCreateClipFolderRequest
+	@return ClipAPICreateClipFolderRequest
 */
-func (a *ClipApiService) CreateClipFolder(ctx context.Context) ClipApiCreateClipFolderRequest {
-	return ClipApiCreateClipFolderRequest{
+func (a *ClipAPIService) CreateClipFolder(ctx context.Context) ClipAPICreateClipFolderRequest {
+	return ClipAPICreateClipFolderRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -168,7 +168,7 @@ func (a *ClipApiService) CreateClipFolder(ctx context.Context) ClipApiCreateClip
 // Execute executes the request
 //
 //	@return ClipFolder
-func (a *ClipApiService) CreateClipFolderExecute(r ClipApiCreateClipFolderRequest) (*ClipFolder, *http.Response, error) {
+func (a *ClipAPIService) CreateClipFolderExecute(r ClipAPICreateClipFolderRequest) (*ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -176,7 +176,7 @@ func (a *ClipApiService) CreateClipFolderExecute(r ClipApiCreateClipFolderReques
 		localVarReturnValue *ClipFolder
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.CreateClipFolder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.CreateClipFolder")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -243,13 +243,13 @@ func (a *ClipApiService) CreateClipFolderExecute(r ClipApiCreateClipFolderReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiDeleteClipFolderRequest struct {
+type ClipAPIDeleteClipFolderRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 	folderId   string
 }
 
-func (r ClipApiDeleteClipFolderRequest) Execute() (*http.Response, error) {
+func (r ClipAPIDeleteClipFolderRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteClipFolderExecute(r)
 }
 
@@ -260,10 +260,10 @@ DeleteClipFolder クリップフォルダを削除
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
-	@return ClipApiDeleteClipFolderRequest
+	@return ClipAPIDeleteClipFolderRequest
 */
-func (a *ClipApiService) DeleteClipFolder(ctx context.Context, folderId string) ClipApiDeleteClipFolderRequest {
-	return ClipApiDeleteClipFolderRequest{
+func (a *ClipAPIService) DeleteClipFolder(ctx context.Context, folderId string) ClipAPIDeleteClipFolderRequest {
+	return ClipAPIDeleteClipFolderRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -271,14 +271,14 @@ func (a *ClipApiService) DeleteClipFolder(ctx context.Context, folderId string) 
 }
 
 // Execute executes the request
-func (a *ClipApiService) DeleteClipFolderExecute(r ClipApiDeleteClipFolderRequest) (*http.Response, error) {
+func (a *ClipAPIService) DeleteClipFolderExecute(r ClipAPIDeleteClipFolderRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.DeleteClipFolder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.DeleteClipFolder")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -335,19 +335,19 @@ func (a *ClipApiService) DeleteClipFolderExecute(r ClipApiDeleteClipFolderReques
 	return localVarHTTPResponse, nil
 }
 
-type ClipApiEditClipFolderRequest struct {
+type ClipAPIEditClipFolderRequest struct {
 	ctx                    context.Context
-	ApiService             *ClipApiService
+	ApiService             *ClipAPIService
 	folderId               string
 	patchClipFolderRequest *PatchClipFolderRequest
 }
 
-func (r ClipApiEditClipFolderRequest) PatchClipFolderRequest(patchClipFolderRequest PatchClipFolderRequest) ClipApiEditClipFolderRequest {
+func (r ClipAPIEditClipFolderRequest) PatchClipFolderRequest(patchClipFolderRequest PatchClipFolderRequest) ClipAPIEditClipFolderRequest {
 	r.patchClipFolderRequest = &patchClipFolderRequest
 	return r
 }
 
-func (r ClipApiEditClipFolderRequest) Execute() (*http.Response, error) {
+func (r ClipAPIEditClipFolderRequest) Execute() (*http.Response, error) {
 	return r.ApiService.EditClipFolderExecute(r)
 }
 
@@ -358,10 +358,10 @@ EditClipFolder クリップフォルダ情報を編集
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
-	@return ClipApiEditClipFolderRequest
+	@return ClipAPIEditClipFolderRequest
 */
-func (a *ClipApiService) EditClipFolder(ctx context.Context, folderId string) ClipApiEditClipFolderRequest {
-	return ClipApiEditClipFolderRequest{
+func (a *ClipAPIService) EditClipFolder(ctx context.Context, folderId string) ClipAPIEditClipFolderRequest {
+	return ClipAPIEditClipFolderRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -369,14 +369,14 @@ func (a *ClipApiService) EditClipFolder(ctx context.Context, folderId string) Cl
 }
 
 // Execute executes the request
-func (a *ClipApiService) EditClipFolderExecute(r ClipApiEditClipFolderRequest) (*http.Response, error) {
+func (a *ClipAPIService) EditClipFolderExecute(r ClipAPIEditClipFolderRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPatch
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.EditClipFolder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.EditClipFolder")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -435,13 +435,13 @@ func (a *ClipApiService) EditClipFolderExecute(r ClipApiEditClipFolderRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type ClipApiGetClipFolderRequest struct {
+type ClipAPIGetClipFolderRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 	folderId   string
 }
 
-func (r ClipApiGetClipFolderRequest) Execute() (*ClipFolder, *http.Response, error) {
+func (r ClipAPIGetClipFolderRequest) Execute() (*ClipFolder, *http.Response, error) {
 	return r.ApiService.GetClipFolderExecute(r)
 }
 
@@ -452,10 +452,10 @@ GetClipFolder クリップフォルダ情報を取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
-	@return ClipApiGetClipFolderRequest
+	@return ClipAPIGetClipFolderRequest
 */
-func (a *ClipApiService) GetClipFolder(ctx context.Context, folderId string) ClipApiGetClipFolderRequest {
-	return ClipApiGetClipFolderRequest{
+func (a *ClipAPIService) GetClipFolder(ctx context.Context, folderId string) ClipAPIGetClipFolderRequest {
+	return ClipAPIGetClipFolderRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -465,7 +465,7 @@ func (a *ClipApiService) GetClipFolder(ctx context.Context, folderId string) Cli
 // Execute executes the request
 //
 //	@return ClipFolder
-func (a *ClipApiService) GetClipFolderExecute(r ClipApiGetClipFolderRequest) (*ClipFolder, *http.Response, error) {
+func (a *ClipAPIService) GetClipFolderExecute(r ClipAPIGetClipFolderRequest) (*ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -473,7 +473,7 @@ func (a *ClipApiService) GetClipFolderExecute(r ClipApiGetClipFolderRequest) (*C
 		localVarReturnValue *ClipFolder
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.GetClipFolder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.GetClipFolder")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -539,12 +539,12 @@ func (a *ClipApiService) GetClipFolderExecute(r ClipApiGetClipFolderRequest) (*C
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiGetClipFoldersRequest struct {
+type ClipAPIGetClipFoldersRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 }
 
-func (r ClipApiGetClipFoldersRequest) Execute() ([]ClipFolder, *http.Response, error) {
+func (r ClipAPIGetClipFoldersRequest) Execute() ([]ClipFolder, *http.Response, error) {
 	return r.ApiService.GetClipFoldersExecute(r)
 }
 
@@ -554,10 +554,10 @@ GetClipFolders クリップフォルダのリストを取得
 自身が所有するクリップフォルダのリストを取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ClipApiGetClipFoldersRequest
+	@return ClipAPIGetClipFoldersRequest
 */
-func (a *ClipApiService) GetClipFolders(ctx context.Context) ClipApiGetClipFoldersRequest {
-	return ClipApiGetClipFoldersRequest{
+func (a *ClipAPIService) GetClipFolders(ctx context.Context) ClipAPIGetClipFoldersRequest {
+	return ClipAPIGetClipFoldersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -566,7 +566,7 @@ func (a *ClipApiService) GetClipFolders(ctx context.Context) ClipApiGetClipFolde
 // Execute executes the request
 //
 //	@return []ClipFolder
-func (a *ClipApiService) GetClipFoldersExecute(r ClipApiGetClipFoldersRequest) ([]ClipFolder, *http.Response, error) {
+func (a *ClipAPIService) GetClipFoldersExecute(r ClipAPIGetClipFoldersRequest) ([]ClipFolder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -574,7 +574,7 @@ func (a *ClipApiService) GetClipFoldersExecute(r ClipApiGetClipFoldersRequest) (
 		localVarReturnValue []ClipFolder
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.GetClipFolders")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.GetClipFolders")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -639,9 +639,9 @@ func (a *ClipApiService) GetClipFoldersExecute(r ClipApiGetClipFoldersRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiGetClipsRequest struct {
+type ClipAPIGetClipsRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 	folderId   string
 	limit      *int32
 	offset     *int32
@@ -649,24 +649,24 @@ type ClipApiGetClipsRequest struct {
 }
 
 // 取得する件数
-func (r ClipApiGetClipsRequest) Limit(limit int32) ClipApiGetClipsRequest {
+func (r ClipAPIGetClipsRequest) Limit(limit int32) ClipAPIGetClipsRequest {
 	r.limit = &limit
 	return r
 }
 
 // 取得するオフセット
-func (r ClipApiGetClipsRequest) Offset(offset int32) ClipApiGetClipsRequest {
+func (r ClipAPIGetClipsRequest) Offset(offset int32) ClipAPIGetClipsRequest {
 	r.offset = &offset
 	return r
 }
 
 // 昇順か降順か
-func (r ClipApiGetClipsRequest) Order(order string) ClipApiGetClipsRequest {
+func (r ClipAPIGetClipsRequest) Order(order string) ClipAPIGetClipsRequest {
 	r.order = &order
 	return r
 }
 
-func (r ClipApiGetClipsRequest) Execute() ([]ClippedMessage, *http.Response, error) {
+func (r ClipAPIGetClipsRequest) Execute() ([]ClippedMessage, *http.Response, error) {
 	return r.ApiService.GetClipsExecute(r)
 }
 
@@ -678,10 +678,10 @@ GetClips フォルダ内のクリップのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
-	@return ClipApiGetClipsRequest
+	@return ClipAPIGetClipsRequest
 */
-func (a *ClipApiService) GetClips(ctx context.Context, folderId string) ClipApiGetClipsRequest {
-	return ClipApiGetClipsRequest{
+func (a *ClipAPIService) GetClips(ctx context.Context, folderId string) ClipAPIGetClipsRequest {
+	return ClipAPIGetClipsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -691,7 +691,7 @@ func (a *ClipApiService) GetClips(ctx context.Context, folderId string) ClipApiG
 // Execute executes the request
 //
 //	@return []ClippedMessage
-func (a *ClipApiService) GetClipsExecute(r ClipApiGetClipsRequest) ([]ClippedMessage, *http.Response, error) {
+func (a *ClipAPIService) GetClipsExecute(r ClipAPIGetClipsRequest) ([]ClippedMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -699,7 +699,7 @@ func (a *ClipApiService) GetClipsExecute(r ClipApiGetClipsRequest) ([]ClippedMes
 		localVarReturnValue []ClippedMessage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.GetClips")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.GetClips")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -712,13 +712,19 @@ func (a *ClipApiService) GetClipsExecute(r ClipApiGetClipsRequest) ([]ClippedMes
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.order != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		r.order = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -774,13 +780,13 @@ func (a *ClipApiService) GetClipsExecute(r ClipApiGetClipsRequest) ([]ClippedMes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiGetMessageClipsRequest struct {
+type ClipAPIGetMessageClipsRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 	messageId  string
 }
 
-func (r ClipApiGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
+func (r ClipAPIGetMessageClipsRequest) Execute() ([]MessageClip, *http.Response, error) {
 	return r.ApiService.GetMessageClipsExecute(r)
 }
 
@@ -791,10 +797,10 @@ GetMessageClips 自分のクリップを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return ClipApiGetMessageClipsRequest
+	@return ClipAPIGetMessageClipsRequest
 */
-func (a *ClipApiService) GetMessageClips(ctx context.Context, messageId string) ClipApiGetMessageClipsRequest {
-	return ClipApiGetMessageClipsRequest{
+func (a *ClipAPIService) GetMessageClips(ctx context.Context, messageId string) ClipAPIGetMessageClipsRequest {
+	return ClipAPIGetMessageClipsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -804,7 +810,7 @@ func (a *ClipApiService) GetMessageClips(ctx context.Context, messageId string) 
 // Execute executes the request
 //
 //	@return []MessageClip
-func (a *ClipApiService) GetMessageClipsExecute(r ClipApiGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
+func (a *ClipAPIService) GetMessageClipsExecute(r ClipAPIGetMessageClipsRequest) ([]MessageClip, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -812,7 +818,7 @@ func (a *ClipApiService) GetMessageClipsExecute(r ClipApiGetMessageClipsRequest)
 		localVarReturnValue []MessageClip
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.GetMessageClips")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.GetMessageClips")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -878,14 +884,14 @@ func (a *ClipApiService) GetMessageClipsExecute(r ClipApiGetMessageClipsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ClipApiUnclipMessageRequest struct {
+type ClipAPIUnclipMessageRequest struct {
 	ctx        context.Context
-	ApiService *ClipApiService
+	ApiService *ClipAPIService
 	folderId   string
 	messageId  string
 }
 
-func (r ClipApiUnclipMessageRequest) Execute() (*http.Response, error) {
+func (r ClipAPIUnclipMessageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UnclipMessageExecute(r)
 }
 
@@ -898,10 +904,10 @@ UnclipMessage メッセージをクリップフォルダから除外
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param folderId クリップフォルダUUID
 	@param messageId メッセージUUID
-	@return ClipApiUnclipMessageRequest
+	@return ClipAPIUnclipMessageRequest
 */
-func (a *ClipApiService) UnclipMessage(ctx context.Context, folderId string, messageId string) ClipApiUnclipMessageRequest {
-	return ClipApiUnclipMessageRequest{
+func (a *ClipAPIService) UnclipMessage(ctx context.Context, folderId string, messageId string) ClipAPIUnclipMessageRequest {
+	return ClipAPIUnclipMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		folderId:   folderId,
@@ -910,14 +916,14 @@ func (a *ClipApiService) UnclipMessage(ctx context.Context, folderId string, mes
 }
 
 // Execute executes the request
-func (a *ClipApiService) UnclipMessageExecute(r ClipApiUnclipMessageRequest) (*http.Response, error) {
+func (a *ClipAPIService) UnclipMessageExecute(r ClipAPIUnclipMessageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipApiService.UnclipMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClipAPIService.UnclipMessage")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

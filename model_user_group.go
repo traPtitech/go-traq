@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -39,6 +41,8 @@ type UserGroup struct {
 	// グループ管理者のUUIDの配列
 	Admins []string `json:"admins"`
 }
+
+type _UserGroup UserGroup
 
 // NewUserGroup instantiates a new UserGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -302,6 +306,51 @@ func (o UserGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["admins"] = o.Admins
 	return toSerialize, nil
+}
+
+func (o *UserGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"description",
+		"type",
+		"icon",
+		"members",
+		"createdAt",
+		"updatedAt",
+		"admins",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserGroup := _UserGroup{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroup(varUserGroup)
+
+	return err
 }
 
 type NullableUserGroup struct {

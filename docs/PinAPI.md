@@ -1,13 +1,13 @@
-# \PinApi
+# \PinAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePin**](PinApi.md#CreatePin) | **Post** /messages/{messageId}/pin | ピン留めする
-[**GetChannelPins**](PinApi.md#GetChannelPins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
-[**GetPin**](PinApi.md#GetPin) | **Get** /messages/{messageId}/pin | ピン留めを取得
-[**RemovePin**](PinApi.md#RemovePin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
+[**CreatePin**](PinAPI.md#CreatePin) | **Post** /messages/{messageId}/pin | ピン留めする
+[**GetChannelPins**](PinAPI.md#GetChannelPins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
+[**GetPin**](PinAPI.md#GetPin) | **Get** /messages/{messageId}/pin | ピン留めを取得
+[**RemovePin**](PinAPI.md#RemovePin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
 
 
 
@@ -25,24 +25,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.PinApi.CreatePin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PinApi.CreatePin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePin`: MessagePin
-    fmt.Fprintf(os.Stdout, "Response from `PinApi.CreatePin`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PinAPI.CreatePin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PinAPI.CreatePin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePin`: MessagePin
+	fmt.Fprintf(os.Stdout, "Response from `PinAPI.CreatePin`: %v\n", resp)
 }
 ```
 
@@ -95,24 +95,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.PinApi.GetChannelPins(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PinApi.GetChannelPins``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelPins`: []Pin
-    fmt.Fprintf(os.Stdout, "Response from `PinApi.GetChannelPins`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PinAPI.GetChannelPins(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PinAPI.GetChannelPins``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelPins`: []Pin
+	fmt.Fprintf(os.Stdout, "Response from `PinAPI.GetChannelPins`: %v\n", resp)
 }
 ```
 
@@ -165,24 +165,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.PinApi.GetPin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PinApi.GetPin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPin`: MessagePin
-    fmt.Fprintf(os.Stdout, "Response from `PinApi.GetPin`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PinAPI.GetPin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PinAPI.GetPin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPin`: MessagePin
+	fmt.Fprintf(os.Stdout, "Response from `PinAPI.GetPin`: %v\n", resp)
 }
 ```
 
@@ -235,22 +235,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.PinApi.RemovePin(context.Background(), messageId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PinApi.RemovePin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.PinAPI.RemovePin(context.Background(), messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PinAPI.RemovePin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

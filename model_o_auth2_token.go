@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the OAuth2Token type satisfies the MappedNullable interface at compile time
@@ -26,6 +28,8 @@ type OAuth2Token struct {
 	Scope        *string `json:"scope,omitempty"`
 	IdToken      *string `json:"id_token,omitempty"`
 }
+
+type _OAuth2Token OAuth2Token
 
 // NewOAuth2Token instantiates a new OAuth2Token object
 // This constructor will assign default values to properties that have it defined,
@@ -247,6 +251,44 @@ func (o OAuth2Token) ToMap() (map[string]interface{}, error) {
 		toSerialize["id_token"] = o.IdToken
 	}
 	return toSerialize, nil
+}
+
+func (o *OAuth2Token) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"token_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOAuth2Token := _OAuth2Token{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOAuth2Token)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OAuth2Token(varOAuth2Token)
+
+	return err
 }
 
 type NullableOAuth2Token struct {

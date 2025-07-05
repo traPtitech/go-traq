@@ -1,16 +1,16 @@
-# \AuthenticationApi
+# \AuthenticationAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMyExternalAccounts**](AuthenticationApi.md#GetMyExternalAccounts) | **Get** /users/me/ex-accounts | 外部ログインアカウント一覧を取得
-[**GetMySessions**](AuthenticationApi.md#GetMySessions) | **Get** /users/me/sessions | 自分のログインセッションリストを取得
-[**LinkExternalAccount**](AuthenticationApi.md#LinkExternalAccount) | **Post** /users/me/ex-accounts/link | 外部ログインアカウントを紐付ける
-[**Login**](AuthenticationApi.md#Login) | **Post** /login | ログイン
-[**Logout**](AuthenticationApi.md#Logout) | **Post** /logout | ログアウト
-[**RevokeMySession**](AuthenticationApi.md#RevokeMySession) | **Delete** /users/me/sessions/{sessionId} | セッションを無効化
-[**UnlinkExternalAccount**](AuthenticationApi.md#UnlinkExternalAccount) | **Post** /users/me/ex-accounts/unlink | 外部ログインアカウントの紐付けを解除
+[**GetMyExternalAccounts**](AuthenticationAPI.md#GetMyExternalAccounts) | **Get** /users/me/ex-accounts | 外部ログインアカウント一覧を取得
+[**GetMySessions**](AuthenticationAPI.md#GetMySessions) | **Get** /users/me/sessions | 自分のログインセッションリストを取得
+[**LinkExternalAccount**](AuthenticationAPI.md#LinkExternalAccount) | **Post** /users/me/ex-accounts/link | 外部ログインアカウントを紐付ける
+[**Login**](AuthenticationAPI.md#Login) | **Post** /login | ログイン
+[**Logout**](AuthenticationAPI.md#Logout) | **Post** /logout | ログアウト
+[**RevokeMySession**](AuthenticationAPI.md#RevokeMySession) | **Delete** /users/me/sessions/{sessionId} | セッションを無効化
+[**UnlinkExternalAccount**](AuthenticationAPI.md#UnlinkExternalAccount) | **Post** /users/me/ex-accounts/unlink | 外部ログインアカウントの紐付けを解除
 
 
 
@@ -28,23 +28,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticationApi.GetMyExternalAccounts(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.GetMyExternalAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyExternalAccounts`: []ExternalProviderUser
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticationApi.GetMyExternalAccounts`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetMyExternalAccounts(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetMyExternalAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyExternalAccounts`: []ExternalProviderUser
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetMyExternalAccounts`: %v\n", resp)
 }
 ```
 
@@ -89,23 +89,23 @@ Other parameters are passed through a pointer to a apiGetMyExternalAccountsReque
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticationApi.GetMySessions(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.GetMySessions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMySessions`: []LoginSession
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticationApi.GetMySessions`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetMySessions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetMySessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMySessions`: []LoginSession
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetMySessions`: %v\n", resp)
 }
 ```
 
@@ -150,22 +150,22 @@ Other parameters are passed through a pointer to a apiGetMySessionsRequest struc
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postLinkExternalAccount := *traq.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
+	postLinkExternalAccount := *traq.NewPostLinkExternalAccount("ProviderName_example") // PostLinkExternalAccount |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.AuthenticationApi.LinkExternalAccount(context.Background()).PostLinkExternalAccount(postLinkExternalAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.LinkExternalAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.LinkExternalAccount(context.Background()).PostLinkExternalAccount(postLinkExternalAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.LinkExternalAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -214,23 +214,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    redirect := "redirect_example" // string | リダイレクト先 (optional)
-    postLoginRequest := *traq.NewPostLoginRequest("Name_example", "Password_example") // PostLoginRequest |  (optional)
+	redirect := "redirect_example" // string | リダイレクト先 (optional)
+	postLoginRequest := *traq.NewPostLoginRequest("Name_example", "Password_example") // PostLoginRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.AuthenticationApi.Login(context.Background()).Redirect(redirect).PostLoginRequest(postLoginRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.Login``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.Login(context.Background()).Redirect(redirect).PostLoginRequest(postLoginRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.Login``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -280,23 +280,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    redirect := "redirect_example" // string | リダイレクト先 (optional)
-    all := true // bool | 全てのセッションでログアウトするかどうか (optional) (default to false)
+	redirect := "redirect_example" // string | リダイレクト先 (optional)
+	all := true // bool | 全てのセッションでログアウトするかどうか (optional) (default to false)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.AuthenticationApi.Logout(context.Background()).Redirect(redirect).All(all).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.Logout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.Logout(context.Background()).Redirect(redirect).All(all).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.Logout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -346,22 +346,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    sessionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | セッションUUID
+	sessionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | セッションUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.AuthenticationApi.RevokeMySession(context.Background(), sessionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.RevokeMySession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.RevokeMySession(context.Background(), sessionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.RevokeMySession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -414,22 +414,22 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postUnlinkExternalAccount := *traq.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
+	postUnlinkExternalAccount := *traq.NewPostUnlinkExternalAccount("ProviderName_example") // PostUnlinkExternalAccount |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.AuthenticationApi.UnlinkExternalAccount(context.Background()).PostUnlinkExternalAccount(postUnlinkExternalAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationApi.UnlinkExternalAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.UnlinkExternalAccount(context.Background()).PostUnlinkExternalAccount(postUnlinkExternalAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.UnlinkExternalAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

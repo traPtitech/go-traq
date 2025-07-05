@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -23,7 +25,7 @@ type Stamp struct {
 	// スタンプUUID
 	Id string `json:"id"`
 	// スタンプ名
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// 作成者UUID
 	CreatorId string `json:"creatorId"`
 	// 作成日時
@@ -35,6 +37,8 @@ type Stamp struct {
 	// Unicode絵文字か
 	IsUnicode bool `json:"isUnicode"`
 }
+
+type _Stamp Stamp
 
 // NewStamp instantiates a new Stamp object
 // This constructor will assign default values to properties that have it defined,
@@ -246,6 +250,49 @@ func (o Stamp) ToMap() (map[string]interface{}, error) {
 	toSerialize["fileId"] = o.FileId
 	toSerialize["isUnicode"] = o.IsUnicode
 	return toSerialize, nil
+}
+
+func (o *Stamp) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"creatorId",
+		"createdAt",
+		"updatedAt",
+		"fileId",
+		"isUnicode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStamp := _Stamp{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStamp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Stamp(varStamp)
+
+	return err
 }
 
 type NullableStamp struct {

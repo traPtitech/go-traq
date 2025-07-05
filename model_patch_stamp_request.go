@@ -20,7 +20,7 @@ var _ MappedNullable = &PatchStampRequest{}
 // PatchStampRequest スタンプ情報変更リクエスト
 type PatchStampRequest struct {
 	// スタンプ名
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 	// 作成者UUID
 	CreatorId *string `json:"creatorId,omitempty"`
 }

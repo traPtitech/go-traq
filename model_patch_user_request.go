@@ -22,7 +22,7 @@ type PatchUserRequest struct {
 	// 新しい表示名
 	DisplayName *string `json:"displayName,omitempty"`
 	// TwitterID
-	TwitterId *string           `json:"twitterId,omitempty"`
+	TwitterId *string           `json:"twitterId,omitempty" validate:"regexp=^[a-zA-Z0-9_]{1,15}$"`
 	State     *UserAccountState `json:"state,omitempty"`
 	// ユーザーロール
 	Role *string `json:"role,omitempty"`

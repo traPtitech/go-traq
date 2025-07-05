@@ -19,21 +19,21 @@ import (
 	"strings"
 )
 
-// StarApiService StarApi service
-type StarApiService service
+// StarAPIService StarAPI service
+type StarAPIService service
 
-type StarApiAddMyStarRequest struct {
+type StarAPIAddMyStarRequest struct {
 	ctx             context.Context
-	ApiService      *StarApiService
+	ApiService      *StarAPIService
 	postStarRequest *PostStarRequest
 }
 
-func (r StarApiAddMyStarRequest) PostStarRequest(postStarRequest PostStarRequest) StarApiAddMyStarRequest {
+func (r StarAPIAddMyStarRequest) PostStarRequest(postStarRequest PostStarRequest) StarAPIAddMyStarRequest {
 	r.postStarRequest = &postStarRequest
 	return r
 }
 
-func (r StarApiAddMyStarRequest) Execute() (*http.Response, error) {
+func (r StarAPIAddMyStarRequest) Execute() (*http.Response, error) {
 	return r.ApiService.AddMyStarExecute(r)
 }
 
@@ -45,24 +45,24 @@ AddMyStar チャンネルをスターに追加
 不正なチャンネルIDを指定した場合、400を返します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StarApiAddMyStarRequest
+	@return StarAPIAddMyStarRequest
 */
-func (a *StarApiService) AddMyStar(ctx context.Context) StarApiAddMyStarRequest {
-	return StarApiAddMyStarRequest{
+func (a *StarAPIService) AddMyStar(ctx context.Context) StarAPIAddMyStarRequest {
+	return StarAPIAddMyStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *StarApiService) AddMyStarExecute(r StarApiAddMyStarRequest) (*http.Response, error) {
+func (a *StarAPIService) AddMyStarExecute(r StarAPIAddMyStarRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarApiService.AddMyStar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarAPIService.AddMyStar")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -120,12 +120,12 @@ func (a *StarApiService) AddMyStarExecute(r StarApiAddMyStarRequest) (*http.Resp
 	return localVarHTTPResponse, nil
 }
 
-type StarApiGetMyStarsRequest struct {
+type StarAPIGetMyStarsRequest struct {
 	ctx        context.Context
-	ApiService *StarApiService
+	ApiService *StarAPIService
 }
 
-func (r StarApiGetMyStarsRequest) Execute() ([]string, *http.Response, error) {
+func (r StarAPIGetMyStarsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetMyStarsExecute(r)
 }
 
@@ -135,10 +135,10 @@ GetMyStars スターチャンネルリストを取得
 自分がスターしているチャンネルのUUIDの配列を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return StarApiGetMyStarsRequest
+	@return StarAPIGetMyStarsRequest
 */
-func (a *StarApiService) GetMyStars(ctx context.Context) StarApiGetMyStarsRequest {
-	return StarApiGetMyStarsRequest{
+func (a *StarAPIService) GetMyStars(ctx context.Context) StarAPIGetMyStarsRequest {
+	return StarAPIGetMyStarsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -147,7 +147,7 @@ func (a *StarApiService) GetMyStars(ctx context.Context) StarApiGetMyStarsReques
 // Execute executes the request
 //
 //	@return []string
-func (a *StarApiService) GetMyStarsExecute(r StarApiGetMyStarsRequest) ([]string, *http.Response, error) {
+func (a *StarAPIService) GetMyStarsExecute(r StarAPIGetMyStarsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -155,7 +155,7 @@ func (a *StarApiService) GetMyStarsExecute(r StarApiGetMyStarsRequest) ([]string
 		localVarReturnValue []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarApiService.GetMyStars")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarAPIService.GetMyStars")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -220,13 +220,13 @@ func (a *StarApiService) GetMyStarsExecute(r StarApiGetMyStarsRequest) ([]string
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type StarApiRemoveMyStarRequest struct {
+type StarAPIRemoveMyStarRequest struct {
 	ctx        context.Context
-	ApiService *StarApiService
+	ApiService *StarAPIService
 	channelId  string
 }
 
-func (r StarApiRemoveMyStarRequest) Execute() (*http.Response, error) {
+func (r StarAPIRemoveMyStarRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveMyStarExecute(r)
 }
 
@@ -237,10 +237,10 @@ RemoveMyStar チャンネルをスターから削除します
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return StarApiRemoveMyStarRequest
+	@return StarAPIRemoveMyStarRequest
 */
-func (a *StarApiService) RemoveMyStar(ctx context.Context, channelId string) StarApiRemoveMyStarRequest {
-	return StarApiRemoveMyStarRequest{
+func (a *StarAPIService) RemoveMyStar(ctx context.Context, channelId string) StarAPIRemoveMyStarRequest {
+	return StarAPIRemoveMyStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -248,14 +248,14 @@ func (a *StarApiService) RemoveMyStar(ctx context.Context, channelId string) Sta
 }
 
 // Execute executes the request
-func (a *StarApiService) RemoveMyStarExecute(r StarApiRemoveMyStarRequest) (*http.Response, error) {
+func (a *StarAPIService) RemoveMyStarExecute(r StarAPIRemoveMyStarRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarApiService.RemoveMyStar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StarAPIService.RemoveMyStar")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

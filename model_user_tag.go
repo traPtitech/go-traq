@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -31,6 +33,8 @@ type UserTag struct {
 	// タグ更新日時
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+type _UserTag UserTag
 
 // NewUserTag instantiates a new UserTag object
 // This constructor will assign default values to properties that have it defined,
@@ -190,6 +194,47 @@ func (o UserTag) ToMap() (map[string]interface{}, error) {
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
+}
+
+func (o *UserTag) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"tagId",
+		"tag",
+		"isLocked",
+		"createdAt",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserTag := _UserTag{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserTag)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserTag(varUserTag)
+
+	return err
 }
 
 type NullableUserTag struct {

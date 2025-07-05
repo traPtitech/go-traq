@@ -18,15 +18,15 @@ import (
 	"net/url"
 )
 
-// WebrtcApiService WebrtcApi service
-type WebrtcApiService service
+// WebrtcAPIService WebrtcAPI service
+type WebrtcAPIService service
 
-type WebrtcApiGetWebRTCStateRequest struct {
+type WebrtcAPIGetWebRTCStateRequest struct {
 	ctx        context.Context
-	ApiService *WebrtcApiService
+	ApiService *WebrtcAPIService
 }
 
-func (r WebrtcApiGetWebRTCStateRequest) Execute() ([]WebRTCUserState, *http.Response, error) {
+func (r WebrtcAPIGetWebRTCStateRequest) Execute() ([]WebRTCUserState, *http.Response, error) {
 	return r.ApiService.GetWebRTCStateExecute(r)
 }
 
@@ -36,10 +36,10 @@ GetWebRTCState WebRTC状態を取得
 現在のWebRTC状態を取得します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebrtcApiGetWebRTCStateRequest
+	@return WebrtcAPIGetWebRTCStateRequest
 */
-func (a *WebrtcApiService) GetWebRTCState(ctx context.Context) WebrtcApiGetWebRTCStateRequest {
-	return WebrtcApiGetWebRTCStateRequest{
+func (a *WebrtcAPIService) GetWebRTCState(ctx context.Context) WebrtcAPIGetWebRTCStateRequest {
+	return WebrtcAPIGetWebRTCStateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -48,7 +48,7 @@ func (a *WebrtcApiService) GetWebRTCState(ctx context.Context) WebrtcApiGetWebRT
 // Execute executes the request
 //
 //	@return []WebRTCUserState
-func (a *WebrtcApiService) GetWebRTCStateExecute(r WebrtcApiGetWebRTCStateRequest) ([]WebRTCUserState, *http.Response, error) {
+func (a *WebrtcAPIService) GetWebRTCStateExecute(r WebrtcAPIGetWebRTCStateRequest) ([]WebRTCUserState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -56,7 +56,7 @@ func (a *WebrtcApiService) GetWebRTCStateExecute(r WebrtcApiGetWebRTCStateReques
 		localVarReturnValue []WebRTCUserState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebrtcApiService.GetWebRTCState")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebrtcAPIService.GetWebRTCState")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -121,18 +121,18 @@ func (a *WebrtcApiService) GetWebRTCStateExecute(r WebrtcApiGetWebRTCStateReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type WebrtcApiPostWebRTCAuthenticateRequest struct {
+type WebrtcAPIPostWebRTCAuthenticateRequest struct {
 	ctx                           context.Context
-	ApiService                    *WebrtcApiService
+	ApiService                    *WebrtcAPIService
 	postWebRTCAuthenticateRequest *PostWebRTCAuthenticateRequest
 }
 
-func (r WebrtcApiPostWebRTCAuthenticateRequest) PostWebRTCAuthenticateRequest(postWebRTCAuthenticateRequest PostWebRTCAuthenticateRequest) WebrtcApiPostWebRTCAuthenticateRequest {
+func (r WebrtcAPIPostWebRTCAuthenticateRequest) PostWebRTCAuthenticateRequest(postWebRTCAuthenticateRequest PostWebRTCAuthenticateRequest) WebrtcAPIPostWebRTCAuthenticateRequest {
 	r.postWebRTCAuthenticateRequest = &postWebRTCAuthenticateRequest
 	return r
 }
 
-func (r WebrtcApiPostWebRTCAuthenticateRequest) Execute() (*WebRTCAuthenticateResult, *http.Response, error) {
+func (r WebrtcAPIPostWebRTCAuthenticateRequest) Execute() (*WebRTCAuthenticateResult, *http.Response, error) {
 	return r.ApiService.PostWebRTCAuthenticateExecute(r)
 }
 
@@ -142,10 +142,10 @@ PostWebRTCAuthenticate Skyway用認証API
 Skyway WebRTC用の認証API
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return WebrtcApiPostWebRTCAuthenticateRequest
+	@return WebrtcAPIPostWebRTCAuthenticateRequest
 */
-func (a *WebrtcApiService) PostWebRTCAuthenticate(ctx context.Context) WebrtcApiPostWebRTCAuthenticateRequest {
-	return WebrtcApiPostWebRTCAuthenticateRequest{
+func (a *WebrtcAPIService) PostWebRTCAuthenticate(ctx context.Context) WebrtcAPIPostWebRTCAuthenticateRequest {
+	return WebrtcAPIPostWebRTCAuthenticateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -154,7 +154,7 @@ func (a *WebrtcApiService) PostWebRTCAuthenticate(ctx context.Context) WebrtcApi
 // Execute executes the request
 //
 //	@return WebRTCAuthenticateResult
-func (a *WebrtcApiService) PostWebRTCAuthenticateExecute(r WebrtcApiPostWebRTCAuthenticateRequest) (*WebRTCAuthenticateResult, *http.Response, error) {
+func (a *WebrtcAPIService) PostWebRTCAuthenticateExecute(r WebrtcAPIPostWebRTCAuthenticateRequest) (*WebRTCAuthenticateResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -162,7 +162,7 @@ func (a *WebrtcApiService) PostWebRTCAuthenticateExecute(r WebrtcApiPostWebRTCAu
 		localVarReturnValue *WebRTCAuthenticateResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebrtcApiService.PostWebRTCAuthenticate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebrtcAPIService.PostWebRTCAuthenticate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

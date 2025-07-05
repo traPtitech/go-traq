@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ChannelTopic type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type ChannelTopic struct {
 	// トピック
 	Topic string `json:"topic"`
 }
+
+type _ChannelTopic ChannelTopic
 
 // NewChannelTopic instantiates a new ChannelTopic object
 // This constructor will assign default values to properties that have it defined,
@@ -77,6 +81,43 @@ func (o ChannelTopic) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["topic"] = o.Topic
 	return toSerialize, nil
+}
+
+func (o *ChannelTopic) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"topic",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChannelTopic := _ChannelTopic{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varChannelTopic)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChannelTopic(varChannelTopic)
+
+	return err
 }
 
 type NullableChannelTopic struct {

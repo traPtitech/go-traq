@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the VisibilityChangedEvent type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type VisibilityChangedEvent struct {
 	// 変更後可視状態
 	Visibility bool `json:"visibility"`
 }
+
+type _VisibilityChangedEvent VisibilityChangedEvent
 
 // NewVisibilityChangedEvent instantiates a new VisibilityChangedEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o VisibilityChangedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize["userId"] = o.UserId
 	toSerialize["visibility"] = o.Visibility
 	return toSerialize, nil
+}
+
+func (o *VisibilityChangedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userId",
+		"visibility",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varVisibilityChangedEvent := _VisibilityChangedEvent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varVisibilityChangedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VisibilityChangedEvent(varVisibilityChangedEvent)
+
+	return err
 }
 
 type NullableVisibilityChangedEvent struct {

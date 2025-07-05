@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostWebhookRequest type satisfies the MappedNullable interface at compile time
@@ -28,6 +30,8 @@ type PostWebhookRequest struct {
 	// Webhookシークレット
 	Secret string `json:"secret"`
 }
+
+type _PostWebhookRequest PostWebhookRequest
 
 // NewPostWebhookRequest instantiates a new PostWebhookRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -161,6 +165,46 @@ func (o PostWebhookRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["channelId"] = o.ChannelId
 	toSerialize["secret"] = o.Secret
 	return toSerialize, nil
+}
+
+func (o *PostWebhookRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"description",
+		"channelId",
+		"secret",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostWebhookRequest := _PostWebhookRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostWebhookRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostWebhookRequest(varPostWebhookRequest)
+
+	return err
 }
 
 type NullablePostWebhookRequest struct {

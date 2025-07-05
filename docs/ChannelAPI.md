@@ -1,27 +1,27 @@
-# \ChannelApi
+# \ChannelAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateChannel**](ChannelApi.md#CreateChannel) | **Post** /channels | チャンネルを作成
-[**EditChannel**](ChannelApi.md#EditChannel) | **Patch** /channels/{channelId} | チャンネル情報を変更
-[**EditChannelSubscribers**](ChannelApi.md#EditChannelSubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
-[**EditChannelTopic**](ChannelApi.md#EditChannelTopic) | **Put** /channels/{channelId}/topic | チャンネルトピックを編集
-[**GetChannel**](ChannelApi.md#GetChannel) | **Get** /channels/{channelId} | チャンネル情報を取得
-[**GetChannelBots**](ChannelApi.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
-[**GetChannelEvents**](ChannelApi.md#GetChannelEvents) | **Get** /channels/{channelId}/events | チャンネルイベントのリストを取得
-[**GetChannelPath**](ChannelApi.md#GetChannelPath) | **Get** /channels/{channelId}/path | 指定したチャンネルパスを取得
-[**GetChannelPins**](ChannelApi.md#GetChannelPins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
-[**GetChannelStats**](ChannelApi.md#GetChannelStats) | **Get** /channels/{channelId}/stats | チャンネル統計情報を取得
-[**GetChannelSubscribers**](ChannelApi.md#GetChannelSubscribers) | **Get** /channels/{channelId}/subscribers | チャンネルの通知購読者のリストを取得
-[**GetChannelTopic**](ChannelApi.md#GetChannelTopic) | **Get** /channels/{channelId}/topic | チャンネルトピックを取得
-[**GetChannelViewers**](ChannelApi.md#GetChannelViewers) | **Get** /channels/{channelId}/viewers | チャンネル閲覧者リストを取得
-[**GetChannels**](ChannelApi.md#GetChannels) | **Get** /channels | チャンネルリストを取得
-[**GetMessages**](ChannelApi.md#GetMessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
-[**GetUserDMChannel**](ChannelApi.md#GetUserDMChannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
-[**PostMessage**](ChannelApi.md#PostMessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
-[**SetChannelSubscribers**](ChannelApi.md#SetChannelSubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
+[**CreateChannel**](ChannelAPI.md#CreateChannel) | **Post** /channels | チャンネルを作成
+[**EditChannel**](ChannelAPI.md#EditChannel) | **Patch** /channels/{channelId} | チャンネル情報を変更
+[**EditChannelSubscribers**](ChannelAPI.md#EditChannelSubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
+[**EditChannelTopic**](ChannelAPI.md#EditChannelTopic) | **Put** /channels/{channelId}/topic | チャンネルトピックを編集
+[**GetChannel**](ChannelAPI.md#GetChannel) | **Get** /channels/{channelId} | チャンネル情報を取得
+[**GetChannelBots**](ChannelAPI.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
+[**GetChannelEvents**](ChannelAPI.md#GetChannelEvents) | **Get** /channels/{channelId}/events | チャンネルイベントのリストを取得
+[**GetChannelPath**](ChannelAPI.md#GetChannelPath) | **Get** /channels/{channelId}/path | 指定したチャンネルパスを取得
+[**GetChannelPins**](ChannelAPI.md#GetChannelPins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
+[**GetChannelStats**](ChannelAPI.md#GetChannelStats) | **Get** /channels/{channelId}/stats | チャンネル統計情報を取得
+[**GetChannelSubscribers**](ChannelAPI.md#GetChannelSubscribers) | **Get** /channels/{channelId}/subscribers | チャンネルの通知購読者のリストを取得
+[**GetChannelTopic**](ChannelAPI.md#GetChannelTopic) | **Get** /channels/{channelId}/topic | チャンネルトピックを取得
+[**GetChannelViewers**](ChannelAPI.md#GetChannelViewers) | **Get** /channels/{channelId}/viewers | チャンネル閲覧者リストを取得
+[**GetChannels**](ChannelAPI.md#GetChannels) | **Get** /channels | チャンネルリストを取得
+[**GetMessages**](ChannelAPI.md#GetMessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
+[**GetUserDMChannel**](ChannelAPI.md#GetUserDMChannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
+[**PostMessage**](ChannelAPI.md#PostMessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
+[**SetChannelSubscribers**](ChannelAPI.md#SetChannelSubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
 
 
 
@@ -39,24 +39,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postChannelRequest := *traq.NewPostChannelRequest("Name_example", "Parent_example") // PostChannelRequest |  (optional)
+	postChannelRequest := *traq.NewPostChannelRequest("Name_example", "Parent_example") // PostChannelRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.CreateChannel(context.Background()).PostChannelRequest(postChannelRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.CreateChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateChannel`: Channel
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.CreateChannel`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.CreateChannel(context.Background()).PostChannelRequest(postChannelRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.CreateChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateChannel`: Channel
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.CreateChannel`: %v\n", resp)
 }
 ```
 
@@ -105,23 +105,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    patchChannelRequest := *traq.NewPatchChannelRequest() // PatchChannelRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	patchChannelRequest := *traq.NewPatchChannelRequest() // PatchChannelRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.ChannelApi.EditChannel(context.Background(), channelId).PatchChannelRequest(patchChannelRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.ChannelAPI.EditChannel(context.Background(), channelId).PatchChannelRequest(patchChannelRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.EditChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -175,23 +175,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    patchChannelSubscribersRequest := *traq.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	patchChannelSubscribersRequest := *traq.NewPatchChannelSubscribersRequest() // PatchChannelSubscribersRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.ChannelApi.EditChannelSubscribers(context.Background(), channelId).PatchChannelSubscribersRequest(patchChannelSubscribersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.ChannelAPI.EditChannelSubscribers(context.Background(), channelId).PatchChannelSubscribersRequest(patchChannelSubscribersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.EditChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -245,23 +245,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelTopicRequest := *traq.NewPutChannelTopicRequest("Topic_example") // PutChannelTopicRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	putChannelTopicRequest := *traq.NewPutChannelTopicRequest("Topic_example") // PutChannelTopicRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.ChannelApi.EditChannelTopic(context.Background(), channelId).PutChannelTopicRequest(putChannelTopicRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.EditChannelTopic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.ChannelAPI.EditChannelTopic(context.Background(), channelId).PutChannelTopicRequest(putChannelTopicRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.EditChannelTopic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -315,24 +315,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannel(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannel`: Channel
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannel`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannel(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannel`: Channel
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannel`: %v\n", resp)
 }
 ```
 
@@ -385,24 +385,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelBots(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelBots``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelBots`: []BotUser
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelBots`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelBots(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelBots`: []BotUser
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelBots`: %v\n", resp)
 }
 ```
 
@@ -455,31 +455,31 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelEvents(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelEvents`: []ChannelEvent
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelEvents`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelEvents(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelEvents`: []ChannelEvent
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelEvents`: %v\n", resp)
 }
 ```
 
@@ -536,24 +536,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelPath(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelPath``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelPath`: ChannelPath
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelPath`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelPath(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelPath``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelPath`: ChannelPath
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelPath`: %v\n", resp)
 }
 ```
 
@@ -606,24 +606,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelPins(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelPins``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelPins`: []Pin
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelPins`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelPins(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelPins``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelPins`: []Pin
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelPins`: %v\n", resp)
 }
 ```
 
@@ -676,25 +676,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    excludeDeletedMessages := true // bool | 削除されたメッセージを除外するかどうか(デフォルト false) (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	excludeDeletedMessages := true // bool | 削除されたメッセージを除外するかどうか(デフォルト false) (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelStats(context.Background(), channelId).ExcludeDeletedMessages(excludeDeletedMessages).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelStats``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelStats`: ChannelStats
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelStats`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelStats(context.Background(), channelId).ExcludeDeletedMessages(excludeDeletedMessages).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelStats`: ChannelStats
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelStats`: %v\n", resp)
 }
 ```
 
@@ -748,24 +748,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelSubscribers(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelSubscribers`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelSubscribers`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelSubscribers(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelSubscribers`: []string
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelSubscribers`: %v\n", resp)
 }
 ```
 
@@ -818,24 +818,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelTopic(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelTopic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelTopic`: ChannelTopic
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelTopic`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelTopic(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelTopic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelTopic`: ChannelTopic
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelTopic`: %v\n", resp)
 }
 ```
 
@@ -888,24 +888,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannelViewers(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannelViewers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannelViewers`: []ChannelViewer
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannelViewers`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannelViewers(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelViewers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelViewers`: []ChannelViewer
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelViewers`: %v\n", resp)
 }
 ```
 
@@ -958,25 +958,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    includeDm := true // bool | ダイレクトメッセージチャンネルをレスポンスに含めるかどうか (optional) (default to false)
-    path := "path_example" // string | パスが一致するチャンネルのみを取得する (optional)
+	includeDm := true // bool | ダイレクトメッセージチャンネルをレスポンスに含めるかどうか (optional) (default to false)
+	path := "path_example" // string | パスが一致するチャンネルのみを取得する (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetChannels(context.Background()).IncludeDm(includeDm).Path(path).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetChannels``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetChannels`: ChannelList
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetChannels`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetChannels(context.Background()).IncludeDm(includeDm).Path(path).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannels`: ChannelList
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannels`: %v\n", resp)
 }
 ```
 
@@ -1026,31 +1026,31 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    traq "github.com/traPtitech/go-traq"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    limit := int32(50) // int32 | 取得する件数 (optional)
-    offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
-    since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
-    until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
-    inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
-    order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	limit := int32(50) // int32 | 取得する件数 (optional)
+	offset := int32(150) // int32 | 取得するオフセット (optional) (default to 0)
+	since := time.Now() // time.Time | 取得する時間範囲の開始日時 (optional) (default to "0000-01-01T00:00Z")
+	until := time.Now() // time.Time | 取得する時間範囲の終了日時 (optional)
+	inclusive := true // bool | 範囲の端を含めるかどうか (optional) (default to false)
+	order := "order_example" // string | 昇順か降順か (optional) (default to "desc")
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetMessages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMessages`: []Message
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetMessages`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetMessages(context.Background(), channelId).Limit(limit).Offset(offset).Since(since).Until(until).Inclusive(inclusive).Order(order).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMessages`: []Message
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetMessages`: %v\n", resp)
 }
 ```
 
@@ -1109,24 +1109,24 @@ DMチャンネル情報を取得
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	userId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.GetUserDMChannel(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.GetUserDMChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserDMChannel`: DMChannel
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.GetUserDMChannel`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetUserDMChannel(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetUserDMChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserDMChannel`: DMChannel
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetUserDMChannel`: %v\n", resp)
 }
 ```
 
@@ -1179,25 +1179,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	postMessageRequest := *traq.NewPostMessageRequest("Content_example") // PostMessageRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelApi.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.PostMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMessage`: Message
-    fmt.Fprintf(os.Stdout, "Response from `ChannelApi.PostMessage`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.PostMessage(context.Background(), channelId).PostMessageRequest(postMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PostMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMessage`: Message
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PostMessage`: %v\n", resp)
 }
 ```
 
@@ -1251,23 +1251,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
-    putChannelSubscribersRequest := *traq.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	putChannelSubscribersRequest := *traq.NewPutChannelSubscribersRequest([]string{"On_example"}) // PutChannelSubscribersRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.ChannelApi.SetChannelSubscribers(context.Background(), channelId).PutChannelSubscribersRequest(putChannelSubscribersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelApi.SetChannelSubscribers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.ChannelAPI.SetChannelSubscribers(context.Background(), channelId).PutChannelSubscribersRequest(putChannelSubscribersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.SetChannelSubscribers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

@@ -1,12 +1,12 @@
-# \StarApi
+# \StarAPI
 
 All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddMyStar**](StarApi.md#AddMyStar) | **Post** /users/me/stars | チャンネルをスターに追加
-[**GetMyStars**](StarApi.md#GetMyStars) | **Get** /users/me/stars | スターチャンネルリストを取得
-[**RemoveMyStar**](StarApi.md#RemoveMyStar) | **Delete** /users/me/stars/{channelId} | チャンネルをスターから削除します
+[**AddMyStar**](StarAPI.md#AddMyStar) | **Post** /users/me/stars | チャンネルをスターに追加
+[**GetMyStars**](StarAPI.md#GetMyStars) | **Get** /users/me/stars | スターチャンネルリストを取得
+[**RemoveMyStar**](StarAPI.md#RemoveMyStar) | **Delete** /users/me/stars/{channelId} | チャンネルをスターから削除します
 
 
 
@@ -24,22 +24,22 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    postStarRequest := *traq.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
+	postStarRequest := *traq.NewPostStarRequest("ChannelId_example") // PostStarRequest |  (optional)
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StarApi.AddMyStar(context.Background()).PostStarRequest(postStarRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StarApi.AddMyStar``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StarAPI.AddMyStar(context.Background()).PostStarRequest(postStarRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StarAPI.AddMyStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -88,23 +88,23 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    resp, r, err := apiClient.StarApi.GetMyStars(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StarApi.GetMyStars``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMyStars`: []string
-    fmt.Fprintf(os.Stdout, "Response from `StarApi.GetMyStars`: %v\n", resp)
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StarAPI.GetMyStars(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StarAPI.GetMyStars``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyStars`: []string
+	fmt.Fprintf(os.Stdout, "Response from `StarAPI.GetMyStars`: %v\n", resp)
 }
 ```
 
@@ -149,22 +149,22 @@ Other parameters are passed through a pointer to a apiGetMyStarsRequest struct v
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    traq "github.com/traPtitech/go-traq"
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
 )
 
 func main() {
-    channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
 
-    configuration := traq.NewConfiguration()
-    apiClient := traq.NewAPIClient(configuration)
-    r, err := apiClient.StarApi.RemoveMyStar(context.Background(), channelId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StarApi.RemoveMyStar``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.StarAPI.RemoveMyStar(context.Background(), channelId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StarAPI.RemoveMyStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

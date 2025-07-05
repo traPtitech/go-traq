@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PatchUserTagRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type PatchUserTagRequest struct {
 	// タグのロック状態
 	IsLocked bool `json:"isLocked"`
 }
+
+type _PatchUserTagRequest PatchUserTagRequest
 
 // NewPatchUserTagRequest instantiates a new PatchUserTagRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -77,6 +81,43 @@ func (o PatchUserTagRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["isLocked"] = o.IsLocked
 	return toSerialize, nil
+}
+
+func (o *PatchUserTagRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"isLocked",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPatchUserTagRequest := _PatchUserTagRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPatchUserTagRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchUserTagRequest(varPatchUserTagRequest)
+
+	return err
 }
 
 type NullablePatchUserTagRequest struct {

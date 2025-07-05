@@ -19,16 +19,16 @@ import (
 	"strings"
 )
 
-// PinApiService PinApi service
-type PinApiService service
+// PinAPIService PinAPI service
+type PinAPIService service
 
-type PinApiCreatePinRequest struct {
+type PinAPICreatePinRequest struct {
 	ctx        context.Context
-	ApiService *PinApiService
+	ApiService *PinAPIService
 	messageId  string
 }
 
-func (r PinApiCreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r PinAPICreatePinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.CreatePinExecute(r)
 }
 
@@ -40,10 +40,10 @@ CreatePin ピン留めする
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return PinApiCreatePinRequest
+	@return PinAPICreatePinRequest
 */
-func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiCreatePinRequest {
-	return PinApiCreatePinRequest{
+func (a *PinAPIService) CreatePin(ctx context.Context, messageId string) PinAPICreatePinRequest {
+	return PinAPICreatePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -53,7 +53,7 @@ func (a *PinApiService) CreatePin(ctx context.Context, messageId string) PinApiC
 // Execute executes the request
 //
 //	@return MessagePin
-func (a *PinApiService) CreatePinExecute(r PinApiCreatePinRequest) (*MessagePin, *http.Response, error) {
+func (a *PinAPIService) CreatePinExecute(r PinAPICreatePinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *PinApiService) CreatePinExecute(r PinApiCreatePinRequest) (*MessagePin,
 		localVarReturnValue *MessagePin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinApiService.CreatePin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinAPIService.CreatePin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -127,13 +127,13 @@ func (a *PinApiService) CreatePinExecute(r PinApiCreatePinRequest) (*MessagePin,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiGetChannelPinsRequest struct {
+type PinAPIGetChannelPinsRequest struct {
 	ctx        context.Context
-	ApiService *PinApiService
+	ApiService *PinAPIService
 	channelId  string
 }
 
-func (r PinApiGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
+func (r PinAPIGetChannelPinsRequest) Execute() ([]Pin, *http.Response, error) {
 	return r.ApiService.GetChannelPinsExecute(r)
 }
 
@@ -144,10 +144,10 @@ GetChannelPins チャンネルピンのリストを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
-	@return PinApiGetChannelPinsRequest
+	@return PinAPIGetChannelPinsRequest
 */
-func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) PinApiGetChannelPinsRequest {
-	return PinApiGetChannelPinsRequest{
+func (a *PinAPIService) GetChannelPins(ctx context.Context, channelId string) PinAPIGetChannelPinsRequest {
+	return PinAPIGetChannelPinsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		channelId:  channelId,
@@ -157,7 +157,7 @@ func (a *PinApiService) GetChannelPins(ctx context.Context, channelId string) Pi
 // Execute executes the request
 //
 //	@return []Pin
-func (a *PinApiService) GetChannelPinsExecute(r PinApiGetChannelPinsRequest) ([]Pin, *http.Response, error) {
+func (a *PinAPIService) GetChannelPinsExecute(r PinAPIGetChannelPinsRequest) ([]Pin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -165,7 +165,7 @@ func (a *PinApiService) GetChannelPinsExecute(r PinApiGetChannelPinsRequest) ([]
 		localVarReturnValue []Pin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinApiService.GetChannelPins")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinAPIService.GetChannelPins")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -231,13 +231,13 @@ func (a *PinApiService) GetChannelPinsExecute(r PinApiGetChannelPinsRequest) ([]
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiGetPinRequest struct {
+type PinAPIGetPinRequest struct {
 	ctx        context.Context
-	ApiService *PinApiService
+	ApiService *PinAPIService
 	messageId  string
 }
 
-func (r PinApiGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
+func (r PinAPIGetPinRequest) Execute() (*MessagePin, *http.Response, error) {
 	return r.ApiService.GetPinExecute(r)
 }
 
@@ -248,10 +248,10 @@ GetPin ピン留めを取得
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return PinApiGetPinRequest
+	@return PinAPIGetPinRequest
 */
-func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiGetPinRequest {
-	return PinApiGetPinRequest{
+func (a *PinAPIService) GetPin(ctx context.Context, messageId string) PinAPIGetPinRequest {
+	return PinAPIGetPinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -261,7 +261,7 @@ func (a *PinApiService) GetPin(ctx context.Context, messageId string) PinApiGetP
 // Execute executes the request
 //
 //	@return MessagePin
-func (a *PinApiService) GetPinExecute(r PinApiGetPinRequest) (*MessagePin, *http.Response, error) {
+func (a *PinAPIService) GetPinExecute(r PinAPIGetPinRequest) (*MessagePin, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -269,7 +269,7 @@ func (a *PinApiService) GetPinExecute(r PinApiGetPinRequest) (*MessagePin, *http
 		localVarReturnValue *MessagePin
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinApiService.GetPin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinAPIService.GetPin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -335,13 +335,13 @@ func (a *PinApiService) GetPinExecute(r PinApiGetPinRequest) (*MessagePin, *http
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PinApiRemovePinRequest struct {
+type PinAPIRemovePinRequest struct {
 	ctx        context.Context
-	ApiService *PinApiService
+	ApiService *PinAPIService
 	messageId  string
 }
 
-func (r PinApiRemovePinRequest) Execute() (*http.Response, error) {
+func (r PinAPIRemovePinRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemovePinExecute(r)
 }
 
@@ -352,10 +352,10 @@ RemovePin ピン留めを外す
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
-	@return PinApiRemovePinRequest
+	@return PinAPIRemovePinRequest
 */
-func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiRemovePinRequest {
-	return PinApiRemovePinRequest{
+func (a *PinAPIService) RemovePin(ctx context.Context, messageId string) PinAPIRemovePinRequest {
+	return PinAPIRemovePinRequest{
 		ApiService: a,
 		ctx:        ctx,
 		messageId:  messageId,
@@ -363,14 +363,14 @@ func (a *PinApiService) RemovePin(ctx context.Context, messageId string) PinApiR
 }
 
 // Execute executes the request
-func (a *PinApiService) RemovePinExecute(r PinApiRemovePinRequest) (*http.Response, error) {
+func (a *PinAPIService) RemovePinExecute(r PinAPIRemovePinRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinApiService.RemovePin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PinAPIService.RemovePin")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

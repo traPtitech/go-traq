@@ -13,6 +13,7 @@ package traq
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // GetClient200Response - struct for GetClient200Response
@@ -46,7 +47,11 @@ func (dst *GetClient200Response) UnmarshalJSON(data []byte) error {
 		if string(jsonOAuth2Client) == "{}" { // empty struct
 			dst.OAuth2Client = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.OAuth2Client); err != nil {
+				dst.OAuth2Client = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.OAuth2Client = nil
@@ -59,7 +64,11 @@ func (dst *GetClient200Response) UnmarshalJSON(data []byte) error {
 		if string(jsonOAuth2ClientDetail) == "{}" { // empty struct
 			dst.OAuth2ClientDetail = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.OAuth2ClientDetail); err != nil {
+				dst.OAuth2ClientDetail = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.OAuth2ClientDetail = nil
@@ -102,6 +111,20 @@ func (obj *GetClient200Response) GetActualInstance() interface{} {
 
 	if obj.OAuth2ClientDetail != nil {
 		return obj.OAuth2ClientDetail
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GetClient200Response) GetActualInstanceValue() interface{} {
+	if obj.OAuth2Client != nil {
+		return *obj.OAuth2Client
+	}
+
+	if obj.OAuth2ClientDetail != nil {
+		return *obj.OAuth2ClientDetail
 	}
 
 	// all schemas are nil

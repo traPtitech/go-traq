@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostWebRTCAuthenticateRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type PostWebRTCAuthenticateRequest struct {
 	// ピアID
 	PeerId string `json:"peerId"`
 }
+
+type _PostWebRTCAuthenticateRequest PostWebRTCAuthenticateRequest
 
 // NewPostWebRTCAuthenticateRequest instantiates a new PostWebRTCAuthenticateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -77,6 +81,43 @@ func (o PostWebRTCAuthenticateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["peerId"] = o.PeerId
 	return toSerialize, nil
+}
+
+func (o *PostWebRTCAuthenticateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"peerId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostWebRTCAuthenticateRequest := _PostWebRTCAuthenticateRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostWebRTCAuthenticateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostWebRTCAuthenticateRequest(varPostWebRTCAuthenticateRequest)
+
+	return err
 }
 
 type NullablePostWebRTCAuthenticateRequest struct {

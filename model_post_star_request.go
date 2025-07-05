@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PostStarRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type PostStarRequest struct {
 	// チャンネルUUID
 	ChannelId string `json:"channelId"`
 }
+
+type _PostStarRequest PostStarRequest
 
 // NewPostStarRequest instantiates a new PostStarRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -77,6 +81,43 @@ func (o PostStarRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["channelId"] = o.ChannelId
 	return toSerialize, nil
+}
+
+func (o *PostStarRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"channelId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostStarRequest := _PostStarRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPostStarRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostStarRequest(varPostStarRequest)
+
+	return err
 }
 
 type NullablePostStarRequest struct {

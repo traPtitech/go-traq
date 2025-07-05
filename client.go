@@ -36,8 +36,8 @@ import (
 )
 
 var (
-	jsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
+	JsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:[^;]+\+)?json)`)
+	XmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/(?:[^;]+\+)?xml)`)
 	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
@@ -50,47 +50,47 @@ type APIClient struct {
 
 	// API Services
 
-	ActivityApi *ActivityApiService
+	ActivityAPI *ActivityAPIService
 
-	AuthenticationApi *AuthenticationApiService
+	AuthenticationAPI *AuthenticationAPIService
 
-	BotApi *BotApiService
+	BotAPI *BotAPIService
 
-	ChannelApi *ChannelApiService
+	ChannelAPI *ChannelAPIService
 
-	ClipApi *ClipApiService
+	ClipAPI *ClipAPIService
 
-	FileApi *FileApiService
+	FileAPI *FileAPIService
 
-	GroupApi *GroupApiService
+	GroupAPI *GroupAPIService
 
-	MeApi *MeApiService
+	MeAPI *MeAPIService
 
-	MessageApi *MessageApiService
+	MessageAPI *MessageAPIService
 
-	NotificationApi *NotificationApiService
+	NotificationAPI *NotificationAPIService
 
-	Oauth2Api *Oauth2ApiService
+	Oauth2API *Oauth2APIService
 
-	OgpApi *OgpApiService
+	OgpAPI *OgpAPIService
 
-	PinApi *PinApiService
+	PinAPI *PinAPIService
 
-	PublicApi *PublicApiService
+	PublicAPI *PublicAPIService
 
-	QallApi *QallApiService
+	QallAPI *QallAPIService
 
-	StampApi *StampApiService
+	StampAPI *StampAPIService
 
-	StarApi *StarApiService
+	StarAPI *StarAPIService
 
-	UserApi *UserApiService
+	UserAPI *UserAPIService
 
-	UserTagApi *UserTagApiService
+	UserTagAPI *UserTagAPIService
 
-	WebhookApi *WebhookApiService
+	WebhookAPI *WebhookAPIService
 
-	WebrtcApi *WebrtcApiService
+	WebrtcAPI *WebrtcAPIService
 }
 
 type service struct {
@@ -109,27 +109,27 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.ActivityApi = (*ActivityApiService)(&c.common)
-	c.AuthenticationApi = (*AuthenticationApiService)(&c.common)
-	c.BotApi = (*BotApiService)(&c.common)
-	c.ChannelApi = (*ChannelApiService)(&c.common)
-	c.ClipApi = (*ClipApiService)(&c.common)
-	c.FileApi = (*FileApiService)(&c.common)
-	c.GroupApi = (*GroupApiService)(&c.common)
-	c.MeApi = (*MeApiService)(&c.common)
-	c.MessageApi = (*MessageApiService)(&c.common)
-	c.NotificationApi = (*NotificationApiService)(&c.common)
-	c.Oauth2Api = (*Oauth2ApiService)(&c.common)
-	c.OgpApi = (*OgpApiService)(&c.common)
-	c.PinApi = (*PinApiService)(&c.common)
-	c.PublicApi = (*PublicApiService)(&c.common)
-	c.QallApi = (*QallApiService)(&c.common)
-	c.StampApi = (*StampApiService)(&c.common)
-	c.StarApi = (*StarApiService)(&c.common)
-	c.UserApi = (*UserApiService)(&c.common)
-	c.UserTagApi = (*UserTagApiService)(&c.common)
-	c.WebhookApi = (*WebhookApiService)(&c.common)
-	c.WebrtcApi = (*WebrtcApiService)(&c.common)
+	c.ActivityAPI = (*ActivityAPIService)(&c.common)
+	c.AuthenticationAPI = (*AuthenticationAPIService)(&c.common)
+	c.BotAPI = (*BotAPIService)(&c.common)
+	c.ChannelAPI = (*ChannelAPIService)(&c.common)
+	c.ClipAPI = (*ClipAPIService)(&c.common)
+	c.FileAPI = (*FileAPIService)(&c.common)
+	c.GroupAPI = (*GroupAPIService)(&c.common)
+	c.MeAPI = (*MeAPIService)(&c.common)
+	c.MessageAPI = (*MessageAPIService)(&c.common)
+	c.NotificationAPI = (*NotificationAPIService)(&c.common)
+	c.Oauth2API = (*Oauth2APIService)(&c.common)
+	c.OgpAPI = (*OgpAPIService)(&c.common)
+	c.PinAPI = (*PinAPIService)(&c.common)
+	c.PublicAPI = (*PublicAPIService)(&c.common)
+	c.QallAPI = (*QallAPIService)(&c.common)
+	c.StampAPI = (*StampAPIService)(&c.common)
+	c.StarAPI = (*StarAPIService)(&c.common)
+	c.UserAPI = (*UserAPIService)(&c.common)
+	c.UserTagAPI = (*UserTagAPIService)(&c.common)
+	c.WebhookAPI = (*WebhookAPIService)(&c.common)
+	c.WebrtcAPI = (*WebrtcAPIService)(&c.common)
 
 	return c
 }
@@ -188,6 +188,10 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 
 func parameterValueToString(obj interface{}, key string) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
+		if actualObj, ok := obj.(interface{ GetActualInstanceValue() interface{} }); ok {
+			return fmt.Sprintf("%v", actualObj.GetActualInstanceValue())
+		}
+
 		return fmt.Sprintf("%v", obj)
 	}
 	var param, ok = obj.(MappedNullable)
@@ -203,7 +207,7 @@ func parameterValueToString(obj interface{}, key string) string {
 
 // parameterAddToHeaderOrQuery adds the provided object to the request header or url query
 // supporting deep object syntax
-func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix string, obj interface{}, collectionType string) {
+func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix string, obj interface{}, style string, collectionType string) {
 	var v = reflect.ValueOf(obj)
 	var value = ""
 	if v == reflect.ValueOf(nil) {
@@ -219,11 +223,11 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 				if err != nil {
 					return
 				}
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, dataMap, collectionType)
+				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, dataMap, style, collectionType)
 				return
 			}
 			if t, ok := obj.(time.Time); ok {
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, t.Format(time.RFC3339Nano), collectionType)
+				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, t.Format(time.RFC3339Nano), style, collectionType)
 				return
 			}
 			value = v.Type().String() + " value"
@@ -235,7 +239,11 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 			var lenIndValue = indValue.Len()
 			for i := 0; i < lenIndValue; i++ {
 				var arrayValue = indValue.Index(i)
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, arrayValue.Interface(), collectionType)
+				var keyPrefixForCollectionType = keyPrefix
+				if style == "deepObject" {
+					keyPrefixForCollectionType = keyPrefix + "[" + strconv.Itoa(i) + "]"
+				}
+				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefixForCollectionType, arrayValue.Interface(), style, collectionType)
 			}
 			return
 
@@ -247,14 +255,14 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 			iter := indValue.MapRange()
 			for iter.Next() {
 				k, v := iter.Key(), iter.Value()
-				parameterAddToHeaderOrQuery(headerOrQueryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), collectionType)
+				parameterAddToHeaderOrQuery(headerOrQueryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), style, collectionType)
 			}
 			return
 
 		case reflect.Interface:
 			fallthrough
 		case reflect.Ptr:
-			parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, v.Elem().Interface(), collectionType)
+			parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, v.Elem().Interface(), style, collectionType)
 			return
 
 		case reflect.Int, reflect.Int8, reflect.Int16,
@@ -527,13 +535,13 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		_, err = (*f).Seek(0, io.SeekStart)
 		return
 	}
-	if xmlCheck.MatchString(contentType) {
+	if XmlCheck.MatchString(contentType) {
 		if err = xml.Unmarshal(b, v); err != nil {
 			return err
 		}
 		return nil
 	}
-	if jsonCheck.MatchString(contentType) {
+	if JsonCheck.MatchString(contentType) {
 		if actualObj, ok := v.(interface{ GetActualInstance() interface{} }); ok { // oneOf, anyOf schemas
 			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
 				if err = unmarshalObj.UnmarshalJSON(b); err != nil {
@@ -570,18 +578,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	return err
 }
 
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding
-func newStrictDecoder(data []byte) *json.Decoder {
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
-}
-
 // Set request body from an interface{}
 func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
 	if bodyBuf == nil {
@@ -598,10 +594,14 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		_, err = bodyBuf.WriteString(s)
 	} else if s, ok := body.(*string); ok {
 		_, err = bodyBuf.WriteString(*s)
-	} else if jsonCheck.MatchString(contentType) {
+	} else if JsonCheck.MatchString(contentType) {
 		err = json.NewEncoder(bodyBuf).Encode(body)
-	} else if xmlCheck.MatchString(contentType) {
-		err = xml.NewEncoder(bodyBuf).Encode(body)
+	} else if XmlCheck.MatchString(contentType) {
+		var bs []byte
+		bs, err = xml.Marshal(body)
+		if err == nil {
+			bodyBuf.Write(bs)
+		}
 	}
 
 	if err != nil {

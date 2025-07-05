@@ -11,7 +11,9 @@ API version: 3.0
 package traq
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the TopicChangedEvent type satisfies the MappedNullable interface at compile time
@@ -26,6 +28,8 @@ type TopicChangedEvent struct {
 	// 変更後トピック
 	After string `json:"after"`
 }
+
+type _TopicChangedEvent TopicChangedEvent
 
 // NewTopicChangedEvent instantiates a new TopicChangedEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -133,6 +137,45 @@ func (o TopicChangedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize["before"] = o.Before
 	toSerialize["after"] = o.After
 	return toSerialize, nil
+}
+
+func (o *TopicChangedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userId",
+		"before",
+		"after",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTopicChangedEvent := _TopicChangedEvent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTopicChangedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TopicChangedEvent(varTopicChangedEvent)
+
+	return err
 }
 
 type NullableTopicChangedEvent struct {

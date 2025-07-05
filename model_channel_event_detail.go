@@ -13,6 +13,7 @@ package traq
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // ChannelEventDetail - イベント内容
@@ -102,7 +103,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonChildCreatedEvent) == "{}" { // empty struct
 			dst.ChildCreatedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ChildCreatedEvent); err != nil {
+				dst.ChildCreatedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ChildCreatedEvent = nil
@@ -115,7 +120,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonForcedNotificationChangedEvent) == "{}" { // empty struct
 			dst.ForcedNotificationChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ForcedNotificationChangedEvent); err != nil {
+				dst.ForcedNotificationChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ForcedNotificationChangedEvent = nil
@@ -128,7 +137,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonNameChangedEvent) == "{}" { // empty struct
 			dst.NameChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.NameChangedEvent); err != nil {
+				dst.NameChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.NameChangedEvent = nil
@@ -141,7 +154,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonParentChangedEvent) == "{}" { // empty struct
 			dst.ParentChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ParentChangedEvent); err != nil {
+				dst.ParentChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ParentChangedEvent = nil
@@ -154,7 +171,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonPinAddedEvent) == "{}" { // empty struct
 			dst.PinAddedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.PinAddedEvent); err != nil {
+				dst.PinAddedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.PinAddedEvent = nil
@@ -167,7 +188,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonPinRemovedEvent) == "{}" { // empty struct
 			dst.PinRemovedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.PinRemovedEvent); err != nil {
+				dst.PinRemovedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.PinRemovedEvent = nil
@@ -180,7 +205,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonSubscribersChangedEvent) == "{}" { // empty struct
 			dst.SubscribersChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.SubscribersChangedEvent); err != nil {
+				dst.SubscribersChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.SubscribersChangedEvent = nil
@@ -193,7 +222,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonTopicChangedEvent) == "{}" { // empty struct
 			dst.TopicChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.TopicChangedEvent); err != nil {
+				dst.TopicChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.TopicChangedEvent = nil
@@ -206,7 +239,11 @@ func (dst *ChannelEventDetail) UnmarshalJSON(data []byte) error {
 		if string(jsonVisibilityChangedEvent) == "{}" { // empty struct
 			dst.VisibilityChangedEvent = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.VisibilityChangedEvent); err != nil {
+				dst.VisibilityChangedEvent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.VisibilityChangedEvent = nil
@@ -312,6 +349,48 @@ func (obj *ChannelEventDetail) GetActualInstance() interface{} {
 
 	if obj.VisibilityChangedEvent != nil {
 		return obj.VisibilityChangedEvent
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ChannelEventDetail) GetActualInstanceValue() interface{} {
+	if obj.ChildCreatedEvent != nil {
+		return *obj.ChildCreatedEvent
+	}
+
+	if obj.ForcedNotificationChangedEvent != nil {
+		return *obj.ForcedNotificationChangedEvent
+	}
+
+	if obj.NameChangedEvent != nil {
+		return *obj.NameChangedEvent
+	}
+
+	if obj.ParentChangedEvent != nil {
+		return *obj.ParentChangedEvent
+	}
+
+	if obj.PinAddedEvent != nil {
+		return *obj.PinAddedEvent
+	}
+
+	if obj.PinRemovedEvent != nil {
+		return *obj.PinRemovedEvent
+	}
+
+	if obj.SubscribersChangedEvent != nil {
+		return *obj.SubscribersChangedEvent
+	}
+
+	if obj.TopicChangedEvent != nil {
+		return *obj.TopicChangedEvent
+	}
+
+	if obj.VisibilityChangedEvent != nil {
+		return *obj.VisibilityChangedEvent
 	}
 
 	// all schemas are nil

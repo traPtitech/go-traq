@@ -18,36 +18,36 @@ import (
 	"net/url"
 )
 
-// ActivityApiService ActivityApi service
-type ActivityApiService service
+// ActivityAPIService ActivityAPI service
+type ActivityAPIService service
 
-type ActivityApiGetActivityTimelineRequest struct {
+type ActivityAPIGetActivityTimelineRequest struct {
 	ctx        context.Context
-	ApiService *ActivityApiService
+	ApiService *ActivityAPIService
 	limit      *int32
 	all        *bool
 	perChannel *bool
 }
 
 // 取得する件数
-func (r ActivityApiGetActivityTimelineRequest) Limit(limit int32) ActivityApiGetActivityTimelineRequest {
+func (r ActivityAPIGetActivityTimelineRequest) Limit(limit int32) ActivityAPIGetActivityTimelineRequest {
 	r.limit = &limit
 	return r
 }
 
 // 全てのチャンネルのタイムラインを取得する
-func (r ActivityApiGetActivityTimelineRequest) All(all bool) ActivityApiGetActivityTimelineRequest {
+func (r ActivityAPIGetActivityTimelineRequest) All(all bool) ActivityAPIGetActivityTimelineRequest {
 	r.all = &all
 	return r
 }
 
 // 同じチャンネルのメッセージは最新のもののみ取得するか
-func (r ActivityApiGetActivityTimelineRequest) PerChannel(perChannel bool) ActivityApiGetActivityTimelineRequest {
+func (r ActivityAPIGetActivityTimelineRequest) PerChannel(perChannel bool) ActivityAPIGetActivityTimelineRequest {
 	r.perChannel = &perChannel
 	return r
 }
 
-func (r ActivityApiGetActivityTimelineRequest) Execute() ([]ActivityTimelineMessage, *http.Response, error) {
+func (r ActivityAPIGetActivityTimelineRequest) Execute() ([]ActivityTimelineMessage, *http.Response, error) {
 	return r.ApiService.GetActivityTimelineExecute(r)
 }
 
@@ -58,10 +58,10 @@ GetActivityTimeline アクテビティタイムラインを取得
 `all`が`true`でない場合、購読チャンネルのみのタイムラインを取得します
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ActivityApiGetActivityTimelineRequest
+	@return ActivityAPIGetActivityTimelineRequest
 */
-func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityApiGetActivityTimelineRequest {
-	return ActivityApiGetActivityTimelineRequest{
+func (a *ActivityAPIService) GetActivityTimeline(ctx context.Context) ActivityAPIGetActivityTimelineRequest {
+	return ActivityAPIGetActivityTimelineRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -70,7 +70,7 @@ func (a *ActivityApiService) GetActivityTimeline(ctx context.Context) ActivityAp
 // Execute executes the request
 //
 //	@return []ActivityTimelineMessage
-func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivityTimelineRequest) ([]ActivityTimelineMessage, *http.Response, error) {
+func (a *ActivityAPIService) GetActivityTimelineExecute(r ActivityAPIGetActivityTimelineRequest) ([]ActivityTimelineMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -78,7 +78,7 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivity
 		localVarReturnValue []ActivityTimelineMessage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActivityApiService.GetActivityTimeline")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActivityAPIService.GetActivityTimeline")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -90,13 +90,22 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivity
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 50
+		r.limit = &defaultValue
 	}
 	if r.all != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.all = &defaultValue
 	}
 	if r.perChannel != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "per_channel", r.perChannel, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_channel", r.perChannel, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.perChannel = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -152,12 +161,12 @@ func (a *ActivityApiService) GetActivityTimelineExecute(r ActivityApiGetActivity
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ActivityApiGetOnlineUsersRequest struct {
+type ActivityAPIGetOnlineUsersRequest struct {
 	ctx        context.Context
-	ApiService *ActivityApiService
+	ApiService *ActivityAPIService
 }
 
-func (r ActivityApiGetOnlineUsersRequest) Execute() ([]string, *http.Response, error) {
+func (r ActivityAPIGetOnlineUsersRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.GetOnlineUsersExecute(r)
 }
 
@@ -167,10 +176,10 @@ GetOnlineUsers オンラインユーザーリストを取得
 現在オンラインな(SSEまたはWSが接続中)ユーザーのUUIDのリストを返します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ActivityApiGetOnlineUsersRequest
+	@return ActivityAPIGetOnlineUsersRequest
 */
-func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiGetOnlineUsersRequest {
-	return ActivityApiGetOnlineUsersRequest{
+func (a *ActivityAPIService) GetOnlineUsers(ctx context.Context) ActivityAPIGetOnlineUsersRequest {
+	return ActivityAPIGetOnlineUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -179,7 +188,7 @@ func (a *ActivityApiService) GetOnlineUsers(ctx context.Context) ActivityApiGetO
 // Execute executes the request
 //
 //	@return []string
-func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiGetOnlineUsersRequest) ([]string, *http.Response, error) {
+func (a *ActivityAPIService) GetOnlineUsersExecute(r ActivityAPIGetOnlineUsersRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -187,7 +196,7 @@ func (a *ActivityApiService) GetOnlineUsersExecute(r ActivityApiGetOnlineUsersRe
 		localVarReturnValue []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActivityApiService.GetOnlineUsers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActivityAPIService.GetOnlineUsers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
