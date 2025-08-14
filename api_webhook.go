@@ -343,6 +343,100 @@ func (a *WebhookAPIService) DeleteWebhookExecute(r WebhookAPIDeleteWebhookReques
 	return localVarHTTPResponse, nil
 }
 
+type WebhookAPIDeleteWebhookMessageRequest struct {
+	ctx        context.Context
+	ApiService *WebhookAPIService
+	webhookId  string
+	messageId  string
+}
+
+func (r WebhookAPIDeleteWebhookMessageRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteWebhookMessageExecute(r)
+}
+
+/*
+DeleteWebhookMessage Webhookの投稿メッセージを削除
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param webhookId WebhookUUID
+	@param messageId メッセージUUID
+	@return WebhookAPIDeleteWebhookMessageRequest
+*/
+func (a *WebhookAPIService) DeleteWebhookMessage(ctx context.Context, webhookId string, messageId string) WebhookAPIDeleteWebhookMessageRequest {
+	return WebhookAPIDeleteWebhookMessageRequest{
+		ApiService: a,
+		ctx:        ctx,
+		webhookId:  webhookId,
+		messageId:  messageId,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) DeleteWebhookMessageExecute(r WebhookAPIDeleteWebhookMessageRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.DeleteWebhookMessage")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/webhooks/:webhookID/messages/:messageID"
+	localVarPath = strings.Replace(localVarPath, "{"+"webhookId"+"}", url.PathEscape(parameterValueToString(r.webhookId, "webhookId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type WebhookAPIEditWebhookRequest struct {
 	ctx                 context.Context
 	ApiService          *WebhookAPIService

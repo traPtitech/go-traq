@@ -285,6 +285,7 @@ Class | Method | HTTP request | Description
 *WebhookAPI* | [**ChangeWebhookIcon**](docs/WebhookAPI.md#changewebhookicon) | **Put** /webhooks/{webhookId}/icon | Webhookのアイコンを変更
 *WebhookAPI* | [**CreateWebhook**](docs/WebhookAPI.md#createwebhook) | **Post** /webhooks | Webhookを新規作成
 *WebhookAPI* | [**DeleteWebhook**](docs/WebhookAPI.md#deletewebhook) | **Delete** /webhooks/{webhookId} | Webhookを削除
+*WebhookAPI* | [**DeleteWebhookMessage**](docs/WebhookAPI.md#deletewebhookmessage) | **Delete** /webhooks/:webhookID/messages/:messageID | Webhookの投稿メッセージを削除
 *WebhookAPI* | [**EditWebhook**](docs/WebhookAPI.md#editwebhook) | **Patch** /webhooks/{webhookId} | Webhook情報を変更
 *WebhookAPI* | [**GetWebhook**](docs/WebhookAPI.md#getwebhook) | **Get** /webhooks/{webhookId} | Webhook情報を取得
 *WebhookAPI* | [**GetWebhookIcon**](docs/WebhookAPI.md#getwebhookicon) | **Get** /webhooks/{webhookId}/icon | Webhookのアイコンを取得

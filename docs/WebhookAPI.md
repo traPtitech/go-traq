@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**ChangeWebhookIcon**](WebhookAPI.md#ChangeWebhookIcon) | **Put** /webhooks/{webhookId}/icon | Webhookのアイコンを変更
 [**CreateWebhook**](WebhookAPI.md#CreateWebhook) | **Post** /webhooks | Webhookを新規作成
 [**DeleteWebhook**](WebhookAPI.md#DeleteWebhook) | **Delete** /webhooks/{webhookId} | Webhookを削除
+[**DeleteWebhookMessage**](WebhookAPI.md#DeleteWebhookMessage) | **Delete** /webhooks/:webhookID/messages/:messageID | Webhookの投稿メッセージを削除
 [**EditWebhook**](WebhookAPI.md#EditWebhook) | **Patch** /webhooks/{webhookId} | Webhook情報を変更
 [**GetWebhook**](WebhookAPI.md#GetWebhook) | **Get** /webhooks/{webhookId} | Webhook情報を取得
 [**GetWebhookIcon**](WebhookAPI.md#GetWebhookIcon) | **Get** /webhooks/{webhookId}/icon | Webhookのアイコンを取得
@@ -200,6 +201,75 @@ Other parameters are passed through a pointer to a apiDeleteWebhookRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteWebhookMessage
+
+> DeleteWebhookMessage(ctx, webhookId, messageId).Execute()
+
+Webhookの投稿メッセージを削除
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	webhookId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | WebhookUUID
+	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.WebhookAPI.DeleteWebhookMessage(context.Background(), webhookId, messageId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.DeleteWebhookMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**webhookId** | **string** | WebhookUUID | 
+**messageId** | **string** | メッセージUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteWebhookMessageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
