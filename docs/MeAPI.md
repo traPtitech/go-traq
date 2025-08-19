@@ -189,7 +189,7 @@ import (
 )
 
 func main() {
-	file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MBまでのpng, jpeg, gif)
+	file := os.NewFile(1234, "some_file") // *os.File | アイコン画像(2MB,`Config.Imaging.MaxPixels`(default: 2560*1600)までのpng, jpeg, gif)
 
 	configuration := traq.NewConfiguration()
 	apiClient := traq.NewAPIClient(configuration)
@@ -212,7 +212,7 @@ Other parameters are passed through a pointer to a apiChangeMyIconRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | ***os.File** | アイコン画像(2MBまでのpng, jpeg, gif) | 
+ **file** | ***os.File** | アイコン画像(2MB,&#x60;Config.Imaging.MaxPixels&#x60;(default: 2560*1600)までのpng, jpeg, gif) | 
 
 ### Return type
 

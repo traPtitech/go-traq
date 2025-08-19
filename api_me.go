@@ -235,7 +235,7 @@ type MeAPIChangeMyIconRequest struct {
 	file       *os.File
 }
 
-// アイコン画像(2MBまでのpng, jpeg, gif)
+// アイコン画像(2MB,&#x60;Config.Imaging.MaxPixels&#x60;(default: 2560*1600)までのpng, jpeg, gif)
 func (r MeAPIChangeMyIconRequest) File(file *os.File) MeAPIChangeMyIconRequest {
 	r.file = file
 	return r

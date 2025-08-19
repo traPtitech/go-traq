@@ -232,7 +232,7 @@ type GroupAPIChangeUserGroupIconRequest struct {
 	file       *os.File
 }
 
-// アイコン画像(2MBまでのpng, jpeg, gif)
+// アイコン画像(2MB,&#x60;Config.Imaging.MaxPixels&#x60;(default: 2560*1600)までのpng, jpeg, gif)
 func (r GroupAPIChangeUserGroupIconRequest) File(file *os.File) GroupAPIChangeUserGroupIconRequest {
 	r.file = file
 	return r
