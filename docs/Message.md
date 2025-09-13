@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Pinned** | **bool** | ピン留めされているかどうか | 
 **Stamps** | [**[]MessageStamp**](MessageStamp.md) | 押されているスタンプの配列 | 
 **ThreadId** | **NullableString** | スレッドUUID | 
+**Nonce** | Pointer to **string** | メッセージ送信の確認に使うことができる任意の識別子(投稿でのみ使用可) | [optional] 
 
 ## Methods
 
@@ -223,6 +224,31 @@ SetThreadId sets ThreadId field to given value.
 `func (o *Message) UnsetThreadId()`
 
 UnsetThreadId ensures that no value is present for ThreadId, not even an explicit nil
+### GetNonce
+
+`func (o *Message) GetNonce() string`
+
+GetNonce returns the Nonce field if non-nil, zero value otherwise.
+
+### GetNonceOk
+
+`func (o *Message) GetNonceOk() (*string, bool)`
+
+GetNonceOk returns a tuple with the Nonce field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNonce
+
+`func (o *Message) SetNonce(v string)`
+
+SetNonce sets Nonce field to given value.
+
+### HasNonce
+
+`func (o *Message) HasNonce() bool`
+
+HasNonce returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

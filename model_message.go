@@ -40,6 +40,8 @@ type Message struct {
 	Stamps []MessageStamp `json:"stamps"`
 	// スレッドUUID
 	ThreadId NullableString `json:"threadId"`
+	// メッセージ送信の確認に使うことができる任意の識別子(投稿でのみ使用可)
+	Nonce *string `json:"nonce,omitempty" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
 }
 
 type _Message Message
@@ -288,6 +290,38 @@ func (o *Message) SetThreadId(v string) {
 	o.ThreadId.Set(&v)
 }
 
+// GetNonce returns the Nonce field value if set, zero value otherwise.
+func (o *Message) GetNonce() string {
+	if o == nil || IsNil(o.Nonce) {
+		var ret string
+		return ret
+	}
+	return *o.Nonce
+}
+
+// GetNonceOk returns a tuple with the Nonce field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Message) GetNonceOk() (*string, bool) {
+	if o == nil || IsNil(o.Nonce) {
+		return nil, false
+	}
+	return o.Nonce, true
+}
+
+// HasNonce returns a boolean if a field has been set.
+func (o *Message) HasNonce() bool {
+	if o != nil && !IsNil(o.Nonce) {
+		return true
+	}
+
+	return false
+}
+
+// SetNonce gets a reference to the given string and assigns it to the Nonce field.
+func (o *Message) SetNonce(v string) {
+	o.Nonce = &v
+}
+
 func (o Message) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -307,6 +341,9 @@ func (o Message) ToMap() (map[string]interface{}, error) {
 	toSerialize["pinned"] = o.Pinned
 	toSerialize["stamps"] = o.Stamps
 	toSerialize["threadId"] = o.ThreadId.Get()
+	if !IsNil(o.Nonce) {
+		toSerialize["nonce"] = o.Nonce
+	}
 	return toSerialize, nil
 }
 
