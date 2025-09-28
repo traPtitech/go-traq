@@ -20,14 +20,16 @@ type ChannelViewState string
 
 // List of ChannelViewState
 const (
-	CHANNELVIEWSTATE_NONE       ChannelViewState = "none"
-	CHANNELVIEWSTATE_MONITORING ChannelViewState = "monitoring"
-	CHANNELVIEWSTATE_EDITING    ChannelViewState = "editing"
+	CHANNELVIEWSTATE_NONE          ChannelViewState = "none"
+	CHANNELVIEWSTATE_STALE_VIEWING ChannelViewState = "stale_viewing"
+	CHANNELVIEWSTATE_MONITORING    ChannelViewState = "monitoring"
+	CHANNELVIEWSTATE_EDITING       ChannelViewState = "editing"
 )
 
 // All allowed values of ChannelViewState enum
 var AllowedChannelViewStateEnumValues = []ChannelViewState{
 	"none",
+	"stale_viewing",
 	"monitoring",
 	"editing",
 }

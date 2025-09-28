@@ -5,6 +5,8 @@
 
 * `NONE` (value: `"none"`)
 
+* `STALE_VIEWING` (value: `"stale_viewing"`)
+
 * `MONITORING` (value: `"monitoring"`)
 
 * `EDITING` (value: `"editing"`)
