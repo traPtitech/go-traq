@@ -32,7 +32,7 @@ type UserDetail struct {
 	// ユーザー表示名
 	DisplayName string `json:"displayName"`
 	// ユーザー名
-	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
+	Name string `json:"name" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// Twitter ID
 	TwitterId string `json:"twitterId" validate:"regexp=^[a-zA-Z0-9_]{0,15}$"`
 	// 最終オンライン日時

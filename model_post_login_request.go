@@ -22,7 +22,7 @@ var _ MappedNullable = &PostLoginRequest{}
 // PostLoginRequest ログインリクエスト
 type PostLoginRequest struct {
 	// ユーザー名
-	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
+	Name string `json:"name" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// パスワード
 	Password string `json:"password" validate:"regexp=^[\\\\x20-\\\\x7E]{10,32}$"`
 }

@@ -24,9 +24,9 @@ type OIDCUserInfo struct {
 	// ユーザーUUID
 	Sub string `json:"sub"`
 	// ユーザー名
-	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
+	Name string `json:"name" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// ユーザー名
-	PreferredUsername string `json:"preferred_username" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
+	PreferredUsername string `json:"preferred_username" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// アイコン画像URL
 	Picture string `json:"picture"`
 	// 更新日時

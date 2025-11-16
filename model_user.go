@@ -25,7 +25,7 @@ type User struct {
 	// ユーザーUUID
 	Id string `json:"id"`
 	// ユーザー名
-	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,32}$"`
+	Name string `json:"name" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// ユーザー表示名
 	DisplayName string `json:"displayName"`
 	// アイコンファイルUUID
