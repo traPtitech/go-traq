@@ -1260,7 +1260,7 @@ func (a *StampAPIService) GetStampImageExecute(r StampAPIGetStampImageRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"image/png", "image/gif", "image/jpeg"}
+	localVarHTTPHeaderAccepts := []string{"image/png", "image/gif", "image/jpeg", "image/svg+xml"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

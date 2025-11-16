@@ -607,7 +607,7 @@ func (a *FileAPIService) GetThumbnailImageExecute(r FileAPIGetThumbnailImageRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"image/png", "image/jpeg"}
+	localVarHTTPHeaderAccepts := []string{"image/png", "image/jpeg", "image/svg+xml"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
