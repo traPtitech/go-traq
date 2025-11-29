@@ -166,6 +166,7 @@ Class | Method | HTTP request | Description
 *MeAPI* | [**GetMyQRCode**](docs/MeAPI.md#getmyqrcode) | **Get** /users/me/qr-code | QRコードを取得
 *MeAPI* | [**GetMySessions**](docs/MeAPI.md#getmysessions) | **Get** /users/me/sessions | 自分のログインセッションリストを取得
 *MeAPI* | [**GetMyStampHistory**](docs/MeAPI.md#getmystamphistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
+*MeAPI* | [**GetMyStampRecommendations**](docs/MeAPI.md#getmystamprecommendations) | **Get** /users/me/stamp-recommendations | スタンプレコメンドを取得
 *MeAPI* | [**GetMyStars**](docs/MeAPI.md#getmystars) | **Get** /users/me/stars | スターチャンネルリストを取得
 *MeAPI* | [**GetMyTokens**](docs/MeAPI.md#getmytokens) | **Get** /users/me/tokens | 有効トークンのリストを取得
 *MeAPI* | [**GetMyUnreadChannels**](docs/MeAPI.md#getmyunreadchannels) | **Get** /users/me/unread | 未読チャンネルを取得
@@ -248,6 +249,7 @@ Class | Method | HTTP request | Description
 *StampAPI* | [**EditStampPalette**](docs/StampAPI.md#editstamppalette) | **Patch** /stamp-palettes/{paletteId} | スタンプパレットを編集
 *StampAPI* | [**GetMessageStamps**](docs/StampAPI.md#getmessagestamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
 *StampAPI* | [**GetMyStampHistory**](docs/StampAPI.md#getmystamphistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
+*StampAPI* | [**GetMyStampRecommendations**](docs/StampAPI.md#getmystamprecommendations) | **Get** /users/me/stamp-recommendations | スタンプレコメンドを取得
 *StampAPI* | [**GetStamp**](docs/StampAPI.md#getstamp) | **Get** /stamps/{stampId} | スタンプ情報を取得
 *StampAPI* | [**GetStampImage**](docs/StampAPI.md#getstampimage) | **Get** /stamps/{stampId}/image | スタンプ画像を取得
 *StampAPI* | [**GetStampPalette**](docs/StampAPI.md#getstamppalette) | **Get** /stamp-palettes/{paletteId} | スタンプパレットを取得

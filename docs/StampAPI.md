@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**EditStampPalette**](StampAPI.md#EditStampPalette) | **Patch** /stamp-palettes/{paletteId} | スタンプパレットを編集
 [**GetMessageStamps**](StampAPI.md#GetMessageStamps) | **Get** /messages/{messageId}/stamps | メッセージのスタンプリストを取得
 [**GetMyStampHistory**](StampAPI.md#GetMyStampHistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
+[**GetMyStampRecommendations**](StampAPI.md#GetMyStampRecommendations) | **Get** /users/me/stamp-recommendations | スタンプレコメンドを取得
 [**GetStamp**](StampAPI.md#GetStamp) | **Get** /stamps/{stampId} | スタンプ情報を取得
 [**GetStampImage**](StampAPI.md#GetStampImage) | **Get** /stamps/{stampId}/image | スタンプ画像を取得
 [**GetStampPalette**](StampAPI.md#GetStampPalette) | **Get** /stamp-palettes/{paletteId} | スタンプパレットを取得
@@ -698,6 +699,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]StampHistoryEntry**](StampHistoryEntry.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMyStampRecommendations
+
+> []string GetMyStampRecommendations(ctx).Limit(limit).Execute()
+
+スタンプレコメンドを取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	limit := int32(56) // int32 | 件数 (optional) (default to 100)
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.StampAPI.GetMyStampRecommendations(context.Background()).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetMyStampRecommendations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyStampRecommendations`: []string
+	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetMyStampRecommendations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMyStampRecommendationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** | 件数 | [default to 100]
+
+### Return type
+
+**[]string**
 
 ### Authorization
 

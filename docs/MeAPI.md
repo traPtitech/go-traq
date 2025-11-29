@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**GetMyQRCode**](MeAPI.md#GetMyQRCode) | **Get** /users/me/qr-code | QRコードを取得
 [**GetMySessions**](MeAPI.md#GetMySessions) | **Get** /users/me/sessions | 自分のログインセッションリストを取得
 [**GetMyStampHistory**](MeAPI.md#GetMyStampHistory) | **Get** /users/me/stamp-history | スタンプ履歴を取得
+[**GetMyStampRecommendations**](MeAPI.md#GetMyStampRecommendations) | **Get** /users/me/stamp-recommendations | スタンプレコメンドを取得
 [**GetMyStars**](MeAPI.md#GetMyStars) | **Get** /users/me/stars | スターチャンネルリストを取得
 [**GetMyTokens**](MeAPI.md#GetMyTokens) | **Get** /users/me/tokens | 有効トークンのリストを取得
 [**GetMyUnreadChannels**](MeAPI.md#GetMyUnreadChannels) | **Get** /users/me/unread | 未読チャンネルを取得
@@ -977,6 +978,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]StampHistoryEntry**](StampHistoryEntry.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMyStampRecommendations
+
+> []string GetMyStampRecommendations(ctx).Limit(limit).Execute()
+
+スタンプレコメンドを取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	limit := int32(56) // int32 | 件数 (optional) (default to 100)
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.MeAPI.GetMyStampRecommendations(context.Background()).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MeAPI.GetMyStampRecommendations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMyStampRecommendations`: []string
+	fmt.Fprintf(os.Stdout, "Response from `MeAPI.GetMyStampRecommendations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMyStampRecommendationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** | 件数 | [default to 100]
+
+### Return type
+
+**[]string**
 
 ### Authorization
 
