@@ -333,6 +333,7 @@ Class | Method | HTTP request | Description
  - [ForcedNotificationChangedEvent](docs/ForcedNotificationChangedEvent.md)
  - [GetBot200Response](docs/GetBot200Response.md)
  - [GetClient200Response](docs/GetClient200Response.md)
+ - [GetMyStampRecommendations200ResponseInner](docs/GetMyStampRecommendations200ResponseInner.md)
  - [GetNotifyCitation](docs/GetNotifyCitation.md)
  - [LoginSession](docs/LoginSession.md)
  - [Message](docs/Message.md)

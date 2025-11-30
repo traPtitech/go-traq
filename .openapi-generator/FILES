@@ -62,6 +62,7 @@ docs/FileInfoThumbnail.md
 docs/ForcedNotificationChangedEvent.md
 docs/GetBot200Response.md
 docs/GetClient200Response.md
+docs/GetMyStampRecommendations200ResponseInner.md
 docs/GetNotifyCitation.md
 docs/GroupAPI.md
 docs/LoginSession.md
@@ -222,6 +223,7 @@ model_file_info_thumbnail.go
 model_forced_notification_changed_event.go
 model_get_bot_200_response.go
 model_get_client_200_response.go
+model_get_my_stamp_recommendations_200_response_inner.go
 model_get_notify_citation.go
 model_login_session.go
 model_message.go

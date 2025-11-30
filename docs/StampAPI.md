@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 
 ## GetMyStampRecommendations
 
-> []string GetMyStampRecommendations(ctx).Limit(limit).Execute()
+> []GetMyStampRecommendations200ResponseInner GetMyStampRecommendations(ctx).Limit(limit).Execute()
 
 スタンプレコメンドを取得
 
@@ -744,7 +744,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `StampAPI.GetMyStampRecommendations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMyStampRecommendations`: []string
+	// response from `GetMyStampRecommendations`: []GetMyStampRecommendations200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `StampAPI.GetMyStampRecommendations`: %v\n", resp)
 }
 ```
@@ -764,7 +764,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]string**
+[**[]GetMyStampRecommendations200ResponseInner**](GetMyStampRecommendations200ResponseInner.md)
 
 ### Authorization
 

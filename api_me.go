@@ -1572,7 +1572,7 @@ func (r MeAPIGetMyStampRecommendationsRequest) Limit(limit int32) MeAPIGetMyStam
 	return r
 }
 
-func (r MeAPIGetMyStampRecommendationsRequest) Execute() ([]string, *http.Response, error) {
+func (r MeAPIGetMyStampRecommendationsRequest) Execute() ([]GetMyStampRecommendations200ResponseInner, *http.Response, error) {
 	return r.ApiService.GetMyStampRecommendationsExecute(r)
 }
 
@@ -1595,13 +1595,13 @@ func (a *MeAPIService) GetMyStampRecommendations(ctx context.Context) MeAPIGetMy
 
 // Execute executes the request
 //
-//	@return []string
-func (a *MeAPIService) GetMyStampRecommendationsExecute(r MeAPIGetMyStampRecommendationsRequest) ([]string, *http.Response, error) {
+//	@return []GetMyStampRecommendations200ResponseInner
+func (a *MeAPIService) GetMyStampRecommendationsExecute(r MeAPIGetMyStampRecommendationsRequest) ([]GetMyStampRecommendations200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []string
+		localVarReturnValue []GetMyStampRecommendations200ResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeAPIService.GetMyStampRecommendations")
