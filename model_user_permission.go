@@ -71,6 +71,7 @@ const (
 	USERPERMISSION_AddMessageStamp           UserPermission = "add_message_stamp"
 	USERPERMISSION_RemoveMessageStamp        UserPermission = "remove_message_stamp"
 	USERPERMISSION_GetMyStampHistory         UserPermission = "get_my_stamp_history"
+	USERPERMISSION_GetMyStampRecommendations UserPermission = "get_my_stamp_recommendations"
 	USERPERMISSION_GetStampPalette           UserPermission = "get_stamp_palette"
 	USERPERMISSION_CreateStampPalette        UserPermission = "create_stamp_palette"
 	USERPERMISSION_EditStampPalette          UserPermission = "edit_stamp_palette"
@@ -158,6 +159,7 @@ var AllowedUserPermissionEnumValues = []UserPermission{
 	"add_message_stamp",
 	"remove_message_stamp",
 	"get_my_stamp_history",
+	"get_my_stamp_recommendations",
 	"get_stamp_palette",
 	"create_stamp_palette",
 	"edit_stamp_palette",

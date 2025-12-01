@@ -105,6 +105,8 @@
 
 * `GetMyStampHistory` (value: `"get_my_stamp_history"`)
 
+* `GetMyStampRecommendations` (value: `"get_my_stamp_recommendations"`)
+
 * `GetStampPalette` (value: `"get_stamp_palette"`)
 
 * `CreateStampPalette` (value: `"create_stamp_palette"`)
