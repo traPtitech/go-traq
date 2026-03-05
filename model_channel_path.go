@@ -22,7 +22,7 @@ var _ MappedNullable = &ChannelPath{}
 // ChannelPath チャンネルパス
 type ChannelPath struct {
 	// チャンネルパス
-	Path string `json:"path" validate:"regexp=^(\\/[a-zA-Z0-9-_]+)+$"`
+	Path string `json:"path" validate:"regexp=^[a-zA-Z0-9-_]+(\\/[a-zA-Z0-9-_]+)*$"`
 }
 
 type _ChannelPath ChannelPath
