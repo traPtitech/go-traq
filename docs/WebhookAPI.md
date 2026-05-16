@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**ChangeWebhookIcon**](WebhookAPI.md#ChangeWebhookIcon) | **Put** /webhooks/{webhookId}/icon | Webhookのアイコンを変更
 [**CreateWebhook**](WebhookAPI.md#CreateWebhook) | **Post** /webhooks | Webhookを新規作成
 [**DeleteWebhook**](WebhookAPI.md#DeleteWebhook) | **Delete** /webhooks/{webhookId} | Webhookを削除
-[**DeleteWebhookMessage**](WebhookAPI.md#DeleteWebhookMessage) | **Delete** /webhooks/:webhookID/messages/:messageID | Webhookの投稿メッセージを削除
+[**DeleteWebhookMessage**](WebhookAPI.md#DeleteWebhookMessage) | **Delete** /webhooks/{webhookId}/messages/{messageId} | Webhookの投稿メッセージを削除
 [**EditWebhook**](WebhookAPI.md#EditWebhook) | **Patch** /webhooks/{webhookId} | Webhook情報を変更
 [**GetWebhook**](WebhookAPI.md#GetWebhook) | **Get** /webhooks/{webhookId} | Webhook情報を取得
 [**GetWebhookIcon**](WebhookAPI.md#GetWebhookIcon) | **Get** /webhooks/{webhookId}/icon | Webhookのアイコンを取得
@@ -226,6 +226,8 @@ Name | Type | Description  | Notes
 > DeleteWebhookMessage(ctx, webhookId, messageId).Execute()
 
 Webhookの投稿メッセージを削除
+
+
 
 ### Example
 

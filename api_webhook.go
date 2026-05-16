@@ -357,6 +357,8 @@ func (r WebhookAPIDeleteWebhookMessageRequest) Execute() (*http.Response, error)
 /*
 DeleteWebhookMessage Webhookの投稿メッセージを削除
 
+指定されたWebhookが投稿したメッセージを削除します。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
 	@param messageId メッセージUUID
@@ -384,7 +386,7 @@ func (a *WebhookAPIService) DeleteWebhookMessageExecute(r WebhookAPIDeleteWebhoo
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/webhooks/:webhookID/messages/:messageID"
+	localVarPath := localBasePath + "/webhooks/{webhookId}/messages/{messageId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"webhookId"+"}", url.PathEscape(parameterValueToString(r.webhookId, "webhookId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"messageId"+"}", url.PathEscape(parameterValueToString(r.messageId, "messageId")), -1)
 
