@@ -103,7 +103,7 @@ import (
 
 func main() {
 	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | ファイルUUID
-	dl := int32(56) // int32 | 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます (optional)
+	dl := int32(56) // int32 | このクエリパラメータは廃止されており、意味を持ちません（現在、このパラメータが0の場合も1の場合もレスポンスにはContent-Dispositionヘッダーが付与されます） (optional)
 
 	configuration := traq.NewConfiguration()
 	apiClient := traq.NewAPIClient(configuration)
@@ -133,7 +133,7 @@ Other parameters are passed through a pointer to a apiGetFileRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **dl** | **int32** | 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます | 
+ **dl** | **int32** | このクエリパラメータは廃止されており、意味を持ちません（現在、このパラメータが0の場合も1の場合もレスポンスにはContent-Dispositionヘッダーが付与されます） | 
 
 ### Return type
 

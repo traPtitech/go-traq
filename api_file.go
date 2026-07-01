@@ -124,7 +124,8 @@ type FileAPIGetFileRequest struct {
 	dl         *int32
 }
 
-// 1を指定するとレスポンスにContent-Dispositionヘッダーが付与されます
+// このクエリパラメータは廃止されており、意味を持ちません（現在、このパラメータが0の場合も1の場合もレスポンスにはContent-Dispositionヘッダーが付与されます）
+// Deprecated
 func (r FileAPIGetFileRequest) Dl(dl int32) FileAPIGetFileRequest {
 	r.dl = &dl
 	return r
