@@ -957,6 +957,10 @@ Ws WebSocket通知ストリームに接続します
 
 `timeline_streaming:(on|off|true|false)`
 
+### `ping`コマンド
+サーバーとの接続を確認する。
+`ping`を送信すると、`PING`イベント（`{"type":"PING","body":null}`）が返されます。
+
 ## 受信
 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。
 
