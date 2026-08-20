@@ -25,6 +25,8 @@ type BotTokens struct {
 	VerificationToken string `json:"verificationToken"`
 	// BOTアクセストークン
 	AccessToken string `json:"accessToken"`
+	// BOTアクセストークンが無効化されているかどうか
+	AccessTokenRevoked bool `json:"accessTokenRevoked"`
 }
 
 type _BotTokens BotTokens
@@ -33,10 +35,11 @@ type _BotTokens BotTokens
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBotTokens(verificationToken string, accessToken string) *BotTokens {
+func NewBotTokens(verificationToken string, accessToken string, accessTokenRevoked bool) *BotTokens {
 	this := BotTokens{}
 	this.VerificationToken = verificationToken
 	this.AccessToken = accessToken
+	this.AccessTokenRevoked = accessTokenRevoked
 	return &this
 }
 
@@ -96,6 +99,30 @@ func (o *BotTokens) SetAccessToken(v string) {
 	o.AccessToken = v
 }
 
+// GetAccessTokenRevoked returns the AccessTokenRevoked field value
+func (o *BotTokens) GetAccessTokenRevoked() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AccessTokenRevoked
+}
+
+// GetAccessTokenRevokedOk returns a tuple with the AccessTokenRevoked field value
+// and a boolean to check if the value has been set.
+func (o *BotTokens) GetAccessTokenRevokedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AccessTokenRevoked, true
+}
+
+// SetAccessTokenRevoked sets field value
+func (o *BotTokens) SetAccessTokenRevoked(v bool) {
+	o.AccessTokenRevoked = v
+}
+
 func (o BotTokens) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +135,7 @@ func (o BotTokens) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["verificationToken"] = o.VerificationToken
 	toSerialize["accessToken"] = o.AccessToken
+	toSerialize["accessTokenRevoked"] = o.AccessTokenRevoked
 	return toSerialize, nil
 }
 
@@ -118,6 +146,7 @@ func (o *BotTokens) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"verificationToken",
 		"accessToken",
+		"accessTokenRevoked",
 	}
 
 	allProperties := make(map[string]interface{})

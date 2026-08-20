@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **VerificationToken** | **string** | Verification Token | 
 **AccessToken** | **string** | BOTアクセストークン | 
+**AccessTokenRevoked** | **bool** | BOTアクセストークンが無効化されているかどうか | 
 
 ## Methods
 
 ### NewBotTokens
 
-`func NewBotTokens(verificationToken string, accessToken string, ) *BotTokens`
+`func NewBotTokens(verificationToken string, accessToken string, accessTokenRevoked bool, ) *BotTokens`
 
 NewBotTokens instantiates a new BotTokens object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *BotTokens) SetAccessToken(v string)`
 
 SetAccessToken sets AccessToken field to given value.
+
+
+### GetAccessTokenRevoked
+
+`func (o *BotTokens) GetAccessTokenRevoked() bool`
+
+GetAccessTokenRevoked returns the AccessTokenRevoked field if non-nil, zero value otherwise.
+
+### GetAccessTokenRevokedOk
+
+`func (o *BotTokens) GetAccessTokenRevokedOk() (*bool, bool)`
+
+GetAccessTokenRevokedOk returns a tuple with the AccessTokenRevoked field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessTokenRevoked
+
+`func (o *BotTokens) SetAccessTokenRevoked(v bool)`
+
+SetAccessTokenRevoked sets AccessTokenRevoked field to given value.
 
 
 
