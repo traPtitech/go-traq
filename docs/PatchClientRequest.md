@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | クライアント名 | [optional] 
 **Description** | Pointer to **string** | 説明 | [optional] 
-**CallbackUrl** | Pointer to **string** | コールバックURL | [optional] 
+**CallbackUrl** | Pointer to **string** | コールバックURL (URL、またはcom.example.app:/callbackのようなリバースドメイン形式のスキームのURI) | [optional] 
 **DeveloperId** | Pointer to **string** | クライアント開発者UUID | [optional] 
 **Confidential** | Pointer to **bool** | confidential client なら true, public client なら false | [optional] 
 

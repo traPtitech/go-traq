@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | クライアント名 | 
-**CallbackUrl** | **string** | コールバックURL | 
+**CallbackUrl** | **string** | コールバックURL (URL、またはcom.example.app:/callbackのようなリバースドメイン形式のスキームのURI) | 
 **Scopes** | [**[]OAuth2Scope**](OAuth2Scope.md) | 要求スコープの配列 | 
 **Description** | **string** | 説明 | 
 **Confidential** | Pointer to **bool** | confidential client なら true, public cleint なら false | [optional] [default to false]

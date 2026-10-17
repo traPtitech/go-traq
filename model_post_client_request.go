@@ -23,7 +23,7 @@ var _ MappedNullable = &PostClientRequest{}
 type PostClientRequest struct {
 	// クライアント名
 	Name string `json:"name"`
-	// コールバックURL
+	// コールバックURL (URL、またはcom.example.app:/callbackのようなリバースドメイン形式のスキームのURI)
 	CallbackUrl string `json:"callbackUrl"`
 	// 要求スコープの配列
 	Scopes []OAuth2Scope `json:"scopes"`

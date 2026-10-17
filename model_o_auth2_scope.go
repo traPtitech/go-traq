@@ -25,6 +25,7 @@ const (
 	OAUTH2SCOPE_READ       OAuth2Scope = "read"
 	OAUTH2SCOPE_WRITE      OAuth2Scope = "write"
 	OAUTH2SCOPE_MANAGE_BOT OAuth2Scope = "manage_bot"
+	OAUTH2SCOPE_QALL       OAuth2Scope = "qall"
 )
 
 // All allowed values of OAuth2Scope enum
@@ -34,6 +35,7 @@ var AllowedOAuth2ScopeEnumValues = []OAuth2Scope{
 	"read",
 	"write",
 	"manage_bot",
+	"qall",
 }
 
 func (v *OAuth2Scope) UnmarshalJSON(src []byte) error {

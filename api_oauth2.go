@@ -724,6 +724,7 @@ func (r Oauth2APIGetOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
 GetOAuth2Authorize OAuth2 認可エンドポイント
 
 OAuth2 認可エンドポイント
+リダイレクト先がhttp(s)以外の場合は、S256のPKCEが必須で、prompt=noneは使用できません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return Oauth2APIGetOAuth2AuthorizeRequest
@@ -894,6 +895,7 @@ func (r Oauth2APIPostOAuth2AuthorizeRequest) Execute() (*http.Response, error) {
 PostOAuth2Authorize OAuth2 認可エンドポイント
 
 OAuth2 認可エンドポイント
+リダイレクト先がhttp(s)以外の場合は、S256のPKCEが必須で、prompt=noneは使用できません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return Oauth2APIPostOAuth2AuthorizeRequest

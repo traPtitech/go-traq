@@ -483,6 +483,7 @@ r, err := client.Service.Operation(auth, args)
  - **read**: 読み取りスコープ
  - **write**: 書き込みスコープ
  - **manage_bot**: bot関連読み書きスコープ
+ - **qall**: Qall利用スコープ
 
 Example
 

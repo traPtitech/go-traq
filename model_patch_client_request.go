@@ -23,7 +23,7 @@ type PatchClientRequest struct {
 	Name *string `json:"name,omitempty"`
 	// 説明
 	Description *string `json:"description,omitempty"`
-	// コールバックURL
+	// コールバックURL (URL、またはcom.example.app:/callbackのようなリバースドメイン形式のスキームのURI)
 	CallbackUrl *string `json:"callbackUrl,omitempty"`
 	// クライアント開発者UUID
 	DeveloperId *string `json:"developerId,omitempty"`
