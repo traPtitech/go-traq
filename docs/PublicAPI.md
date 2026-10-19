@@ -4,9 +4,71 @@ All URIs are relative to *https://q.trap.jp/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetMeta**](PublicAPI.md#GetMeta) | **Get** /meta | メタ情報を取得
 [**GetPublicUserIcon**](PublicAPI.md#GetPublicUserIcon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
 [**GetServerVersion**](PublicAPI.md#GetServerVersion) | **Get** /version | バージョンを取得
 
+
+
+## GetMeta
+
+> Meta GetMeta(ctx).Execute()
+
+メタ情報を取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicAPI.GetMeta(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicAPI.GetMeta``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMeta`: Meta
+	fmt.Fprintf(os.Stdout, "Response from `PublicAPI.GetMeta`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMetaRequest struct via the builder pattern
+
+
+### Return type
+
+[**Meta**](Meta.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetPublicUserIcon

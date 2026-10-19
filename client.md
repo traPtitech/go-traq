@@ -227,6 +227,7 @@ Class | Method | HTTP request | Description
 *PinAPI* | [**GetChannelPins**](docs/PinAPI.md#getchannelpins) | **Get** /channels/{channelId}/pins | チャンネルピンのリストを取得
 *PinAPI* | [**GetPin**](docs/PinAPI.md#getpin) | **Get** /messages/{messageId}/pin | ピン留めを取得
 *PinAPI* | [**RemovePin**](docs/PinAPI.md#removepin) | **Delete** /messages/{messageId}/pin | ピン留めを外す
+*PublicAPI* | [**GetMeta**](docs/PublicAPI.md#getmeta) | **Get** /meta | メタ情報を取得
 *PublicAPI* | [**GetPublicUserIcon**](docs/PublicAPI.md#getpublicusericon) | **Get** /public/icon/{username} | ユーザーのアイコン画像を取得
 *PublicAPI* | [**GetServerVersion**](docs/PublicAPI.md#getserverversion) | **Get** /version | バージョンを取得
 *QallAPI* | [**ChangeParticipantRole**](docs/QallAPI.md#changeparticipantrole) | **Patch** /qall/rooms/{roomId}/participants | ルームでの発言権限を変更
@@ -341,6 +342,7 @@ Class | Method | HTTP request | Description
  - [MessagePin](docs/MessagePin.md)
  - [MessageSearchResult](docs/MessageSearchResult.md)
  - [MessageStamp](docs/MessageStamp.md)
+ - [Meta](docs/Meta.md)
  - [MyChannelViewState](docs/MyChannelViewState.md)
  - [MyUserDetail](docs/MyUserDetail.md)
  - [NameChangedEvent](docs/NameChangedEvent.md)

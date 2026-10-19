@@ -73,6 +73,7 @@ docs/MessageClip.md
 docs/MessagePin.md
 docs/MessageSearchResult.md
 docs/MessageStamp.md
+docs/Meta.md
 docs/MyChannelViewState.md
 docs/MyUserDetail.md
 docs/NameChangedEvent.md
@@ -231,6 +232,7 @@ model_message_clip.go
 model_message_pin.go
 model_message_search_result.go
 model_message_stamp.go
+model_meta.go
 model_my_channel_view_state.go
 model_my_user_detail.go
 model_name_changed_event.go
