@@ -1710,13 +1710,13 @@ func (r MessageAPISearchMessagesRequest) HasAudio(hasAudio bool) MessageAPISearc
 	return r
 }
 
-// 検索結果から取得するメッセージの最大件数
+// 検索結果から取得するメッセージの最大件数 limitとoffsetの合計は10000以下である必要があります
 func (r MessageAPISearchMessagesRequest) Limit(limit int32) MessageAPISearchMessagesRequest {
 	r.limit = &limit
 	return r
 }
 
-// 検索結果から取得するメッセージのオフセット
+// 検索結果から取得するメッセージのオフセット limitとoffsetの合計は10000以下である必要があります (limitを省略した場合は20として計算されます)
 func (r MessageAPISearchMessagesRequest) Offset(offset int32) MessageAPISearchMessagesRequest {
 	r.offset = &offset
 	return r
@@ -1826,9 +1826,15 @@ func (a *MessageAPIService) SearchMessagesExecute(r MessageAPISearchMessagesRequ
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 20
+		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")

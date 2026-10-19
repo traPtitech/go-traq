@@ -1067,8 +1067,8 @@ func main() {
 	hasImage := true // bool | メッセージが画像を含むか (optional)
 	hasVideo := true // bool | メッセージが動画を含むか (optional)
 	hasAudio := true // bool | メッセージが音声ファイルを含むか (optional)
-	limit := int32(56) // int32 | 検索結果から取得するメッセージの最大件数 (optional)
-	offset := int32(56) // int32 | 検索結果から取得するメッセージのオフセット (optional)
+	limit := int32(56) // int32 | 検索結果から取得するメッセージの最大件数 limitとoffsetの合計は10000以下である必要があります (optional) (default to 20)
+	offset := int32(56) // int32 | 検索結果から取得するメッセージのオフセット limitとoffsetの合計は10000以下である必要があります (limitを省略した場合は20として計算されます) (optional) (default to 0)
 	sort := "sort_example" // string | ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`, 更新日時が新しい `updatedAt`, 更新日時が古い `-updatedAt`) (optional) (default to "-createdAt")
 
 	configuration := traq.NewConfiguration()
@@ -1107,8 +1107,8 @@ Name | Type | Description  | Notes
  **hasImage** | **bool** | メッセージが画像を含むか | 
  **hasVideo** | **bool** | メッセージが動画を含むか | 
  **hasAudio** | **bool** | メッセージが音声ファイルを含むか | 
- **limit** | **int32** | 検索結果から取得するメッセージの最大件数 | 
- **offset** | **int32** | 検索結果から取得するメッセージのオフセット | 
+ **limit** | **int32** | 検索結果から取得するメッセージの最大件数 limitとoffsetの合計は10000以下である必要があります | [default to 20]
+ **offset** | **int32** | 検索結果から取得するメッセージのオフセット limitとoffsetの合計は10000以下である必要があります (limitを省略した場合は20として計算されます) | [default to 0]
  **sort** | **string** | ソート順 (作成日時が新しい &#x60;createdAt&#x60;, 作成日時が古い &#x60;-createdAt&#x60;, 更新日時が新しい &#x60;updatedAt&#x60;, 更新日時が古い &#x60;-updatedAt&#x60;) | [default to &quot;-createdAt&quot;]
 
 ### Return type
