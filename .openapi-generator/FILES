@@ -100,6 +100,7 @@ docs/PatchGroupMemberRequest.md
 docs/PatchMeRequest.md
 docs/PatchStampPaletteRequest.md
 docs/PatchStampRequest.md
+docs/PatchThreadRequest.md
 docs/PatchUserGroupRequest.md
 docs/PatchUserRequest.md
 docs/PatchUserTagRequest.md
@@ -122,6 +123,7 @@ docs/PostMessageStampRequest.md
 docs/PostMyFCMDeviceRequest.md
 docs/PostStampPaletteRequest.md
 docs/PostStarRequest.md
+docs/PostThreadRequest.md
 docs/PostUnlinkExternalAccount.md
 docs/PostUserGroupAdminRequest.md
 docs/PostUserGroupRequest.md
@@ -166,6 +168,7 @@ docs/StampWithThumbnail.md
 docs/StarAPI.md
 docs/SubscribersChangedEvent.md
 docs/Tag.md
+docs/ThreadChannel.md
 docs/ThumbnailInfo.md
 docs/ThumbnailType.md
 docs/TopicChangedEvent.md
@@ -256,6 +259,7 @@ model_patch_group_member_request.go
 model_patch_me_request.go
 model_patch_stamp_palette_request.go
 model_patch_stamp_request.go
+model_patch_thread_request.go
 model_patch_user_group_request.go
 model_patch_user_request.go
 model_patch_user_tag_request.go
@@ -277,6 +281,7 @@ model_post_message_stamp_request.go
 model_post_my_fcm_device_request.go
 model_post_stamp_palette_request.go
 model_post_star_request.go
+model_post_thread_request.go
 model_post_unlink_external_account.go
 model_post_user_group_admin_request.go
 model_post_user_group_request.go
@@ -317,6 +322,7 @@ model_stamp_stats.go
 model_stamp_with_thumbnail.go
 model_subscribers_changed_event.go
 model_tag.go
+model_thread_channel.go
 model_thumbnail_info.go
 model_thumbnail_type.go
 model_topic_changed_event.go

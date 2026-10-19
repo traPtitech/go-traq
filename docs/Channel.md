@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | チャンネルUUID | 
 **ParentId** | **NullableString** | 親チャンネルUUID | 
+**ParentMessageId** | **NullableString** | 親メッセージUUID(スレッドチャンネルの場合) | 
 **Archived** | **bool** | チャンネルがアーカイブされているかどうか | 
 **Force** | **bool** | 強制通知チャンネルかどうか | 
 **Topic** | **string** | チャンネルトピック | 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewChannel
 
-`func NewChannel(id string, parentId NullableString, archived bool, force bool, topic string, name string, children []string, ) *Channel`
+`func NewChannel(id string, parentId NullableString, parentMessageId NullableString, archived bool, force bool, topic string, name string, children []string, ) *Channel`
 
 NewChannel instantiates a new Channel object
 This constructor will assign default values to properties that have it defined,
@@ -81,6 +82,36 @@ SetParentId sets ParentId field to given value.
 `func (o *Channel) UnsetParentId()`
 
 UnsetParentId ensures that no value is present for ParentId, not even an explicit nil
+### GetParentMessageId
+
+`func (o *Channel) GetParentMessageId() string`
+
+GetParentMessageId returns the ParentMessageId field if non-nil, zero value otherwise.
+
+### GetParentMessageIdOk
+
+`func (o *Channel) GetParentMessageIdOk() (*string, bool)`
+
+GetParentMessageIdOk returns a tuple with the ParentMessageId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentMessageId
+
+`func (o *Channel) SetParentMessageId(v string)`
+
+SetParentMessageId sets ParentMessageId field to given value.
+
+
+### SetParentMessageIdNil
+
+`func (o *Channel) SetParentMessageIdNil(b bool)`
+
+ SetParentMessageIdNil sets the value for ParentMessageId to be an explicit nil
+
+### UnsetParentMessageId
+`func (o *Channel) UnsetParentMessageId()`
+
+UnsetParentMessageId ensures that no value is present for ParentMessageId, not even an explicit nil
 ### GetArchived
 
 `func (o *Channel) GetArchived() bool`

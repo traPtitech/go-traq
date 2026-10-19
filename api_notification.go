@@ -45,6 +45,8 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 リクエストに含めなかったユーザーの通知購読状態は変更しません。
 また、存在しないユーザーを指定した場合は無視されます。
 
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return NotificationAPIEditChannelSubscribersRequest
@@ -138,6 +140,8 @@ func (r NotificationAPIGetChannelSubscribersRequest) Execute() ([]string, *http.
 GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
+
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -543,6 +547,8 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return NotificationAPIReadChannelRequest
@@ -737,6 +743,8 @@ SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
 
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return NotificationAPISetChannelSubscribeLevelRequest
@@ -838,6 +846,8 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 指定したチャンネルの通知購読者を設定します。
 リクエストに含めなかったユーザーの通知購読状態はオフになります。
 また、存在しないユーザーを指定した場合は無視されます。
+
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID

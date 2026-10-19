@@ -132,6 +132,117 @@ func (a *ChannelAPIService) CreateChannelExecute(r ChannelAPICreateChannelReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ChannelAPICreateThreadRequest struct {
+	ctx               context.Context
+	ApiService        *ChannelAPIService
+	postThreadRequest *PostThreadRequest
+}
+
+func (r ChannelAPICreateThreadRequest) PostThreadRequest(postThreadRequest PostThreadRequest) ChannelAPICreateThreadRequest {
+	r.postThreadRequest = &postThreadRequest
+	return r
+}
+
+func (r ChannelAPICreateThreadRequest) Execute() (*ThreadChannel, *http.Response, error) {
+	return r.ApiService.CreateThreadExecute(r)
+}
+
+/*
+CreateThread スレッドを作成
+
+スレッドを作成します。
+指定したメッセージにすでにスレッドが作成されている場合はエラーになります。
+
+channelIdにはPublicチャンネルのIDのみを指定することができます。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelAPICreateThreadRequest
+*/
+func (a *ChannelAPIService) CreateThread(ctx context.Context) ChannelAPICreateThreadRequest {
+	return ChannelAPICreateThreadRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ThreadChannel
+func (a *ChannelAPIService) CreateThreadExecute(r ChannelAPICreateThreadRequest) (*ThreadChannel, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ThreadChannel
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.CreateThread")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/threads"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.postThreadRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ChannelAPIEditChannelRequest struct {
 	ctx                 context.Context
 	ApiService          *ChannelAPIService
@@ -154,6 +265,8 @@ EditChannel チャンネル情報を変更
 指定したチャンネルの情報を変更します。
 変更には権限が必要です。
 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
+
+channelIdにはPublicチャンネルのIDのみを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -257,6 +370,8 @@ EditChannelSubscribers チャンネルの通知購読者を編集
 リクエストに含めなかったユーザーの通知購読状態は変更しません。
 また、存在しないユーザーを指定した場合は無視されます。
 
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIEditChannelSubscribersRequest
@@ -358,6 +473,8 @@ EditChannelTopic チャンネルトピックを編集
 指定したチャンネルのトピックを編集します。
 アーカイブされているチャンネルのトピックは編集できません。
 
+channelIdにはPublicチャンネルのIDのみを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIEditChannelTopicRequest
@@ -437,6 +554,108 @@ func (a *ChannelAPIService) EditChannelTopicExecute(r ChannelAPIEditChannelTopic
 	return localVarHTTPResponse, nil
 }
 
+type ChannelAPIEditThreadRequest struct {
+	ctx                context.Context
+	ApiService         *ChannelAPIService
+	channelId          string
+	patchThreadRequest *PatchThreadRequest
+}
+
+func (r ChannelAPIEditThreadRequest) PatchThreadRequest(patchThreadRequest PatchThreadRequest) ChannelAPIEditThreadRequest {
+	r.patchThreadRequest = &patchThreadRequest
+	return r
+}
+
+func (r ChannelAPIEditThreadRequest) Execute() (*http.Response, error) {
+	return r.ApiService.EditThreadExecute(r)
+}
+
+/*
+EditThread スレッド情報を変更
+
+指定したスレッドの情報を変更します。
+
+channelIdにはThreadチャンネルのIDのみを指定することができます。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelAPIEditThreadRequest
+*/
+func (a *ChannelAPIService) EditThread(ctx context.Context, channelId string) ChannelAPIEditThreadRequest {
+	return ChannelAPIEditThreadRequest{
+		ApiService: a,
+		ctx:        ctx,
+		channelId:  channelId,
+	}
+}
+
+// Execute executes the request
+func (a *ChannelAPIService) EditThreadExecute(r ChannelAPIEditThreadRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.EditThread")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/threads/{channelId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.patchThreadRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ChannelAPIGetChannelRequest struct {
 	ctx        context.Context
 	ApiService *ChannelAPIService
@@ -451,6 +670,8 @@ func (r ChannelAPIGetChannelRequest) Execute() (*Channel, *http.Response, error)
 GetChannel チャンネル情報を取得
 
 指定したチャンネルの情報を取得します。
+
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -555,6 +776,8 @@ func (r ChannelAPIGetChannelBotsRequest) Execute() ([]BotUser, *http.Response, e
 GetChannelBots チャンネル参加中のBOTのリストを取得
 
 指定したチャンネルに参加しているBOTのリストを取得します。
+
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -701,6 +924,8 @@ func (r ChannelAPIGetChannelEventsRequest) Execute() ([]ChannelEvent, *http.Resp
 GetChannelEvents チャンネルイベントのリストを取得
 
 指定したチャンネルのイベントリストを取得します。
+
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -940,6 +1165,8 @@ GetChannelPins チャンネルピンのリストを取得
 
 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
 
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIGetChannelPinsRequest
@@ -1051,6 +1278,8 @@ GetChannelStats チャンネル統計情報を取得
 
 指定したチャンネルの統計情報を取得します。
 
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIGetChannelStatsRequest
@@ -1158,6 +1387,8 @@ GetChannelSubscribers チャンネルの通知購読者のリストを取得
 
 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
 
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIGetChannelSubscribersRequest
@@ -1262,6 +1493,8 @@ GetChannelTopic チャンネルトピックを取得
 
 指定したチャンネルのトピックを取得します。
 
+channelIdにはPublicチャンネルのIDのみを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIGetChannelTopicRequest
@@ -1365,6 +1598,8 @@ func (r ChannelAPIGetChannelViewersRequest) Execute() ([]ChannelViewer, *http.Re
 GetChannelViewers チャンネル閲覧者リストを取得
 
 指定したチャンネルの閲覧者のリストを取得します。
+
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
@@ -1635,6 +1870,8 @@ GetMessages チャンネルメッセージのリストを取得
 
 指定したチャンネルのメッセージのリストを取得します。
 
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIGetMessagesRequest
@@ -1699,6 +1936,155 @@ func (a *ChannelAPIService) GetMessagesExecute(r ChannelAPIGetMessagesRequest) (
 	} else {
 		var defaultValue string = "desc"
 		r.order = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ChannelAPIGetThreadsRequest struct {
+	ctx        context.Context
+	ApiService *ChannelAPIService
+	channelId  string
+	archived   *bool
+	limit      *int32
+	offset     *int32
+	sort       *string
+}
+
+// アーカイブされたスレッドを含めるかどうか
+func (r ChannelAPIGetThreadsRequest) Archived(archived bool) ChannelAPIGetThreadsRequest {
+	r.archived = &archived
+	return r
+}
+
+// 取得するスレッドの最大件数
+func (r ChannelAPIGetThreadsRequest) Limit(limit int32) ChannelAPIGetThreadsRequest {
+	r.limit = &limit
+	return r
+}
+
+// 取得するスレッドのオフセット
+func (r ChannelAPIGetThreadsRequest) Offset(offset int32) ChannelAPIGetThreadsRequest {
+	r.offset = &offset
+	return r
+}
+
+// ソート順 (作成日時が新しい &#x60;createdAt&#x60;, 作成日時が古い &#x60;-createdAt&#x60;)
+func (r ChannelAPIGetThreadsRequest) Sort(sort string) ChannelAPIGetThreadsRequest {
+	r.sort = &sort
+	return r
+}
+
+func (r ChannelAPIGetThreadsRequest) Execute() ([]ThreadChannel, *http.Response, error) {
+	return r.ApiService.GetThreadsExecute(r)
+}
+
+/*
+GetThreads スレッドリストを取得
+
+スレッドのリストを取得します。
+
+channelIdにはPublicチャンネルのIDのみを指定することができます。
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param channelId チャンネルUUID
+	@return ChannelAPIGetThreadsRequest
+*/
+func (a *ChannelAPIService) GetThreads(ctx context.Context, channelId string) ChannelAPIGetThreadsRequest {
+	return ChannelAPIGetThreadsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		channelId:  channelId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []ThreadChannel
+func (a *ChannelAPIService) GetThreadsExecute(r ChannelAPIGetThreadsRequest) ([]ThreadChannel, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ThreadChannel
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetThreads")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/channels/{channelId}/threads"
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.archived != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	} else {
+		var defaultValue string = "-createdAt"
+		r.sort = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1882,6 +2268,8 @@ PostMessage チャンネルにメッセージを投稿
 embedをtrueに指定すると、メッセージ埋め込みが自動で行われます。
 アーカイブされているチャンネルに投稿することはできません。
 
+channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return ChannelAPIPostMessageRequest
@@ -1995,6 +2383,8 @@ SetChannelSubscribers チャンネルの通知購読者を設定
 指定したチャンネルの通知購読者を設定します。
 リクエストに含めなかったユーザーの通知購読状態はオフになります。
 また、存在しないユーザーを指定した場合は無視されます。
+
+channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID

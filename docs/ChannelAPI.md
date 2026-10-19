@@ -5,9 +5,11 @@ All URIs are relative to *https://q.trap.jp/api/v3*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateChannel**](ChannelAPI.md#CreateChannel) | **Post** /channels | チャンネルを作成
+[**CreateThread**](ChannelAPI.md#CreateThread) | **Post** /threads | スレッドを作成
 [**EditChannel**](ChannelAPI.md#EditChannel) | **Patch** /channels/{channelId} | チャンネル情報を変更
 [**EditChannelSubscribers**](ChannelAPI.md#EditChannelSubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
 [**EditChannelTopic**](ChannelAPI.md#EditChannelTopic) | **Put** /channels/{channelId}/topic | チャンネルトピックを編集
+[**EditThread**](ChannelAPI.md#EditThread) | **Patch** /threads/{channelId} | スレッド情報を変更
 [**GetChannel**](ChannelAPI.md#GetChannel) | **Get** /channels/{channelId} | チャンネル情報を取得
 [**GetChannelBots**](ChannelAPI.md#GetChannelBots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
 [**GetChannelEvents**](ChannelAPI.md#GetChannelEvents) | **Get** /channels/{channelId}/events | チャンネルイベントのリストを取得
@@ -19,6 +21,7 @@ Method | HTTP request | Description
 [**GetChannelViewers**](ChannelAPI.md#GetChannelViewers) | **Get** /channels/{channelId}/viewers | チャンネル閲覧者リストを取得
 [**GetChannels**](ChannelAPI.md#GetChannels) | **Get** /channels | チャンネルリストを取得
 [**GetMessages**](ChannelAPI.md#GetMessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
+[**GetThreads**](ChannelAPI.md#GetThreads) | **Get** /channels/{channelId}/threads | スレッドリストを取得
 [**GetUserDMChannel**](ChannelAPI.md#GetUserDMChannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
 [**PostMessage**](ChannelAPI.md#PostMessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
 [**SetChannelSubscribers**](ChannelAPI.md#SetChannelSubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
@@ -76,6 +79,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Channel**](Channel.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateThread
+
+> ThreadChannel CreateThread(ctx).PostThreadRequest(postThreadRequest).Execute()
+
+スレッドを作成
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	postThreadRequest := *traq.NewPostThreadRequest() // PostThreadRequest |  (optional)
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.CreateThread(context.Background()).PostThreadRequest(postThreadRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.CreateThread``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateThread`: ThreadChannel
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.CreateThread`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateThreadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **postThreadRequest** | [**PostThreadRequest**](PostThreadRequest.md) |  | 
+
+### Return type
+
+[**ThreadChannel**](ThreadChannel.md)
 
 ### Authorization
 
@@ -282,6 +351,76 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **putChannelTopicRequest** | [**PutChannelTopicRequest**](PutChannelTopicRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## EditThread
+
+> EditThread(ctx, channelId).PatchThreadRequest(patchThreadRequest).Execute()
+
+スレッド情報を変更
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	patchThreadRequest := *traq.NewPatchThreadRequest() // PatchThreadRequest |  (optional)
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	r, err := apiClient.ChannelAPI.EditThread(context.Background(), channelId).PatchThreadRequest(patchThreadRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.EditThread``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**channelId** | **string** | チャンネルUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEditThreadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **patchThreadRequest** | [**PatchThreadRequest**](PatchThreadRequest.md) |  | 
 
 ### Return type
 
@@ -1082,6 +1221,84 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]Message**](Message.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetThreads
+
+> []ThreadChannel GetThreads(ctx, channelId).Archived(archived).Limit(limit).Offset(offset).Sort(sort).Execute()
+
+スレッドリストを取得
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	traq "github.com/traPtitech/go-traq"
+)
+
+func main() {
+	channelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | チャンネルUUID
+	archived := true // bool | アーカイブされたスレッドを含めるかどうか (optional)
+	limit := int32(56) // int32 | 取得するスレッドの最大件数 (optional)
+	offset := int32(56) // int32 | 取得するスレッドのオフセット (optional)
+	sort := "sort_example" // string | ソート順 (作成日時が新しい `createdAt`, 作成日時が古い `-createdAt`) (optional) (default to "-createdAt")
+
+	configuration := traq.NewConfiguration()
+	apiClient := traq.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelAPI.GetThreads(context.Background(), channelId).Archived(archived).Limit(limit).Offset(offset).Sort(sort).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetThreads``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetThreads`: []ThreadChannel
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetThreads`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**channelId** | **string** | チャンネルUUID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetThreadsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **archived** | **bool** | アーカイブされたスレッドを含めるかどうか | 
+ **limit** | **int32** | 取得するスレッドの最大件数 | 
+ **offset** | **int32** | 取得するスレッドのオフセット | 
+ **sort** | **string** | ソート順 (作成日時が新しい &#x60;createdAt&#x60;, 作成日時が古い &#x60;-createdAt&#x60;) | [default to &quot;-createdAt&quot;]
+
+### Return type
+
+[**[]ThreadChannel**](ThreadChannel.md)
 
 ### Authorization
 
