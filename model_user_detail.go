@@ -35,7 +35,7 @@ type UserDetail struct {
 	Name string `json:"name" validate:"regexp=^([a-zA-Z0-9_-]{1,32}|Webhook#[a-zA-Z0-9_-]{22})$"`
 	// Twitter ID
 	TwitterId string `json:"twitterId" validate:"regexp=^[a-zA-Z0-9_]{0,15}$"`
-	// 最終オンライン日時
+	// 最後の接続の切断をサーバーが検出した日時
 	LastOnline NullableTime `json:"lastOnline"`
 	// 更新日時
 	UpdatedAt time.Time `json:"updatedAt"`

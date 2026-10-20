@@ -32,7 +32,7 @@ type MyUserDetail struct {
 	Tags []UserTag `json:"tags"`
 	// 更新日時
 	UpdatedAt time.Time `json:"updatedAt"`
-	// 最終オンライン日時
+	// 最後の接続の切断をサーバーが検出した日時
 	LastOnline NullableTime `json:"lastOnline"`
 	// Twitter ID
 	TwitterId string `json:"twitterId" validate:"regexp=^[a-zA-Z0-9_]{1,15}$"`

@@ -442,6 +442,7 @@ Class | Method | HTTP request | Description
  - [UserDetail](docs/UserDetail.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupMember](docs/UserGroupMember.md)
+ - [UserOfflineEvent](docs/UserOfflineEvent.md)
  - [UserPermission](docs/UserPermission.md)
  - [UserSettings](docs/UserSettings.md)
  - [UserStats](docs/UserStats.md)

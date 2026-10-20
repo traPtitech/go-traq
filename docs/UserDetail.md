@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DisplayName** | **string** | ユーザー表示名 | 
 **Name** | **string** | ユーザー名 | 
 **TwitterId** | **string** | Twitter ID | 
-**LastOnline** | **NullableTime** | 最終オンライン日時 | 
+**LastOnline** | **NullableTime** | 最後の接続の切断をサーバーが検出した日時 | 
 **UpdatedAt** | **time.Time** | 更新日時 | 
 **Tags** | [**[]UserTag**](UserTag.md) | タグリスト | 
 **Groups** | **[]string** | 所属グループのUUIDの配列 | 

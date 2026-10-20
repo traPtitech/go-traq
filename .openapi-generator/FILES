@@ -179,6 +179,7 @@ docs/UserAccountState.md
 docs/UserDetail.md
 docs/UserGroup.md
 docs/UserGroupMember.md
+docs/UserOfflineEvent.md
 docs/UserPermission.md
 docs/UserSettings.md
 docs/UserStats.md
@@ -332,6 +333,7 @@ model_user_account_state.go
 model_user_detail.go
 model_user_group.go
 model_user_group_member.go
+model_user_offline_event.go
 model_user_permission.go
 model_user_settings.go
 model_user_stats.go

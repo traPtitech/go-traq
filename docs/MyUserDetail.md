@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Groups** | **[]string** | 所属グループのUUIDの配列 | 
 **Tags** | [**[]UserTag**](UserTag.md) | タグリスト | 
 **UpdatedAt** | **time.Time** | 更新日時 | 
-**LastOnline** | **NullableTime** | 最終オンライン日時 | 
+**LastOnline** | **NullableTime** | 最後の接続の切断をサーバーが検出した日時 | 
 **TwitterId** | **string** | Twitter ID | 
 **Name** | **string** | ユーザー名 | 
 **DisplayName** | **string** | ユーザー表示名 | 
