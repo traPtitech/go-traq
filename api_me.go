@@ -2489,8 +2489,6 @@ ReadChannel チャンネルを既読にする
 
 自分が未読のチャンネルを既読にします。
 
-channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
-
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return MeAPIReadChannelRequest
@@ -3053,8 +3051,6 @@ func (r MeAPISetChannelSubscribeLevelRequest) Execute() (*http.Response, error) 
 SetChannelSubscribeLevel チャンネル購読レベルを設定
 
 自身の指定したチャンネルの購読レベルを設定します。
-
-channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID

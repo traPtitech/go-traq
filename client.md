@@ -105,11 +105,9 @@ Class | Method | HTTP request | Description
 *BotAPI* | [**LetBotLeaveChannel**](docs/BotAPI.md#letbotleavechannel) | **Post** /bots/{botId}/actions/leave | BOTをチャンネルから退出させる
 *BotAPI* | [**ReissueBot**](docs/BotAPI.md#reissuebot) | **Post** /bots/{botId}/actions/reissue | BOTのトークンを再発行
 *ChannelAPI* | [**CreateChannel**](docs/ChannelAPI.md#createchannel) | **Post** /channels | チャンネルを作成
-*ChannelAPI* | [**CreateThread**](docs/ChannelAPI.md#createthread) | **Post** /threads | スレッドを作成
 *ChannelAPI* | [**EditChannel**](docs/ChannelAPI.md#editchannel) | **Patch** /channels/{channelId} | チャンネル情報を変更
 *ChannelAPI* | [**EditChannelSubscribers**](docs/ChannelAPI.md#editchannelsubscribers) | **Patch** /channels/{channelId}/subscribers | チャンネルの通知購読者を編集
 *ChannelAPI* | [**EditChannelTopic**](docs/ChannelAPI.md#editchanneltopic) | **Put** /channels/{channelId}/topic | チャンネルトピックを編集
-*ChannelAPI* | [**EditThread**](docs/ChannelAPI.md#editthread) | **Patch** /threads/{channelId} | スレッド情報を変更
 *ChannelAPI* | [**GetChannel**](docs/ChannelAPI.md#getchannel) | **Get** /channels/{channelId} | チャンネル情報を取得
 *ChannelAPI* | [**GetChannelBots**](docs/ChannelAPI.md#getchannelbots) | **Get** /channels/{channelId}/bots | チャンネル参加中のBOTのリストを取得
 *ChannelAPI* | [**GetChannelEvents**](docs/ChannelAPI.md#getchannelevents) | **Get** /channels/{channelId}/events | チャンネルイベントのリストを取得
@@ -121,7 +119,6 @@ Class | Method | HTTP request | Description
 *ChannelAPI* | [**GetChannelViewers**](docs/ChannelAPI.md#getchannelviewers) | **Get** /channels/{channelId}/viewers | チャンネル閲覧者リストを取得
 *ChannelAPI* | [**GetChannels**](docs/ChannelAPI.md#getchannels) | **Get** /channels | チャンネルリストを取得
 *ChannelAPI* | [**GetMessages**](docs/ChannelAPI.md#getmessages) | **Get** /channels/{channelId}/messages | チャンネルメッセージのリストを取得
-*ChannelAPI* | [**GetThreads**](docs/ChannelAPI.md#getthreads) | **Get** /channels/{channelId}/threads | スレッドリストを取得
 *ChannelAPI* | [**GetUserDMChannel**](docs/ChannelAPI.md#getuserdmchannel) | **Get** /users/{userId}/dm-channel | DMチャンネル情報を取得
 *ChannelAPI* | [**PostMessage**](docs/ChannelAPI.md#postmessage) | **Post** /channels/{channelId}/messages | チャンネルにメッセージを投稿
 *ChannelAPI* | [**SetChannelSubscribers**](docs/ChannelAPI.md#setchannelsubscribers) | **Put** /channels/{channelId}/subscribers | チャンネルの通知購読者を設定
@@ -369,7 +366,6 @@ Class | Method | HTTP request | Description
  - [PatchMeRequest](docs/PatchMeRequest.md)
  - [PatchStampPaletteRequest](docs/PatchStampPaletteRequest.md)
  - [PatchStampRequest](docs/PatchStampRequest.md)
- - [PatchThreadRequest](docs/PatchThreadRequest.md)
  - [PatchUserGroupRequest](docs/PatchUserGroupRequest.md)
  - [PatchUserRequest](docs/PatchUserRequest.md)
  - [PatchUserTagRequest](docs/PatchUserTagRequest.md)
@@ -391,7 +387,6 @@ Class | Method | HTTP request | Description
  - [PostMyFCMDeviceRequest](docs/PostMyFCMDeviceRequest.md)
  - [PostStampPaletteRequest](docs/PostStampPaletteRequest.md)
  - [PostStarRequest](docs/PostStarRequest.md)
- - [PostThreadRequest](docs/PostThreadRequest.md)
  - [PostUnlinkExternalAccount](docs/PostUnlinkExternalAccount.md)
  - [PostUserGroupAdminRequest](docs/PostUserGroupAdminRequest.md)
  - [PostUserGroupRequest](docs/PostUserGroupRequest.md)
@@ -432,7 +427,6 @@ Class | Method | HTTP request | Description
  - [StampWithThumbnail](docs/StampWithThumbnail.md)
  - [SubscribersChangedEvent](docs/SubscribersChangedEvent.md)
  - [Tag](docs/Tag.md)
- - [ThreadChannel](docs/ThreadChannel.md)
  - [ThumbnailInfo](docs/ThumbnailInfo.md)
  - [ThumbnailType](docs/ThumbnailType.md)
  - [TopicChangedEvent](docs/TopicChangedEvent.md)

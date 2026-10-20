@@ -142,8 +142,6 @@ GetChannelPins チャンネルピンのリストを取得
 
 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
 
-channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
-
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return PinAPIGetChannelPinsRequest

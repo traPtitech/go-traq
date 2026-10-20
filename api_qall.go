@@ -575,7 +575,7 @@ func (r QallAPIGetSoundboardListRequest) Execute() ([]SoundboardItem, *http.Resp
 /*
 GetSoundboardList サウンドボード用の音声一覧を取得
 
-DBに保存されたサウンドボード情報を取得します。 各アイテムには soundId, soundName, stampId が含まれます。
+DBに保存されたサウンドボード情報を取得します。   各アイテムには soundId, soundName, stampId が含まれます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QallAPIGetSoundboardListRequest
@@ -681,7 +681,7 @@ func (r QallAPILiveKitWebhookRequest) Execute() (*http.Response, error) {
 /*
 LiveKitWebhook LiveKit Webhook受信
 
-LiveKit側で設定したWebhookから呼び出されるエンドポイントです。 参加者の入室・退出などのイベントを受け取り、サーバ内で処理を行います。
+LiveKit側で設定したWebhookから呼び出されるエンドポイントです。   参加者の入室・退出などのイベントを受け取り、サーバ内で処理を行います。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QallAPILiveKitWebhookRequest
@@ -795,7 +795,7 @@ func (r QallAPIPostSoundboardRequest) Execute() (*SoundboardUploadResponse, *htt
 /*
 PostSoundboard サウンドボード用の短い音声ファイルをアップロード
 
-15秒程度の短い音声ファイルを multipart/form-data で送信し、S3(互換ストレージ)にアップロードします。 クライアントは「soundName」というフィールドを送信し、それをDBに保存して関連付けを行います。 また、サーバ側で soundId を自動生成し、S3のファイル名に使用します。
+15秒程度の短い音声ファイルを multipart/form-data で送信し、S3(互換ストレージ)にアップロードします。   クライアントは「soundName」というフィールドを送信し、それをDBに保存して関連付けを行います。   また、サーバ側で soundId を自動生成し、S3のファイル名に使用します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QallAPIPostSoundboardRequest
@@ -926,7 +926,7 @@ func (r QallAPIPostSoundboardPlayRequest) Execute() (*SoundboardPlayResponse, *h
 /*
 PostSoundboardPlay アップロード済み音声を LiveKit ルームで再生
 
-S3上にある音声ファイルの署名付きURLを生成し、 Ingressを介して指定ルームに音声を流します。 該当ルームに参加しているユーザであれば再生可能とします。
+S3上にある音声ファイルの署名付きURLを生成し、   Ingressを介して指定ルームに音声を流します。     該当ルームに参加しているユーザであれば再生可能とします。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return QallAPIPostSoundboardPlayRequest

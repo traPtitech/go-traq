@@ -1139,8 +1139,6 @@ GetChannelBots チャンネル参加中のBOTのリストを取得
 
 指定したチャンネルに参加しているBOTのリストを取得します。
 
-channelIdにはPublicチャンネル、ThreadチャンネルのIDを指定することができます。
-
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return BotAPIGetChannelBotsRequest

@@ -974,8 +974,6 @@ GetMessages チャンネルメッセージのリストを取得
 
 指定したチャンネルのメッセージのリストを取得します。
 
-channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
-
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID
 	@return MessageAPIGetMessagesRequest
@@ -1333,8 +1331,6 @@ PostMessage チャンネルにメッセージを投稿
 指定したチャンネルにメッセージを投稿します。
 embedをtrueに指定すると、メッセージ埋め込みが自動で行われます。
 アーカイブされているチャンネルに投稿することはできません。
-
-channelIdにはPublicチャンネル、DMチャンネル、ThreadチャンネルのIDを指定することができます。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param channelId チャンネルUUID

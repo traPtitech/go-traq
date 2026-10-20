@@ -25,8 +25,6 @@ type Channel struct {
 	Id string `json:"id"`
 	// 親チャンネルUUID
 	ParentId NullableString `json:"parentId"`
-	// 親メッセージUUID(スレッドチャンネルの場合)
-	ParentMessageId NullableString `json:"parentMessageId"`
 	// チャンネルがアーカイブされているかどうか
 	Archived bool `json:"archived"`
 	// 強制通知チャンネルかどうか
@@ -45,11 +43,10 @@ type _Channel Channel
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChannel(id string, parentId NullableString, parentMessageId NullableString, archived bool, force bool, topic string, name string, children []string) *Channel {
+func NewChannel(id string, parentId NullableString, archived bool, force bool, topic string, name string, children []string) *Channel {
 	this := Channel{}
 	this.Id = id
 	this.ParentId = parentId
-	this.ParentMessageId = parentMessageId
 	this.Archived = archived
 	this.Force = force
 	this.Topic = topic
@@ -114,32 +111,6 @@ func (o *Channel) GetParentIdOk() (*string, bool) {
 // SetParentId sets field value
 func (o *Channel) SetParentId(v string) {
 	o.ParentId.Set(&v)
-}
-
-// GetParentMessageId returns the ParentMessageId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Channel) GetParentMessageId() string {
-	if o == nil || o.ParentMessageId.Get() == nil {
-		var ret string
-		return ret
-	}
-
-	return *o.ParentMessageId.Get()
-}
-
-// GetParentMessageIdOk returns a tuple with the ParentMessageId field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Channel) GetParentMessageIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ParentMessageId.Get(), o.ParentMessageId.IsSet()
-}
-
-// SetParentMessageId sets field value
-func (o *Channel) SetParentMessageId(v string) {
-	o.ParentMessageId.Set(&v)
 }
 
 // GetArchived returns the Archived field value
@@ -274,7 +245,6 @@ func (o Channel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["parentId"] = o.ParentId.Get()
-	toSerialize["parentMessageId"] = o.ParentMessageId.Get()
 	toSerialize["archived"] = o.Archived
 	toSerialize["force"] = o.Force
 	toSerialize["topic"] = o.Topic
@@ -290,7 +260,6 @@ func (o *Channel) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"parentId",
-		"parentMessageId",
 		"archived",
 		"force",
 		"topic",
