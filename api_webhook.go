@@ -358,6 +358,7 @@ func (r WebhookAPIDeleteWebhookMessageRequest) Execute() (*http.Response, error)
 DeleteWebhookMessage Webhookの投稿メッセージを削除
 
 指定されたWebhookが投稿したメッセージを削除します。
+アーカイブされているチャンネルのメッセージを削除することはできません。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param webhookId WebhookUUID
