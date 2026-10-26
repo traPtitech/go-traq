@@ -1656,13 +1656,13 @@ func (r MessageAPISearchMessagesRequest) In(in string) MessageAPISearchMessagesR
 	return r
 }
 
-// メンションされたユーザー
+// メンションされたユーザーまたはグループの UUID
 func (r MessageAPISearchMessagesRequest) To(to []string) MessageAPISearchMessagesRequest {
 	r.to = &to
 	return r
 }
 
-// メッセージを投稿したユーザー
+// メッセージを投稿したユーザーの UUID またはそのユーザーが所属するユーザーグループの UUID
 func (r MessageAPISearchMessagesRequest) From(from []string) MessageAPISearchMessagesRequest {
 	r.from = &from
 	return r
