@@ -1262,8 +1262,7 @@ TextMessageとして各種イベントが`type`と`body`を持つJSONとして�
 
 対象: 全員
 
-+ `room_id`: 変更されたルームのId
-+ `state`: 変更後のルーム状態
++ `roomStates`: 全ルームの変更後の状態(配列)
   - `roomId`: ルームのID
   - `participants`: ルーム内の参加者(配列)
   - `identity`: ユーザーID_RandomUUID
