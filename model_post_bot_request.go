@@ -22,7 +22,7 @@ var _ MappedNullable = &PostBotRequest{}
 // PostBotRequest BOT作成リクエスト
 type PostBotRequest struct {
 	// BOTユーザーID 自動的に接頭辞\"BOT_\"が付与されます
-	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,16}$"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]{1,20}$"`
 	// BOTユーザー表示名
 	DisplayName string `json:"displayName"`
 	// BOTの説明
