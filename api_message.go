@@ -1428,6 +1428,13 @@ type MessageAPIRemoveMessageStampRequest struct {
 	ApiService *MessageAPIService
 	messageId  string
 	stampId    string
+	userIds    *[]string
+}
+
+// スタンプを削除する対象のユーザーIDです。 未指定の場合は、自分が押したスタンプを削除します。 自分のユーザーIDのみを指定する場合は、通常ユーザーもBotも利用できます。 他のユーザーIDを指定できるのはBotのみで、自分のメッセージに対してのみ利用できます。
+func (r MessageAPIRemoveMessageStampRequest) UserIds(userIds []string) MessageAPIRemoveMessageStampRequest {
+	r.userIds = &userIds
+	return r
 }
 
 func (r MessageAPIRemoveMessageStampRequest) Execute() (*http.Response, error) {
@@ -1437,7 +1444,7 @@ func (r MessageAPIRemoveMessageStampRequest) Execute() (*http.Response, error) {
 /*
 RemoveMessageStamp スタンプを消す
 
-指定したメッセージから指定した自身が押したスタンプを削除します。
+指定したメッセージから指定したユーザーの指定したスタンプを削除します。
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param messageId メッセージUUID
@@ -1474,6 +1481,17 @@ func (a *MessageAPIService) RemoveMessageStampExecute(r MessageAPIRemoveMessageS
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.userIds != nil {
+		t := *r.userIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "userIds", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "userIds", t, "form", "multi")
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

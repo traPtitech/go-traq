@@ -895,7 +895,7 @@ Name | Type | Description  | Notes
 
 ## RemoveMessageStamp
 
-> RemoveMessageStamp(ctx, messageId, stampId).Execute()
+> RemoveMessageStamp(ctx, messageId, stampId).UserIds(userIds).Execute()
 
 スタンプを消す
 
@@ -916,10 +916,11 @@ import (
 func main() {
 	messageId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | メッセージUUID
 	stampId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | スタンプUUID
+	userIds := []string{"Inner_example"} // []string | スタンプを削除する対象のユーザーIDです。 未指定の場合は、自分が押したスタンプを削除します。 自分のユーザーIDのみを指定する場合は、通常ユーザーもBotも利用できます。 他のユーザーIDを指定できるのはBotのみで、自分のメッセージに対してのみ利用できます。 (optional)
 
 	configuration := traq.NewConfiguration()
 	apiClient := traq.NewAPIClient(configuration)
-	r, err := apiClient.MessageAPI.RemoveMessageStamp(context.Background(), messageId, stampId).Execute()
+	r, err := apiClient.MessageAPI.RemoveMessageStamp(context.Background(), messageId, stampId).UserIds(userIds).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.RemoveMessageStamp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -945,6 +946,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **userIds** | **[]string** | スタンプを削除する対象のユーザーIDです。 未指定の場合は、自分が押したスタンプを削除します。 自分のユーザーIDのみを指定する場合は、通常ユーザーもBotも利用できます。 他のユーザーIDを指定できるのはBotのみで、自分のメッセージに対してのみ利用できます。 | 
 
 ### Return type
 
